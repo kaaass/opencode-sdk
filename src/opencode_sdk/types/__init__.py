@@ -18,6 +18,7 @@ from .event_list_params import EventListParams as EventListParams
 from .file_list_response import FileListResponse as FileListResponse
 from .file_read_response import FileReadResponse as FileReadResponse
 from .log_write_response import LogWriteResponse as LogWriteResponse
+from .agent_delete_params import AgentDeleteParams as AgentDeleteParams
 from .agent_list_response import AgentListResponse as AgentListResponse
 from .command_list_params import CommandListParams as CommandListParams
 from .event_list_response import EventListResponse as EventListResponse
@@ -31,6 +32,7 @@ from .find_retrieve_params import FindRetrieveParams as FindRetrieveParams
 from .path_retrieve_params import PathRetrieveParams as PathRetrieveParams
 from .session_abort_params import SessionAbortParams as SessionAbortParams
 from .tui_open_help_params import TuiOpenHelpParams as TuiOpenHelpParams
+from .agent_delete_response import AgentDeleteResponse as AgentDeleteResponse
 from .command_list_response import CommandListResponse as CommandListResponse
 from .message_aborted_error import MessageAbortedError as MessageAbortedError
 from .project_list_response import ProjectListResponse as ProjectListResponse
@@ -78,11 +80,13 @@ from .session_get_children_params import SessionGetChildrenParams as SessionGetC
 from .session_send_command_params import SessionSendCommandParams as SessionSendCommandParams
 from .config_list_providers_params import ConfigListProvidersParams as ConfigListProvidersParams
 from .tui_execute_command_response import TuiExecuteCommandResponse as TuiExecuteCommandResponse
+from .agent_create_or_update_params import AgentCreateOrUpdateParams as AgentCreateOrUpdateParams
 from .find_retrieve_symbol_response import FindRetrieveSymbolResponse as FindRetrieveSymbolResponse
 from .session_get_children_response import SessionGetChildrenResponse as SessionGetChildrenResponse
 from .session_send_command_response import SessionSendCommandResponse as SessionSendCommandResponse
 from .auth_update_credentials_params import AuthUpdateCredentialsParams as AuthUpdateCredentialsParams
 from .config_list_providers_response import ConfigListProvidersResponse as ConfigListProvidersResponse
+from .agent_create_or_update_response import AgentCreateOrUpdateResponse as AgentCreateOrUpdateResponse
 from .project_retrieve_current_params import ProjectRetrieveCurrentParams as ProjectRetrieveCurrentParams
 from .session_restore_reverted_params import SessionRestoreRevertedParams as SessionRestoreRevertedParams
 from .auth_update_credentials_response import AuthUpdateCredentialsResponse as AuthUpdateCredentialsResponse
