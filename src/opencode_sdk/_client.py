@@ -12,7 +12,6 @@ from . import _exceptions
 from ._qs import Querystring
 from ._types import (
     Omit,
-    Headers,
     Timeout,
     NotGiven,
     Transport,
@@ -64,12 +63,10 @@ class OpencodeSDK(SyncAPIClient):
     with_streaming_response: OpencodeSDKWithStreamedResponse
 
     # client options
-    api_key: str | None
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -89,14 +86,7 @@ class OpencodeSDK(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous OpencodeSDK client instance.
-
-        This automatically infers the `api_key` argument from the `OPENCODE_SDK_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("OPENCODE_SDK_API_KEY")
-        self.api_key = api_key
-
+        """Construct a new synchronous OpencodeSDK client instance."""
         if base_url is None:
             base_url = os.environ.get("OPENCODE_SDK_BASE_URL")
         if base_url is None:
@@ -112,6 +102,8 @@ class OpencodeSDK(SyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = Stream
 
         self.project = project.ProjectResource(self)
         self.config = config.ConfigResource(self)
@@ -137,14 +129,6 @@ class OpencodeSDK(SyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -152,21 +136,9 @@ class OpencodeSDK(SyncAPIClient):
             **self._custom_headers,
         }
 
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
-
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.Client | None = None,
@@ -200,7 +172,6 @@ class OpencodeSDK(SyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,
@@ -267,12 +238,10 @@ class AsyncOpencodeSDK(AsyncAPIClient):
     with_streaming_response: AsyncOpencodeSDKWithStreamedResponse
 
     # client options
-    api_key: str | None
 
     def __init__(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         max_retries: int = DEFAULT_MAX_RETRIES,
@@ -292,14 +261,7 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncOpencodeSDK client instance.
-
-        This automatically infers the `api_key` argument from the `OPENCODE_SDK_API_KEY` environment variable if it is not provided.
-        """
-        if api_key is None:
-            api_key = os.environ.get("OPENCODE_SDK_API_KEY")
-        self.api_key = api_key
-
+        """Construct a new async AsyncOpencodeSDK client instance."""
         if base_url is None:
             base_url = os.environ.get("OPENCODE_SDK_BASE_URL")
         if base_url is None:
@@ -315,6 +277,8 @@ class AsyncOpencodeSDK(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
+
+        self._default_stream_cls = AsyncStream
 
         self.project = project.AsyncProjectResource(self)
         self.config = config.AsyncConfigResource(self)
@@ -340,14 +304,6 @@ class AsyncOpencodeSDK(AsyncAPIClient):
 
     @property
     @override
-    def auth_headers(self) -> dict[str, str]:
-        api_key = self.api_key
-        if api_key is None:
-            return {}
-        return {"Authorization": f"Bearer {api_key}"}
-
-    @property
-    @override
     def default_headers(self) -> dict[str, str | Omit]:
         return {
             **super().default_headers,
@@ -355,21 +311,9 @@ class AsyncOpencodeSDK(AsyncAPIClient):
             **self._custom_headers,
         }
 
-    @override
-    def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
-            return
-
-        raise TypeError(
-            '"Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted"'
-        )
-
     def copy(
         self,
         *,
-        api_key: str | None = None,
         base_url: str | httpx.URL | None = None,
         timeout: float | Timeout | None | NotGiven = not_given,
         http_client: httpx.AsyncClient | None = None,
@@ -403,7 +347,6 @@ class AsyncOpencodeSDK(AsyncAPIClient):
 
         http_client = http_client or self._client
         return self.__class__(
-            api_key=api_key or self.api_key,
             base_url=base_url or self.base_url,
             timeout=self.timeout if isinstance(timeout, NotGiven) else timeout,
             http_client=http_client,

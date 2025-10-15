@@ -28,33 +28,22 @@ pip install git+ssh://git@github.com/kaaass/opencode-sdk.git
 The full API of this library can be found in [api.md](api.md).
 
 ```python
-import os
 from opencode_sdk import OpencodeSDK
 
-client = OpencodeSDK(
-    api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
-)
+client = OpencodeSDK()
 
 projects = client.project.list()
 ```
-
-While you can provide an `api_key` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `OPENCODE_SDK_API_KEY="My API Key"` to your `.env` file
-so that your API Key is not stored in source control.
 
 ## Async usage
 
 Simply import `AsyncOpencodeSDK` instead of `OpencodeSDK` and use `await` with each API call:
 
 ```python
-import os
 import asyncio
 from opencode_sdk import AsyncOpencodeSDK
 
-client = AsyncOpencodeSDK(
-    api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
-)
+client = AsyncOpencodeSDK()
 
 
 async def main() -> None:
@@ -87,7 +76,6 @@ from opencode_sdk import AsyncOpencodeSDK
 
 async def main() -> None:
     async with AsyncOpencodeSDK(
-        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         projects = await client.project.list()
