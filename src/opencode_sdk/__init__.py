@@ -5,6 +5,7 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes, omit, not_given
 from ._utils import file_from_path
+from ._utils._id_generator import IDGenerator, id_ascending, id_descending, validate_id_prefix
 from ._client import (
     Client,
     Stream,
@@ -81,6 +82,10 @@ __all__ = [
     "DefaultHttpxClient",
     "DefaultAsyncHttpxClient",
     "DefaultAioHttpClient",
+    "IDGenerator",
+    "id_ascending",
+    "id_descending",
+    "validate_id_prefix",
 ]
 
 if not _t.TYPE_CHECKING:
