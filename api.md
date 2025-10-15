@@ -188,12 +188,14 @@ Methods:
 Types:
 
 ```python
-from opencode_sdk.types import AgentListResponse
+from opencode_sdk.types import AgentListResponse, AgentDeleteResponse, AgentCreateOrUpdateResponse
 ```
 
 Methods:
 
 - <code title="get /agent">client.agent.<a href="./src/opencode_sdk/resources/agent.py">list</a>(\*\*<a href="src/opencode_sdk/types/agent_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/agent_list_response.py">AgentListResponse</a></code>
+- <code title="delete /agent/{name}">client.agent.<a href="./src/opencode_sdk/resources/agent.py">delete</a>(name, \*\*<a href="src/opencode_sdk/types/agent_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/agent_delete_response.py">AgentDeleteResponse</a></code>
+- <code title="post /agent">client.agent.<a href="./src/opencode_sdk/resources/agent.py">create_or_update</a>(\*\*<a href="src/opencode_sdk/types/agent_create_or_update_params.py">params</a>) -> <a href="./src/opencode_sdk/types/agent_create_or_update_response.py">AgentCreateOrUpdateResponse</a></code>
 
 # Mcp
 
