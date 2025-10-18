@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.3.1 (2025-10-18)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/kaaass/opencode-sdk/compare/v0.3.0...v0.3.1)
+
+### Chores
+
+* bump `httpx-aiohttp` version to 0.1.9 ([98a4af4](https://github.com/kaaass/opencode-sdk/commit/98a4af402dfa36872b2c1c9fa9982fba551a4e46))
+
 ## 0.3.0 (2025-10-17)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/kaaass/opencode-sdk/compare/v0.2.0...v0.3.0)
