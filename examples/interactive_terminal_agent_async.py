@@ -10,21 +10,25 @@ OpenCode Interactive Terminal Agent Example (Async Version)
 - 优雅地处理错误
 """
 
+from __future__ import annotations
+
 import sys
 import asyncio
-from typing import Optional
+from typing import Any, Optional
 
 from opencode_sdk import AsyncOpencodeSDK, omit, id_ascending
-from opencode_sdk.types.event_list_response import EventListResponse
 from opencode_sdk.types.session import message_create_params
+from opencode_sdk.types.event_list_response import EventListResponse
 
 try:
-    from rich.console import Console
-    from rich.panel import Panel
+    from rich.panel import Panel  # type: ignore[import-not-found]
+    from rich.console import Console as RichConsole  # type: ignore[import-not-found]
 
-    HAS_RICH = True
+    has_rich = True
 except ImportError:
-    HAS_RICH = False
+    has_rich = False
+    RichConsole = None  # type: ignore[assignment, misc, unused-ignore]
+    Panel = None  # type: ignore[assignment, misc, unused-ignore]
     print("提示: 安装 rich 库可以获得更好的显示效果: pip install rich", file=sys.stderr)
 
 
@@ -50,10 +54,11 @@ class InteractiveTerminalAgent:
         self.client = AsyncOpencodeSDK(base_url=base_url, verify_ssl=False)
 
         # 初始化 Rich Console (如果可用)
-        if HAS_RICH:
-            self.console = Console()
+        self.console: Optional[RichConsole]  # type: ignore[valid-type]
+        if has_rich:
+            self.console = RichConsole()  # type: ignore[misc, operator]
         else:
-            self.console = None
+            self.console = None  # type: ignore[assignment]
 
         # 会话和配置
         self.session_id: Optional[str] = None
@@ -63,35 +68,36 @@ class InteractiveTerminalAgent:
 
         # 用于跟踪当前消息的状态
         self.current_message_id: Optional[str] = None
-        self.current_text_parts: dict = {}
-        self.current_tool_parts: dict = {}
+        self.current_text_parts: dict[str, str] = {}
+        self.current_tool_parts: dict[str, dict[str, Any]] = {}
         self.message_completed = False
 
         # 用于控制事件循环
-        self.event_task: Optional[asyncio.Task] = None
+        self.event_task: Optional[asyncio.Task[None]] = None
         self.stop_event = asyncio.Event()
 
-    def _print(self, text: str = '\n', **kwargs):
+    def _print(self, text: str = '\n', **kwargs: Any) -> None:
         """统一的打印方法,支持 Rich 和普通输出。"""
         # 从 kwargs 中提取 file 参数（Rich 不支持 file 参数）
         file = kwargs.pop('file', None)
 
-        if self.console:
+        if self.console:  # type: ignore[truthy-bool]
             # Rich Console 使用 stderr 参数而不是 file
             if file == sys.stderr:
-                self.console.print(text, **kwargs, file=sys.stderr)
+                # Rich doesn't support file parameter, use print instead
+                print(text, file=sys.stderr)
             else:
-                self.console.print(text, **kwargs)
+                self.console.print(text, **kwargs)  # type: ignore[union-attr]
         else:
             if file:
-                print(text, file=file, **kwargs)
+                print(text, file=file)
             else:
-                print(text, **kwargs)
+                print(text)
 
-    def _print_panel(self, content: str, title: str = "", border_style: str = ""):
+    def _print_panel(self, content: str, title: str = "", border_style: str = "") -> None:
         """显示面板。"""
-        if self.console:
-            self.console.print(Panel(content, title=title, border_style=border_style))
+        if self.console and Panel is not None:  # type: ignore[truthy-bool]
+            self.console.print(Panel(content, title=title, border_style=border_style))  # type: ignore[union-attr, operator]
         else:
             print(f"\n{'=' * 60}")
             if title:
@@ -100,7 +106,7 @@ class InteractiveTerminalAgent:
             print(content)
             print('=' * 60)
 
-    async def initialize(self):
+    async def initialize(self) -> None:
         """初始化 Agent:获取配置、创建会话、订阅事件。"""
         self._print(f"[cyan]正在连接到 OpenCode 服务器...[/cyan]")
 
@@ -144,10 +150,10 @@ class InteractiveTerminalAgent:
             self._print(f"[bold red]初始化失败:[/bold red] {e}")
             raise
 
-    async def _subscribe_events(self):
+    async def _subscribe_events(self) -> None:
         """订阅 SSE 事件流。"""
 
-        async def event_loop():
+        async def event_loop() -> None:
             """在后台任务中处理 SSE 事件。"""
             try:
                 # 使用 SDK 的 event.list() 获取事件流
@@ -170,7 +176,7 @@ class InteractiveTerminalAgent:
         # 等待一小段时间,确保连接建立
         await asyncio.sleep(0.5)
 
-    def _handle_event(self, event: EventListResponse):
+    def _handle_event(self, event: EventListResponse) -> None:
         """处理从 SSE 接收到的事件。"""
         # 事件类型通过 discriminator 'type' 区分
         event_data = event.model_dump()
@@ -184,7 +190,7 @@ class InteractiveTerminalAgent:
         elif event_type == 'session.error':
             self._handle_error(properties)
 
-    def _handle_message_update(self, info: dict):
+    def _handle_message_update(self, info: dict[str, Any]) -> None:
         """处理消息更新事件。"""
         if info.get('role') != 'assistant':
             return
@@ -203,7 +209,7 @@ class InteractiveTerminalAgent:
             self.current_text_parts = {}
             self.current_tool_parts = {}
 
-    def _handle_part_update(self, part: dict):
+    def _handle_part_update(self, part: dict[str, Any]) -> None:
         """处理消息部分更新事件。"""
         part_type = part.get('type')
 
@@ -214,10 +220,10 @@ class InteractiveTerminalAgent:
         elif part_type == 'reasoning':
             self._handle_reasoning_part(part)
 
-    def _handle_text_part(self, part: dict):
+    def _handle_text_part(self, part: dict[str, Any]) -> None:
         """处理文本部分的流式更新。"""
-        part_id = part.get('id')
-        text = part.get('text', '')
+        part_id = str(part.get('id', ''))
+        text = str(part.get('text', ''))
 
         # 存储累积的文本
         old_text = self.current_text_parts.get(part_id, '')
@@ -228,14 +234,14 @@ class InteractiveTerminalAgent:
             delta = text[len(old_text):]
             if delta:
                 # 不换行,流式输出
-                if self.console:
-                    self.console.print(delta, end='')
+                if self.console:  # type: ignore[truthy-bool]
+                    self.console.print(delta, end='')  # type: ignore[union-attr]
                 else:
                     print(delta, end='', flush=True)
 
-    def _handle_tool_part(self, part: dict):
+    def _handle_tool_part(self, part: dict[str, Any]) -> None:
         """处理工具调用部分的更新。"""
-        part_id = part.get('id')
+        part_id = str(part.get('id', ''))
         tool_name = part.get('tool')
         state = part.get('state', {})
         status = state.get('status')
@@ -273,13 +279,13 @@ class InteractiveTerminalAgent:
             error = state.get('error', 'Unknown error')
             self._print(f"\n[bold red]✗ {tool_name} 失败:[/bold red] {error}\n")
 
-    def _handle_reasoning_part(self, part: dict):
+    def _handle_reasoning_part(self, part: dict[str, Any]) -> None:
         """处理推理部分的更新。"""
         text = part.get('text', '')
         if text:
             self._print(f"\n[italic dim]推理: {text}[/italic dim]\n")
 
-    def _handle_error(self, properties: dict):
+    def _handle_error(self, properties: dict[str, Any]) -> None:
         """处理会话错误事件。"""
         error = properties.get('error', {})
         error_name = error.get('name', 'Unknown error')
@@ -292,7 +298,7 @@ class InteractiveTerminalAgent:
 
         self.message_completed = True
 
-    async def send_message(self, text: str):
+    async def send_message(self, text: str) -> None:
         """
         发送用户消息并等待响应完成。
 
@@ -350,7 +356,7 @@ class InteractiveTerminalAgent:
 
         self._print()  # 最后的换行
 
-    async def run(self):
+    async def run(self) -> None:
         """运行交互式循环。"""
         self._print("\n[bold green]准备就绪![/bold green] 输入你的问题,输入 'exit', 'quit' 或 'q' 退出。\n")
 
@@ -360,15 +366,15 @@ class InteractiveTerminalAgent:
                 try:
                     # 在异步环境中运行同步的input
                     loop = asyncio.get_event_loop()
-                    if self.console:
+                    if self.console:  # type: ignore[truthy-bool]
                         user_input = await loop.run_in_executor(
                             None,
-                            lambda: self.console.input("[bold]> [/bold]")
+                            lambda: str(self.console.input("[bold]> [/bold]"))  # type: ignore[union-attr]
                         )
                         user_input = user_input.strip()
                     else:
                         user_input = await loop.run_in_executor(None, input, "> ")
-                        user_input = user_input.strip()
+                        user_input = str(user_input).strip()
                 except (EOFError, KeyboardInterrupt):
                     break
 
@@ -391,13 +397,13 @@ class InteractiveTerminalAgent:
                 await asyncio.wait_for(self.event_task, timeout=2.0)
             self._print("[green]再见![/green]\n")
 
-    async def close(self):
+    async def close(self) -> None:
         """关闭客户端。"""
         self.stop_event.set()
         await self.client.close()
 
 
-async def main():
+async def main() -> None:
     """主入口函数。"""
     import argparse
 

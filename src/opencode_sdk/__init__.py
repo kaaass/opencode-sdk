@@ -5,7 +5,6 @@ import typing as _t
 from . import types
 from ._types import NOT_GIVEN, Omit, NoneType, NotGiven, Transport, ProxiesTypes, omit, not_given
 from ._utils import file_from_path
-from ._utils._id_generator import IDGenerator, id_ascending, id_descending, validate_id_prefix
 from ._client import (
     Client,
     Stream,
@@ -39,6 +38,7 @@ from ._exceptions import (
 )
 from ._base_client import DefaultHttpxClient, DefaultAioHttpClient, DefaultAsyncHttpxClient
 from ._utils._logs import setup_logging as _setup_logging
+from ._utils._id_generator import IDGenerator, id_ascending, id_descending, validate_id_prefix
 
 __all__ = [
     "types",
