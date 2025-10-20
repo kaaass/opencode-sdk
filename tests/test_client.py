@@ -840,6 +840,11 @@ class TestOpencodeSDK:
 
     def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
+        # Clear all proxy environment variables first
+        for var in ["HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY",
+                    "http_proxy", "https_proxy", "all_proxy", "no_proxy"]:
+            monkeypatch.delenv(var, raising=False)
+
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
 
         client = DefaultHttpxClient()
@@ -1687,6 +1692,11 @@ class TestAsyncOpencodeSDK:
 
     async def test_proxy_environment_variables(self, monkeypatch: pytest.MonkeyPatch) -> None:
         # Test that the proxy environment variables are set correctly
+        # Clear all proxy environment variables first
+        for var in ["HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY",
+                    "http_proxy", "https_proxy", "all_proxy", "no_proxy"]:
+            monkeypatch.delenv(var, raising=False)
+
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
 
         client = DefaultAsyncHttpxClient()

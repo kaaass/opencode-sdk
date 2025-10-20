@@ -183,6 +183,7 @@ class OpencodeSDK(SyncAPIClient):
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
         set_default_query: Mapping[str, object] | None = None,
+        verify_ssl: bool | NotGiven = not_given,
         _extra_kwargs: Mapping[str, Any] = {},
     ) -> Self:
         """
@@ -215,6 +216,7 @@ class OpencodeSDK(SyncAPIClient):
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
             default_headers=headers,
             default_query=params,
+            verify_ssl=verify_ssl if is_given(verify_ssl) else True,
             **_extra_kwargs,
         )
 
@@ -394,6 +396,7 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         set_default_headers: Mapping[str, str] | None = None,
         default_query: Mapping[str, object] | None = None,
         set_default_query: Mapping[str, object] | None = None,
+        verify_ssl: bool | NotGiven = not_given,
         _extra_kwargs: Mapping[str, Any] = {},
     ) -> Self:
         """
@@ -426,6 +429,7 @@ class AsyncOpencodeSDK(AsyncAPIClient):
             max_retries=max_retries if is_given(max_retries) else self.max_retries,
             default_headers=headers,
             default_query=params,
+            verify_ssl=verify_ssl if is_given(verify_ssl) else True,
             **_extra_kwargs,
         )
 
