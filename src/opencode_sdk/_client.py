@@ -79,6 +79,11 @@ class OpencodeSDK(SyncAPIClient):
         # We provide a `DefaultHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
         # See the [httpx documentation](https://www.python-httpx.org/api/#client) for more details.
         http_client: httpx.Client | None = None,
+        # Enable or disable SSL certificate verification.
+        # When set to False, SSL certificates will not be verified.
+        # This is useful for development with self-signed certificates.
+        # WARNING: Disabling SSL verification is insecure and should only be used in development.
+        verify_ssl: bool = True,
         # Enable or disable schema validation for data returned by the API.
         # When enabled an error APIResponseValidationError is raised
         # if the API responds with invalid data for the expected schema.
@@ -111,6 +116,7 @@ class OpencodeSDK(SyncAPIClient):
             custom_headers=default_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
+            verify_ssl=verify_ssl,
         )
 
         self._default_stream_cls = Stream
@@ -284,6 +290,11 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         # We provide a `DefaultAsyncHttpxClient` class that you can pass to retain the default values we use for `limits`, `timeout` & `follow_redirects`.
         # See the [httpx documentation](https://www.python-httpx.org/api/#asyncclient) for more details.
         http_client: httpx.AsyncClient | None = None,
+        # Enable or disable SSL certificate verification.
+        # When set to False, SSL certificates will not be verified.
+        # This is useful for development with self-signed certificates.
+        # WARNING: Disabling SSL verification is insecure and should only be used in development.
+        verify_ssl: bool = True,
         # Enable or disable schema validation for data returned by the API.
         # When enabled an error APIResponseValidationError is raised
         # if the API responds with invalid data for the expected schema.
@@ -316,6 +327,7 @@ class AsyncOpencodeSDK(AsyncAPIClient):
             custom_headers=default_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
+            verify_ssl=verify_ssl,
         )
 
         self._default_stream_cls = AsyncStream

@@ -47,7 +47,7 @@ class InteractiveTerminalAgent:
             base_url: OpenCode 服务器地址
         """
         # 创建 SDK 异步客户端
-        self.client = AsyncOpencodeSDK(base_url=base_url)
+        self.client = AsyncOpencodeSDK(base_url=base_url, verify_ssl=False)
 
         # 初始化 Rich Console (如果可用)
         if HAS_RICH:
