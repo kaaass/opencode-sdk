@@ -1,6 +1,6 @@
 [project]
 name = "opencode_sdk"
-version = "0.3.0"
+version = "0.4.0"
 description = "The official Python library for the opencode-sdk API"
 dynamic = ["readme"]
 license = "Apache-2.0"
@@ -39,7 +39,7 @@ Homepage = "https://github.com/kaaass/opencode-sdk"
 Repository = "https://github.com/kaaass/opencode-sdk"
 
 [project.optional-dependencies]
-aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.8"]
+aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.9"]
 
 [tool.rye]
 managed = true
