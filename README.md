@@ -80,6 +80,7 @@ pip install 'opencode_sdk[aiohttp] @ git+ssh://git@github.com/kaaass/opencode-sd
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from opencode_sdk import DefaultAioHttpClient
 from opencode_sdk import AsyncOpencodeSDK
@@ -87,7 +88,7 @@ from opencode_sdk import AsyncOpencodeSDK
 
 async def main() -> None:
     async with AsyncOpencodeSDK(
-        api_key="My API Key",
+        api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         projects = await client.project.list()
