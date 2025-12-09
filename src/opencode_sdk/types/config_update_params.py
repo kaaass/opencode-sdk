@@ -264,6 +264,8 @@ AgentAgentItem: TypeAlias = Union[AgentAgentItemTyped, Dict[str, object]]
 
 
 class AgentTyped(TypedDict, total=False):
+    """Agent configuration, see https://opencode.ai/docs/agent"""
+
     build: AgentBuild
 
     general: AgentGeneral
@@ -321,6 +323,8 @@ class Formatter(TypedDict, total=False):
 
 
 class Keybinds(TypedDict, total=False):
+    """Custom keybind configurations"""
+
     agent_cycle: str
     """Next agent"""
 
@@ -616,6 +620,8 @@ ModeModeItem: TypeAlias = Union[ModeModeItemTyped, Dict[str, object]]
 
 
 class ModeTyped(TypedDict, total=False):
+    """@deprecated Use `agent` field instead."""
+
     build: ModeBuild
 
     plan: ModePlan
@@ -718,6 +724,8 @@ class Provider(TypedDict, total=False):
 
 
 class Tui(TypedDict, total=False):
+    """TUI specific settings"""
+
     scroll_speed: float
     """TUI scroll speed"""
 

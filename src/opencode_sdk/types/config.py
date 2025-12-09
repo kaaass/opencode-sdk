@@ -216,6 +216,8 @@ class AgentAgentItem(BaseModel):
 
 
 class Agent(BaseModel):
+    """Agent configuration, see https://opencode.ai/docs/agent"""
+
     build: Optional[AgentBuild] = None
 
     general: Optional[AgentGeneral] = None
@@ -282,6 +284,8 @@ class Formatter(BaseModel):
 
 
 class Keybinds(BaseModel):
+    """Custom keybind configurations"""
+
     agent_cycle: Optional[str] = None
     """Next agent"""
 
@@ -604,6 +608,8 @@ class ModeModeItem(BaseModel):
 
 
 class Mode(BaseModel):
+    """@deprecated Use `agent` field instead."""
+
     build: Optional[ModeBuild] = None
 
     plan: Optional[ModePlan] = None
@@ -724,6 +730,8 @@ class Provider(BaseModel):
 
 
 class Tui(BaseModel):
+    """TUI specific settings"""
+
     scroll_speed: Optional[float] = None
     """TUI scroll speed"""
 
