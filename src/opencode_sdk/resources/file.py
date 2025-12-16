@@ -56,7 +56,7 @@ class FileResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileListResponse:
         """
-        List files and directories
+        List files and directories in a specified path.
 
         Args:
           extra_headers: Send extra headers
@@ -97,7 +97,7 @@ class FileResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileGetStatusResponse:
         """
-        Get file status
+        Get the git status of all files in the project.
 
         Args:
           extra_headers: Send extra headers
@@ -133,7 +133,7 @@ class FileResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileReadResponse:
         """
-        Read a file
+        Read the content of a specified file.
 
         Args:
           extra_headers: Send extra headers
@@ -196,7 +196,7 @@ class AsyncFileResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileListResponse:
         """
-        List files and directories
+        List files and directories in a specified path.
 
         Args:
           extra_headers: Send extra headers
@@ -237,7 +237,7 @@ class AsyncFileResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileGetStatusResponse:
         """
-        Get file status
+        Get the git status of all files in the project.
 
         Args:
           extra_headers: Send extra headers
@@ -273,7 +273,7 @@ class AsyncFileResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FileReadResponse:
         """
-        Read a file
+        Read the content of a specified file.
 
         Args:
           extra_headers: Send extra headers

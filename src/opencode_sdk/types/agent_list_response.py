@@ -20,6 +20,10 @@ class AgentListResponseItemPermission(BaseModel):
 
     edit: Literal["ask", "allow", "deny"]
 
+    doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
+
+    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
 
 
@@ -30,8 +34,6 @@ class AgentListResponseItemModel(BaseModel):
 
 
 class AgentListResponseItem(BaseModel):
-    built_in: bool = FieldInfo(alias="builtIn")
-
     mode: Literal["subagent", "primary", "all"]
 
     name: str
@@ -42,9 +44,17 @@ class AgentListResponseItem(BaseModel):
 
     tools: Dict[str, bool]
 
+    color: Optional[str] = None
+
     description: Optional[str] = None
 
+    hidden: Optional[bool] = None
+
+    max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
+
     model: Optional[AgentListResponseItemModel] = None
+
+    native: Optional[bool] = None
 
     prompt: Optional[str] = None
 

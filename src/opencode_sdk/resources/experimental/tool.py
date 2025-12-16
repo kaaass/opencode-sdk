@@ -54,7 +54,8 @@ class ToolResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolListIDsResponse:
         """
-        List all tool IDs (including built-in and dynamically registered)
+        Get a list of all available tool IDs, including both built-in tools and
+        dynamically registered tools.
 
         Args:
           extra_headers: Send extra headers
@@ -91,7 +92,8 @@ class ToolResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolListToolsResponse:
         """
-        List tools with JSON schema parameters for a provider/model
+        Get a list of available tools with their JSON schema parameters for a specific
+        provider and model combination.
 
         Args:
           extra_headers: Send extra headers
@@ -154,7 +156,8 @@ class AsyncToolResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolListIDsResponse:
         """
-        List all tool IDs (including built-in and dynamically registered)
+        Get a list of all available tool IDs, including both built-in tools and
+        dynamically registered tools.
 
         Args:
           extra_headers: Send extra headers
@@ -191,7 +194,8 @@ class AsyncToolResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ToolListToolsResponse:
         """
-        List tools with JSON schema parameters for a provider/model
+        Get a list of available tools with their JSON schema parameters for a specific
+        provider and model combination.
 
         Args:
           extra_headers: Send extra headers

@@ -12,6 +12,7 @@ __all__ = [
     "Part",
     "TextPart",
     "TextPartTime",
+    "UnionMember1",
     "ReasoningPart",
     "ReasoningPartTime",
     "ToolPart",
@@ -31,6 +32,11 @@ __all__ = [
     "PatchPart",
     "AgentPart",
     "AgentPartSource",
+    "RetryPart",
+    "RetryPartError",
+    "RetryPartErrorData",
+    "RetryPartTime",
+    "CompactionPart",
 ]
 
 
@@ -51,11 +57,29 @@ class TextPart(BaseModel):
 
     type: Literal["text"]
 
+    ignored: Optional[bool] = None
+
     metadata: Optional[Dict[str, object]] = None
 
     synthetic: Optional[bool] = None
 
     time: Optional[TextPartTime] = None
+
+
+class UnionMember1(BaseModel):
+    id: str
+
+    agent: str
+
+    description: str
+
+    message_id: str = FieldInfo(alias="messageID")
+
+    prompt: str
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    type: Literal["subtask"]
 
 
 class ReasoningPartTime(BaseModel):
@@ -81,6 +105,10 @@ class ReasoningPart(BaseModel):
 
 
 class ToolPartStateToolStatePending(BaseModel):
+    input: Dict[str, object]
+
+    raw: str
+
     status: Literal["pending"]
 
 
@@ -89,7 +117,7 @@ class ToolPartStateToolStateRunningTime(BaseModel):
 
 
 class ToolPartStateToolStateRunning(BaseModel):
-    input: object
+    input: Dict[str, object]
 
     status: Literal["running"]
 
@@ -177,6 +205,8 @@ class StepStartPart(BaseModel):
 
     type: Literal["step-start"]
 
+    snapshot: Optional[str] = None
+
 
 class StepFinishPartTokensCache(BaseModel):
     read: float
@@ -201,11 +231,15 @@ class StepFinishPart(BaseModel):
 
     message_id: str = FieldInfo(alias="messageID")
 
+    reason: str
+
     session_id: str = FieldInfo(alias="sessionID")
 
     tokens: StepFinishPartTokens
 
     type: Literal["step-finish"]
+
+    snapshot: Optional[str] = None
 
 
 class SnapshotPart(BaseModel):
@@ -256,6 +290,67 @@ class AgentPart(BaseModel):
     source: Optional[AgentPartSource] = None
 
 
+class RetryPartErrorData(BaseModel):
+    is_retryable: bool = FieldInfo(alias="isRetryable")
+
+    message: str
+
+    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
+
+    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
+
+    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
+
+
+class RetryPartError(BaseModel):
+    data: RetryPartErrorData
+
+    name: Literal["APIError"]
+
+
+class RetryPartTime(BaseModel):
+    created: float
+
+
+class RetryPart(BaseModel):
+    id: str
+
+    attempt: float
+
+    error: RetryPartError
+
+    message_id: str = FieldInfo(alias="messageID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    time: RetryPartTime
+
+    type: Literal["retry"]
+
+
+class CompactionPart(BaseModel):
+    id: str
+
+    auto: bool
+
+    message_id: str = FieldInfo(alias="messageID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    type: Literal["compaction"]
+
+
 Part: TypeAlias = Union[
-    TextPart, ReasoningPart, FilePart, ToolPart, StepStartPart, StepFinishPart, SnapshotPart, PatchPart, AgentPart
+    TextPart,
+    UnionMember1,
+    ReasoningPart,
+    FilePart,
+    ToolPart,
+    StepStartPart,
+    StepFinishPart,
+    SnapshotPart,
+    PatchPart,
+    AgentPart,
+    RetryPart,
+    CompactionPart,
 ]

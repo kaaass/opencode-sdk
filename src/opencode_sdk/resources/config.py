@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Union
 from typing_extensions import Literal
 
 import httpx
@@ -57,7 +57,7 @@ class ConfigResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Config:
         """
-        Get config info
+        Retrieve the current OpenCode configuration settings and preferences.
 
         Args:
           extra_headers: Send extra headers
@@ -87,15 +87,18 @@ class ConfigResource(SyncAPIResource):
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
         autoshare: bool | Omit = omit,
-        autoupdate: bool | Omit = omit,
+        autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
+        enabled_providers: SequenceNotStr[str] | Omit = omit,
+        enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Dict[str, config_update_params.Formatter] | Omit = omit,
+        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
-        lsp: Dict[str, config_update_params.Lsp] | Omit = omit,
+        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
@@ -118,7 +121,7 @@ class ConfigResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Config:
         """
-        Update config
+        Update OpenCode configuration settings and preferences.
 
         Args:
           schema: JSON schema reference for configuration validation
@@ -128,11 +131,15 @@ class ConfigResource(SyncAPIResource):
           autoshare: @deprecated Use 'share' field instead. Share newly created sessions
               automatically
 
-          autoupdate: Automatically update to the latest version
+          autoupdate: Automatically update to the latest version. Set to true to auto-update, false to
+              disable, or 'notify' to show update notifications
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
           disabled_providers: Disable providers that are loaded automatically
+
+          enabled_providers: When set, ONLY these providers will be enabled. All other providers will be
+              ignored
 
           instructions: Additional instruction files or patterns to include
 
@@ -178,6 +185,8 @@ class ConfigResource(SyncAPIResource):
                     "autoupdate": autoupdate,
                     "command": command,
                     "disabled_providers": disabled_providers,
+                    "enabled_providers": enabled_providers,
+                    "enterprise": enterprise,
                     "experimental": experimental,
                     "formatter": formatter,
                     "instructions": instructions,
@@ -223,7 +232,7 @@ class ConfigResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConfigListProvidersResponse:
         """
-        List all providers
+        Get a list of all configured AI providers and their default models.
 
         Args:
           extra_headers: Send extra headers
@@ -279,7 +288,7 @@ class AsyncConfigResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Config:
         """
-        Get config info
+        Retrieve the current OpenCode configuration settings and preferences.
 
         Args:
           extra_headers: Send extra headers
@@ -311,15 +320,18 @@ class AsyncConfigResource(AsyncAPIResource):
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
         autoshare: bool | Omit = omit,
-        autoupdate: bool | Omit = omit,
+        autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
+        enabled_providers: SequenceNotStr[str] | Omit = omit,
+        enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Dict[str, config_update_params.Formatter] | Omit = omit,
+        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
-        lsp: Dict[str, config_update_params.Lsp] | Omit = omit,
+        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
@@ -342,7 +354,7 @@ class AsyncConfigResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Config:
         """
-        Update config
+        Update OpenCode configuration settings and preferences.
 
         Args:
           schema: JSON schema reference for configuration validation
@@ -352,11 +364,15 @@ class AsyncConfigResource(AsyncAPIResource):
           autoshare: @deprecated Use 'share' field instead. Share newly created sessions
               automatically
 
-          autoupdate: Automatically update to the latest version
+          autoupdate: Automatically update to the latest version. Set to true to auto-update, false to
+              disable, or 'notify' to show update notifications
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
           disabled_providers: Disable providers that are loaded automatically
+
+          enabled_providers: When set, ONLY these providers will be enabled. All other providers will be
+              ignored
 
           instructions: Additional instruction files or patterns to include
 
@@ -402,6 +418,8 @@ class AsyncConfigResource(AsyncAPIResource):
                     "autoupdate": autoupdate,
                     "command": command,
                     "disabled_providers": disabled_providers,
+                    "enabled_providers": enabled_providers,
+                    "enterprise": enterprise,
                     "experimental": experimental,
                     "formatter": formatter,
                     "instructions": instructions,
@@ -447,7 +465,7 @@ class AsyncConfigResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ConfigListProvidersResponse:
         """
-        List all providers
+        Get a list of all configured AI providers and their default models.
 
         Args:
           extra_headers: Send extra headers

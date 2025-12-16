@@ -183,7 +183,7 @@ class TuiResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TuiOpenHelpResponse:
         """
-        Open the help dialog
+        Open the help dialog in the TUI to display user assistance information.
 
         Args:
           extra_headers: Send extra headers
@@ -317,6 +317,7 @@ class TuiResource(SyncAPIResource):
         message: str,
         variant: Literal["info", "success", "warning", "error"],
         directory: str | Omit = omit,
+        duration: float | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -329,6 +330,8 @@ class TuiResource(SyncAPIResource):
         Show a toast notification in the TUI
 
         Args:
+          duration: Duration in milliseconds
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -343,6 +346,7 @@ class TuiResource(SyncAPIResource):
                 {
                     "message": message,
                     "variant": variant,
+                    "duration": duration,
                     "title": title,
                 },
                 tui_show_toast_params.TuiShowToastParams,
@@ -541,7 +545,7 @@ class AsyncTuiResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> TuiOpenHelpResponse:
         """
-        Open the help dialog
+        Open the help dialog in the TUI to display user assistance information.
 
         Args:
           extra_headers: Send extra headers
@@ -677,6 +681,7 @@ class AsyncTuiResource(AsyncAPIResource):
         message: str,
         variant: Literal["info", "success", "warning", "error"],
         directory: str | Omit = omit,
+        duration: float | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -689,6 +694,8 @@ class AsyncTuiResource(AsyncAPIResource):
         Show a toast notification in the TUI
 
         Args:
+          duration: Duration in milliseconds
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -703,6 +710,7 @@ class AsyncTuiResource(AsyncAPIResource):
                 {
                     "message": message,
                     "variant": variant,
+                    "duration": duration,
                     "title": title,
                 },
                 tui_show_toast_params.TuiShowToastParams,

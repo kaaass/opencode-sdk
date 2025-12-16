@@ -1,18 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = ["Session", "Time", "Revert", "Share"]
+__all__ = ["Session", "Time", "Revert", "Share", "Summary", "SummaryDiff"]
 
 
 class Time(BaseModel):
     created: float
 
     updated: float
+
+    archived: Optional[float] = None
 
     compacting: Optional[float] = None
 
@@ -29,6 +31,28 @@ class Revert(BaseModel):
 
 class Share(BaseModel):
     url: str
+
+
+class SummaryDiff(BaseModel):
+    additions: float
+
+    after: str
+
+    before: str
+
+    deletions: float
+
+    file: str
+
+
+class Summary(BaseModel):
+    additions: float
+
+    deletions: float
+
+    files: float
+
+    diffs: Optional[List[SummaryDiff]] = None
 
 
 class Session(BaseModel):
@@ -49,3 +73,5 @@ class Session(BaseModel):
     revert: Optional[Revert] = None
 
     share: Optional[Share] = None
+
+    summary: Optional[Summary] = None

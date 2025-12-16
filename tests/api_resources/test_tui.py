@@ -309,6 +309,7 @@ class TestTui:
             message="message",
             variant="info",
             directory="directory",
+            duration=0,
             title="title",
         )
         assert_matches_type(TuiShowToastResponse, tui, path=["response"])
@@ -665,6 +666,7 @@ class TestAsyncTui:
             message="message",
             variant="info",
             directory="directory",
+            duration=0,
             title="title",
         )
         assert_matches_type(TuiShowToastResponse, tui, path=["response"])

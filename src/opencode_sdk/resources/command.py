@@ -53,7 +53,7 @@ class CommandResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommandListResponse:
         """
-        List all commands
+        Get a list of all available commands in the OpenCode system.
 
         Args:
           extra_headers: Send extra headers
@@ -109,7 +109,7 @@ class AsyncCommandResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CommandListResponse:
         """
-        List all commands
+        Get a list of all available commands in the OpenCode system.
 
         Args:
           extra_headers: Send extra headers

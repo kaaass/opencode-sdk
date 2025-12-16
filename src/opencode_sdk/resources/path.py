@@ -53,7 +53,8 @@ class PathResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PathRetrieveResponse:
         """
-        Get the current path
+        Retrieve the current working directory and related path information for the
+        OpenCode instance.
 
         Args:
           extra_headers: Send extra headers
@@ -109,7 +110,8 @@ class AsyncPathResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> PathRetrieveResponse:
         """
-        Get the current path
+        Retrieve the current working directory and related path information for the
+        OpenCode instance.
 
         Args:
           extra_headers: Send extra headers

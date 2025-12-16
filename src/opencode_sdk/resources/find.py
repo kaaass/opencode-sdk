@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
 from ..types import find_retrieve_params, find_retrieve_file_params, find_retrieve_symbol_params
@@ -56,7 +58,7 @@ class FindResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveResponse:
         """
-        Find text in files
+        Search for text patterns across files in the project using ripgrep.
 
         Args:
           extra_headers: Send extra headers
@@ -90,6 +92,7 @@ class FindResource(SyncAPIResource):
         *,
         query: str,
         directory: str | Omit = omit,
+        dirs: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,7 +101,7 @@ class FindResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveFileResponse:
         """
-        Find files
+        Search for files by name or pattern in the project directory.
 
         Args:
           extra_headers: Send extra headers
@@ -120,6 +123,7 @@ class FindResource(SyncAPIResource):
                     {
                         "query": query,
                         "directory": directory,
+                        "dirs": dirs,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),
@@ -140,7 +144,7 @@ class FindResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveSymbolResponse:
         """
-        Find workspace symbols
+        Search for workspace symbols like functions, classes, and variables using LSP.
 
         Args:
           extra_headers: Send extra headers
@@ -203,7 +207,7 @@ class AsyncFindResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveResponse:
         """
-        Find text in files
+        Search for text patterns across files in the project using ripgrep.
 
         Args:
           extra_headers: Send extra headers
@@ -237,6 +241,7 @@ class AsyncFindResource(AsyncAPIResource):
         *,
         query: str,
         directory: str | Omit = omit,
+        dirs: Literal["true", "false"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -245,7 +250,7 @@ class AsyncFindResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveFileResponse:
         """
-        Find files
+        Search for files by name or pattern in the project directory.
 
         Args:
           extra_headers: Send extra headers
@@ -267,6 +272,7 @@ class AsyncFindResource(AsyncAPIResource):
                     {
                         "query": query,
                         "directory": directory,
+                        "dirs": dirs,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),
@@ -287,7 +293,7 @@ class AsyncFindResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveSymbolResponse:
         """
-        Find workspace symbols
+        Search for workspace symbols like functions, classes, and variables using LSP.
 
         Args:
           extra_headers: Send extra headers

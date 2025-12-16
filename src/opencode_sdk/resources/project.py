@@ -54,7 +54,7 @@ class ProjectResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectListResponse:
         """
-        List all projects
+        Get a list of projects that have been opened with OpenCode.
 
         Args:
           extra_headers: Send extra headers
@@ -89,7 +89,7 @@ class ProjectResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Get the current project
+        Retrieve the currently active project that OpenCode is working with.
 
         Args:
           extra_headers: Send extra headers
@@ -147,7 +147,7 @@ class AsyncProjectResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectListResponse:
         """
-        List all projects
+        Get a list of projects that have been opened with OpenCode.
 
         Args:
           extra_headers: Send extra headers
@@ -182,7 +182,7 @@ class AsyncProjectResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Get the current project
+        Retrieve the currently active project that OpenCode is working with.
 
         Args:
           extra_headers: Send extra headers
