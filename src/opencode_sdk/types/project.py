@@ -5,13 +5,21 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Project", "Time"]
+__all__ = ["Project", "Time", "Icon"]
 
 
 class Time(BaseModel):
     created: float
 
+    updated: float
+
     initialized: Optional[float] = None
+
+
+class Icon(BaseModel):
+    color: Optional[str] = None
+
+    url: Optional[str] = None
 
 
 class Project(BaseModel):
@@ -20,5 +28,9 @@ class Project(BaseModel):
     time: Time
 
     worktree: str
+
+    icon: Optional[Icon] = None
+
+    name: Optional[str] = None
 
     vcs: Optional[Literal["git"]] = None

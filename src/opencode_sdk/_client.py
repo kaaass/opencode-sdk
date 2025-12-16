@@ -22,7 +22,7 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import log, mcp, tui, auth, file, find, path, agent, event, config, command, project
+from .resources import log, mcp, tui, file, find, path, agent, event, config, command, project
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -58,7 +58,6 @@ class OpencodeSDK(SyncAPIClient):
     agent: agent.AgentResource
     mcp: mcp.McpResource
     tui: tui.TuiResource
-    auth: auth.AuthResource
     event: event.EventResource
     with_raw_response: OpencodeSDKWithRawResponse
     with_streaming_response: OpencodeSDKWithStreamedResponse
@@ -127,7 +126,6 @@ class OpencodeSDK(SyncAPIClient):
         self.agent = agent.AgentResource(self)
         self.mcp = mcp.McpResource(self)
         self.tui = tui.TuiResource(self)
-        self.auth = auth.AuthResource(self)
         self.event = event.EventResource(self)
         self.with_raw_response = OpencodeSDKWithRawResponse(self)
         self.with_streaming_response = OpencodeSDKWithStreamedResponse(self)
@@ -263,7 +261,6 @@ class AsyncOpencodeSDK(AsyncAPIClient):
     agent: agent.AsyncAgentResource
     mcp: mcp.AsyncMcpResource
     tui: tui.AsyncTuiResource
-    auth: auth.AsyncAuthResource
     event: event.AsyncEventResource
     with_raw_response: AsyncOpencodeSDKWithRawResponse
     with_streaming_response: AsyncOpencodeSDKWithStreamedResponse
@@ -332,7 +329,6 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         self.agent = agent.AsyncAgentResource(self)
         self.mcp = mcp.AsyncMcpResource(self)
         self.tui = tui.AsyncTuiResource(self)
-        self.auth = auth.AsyncAuthResource(self)
         self.event = event.AsyncEventResource(self)
         self.with_raw_response = AsyncOpencodeSDKWithRawResponse(self)
         self.with_streaming_response = AsyncOpencodeSDKWithStreamedResponse(self)
@@ -469,7 +465,6 @@ class OpencodeSDKWithRawResponse:
         self.agent = agent.AgentResourceWithRawResponse(client.agent)
         self.mcp = mcp.McpResourceWithRawResponse(client.mcp)
         self.tui = tui.TuiResourceWithRawResponse(client.tui)
-        self.auth = auth.AuthResourceWithRawResponse(client.auth)
         self.event = event.EventResourceWithRawResponse(client.event)
 
 
@@ -487,7 +482,6 @@ class AsyncOpencodeSDKWithRawResponse:
         self.agent = agent.AsyncAgentResourceWithRawResponse(client.agent)
         self.mcp = mcp.AsyncMcpResourceWithRawResponse(client.mcp)
         self.tui = tui.AsyncTuiResourceWithRawResponse(client.tui)
-        self.auth = auth.AsyncAuthResourceWithRawResponse(client.auth)
         self.event = event.AsyncEventResourceWithRawResponse(client.event)
 
 
@@ -505,7 +499,6 @@ class OpencodeSDKWithStreamedResponse:
         self.agent = agent.AgentResourceWithStreamingResponse(client.agent)
         self.mcp = mcp.McpResourceWithStreamingResponse(client.mcp)
         self.tui = tui.TuiResourceWithStreamingResponse(client.tui)
-        self.auth = auth.AuthResourceWithStreamingResponse(client.auth)
         self.event = event.EventResourceWithStreamingResponse(client.event)
 
 
@@ -523,7 +516,6 @@ class AsyncOpencodeSDKWithStreamedResponse:
         self.agent = agent.AsyncAgentResourceWithStreamingResponse(client.agent)
         self.mcp = mcp.AsyncMcpResourceWithStreamingResponse(client.mcp)
         self.tui = tui.AsyncTuiResourceWithStreamingResponse(client.tui)
-        self.auth = auth.AsyncAuthResourceWithStreamingResponse(client.auth)
         self.event = event.AsyncEventResourceWithStreamingResponse(client.event)
 
 

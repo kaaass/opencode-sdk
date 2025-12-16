@@ -16,6 +16,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.mcp_retrieve_response import McpRetrieveResponse
 
 __all__ = ["McpResource", "AsyncMcpResource"]
 
@@ -50,9 +51,9 @@ class McpResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> McpRetrieveResponse:
         """
-        Get MCP server status
+        Get the status of all Model Context Protocol (MCP) servers.
 
         Args:
           extra_headers: Send extra headers
@@ -72,7 +73,7 @@ class McpResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform({"directory": directory}, mcp_retrieve_params.McpRetrieveParams),
             ),
-            cast_to=object,
+            cast_to=McpRetrieveResponse,
         )
 
 
@@ -106,9 +107,9 @@ class AsyncMcpResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> object:
+    ) -> McpRetrieveResponse:
         """
-        Get MCP server status
+        Get the status of all Model Context Protocol (MCP) servers.
 
         Args:
           extra_headers: Send extra headers
@@ -128,7 +129,7 @@ class AsyncMcpResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform({"directory": directory}, mcp_retrieve_params.McpRetrieveParams),
             ),
-            cast_to=object,
+            cast_to=McpRetrieveResponse,
         )
 
 

@@ -9,6 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from opencode_sdk.types import McpRetrieveResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,7 +21,7 @@ class TestMcp:
     @parametrize
     def test_method_retrieve(self, client: OpencodeSDK) -> None:
         mcp = client.mcp.retrieve()
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -28,7 +29,7 @@ class TestMcp:
         mcp = client.mcp.retrieve(
             directory="directory",
         )
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -38,7 +39,7 @@ class TestMcp:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         mcp = response.parse()
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -48,7 +49,7 @@ class TestMcp:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             mcp = response.parse()
-            assert_matches_type(object, mcp, path=["response"])
+            assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -62,7 +63,7 @@ class TestAsyncMcp:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         mcp = await async_client.mcp.retrieve()
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -70,7 +71,7 @@ class TestAsyncMcp:
         mcp = await async_client.mcp.retrieve(
             directory="directory",
         )
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -80,7 +81,7 @@ class TestAsyncMcp:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         mcp = await response.parse()
-        assert_matches_type(object, mcp, path=["response"])
+        assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
@@ -90,6 +91,6 @@ class TestAsyncMcp:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             mcp = await response.parse()
-            assert_matches_type(object, mcp, path=["response"])
+            assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
         assert cast(Any, response.is_closed) is True

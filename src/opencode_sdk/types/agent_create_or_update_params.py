@@ -11,8 +11,6 @@ __all__ = ["AgentCreateOrUpdateParams", "Permission", "Model"]
 
 
 class AgentCreateOrUpdateParams(TypedDict, total=False):
-    built_in: Required[Annotated[bool, PropertyInfo(alias="builtIn")]]
-
     mode: Required[Literal["subagent", "primary", "all"]]
 
     name: Required[str]
@@ -25,9 +23,17 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     directory: str
 
+    color: str
+
     description: str
 
+    hidden: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+
     model: Model
+
+    native: bool
 
     prompt: str
 
@@ -40,6 +46,10 @@ class Permission(TypedDict, total=False):
     bash: Required[Dict[str, Literal["ask", "allow", "deny"]]]
 
     edit: Required[Literal["ask", "allow", "deny"]]
+
+    doom_loop: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 

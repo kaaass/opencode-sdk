@@ -58,7 +58,7 @@ class AgentResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentListResponse:
         """
-        List all agents
+        Get a list of all available AI agents in the OpenCode system.
 
         Args:
           extra_headers: Send extra headers
@@ -122,15 +122,18 @@ class AgentResource(SyncAPIResource):
     def create_or_update(
         self,
         *,
-        built_in: bool,
         mode: Literal["subagent", "primary", "all"],
         name: str,
         options: Dict[str, object],
         permission: agent_create_or_update_params.Permission,
         tools: Dict[str, bool],
         directory: str | Omit = omit,
+        color: str | Omit = omit,
         description: str | Omit = omit,
+        hidden: bool | Omit = omit,
+        max_steps: int | Omit = omit,
         model: agent_create_or_update_params.Model | Omit = omit,
+        native: bool | Omit = omit,
         prompt: str | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
@@ -157,14 +160,17 @@ class AgentResource(SyncAPIResource):
             "/agent",
             body=maybe_transform(
                 {
-                    "built_in": built_in,
                     "mode": mode,
                     "name": name,
                     "options": options,
                     "permission": permission,
                     "tools": tools,
+                    "color": color,
                     "description": description,
+                    "hidden": hidden,
+                    "max_steps": max_steps,
                     "model": model,
+                    "native": native,
                     "prompt": prompt,
                     "temperature": temperature,
                     "top_p": top_p,
@@ -216,7 +222,7 @@ class AsyncAgentResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AgentListResponse:
         """
-        List all agents
+        Get a list of all available AI agents in the OpenCode system.
 
         Args:
           extra_headers: Send extra headers
@@ -280,15 +286,18 @@ class AsyncAgentResource(AsyncAPIResource):
     async def create_or_update(
         self,
         *,
-        built_in: bool,
         mode: Literal["subagent", "primary", "all"],
         name: str,
         options: Dict[str, object],
         permission: agent_create_or_update_params.Permission,
         tools: Dict[str, bool],
         directory: str | Omit = omit,
+        color: str | Omit = omit,
         description: str | Omit = omit,
+        hidden: bool | Omit = omit,
+        max_steps: int | Omit = omit,
         model: agent_create_or_update_params.Model | Omit = omit,
+        native: bool | Omit = omit,
         prompt: str | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
@@ -315,14 +324,17 @@ class AsyncAgentResource(AsyncAPIResource):
             "/agent",
             body=await async_maybe_transform(
                 {
-                    "built_in": built_in,
                     "mode": mode,
                     "name": name,
                     "options": options,
                     "permission": permission,
                     "tools": tools,
+                    "color": color,
                     "description": description,
+                    "hidden": hidden,
+                    "max_steps": max_steps,
                     "model": model,
+                    "native": native,
                     "prompt": prompt,
                     "temperature": temperature,
                     "top_p": top_p,

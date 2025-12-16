@@ -112,7 +112,6 @@ class TestAgent:
     @parametrize
     def test_method_create_or_update(self, client: OpencodeSDK) -> None:
         agent = client.agent.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -128,22 +127,27 @@ class TestAgent:
     @parametrize
     def test_method_create_or_update_with_all_params(self, client: OpencodeSDK) -> None:
         agent = client.agent.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
             permission={
                 "bash": {"foo": "ask"},
                 "edit": "ask",
+                "doom_loop": "ask",
+                "external_directory": "ask",
                 "webfetch": "ask",
             },
             tools={"foo": True},
             directory="directory",
+            color="color",
             description="description",
+            hidden=True,
+            max_steps=1,
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
+            native=True,
             prompt="prompt",
             temperature=0,
             top_p=0,
@@ -154,7 +158,6 @@ class TestAgent:
     @parametrize
     def test_raw_response_create_or_update(self, client: OpencodeSDK) -> None:
         response = client.agent.with_raw_response.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -174,7 +177,6 @@ class TestAgent:
     @parametrize
     def test_streaming_response_create_or_update(self, client: OpencodeSDK) -> None:
         with client.agent.with_streaming_response.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -289,7 +291,6 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
         agent = await async_client.agent.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -305,22 +306,27 @@ class TestAsyncAgent:
     @parametrize
     async def test_method_create_or_update_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         agent = await async_client.agent.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
             permission={
                 "bash": {"foo": "ask"},
                 "edit": "ask",
+                "doom_loop": "ask",
+                "external_directory": "ask",
                 "webfetch": "ask",
             },
             tools={"foo": True},
             directory="directory",
+            color="color",
             description="description",
+            hidden=True,
+            max_steps=1,
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
+            native=True,
             prompt="prompt",
             temperature=0,
             top_p=0,
@@ -331,7 +337,6 @@ class TestAsyncAgent:
     @parametrize
     async def test_raw_response_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.agent.with_raw_response.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -351,7 +356,6 @@ class TestAsyncAgent:
     @parametrize
     async def test_streaming_response_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.agent.with_streaming_response.create_or_update(
-            built_in=True,
             mode="subagent",
             name="name",
             options={"foo": "bar"},

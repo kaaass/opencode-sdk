@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
@@ -38,6 +39,12 @@ class Patch(BaseModel):
 class FileReadResponse(BaseModel):
     content: str
 
+    type: Literal["text"]
+
     diff: Optional[str] = None
+
+    encoding: Optional[Literal["base64"]] = None
+
+    mime_type: Optional[str] = FieldInfo(alias="mimeType", default=None)
 
     patch: Optional[Patch] = None

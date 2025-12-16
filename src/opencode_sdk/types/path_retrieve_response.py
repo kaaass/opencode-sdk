@@ -10,6 +10,8 @@ class PathRetrieveResponse(BaseModel):
 
     directory: str
 
+    home: str
+
     state: str
 
     worktree: str

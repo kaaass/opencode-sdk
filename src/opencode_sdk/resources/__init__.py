@@ -24,14 +24,6 @@ from .tui import (
     TuiResourceWithStreamingResponse,
     AsyncTuiResourceWithStreamingResponse,
 )
-from .auth import (
-    AuthResource,
-    AsyncAuthResource,
-    AuthResourceWithRawResponse,
-    AsyncAuthResourceWithRawResponse,
-    AuthResourceWithStreamingResponse,
-    AsyncAuthResourceWithStreamingResponse,
-)
 from .file import (
     FileResource,
     AsyncFileResource,
@@ -186,12 +178,6 @@ __all__ = [
     "AsyncTuiResourceWithRawResponse",
     "TuiResourceWithStreamingResponse",
     "AsyncTuiResourceWithStreamingResponse",
-    "AuthResource",
-    "AsyncAuthResource",
-    "AuthResourceWithRawResponse",
-    "AsyncAuthResourceWithRawResponse",
-    "AuthResourceWithStreamingResponse",
-    "AsyncAuthResourceWithStreamingResponse",
     "EventResource",
     "AsyncEventResource",
     "EventResourceWithRawResponse",
