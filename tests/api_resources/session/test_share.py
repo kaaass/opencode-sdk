@@ -21,7 +21,7 @@ class TestShare:
     @parametrize
     def test_method_create(self, client: OpencodeSDK) -> None:
         share = client.session.share.create(
-            id="id",
+            session_id="sessionID",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -29,7 +29,7 @@ class TestShare:
     @parametrize
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         share = client.session.share.create(
-            id="id",
+            session_id="sessionID",
             directory="directory",
         )
         assert_matches_type(Session, share, path=["response"])
@@ -38,7 +38,7 @@ class TestShare:
     @parametrize
     def test_raw_response_create(self, client: OpencodeSDK) -> None:
         response = client.session.share.with_raw_response.create(
-            id="id",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -50,7 +50,7 @@ class TestShare:
     @parametrize
     def test_streaming_response_create(self, client: OpencodeSDK) -> None:
         with client.session.share.with_streaming_response.create(
-            id="id",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -63,16 +63,16 @@ class TestShare:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_create(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.share.with_raw_response.create(
-                id="",
+                session_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_delete(self, client: OpencodeSDK) -> None:
         share = client.session.share.delete(
-            id="sesJ!",
+            session_id="sessionID",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -80,7 +80,7 @@ class TestShare:
     @parametrize
     def test_method_delete_with_all_params(self, client: OpencodeSDK) -> None:
         share = client.session.share.delete(
-            id="sesJ!",
+            session_id="sessionID",
             directory="directory",
         )
         assert_matches_type(Session, share, path=["response"])
@@ -89,7 +89,7 @@ class TestShare:
     @parametrize
     def test_raw_response_delete(self, client: OpencodeSDK) -> None:
         response = client.session.share.with_raw_response.delete(
-            id="sesJ!",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -101,7 +101,7 @@ class TestShare:
     @parametrize
     def test_streaming_response_delete(self, client: OpencodeSDK) -> None:
         with client.session.share.with_streaming_response.delete(
-            id="sesJ!",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -114,9 +114,9 @@ class TestShare:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.share.with_raw_response.delete(
-                id="",
+                session_id="",
             )
 
 
@@ -129,7 +129,7 @@ class TestAsyncShare:
     @parametrize
     async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.create(
-            id="id",
+            session_id="sessionID",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -137,7 +137,7 @@ class TestAsyncShare:
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.create(
-            id="id",
+            session_id="sessionID",
             directory="directory",
         )
         assert_matches_type(Session, share, path=["response"])
@@ -146,7 +146,7 @@ class TestAsyncShare:
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.share.with_raw_response.create(
-            id="id",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -158,7 +158,7 @@ class TestAsyncShare:
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.share.with_streaming_response.create(
-            id="id",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -171,16 +171,16 @@ class TestAsyncShare:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.share.with_raw_response.create(
-                id="",
+                session_id="",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.delete(
-            id="sesJ!",
+            session_id="sessionID",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -188,7 +188,7 @@ class TestAsyncShare:
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.delete(
-            id="sesJ!",
+            session_id="sessionID",
             directory="directory",
         )
         assert_matches_type(Session, share, path=["response"])
@@ -197,7 +197,7 @@ class TestAsyncShare:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.share.with_raw_response.delete(
-            id="sesJ!",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -209,7 +209,7 @@ class TestAsyncShare:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.share.with_streaming_response.delete(
-            id="sesJ!",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -222,7 +222,7 @@ class TestAsyncShare:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.share.with_raw_response.delete(
-                id="",
+                session_id="",
             )

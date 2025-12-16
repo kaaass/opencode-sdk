@@ -43,7 +43,7 @@ class ShareResource(SyncAPIResource):
 
     def create(
         self,
-        id: str,
+        session_id: str,
         *,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -54,7 +54,7 @@ class ShareResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
-        Share a session
+        Create a shareable link for a session, allowing others to view the conversation.
 
         Args:
           extra_headers: Send extra headers
@@ -65,10 +65,10 @@ class ShareResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._post(
-            f"/session/{id}/share",
+            f"/session/{session_id}/share",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -81,7 +81,7 @@ class ShareResource(SyncAPIResource):
 
     def delete(
         self,
-        id: str,
+        session_id: str,
         *,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -92,7 +92,7 @@ class ShareResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
-        Unshare the session
+        Remove the shareable link for a session, making it private again.
 
         Args:
           extra_headers: Send extra headers
@@ -103,10 +103,10 @@ class ShareResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return self._delete(
-            f"/session/{id}/share",
+            f"/session/{session_id}/share",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -140,7 +140,7 @@ class AsyncShareResource(AsyncAPIResource):
 
     async def create(
         self,
-        id: str,
+        session_id: str,
         *,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -151,7 +151,7 @@ class AsyncShareResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
-        Share a session
+        Create a shareable link for a session, allowing others to view the conversation.
 
         Args:
           extra_headers: Send extra headers
@@ -162,10 +162,10 @@ class AsyncShareResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._post(
-            f"/session/{id}/share",
+            f"/session/{session_id}/share",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -178,7 +178,7 @@ class AsyncShareResource(AsyncAPIResource):
 
     async def delete(
         self,
-        id: str,
+        session_id: str,
         *,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -189,7 +189,7 @@ class AsyncShareResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Session:
         """
-        Unshare the session
+        Remove the shareable link for a session, making it private again.
 
         Args:
           extra_headers: Send extra headers
@@ -200,10 +200,10 @@ class AsyncShareResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return await self._delete(
-            f"/session/{id}/share",
+            f"/session/{session_id}/share",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

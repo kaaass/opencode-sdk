@@ -3,7 +3,7 @@
 <!-- prettier-ignore -->
 [![PyPI version](https://img.shields.io/pypi/v/opencode_sdk.svg?label=pypi%20(stable))](https://pypi.org/project/opencode_sdk/)
 
-The Opencode SDK Python library provides convenient access to the Opencode SDK REST API from any Python 3.8+
+The Opencode SDK Python library provides convenient access to the Opencode SDK REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -80,6 +80,7 @@ pip install 'opencode_sdk[aiohttp] @ git+ssh://git@github.com/kaaass/opencode-sd
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
+import os
 import asyncio
 from opencode_sdk import DefaultAioHttpClient
 from opencode_sdk import AsyncOpencodeSDK
@@ -87,7 +88,7 @@ from opencode_sdk import AsyncOpencodeSDK
 
 async def main() -> None:
     async with AsyncOpencodeSDK(
-        api_key="My API Key",
+        api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
         projects = await client.project.list()
@@ -114,10 +115,11 @@ from opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
 
-config = client.config.update(
-    agent={},
+project = client.project.update(
+    project_id="projectID",
+    icon={},
 )
-print(config.agent)
+print(project.icon)
 ```
 
 ## Handling errors
@@ -371,7 +373,7 @@ print(opencode_sdk.__version__)
 
 ## Requirements
 
-Python 3.8 or higher.
+Python 3.9 or higher.
 
 ## Contributing
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import project_list_params, project_retrieve_current_params
+from ..types import project_list_params, project_update_params, project_retrieve_current_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -42,6 +42,53 @@ class ProjectResource(SyncAPIResource):
         """
         return ProjectResourceWithStreamingResponse(self)
 
+    def update(
+        self,
+        project_id: str,
+        *,
+        directory: str | Omit = omit,
+        icon: project_update_params.Icon | Omit = omit,
+        name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Project:
+        """
+        Update project properties such as name, icon and color.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not project_id:
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
+        return self._patch(
+            f"/project/{project_id}",
+            body=maybe_transform(
+                {
+                    "icon": icon,
+                    "name": name,
+                },
+                project_update_params.ProjectUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"directory": directory}, project_update_params.ProjectUpdateParams),
+            ),
+            cast_to=Project,
+        )
+
     def list(
         self,
         *,
@@ -54,7 +101,7 @@ class ProjectResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectListResponse:
         """
-        List all projects
+        Get a list of projects that have been opened with OpenCode.
 
         Args:
           extra_headers: Send extra headers
@@ -89,7 +136,7 @@ class ProjectResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Get the current project
+        Retrieve the currently active project that OpenCode is working with.
 
         Args:
           extra_headers: Send extra headers
@@ -135,6 +182,53 @@ class AsyncProjectResource(AsyncAPIResource):
         """
         return AsyncProjectResourceWithStreamingResponse(self)
 
+    async def update(
+        self,
+        project_id: str,
+        *,
+        directory: str | Omit = omit,
+        icon: project_update_params.Icon | Omit = omit,
+        name: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> Project:
+        """
+        Update project properties such as name, icon and color.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not project_id:
+            raise ValueError(f"Expected a non-empty value for `project_id` but received {project_id!r}")
+        return await self._patch(
+            f"/project/{project_id}",
+            body=await async_maybe_transform(
+                {
+                    "icon": icon,
+                    "name": name,
+                },
+                project_update_params.ProjectUpdateParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform({"directory": directory}, project_update_params.ProjectUpdateParams),
+            ),
+            cast_to=Project,
+        )
+
     async def list(
         self,
         *,
@@ -147,7 +241,7 @@ class AsyncProjectResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> ProjectListResponse:
         """
-        List all projects
+        Get a list of projects that have been opened with OpenCode.
 
         Args:
           extra_headers: Send extra headers
@@ -182,7 +276,7 @@ class AsyncProjectResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Get the current project
+        Retrieve the currently active project that OpenCode is working with.
 
         Args:
           extra_headers: Send extra headers
@@ -212,6 +306,9 @@ class ProjectResourceWithRawResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
+        self.update = to_raw_response_wrapper(
+            project.update,
+        )
         self.list = to_raw_response_wrapper(
             project.list,
         )
@@ -224,6 +321,9 @@ class AsyncProjectResourceWithRawResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
+        self.update = async_to_raw_response_wrapper(
+            project.update,
+        )
         self.list = async_to_raw_response_wrapper(
             project.list,
         )
@@ -236,6 +336,9 @@ class ProjectResourceWithStreamingResponse:
     def __init__(self, project: ProjectResource) -> None:
         self._project = project
 
+        self.update = to_streamed_response_wrapper(
+            project.update,
+        )
         self.list = to_streamed_response_wrapper(
             project.list,
         )
@@ -248,6 +351,9 @@ class AsyncProjectResourceWithStreamingResponse:
     def __init__(self, project: AsyncProjectResource) -> None:
         self._project = project
 
+        self.update = async_to_streamed_response_wrapper(
+            project.update,
+        )
         self.list = async_to_streamed_response_wrapper(
             project.list,
         )

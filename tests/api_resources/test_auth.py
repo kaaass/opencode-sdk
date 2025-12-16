@@ -9,7 +9,10 @@ import pytest
 
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import AuthUpdateCredentialsResponse
+from opencode_sdk.types import (
+    AuthSetCredentialsResponse,
+    AuthRemoveCredentialsResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,34 +22,86 @@ class TestAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_overload_1(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
+    def test_method_remove_credentials(self, client: OpencodeSDK) -> None:
+        auth = client.auth.remove_credentials(
             id="id",
+        )
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_remove_credentials_with_all_params(self, client: OpencodeSDK) -> None:
+        auth = client.auth.remove_credentials(
+            id="id",
+            directory="directory",
+        )
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_remove_credentials(self, client: OpencodeSDK) -> None:
+        response = client.auth.with_raw_response.remove_credentials(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        auth = response.parse()
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_remove_credentials(self, client: OpencodeSDK) -> None:
+        with client.auth.with_streaming_response.remove_credentials(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            auth = response.parse()
+            assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_remove_credentials(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.auth.with_raw_response.remove_credentials(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_set_credentials_overload_1(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
             type="oauth",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_with_all_params_overload_1(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
-            id="id",
+    def test_method_set_credentials_with_all_params_overload_1(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
             type="oauth",
             directory="directory",
+            enterprise_url="enterpriseUrl",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_credentials_overload_1(self, client: OpencodeSDK) -> None:
-        response = client.auth.with_raw_response.update_credentials(
-            id="id",
+    def test_raw_response_set_credentials_overload_1(self, client: OpencodeSDK) -> None:
+        response = client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
@@ -56,13 +111,13 @@ class TestAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_credentials_overload_1(self, client: OpencodeSDK) -> None:
-        with client.auth.with_streaming_response.update_credentials(
-            id="id",
+    def test_streaming_response_set_credentials_overload_1(self, client: OpencodeSDK) -> None:
+        with client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
@@ -72,16 +127,16 @@ class TestAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_credentials_overload_1(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.auth.with_raw_response.update_credentials(
-                id="",
+    def test_path_params_set_credentials_overload_1(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 access="access",
                 expires=0,
                 refresh="refresh",
@@ -90,30 +145,30 @@ class TestAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_overload_2(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
-            id="id",
+    def test_method_set_credentials_overload_2(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_with_all_params_overload_2(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
-            id="id",
+    def test_method_set_credentials_with_all_params_overload_2(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
             directory="directory",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_credentials_overload_2(self, client: OpencodeSDK) -> None:
-        response = client.auth.with_raw_response.update_credentials(
-            id="id",
+    def test_raw_response_set_credentials_overload_2(self, client: OpencodeSDK) -> None:
+        response = client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         )
@@ -121,13 +176,13 @@ class TestAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_credentials_overload_2(self, client: OpencodeSDK) -> None:
-        with client.auth.with_streaming_response.update_credentials(
-            id="id",
+    def test_streaming_response_set_credentials_overload_2(self, client: OpencodeSDK) -> None:
+        with client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         ) as response:
@@ -135,48 +190,48 @@ class TestAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_credentials_overload_2(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.auth.with_raw_response.update_credentials(
-                id="",
+    def test_path_params_set_credentials_overload_2(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 key="key",
                 type="api",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_overload_3(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
-            id="id",
+    def test_method_set_credentials_overload_3(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_method_update_credentials_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
-        auth = client.auth.update_credentials(
-            id="id",
+    def test_method_set_credentials_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
+        auth = client.auth.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
             directory="directory",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_raw_response_update_credentials_overload_3(self, client: OpencodeSDK) -> None:
-        response = client.auth.with_raw_response.update_credentials(
-            id="id",
+    def test_raw_response_set_credentials_overload_3(self, client: OpencodeSDK) -> None:
+        response = client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
@@ -185,13 +240,13 @@ class TestAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_streaming_response_update_credentials_overload_3(self, client: OpencodeSDK) -> None:
-        with client.auth.with_streaming_response.update_credentials(
-            id="id",
+    def test_streaming_response_set_credentials_overload_3(self, client: OpencodeSDK) -> None:
+        with client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
@@ -200,16 +255,16 @@ class TestAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    def test_path_params_update_credentials_overload_3(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            client.auth.with_raw_response.update_credentials(
-                id="",
+    def test_path_params_set_credentials_overload_3(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 token="token",
                 key="key",
                 type="wellknown",
@@ -223,34 +278,86 @@ class TestAsyncAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
+    async def test_method_remove_credentials(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.remove_credentials(
             id="id",
+        )
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_remove_credentials_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.remove_credentials(
+            id="id",
+            directory="directory",
+        )
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_remove_credentials(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.auth.with_raw_response.remove_credentials(
+            id="id",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        auth = await response.parse()
+        assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_remove_credentials(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.auth.with_streaming_response.remove_credentials(
+            id="id",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            auth = await response.parse()
+            assert_matches_type(AuthRemoveCredentialsResponse, auth, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_remove_credentials(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.auth.with_raw_response.remove_credentials(
+                id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_set_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
             type="oauth",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_with_all_params_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
-            id="id",
+    async def test_method_set_credentials_with_all_params_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
             type="oauth",
             directory="directory",
+            enterprise_url="enterpriseUrl",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.auth.with_raw_response.update_credentials(
-            id="id",
+    async def test_raw_response_set_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
@@ -260,13 +367,13 @@ class TestAsyncAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = await response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.auth.with_streaming_response.update_credentials(
-            id="id",
+    async def test_streaming_response_set_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             access="access",
             expires=0,
             refresh="refresh",
@@ -276,16 +383,16 @@ class TestAsyncAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = await response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.auth.with_raw_response.update_credentials(
-                id="",
+    async def test_path_params_set_credentials_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            await async_client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 access="access",
                 expires=0,
                 refresh="refresh",
@@ -294,30 +401,30 @@ class TestAsyncAuth:
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
-            id="id",
+    async def test_method_set_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_with_all_params_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
-            id="id",
+    async def test_method_set_credentials_with_all_params_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
             directory="directory",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.auth.with_raw_response.update_credentials(
-            id="id",
+    async def test_raw_response_set_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         )
@@ -325,13 +432,13 @@ class TestAsyncAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = await response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.auth.with_streaming_response.update_credentials(
-            id="id",
+    async def test_streaming_response_set_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             key="key",
             type="api",
         ) as response:
@@ -339,48 +446,48 @@ class TestAsyncAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = await response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.auth.with_raw_response.update_credentials(
-                id="",
+    async def test_path_params_set_credentials_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            await async_client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 key="key",
                 type="api",
             )
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
-            id="id",
+    async def test_method_set_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_method_update_credentials_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.update_credentials(
-            id="id",
+    async def test_method_set_credentials_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        auth = await async_client.auth.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
             directory="directory",
         )
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_raw_response_update_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.auth.with_raw_response.update_credentials(
-            id="id",
+    async def test_raw_response_set_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.auth.with_raw_response.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
@@ -389,13 +496,13 @@ class TestAsyncAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = await response.parse()
-        assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_streaming_response_update_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.auth.with_streaming_response.update_credentials(
-            id="id",
+    async def test_streaming_response_set_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.auth.with_streaming_response.set_credentials(
+            provider_id="providerID",
             token="token",
             key="key",
             type="wellknown",
@@ -404,16 +511,16 @@ class TestAsyncAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = await response.parse()
-            assert_matches_type(AuthUpdateCredentialsResponse, auth, path=["response"])
+            assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
-    async def test_path_params_update_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
-            await async_client.auth.with_raw_response.update_credentials(
-                id="",
+    async def test_path_params_set_credentials_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
+            await async_client.auth.with_raw_response.set_credentials(
+                provider_id="",
                 token="token",
                 key="key",
                 type="wellknown",

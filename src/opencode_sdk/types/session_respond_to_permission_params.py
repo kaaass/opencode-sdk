@@ -2,13 +2,15 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = ["SessionRespondToPermissionParams"]
 
 
 class SessionRespondToPermissionParams(TypedDict, total=False):
-    id: Required[str]
+    session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
 
     response: Required[Literal["once", "always", "reject"]]
 

@@ -8,6 +8,14 @@ from .log import (
     LogResourceWithStreamingResponse,
     AsyncLogResourceWithStreamingResponse,
 )
+from .lsp import (
+    LspResource,
+    AsyncLspResource,
+    LspResourceWithRawResponse,
+    AsyncLspResourceWithRawResponse,
+    LspResourceWithStreamingResponse,
+    AsyncLspResourceWithStreamingResponse,
+)
 from .mcp import (
     McpResource,
     AsyncMcpResource,
@@ -16,6 +24,14 @@ from .mcp import (
     McpResourceWithStreamingResponse,
     AsyncMcpResourceWithStreamingResponse,
 )
+from .pty import (
+    PtyResource,
+    AsyncPtyResource,
+    PtyResourceWithRawResponse,
+    AsyncPtyResourceWithRawResponse,
+    PtyResourceWithStreamingResponse,
+    AsyncPtyResourceWithStreamingResponse,
+)
 from .tui import (
     TuiResource,
     AsyncTuiResource,
@@ -23,6 +39,14 @@ from .tui import (
     AsyncTuiResourceWithRawResponse,
     TuiResourceWithStreamingResponse,
     AsyncTuiResourceWithStreamingResponse,
+)
+from .vcs import (
+    VcsResource,
+    AsyncVcsResource,
+    VcsResourceWithRawResponse,
+    AsyncVcsResourceWithRawResponse,
+    VcsResourceWithStreamingResponse,
+    AsyncVcsResourceWithStreamingResponse,
 )
 from .auth import (
     AuthResource,
@@ -88,6 +112,14 @@ from .command import (
     CommandResourceWithStreamingResponse,
     AsyncCommandResourceWithStreamingResponse,
 )
+from .global_ import (
+    GlobalResource,
+    AsyncGlobalResource,
+    GlobalResourceWithRawResponse,
+    AsyncGlobalResourceWithRawResponse,
+    GlobalResourceWithStreamingResponse,
+    AsyncGlobalResourceWithStreamingResponse,
+)
 from .project import (
     ProjectResource,
     AsyncProjectResource,
@@ -103,6 +135,38 @@ from .session import (
     AsyncSessionResourceWithRawResponse,
     SessionResourceWithStreamingResponse,
     AsyncSessionResourceWithStreamingResponse,
+)
+from .instance import (
+    InstanceResource,
+    AsyncInstanceResource,
+    InstanceResourceWithRawResponse,
+    AsyncInstanceResourceWithRawResponse,
+    InstanceResourceWithStreamingResponse,
+    AsyncInstanceResourceWithStreamingResponse,
+)
+from .provider import (
+    ProviderResource,
+    AsyncProviderResource,
+    ProviderResourceWithRawResponse,
+    AsyncProviderResourceWithRawResponse,
+    ProviderResourceWithStreamingResponse,
+    AsyncProviderResourceWithStreamingResponse,
+)
+from .formatter import (
+    FormatterResource,
+    AsyncFormatterResource,
+    FormatterResourceWithRawResponse,
+    AsyncFormatterResourceWithRawResponse,
+    FormatterResourceWithStreamingResponse,
+    AsyncFormatterResourceWithStreamingResponse,
+)
+from .remote_tool import (
+    RemoteToolResource,
+    AsyncRemoteToolResource,
+    RemoteToolResourceWithRawResponse,
+    AsyncRemoteToolResourceWithRawResponse,
+    RemoteToolResourceWithStreamingResponse,
+    AsyncRemoteToolResourceWithStreamingResponse,
 )
 from .experimental import (
     ExperimentalResource,
@@ -198,4 +262,52 @@ __all__ = [
     "AsyncEventResourceWithRawResponse",
     "EventResourceWithStreamingResponse",
     "AsyncEventResourceWithStreamingResponse",
+    "GlobalResource",
+    "AsyncGlobalResource",
+    "GlobalResourceWithRawResponse",
+    "AsyncGlobalResourceWithRawResponse",
+    "GlobalResourceWithStreamingResponse",
+    "AsyncGlobalResourceWithStreamingResponse",
+    "PtyResource",
+    "AsyncPtyResource",
+    "PtyResourceWithRawResponse",
+    "AsyncPtyResourceWithRawResponse",
+    "PtyResourceWithStreamingResponse",
+    "AsyncPtyResourceWithStreamingResponse",
+    "InstanceResource",
+    "AsyncInstanceResource",
+    "InstanceResourceWithRawResponse",
+    "AsyncInstanceResourceWithRawResponse",
+    "InstanceResourceWithStreamingResponse",
+    "AsyncInstanceResourceWithStreamingResponse",
+    "VcsResource",
+    "AsyncVcsResource",
+    "VcsResourceWithRawResponse",
+    "AsyncVcsResourceWithRawResponse",
+    "VcsResourceWithStreamingResponse",
+    "AsyncVcsResourceWithStreamingResponse",
+    "ProviderResource",
+    "AsyncProviderResource",
+    "ProviderResourceWithRawResponse",
+    "AsyncProviderResourceWithRawResponse",
+    "ProviderResourceWithStreamingResponse",
+    "AsyncProviderResourceWithStreamingResponse",
+    "RemoteToolResource",
+    "AsyncRemoteToolResource",
+    "RemoteToolResourceWithRawResponse",
+    "AsyncRemoteToolResourceWithRawResponse",
+    "RemoteToolResourceWithStreamingResponse",
+    "AsyncRemoteToolResourceWithStreamingResponse",
+    "LspResource",
+    "AsyncLspResource",
+    "LspResourceWithRawResponse",
+    "AsyncLspResourceWithRawResponse",
+    "LspResourceWithStreamingResponse",
+    "AsyncLspResourceWithStreamingResponse",
+    "FormatterResource",
+    "AsyncFormatterResource",
+    "FormatterResourceWithRawResponse",
+    "AsyncFormatterResourceWithRawResponse",
+    "FormatterResourceWithStreamingResponse",
+    "AsyncFormatterResourceWithStreamingResponse",
 ]

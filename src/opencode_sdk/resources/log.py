@@ -60,7 +60,7 @@ class LogResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LogWriteResponse:
         """
-        Write a log entry to the server logs
+        Write a log entry to the server logs with specified level and metadata.
 
         Args:
           level: Log level
@@ -137,7 +137,7 @@ class AsyncLogResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> LogWriteResponse:
         """
-        Write a log entry to the server logs
+        Write a log entry to the server logs with specified level and metadata.
 
         Args:
           level: Log level

@@ -14,4 +14,7 @@ class TuiShowToastParams(TypedDict, total=False):
 
     directory: str
 
+    duration: float
+    """Duration in milliseconds"""
+
     title: str

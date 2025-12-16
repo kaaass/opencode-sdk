@@ -22,7 +22,25 @@ from ._types import (
 )
 from ._utils import is_given, get_async_library
 from ._version import __version__
-from .resources import log, mcp, tui, auth, file, find, path, agent, event, config, command, project
+from .resources import (
+    log,
+    lsp,
+    pty,
+    vcs,
+    auth,
+    file,
+    find,
+    path,
+    agent,
+    event,
+    config,
+    command,
+    global_,
+    project,
+    instance,
+    formatter,
+    remote_tool,
+)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -30,7 +48,10 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.mcp import mcp
+from .resources.tui import tui
 from .resources.session import session
+from .resources.provider import provider
 from .resources.experimental import experimental
 
 __all__ = [
@@ -60,6 +81,14 @@ class OpencodeSDK(SyncAPIClient):
     tui: tui.TuiResource
     auth: auth.AuthResource
     event: event.EventResource
+    global_: global_.GlobalResource
+    pty: pty.PtyResource
+    instance: instance.InstanceResource
+    vcs: vcs.VcsResource
+    provider: provider.ProviderResource
+    remote_tool: remote_tool.RemoteToolResource
+    lsp: lsp.LspResource
+    formatter: formatter.FormatterResource
     with_raw_response: OpencodeSDKWithRawResponse
     with_streaming_response: OpencodeSDKWithStreamedResponse
 
@@ -135,6 +164,14 @@ class OpencodeSDK(SyncAPIClient):
         self.tui = tui.TuiResource(self)
         self.auth = auth.AuthResource(self)
         self.event = event.EventResource(self)
+        self.global_ = global_.GlobalResource(self)
+        self.pty = pty.PtyResource(self)
+        self.instance = instance.InstanceResource(self)
+        self.vcs = vcs.VcsResource(self)
+        self.provider = provider.ProviderResource(self)
+        self.remote_tool = remote_tool.RemoteToolResource(self)
+        self.lsp = lsp.LspResource(self)
+        self.formatter = formatter.FormatterResource(self)
         self.with_raw_response = OpencodeSDKWithRawResponse(self)
         self.with_streaming_response = OpencodeSDKWithStreamedResponse(self)
 
@@ -273,6 +310,14 @@ class AsyncOpencodeSDK(AsyncAPIClient):
     tui: tui.AsyncTuiResource
     auth: auth.AsyncAuthResource
     event: event.AsyncEventResource
+    global_: global_.AsyncGlobalResource
+    pty: pty.AsyncPtyResource
+    instance: instance.AsyncInstanceResource
+    vcs: vcs.AsyncVcsResource
+    provider: provider.AsyncProviderResource
+    remote_tool: remote_tool.AsyncRemoteToolResource
+    lsp: lsp.AsyncLspResource
+    formatter: formatter.AsyncFormatterResource
     with_raw_response: AsyncOpencodeSDKWithRawResponse
     with_streaming_response: AsyncOpencodeSDKWithStreamedResponse
 
@@ -348,6 +393,14 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         self.tui = tui.AsyncTuiResource(self)
         self.auth = auth.AsyncAuthResource(self)
         self.event = event.AsyncEventResource(self)
+        self.global_ = global_.AsyncGlobalResource(self)
+        self.pty = pty.AsyncPtyResource(self)
+        self.instance = instance.AsyncInstanceResource(self)
+        self.vcs = vcs.AsyncVcsResource(self)
+        self.provider = provider.AsyncProviderResource(self)
+        self.remote_tool = remote_tool.AsyncRemoteToolResource(self)
+        self.lsp = lsp.AsyncLspResource(self)
+        self.formatter = formatter.AsyncFormatterResource(self)
         self.with_raw_response = AsyncOpencodeSDKWithRawResponse(self)
         self.with_streaming_response = AsyncOpencodeSDKWithStreamedResponse(self)
 
@@ -487,6 +540,14 @@ class OpencodeSDKWithRawResponse:
         self.tui = tui.TuiResourceWithRawResponse(client.tui)
         self.auth = auth.AuthResourceWithRawResponse(client.auth)
         self.event = event.EventResourceWithRawResponse(client.event)
+        self.global_ = global_.GlobalResourceWithRawResponse(client.global_)
+        self.pty = pty.PtyResourceWithRawResponse(client.pty)
+        self.instance = instance.InstanceResourceWithRawResponse(client.instance)
+        self.vcs = vcs.VcsResourceWithRawResponse(client.vcs)
+        self.provider = provider.ProviderResourceWithRawResponse(client.provider)
+        self.remote_tool = remote_tool.RemoteToolResourceWithRawResponse(client.remote_tool)
+        self.lsp = lsp.LspResourceWithRawResponse(client.lsp)
+        self.formatter = formatter.FormatterResourceWithRawResponse(client.formatter)
 
 
 class AsyncOpencodeSDKWithRawResponse:
@@ -505,6 +566,14 @@ class AsyncOpencodeSDKWithRawResponse:
         self.tui = tui.AsyncTuiResourceWithRawResponse(client.tui)
         self.auth = auth.AsyncAuthResourceWithRawResponse(client.auth)
         self.event = event.AsyncEventResourceWithRawResponse(client.event)
+        self.global_ = global_.AsyncGlobalResourceWithRawResponse(client.global_)
+        self.pty = pty.AsyncPtyResourceWithRawResponse(client.pty)
+        self.instance = instance.AsyncInstanceResourceWithRawResponse(client.instance)
+        self.vcs = vcs.AsyncVcsResourceWithRawResponse(client.vcs)
+        self.provider = provider.AsyncProviderResourceWithRawResponse(client.provider)
+        self.remote_tool = remote_tool.AsyncRemoteToolResourceWithRawResponse(client.remote_tool)
+        self.lsp = lsp.AsyncLspResourceWithRawResponse(client.lsp)
+        self.formatter = formatter.AsyncFormatterResourceWithRawResponse(client.formatter)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -523,6 +592,14 @@ class OpencodeSDKWithStreamedResponse:
         self.tui = tui.TuiResourceWithStreamingResponse(client.tui)
         self.auth = auth.AuthResourceWithStreamingResponse(client.auth)
         self.event = event.EventResourceWithStreamingResponse(client.event)
+        self.global_ = global_.GlobalResourceWithStreamingResponse(client.global_)
+        self.pty = pty.PtyResourceWithStreamingResponse(client.pty)
+        self.instance = instance.InstanceResourceWithStreamingResponse(client.instance)
+        self.vcs = vcs.VcsResourceWithStreamingResponse(client.vcs)
+        self.provider = provider.ProviderResourceWithStreamingResponse(client.provider)
+        self.remote_tool = remote_tool.RemoteToolResourceWithStreamingResponse(client.remote_tool)
+        self.lsp = lsp.LspResourceWithStreamingResponse(client.lsp)
+        self.formatter = formatter.FormatterResourceWithStreamingResponse(client.formatter)
 
 
 class AsyncOpencodeSDKWithStreamedResponse:
@@ -541,6 +618,14 @@ class AsyncOpencodeSDKWithStreamedResponse:
         self.tui = tui.AsyncTuiResourceWithStreamingResponse(client.tui)
         self.auth = auth.AsyncAuthResourceWithStreamingResponse(client.auth)
         self.event = event.AsyncEventResourceWithStreamingResponse(client.event)
+        self.global_ = global_.AsyncGlobalResourceWithStreamingResponse(client.global_)
+        self.pty = pty.AsyncPtyResourceWithStreamingResponse(client.pty)
+        self.instance = instance.AsyncInstanceResourceWithStreamingResponse(client.instance)
+        self.vcs = vcs.AsyncVcsResourceWithStreamingResponse(client.vcs)
+        self.provider = provider.AsyncProviderResourceWithStreamingResponse(client.provider)
+        self.remote_tool = remote_tool.AsyncRemoteToolResourceWithStreamingResponse(client.remote_tool)
+        self.lsp = lsp.AsyncLspResourceWithStreamingResponse(client.lsp)
+        self.formatter = formatter.AsyncFormatterResourceWithStreamingResponse(client.formatter)
 
 
 Client = OpencodeSDK

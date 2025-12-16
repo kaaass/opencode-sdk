@@ -78,6 +78,7 @@ class TestFind:
         find = client.find.retrieve_file(
             query="query",
             directory="directory",
+            dirs="true",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
@@ -213,6 +214,7 @@ class TestAsyncFind:
         find = await async_client.find.retrieve_file(
             query="query",
             directory="directory",
+            dirs="true",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 

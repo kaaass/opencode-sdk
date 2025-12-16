@@ -1,7 +1,9 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Union, Optional
+from typing_extensions import Literal, TypeAlias
+
+from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
@@ -9,21 +11,105 @@ __all__ = [
     "ConfigListProvidersResponse",
     "Provider",
     "ProviderModels",
+    "ProviderModelsAPI",
+    "ProviderModelsCapabilities",
+    "ProviderModelsCapabilitiesInput",
+    "ProviderModelsCapabilitiesInterleaved",
+    "ProviderModelsCapabilitiesInterleavedField",
+    "ProviderModelsCapabilitiesOutput",
     "ProviderModelsCost",
+    "ProviderModelsCostCache",
+    "ProviderModelsCostExperimentalOver200K",
+    "ProviderModelsCostExperimentalOver200KCache",
     "ProviderModelsLimit",
-    "ProviderModelsModalities",
-    "ProviderModelsProvider",
 ]
 
 
-class ProviderModelsCost(BaseModel):
+class ProviderModelsAPI(BaseModel):
+    id: str
+
+    npm: str
+
+    url: str
+
+
+class ProviderModelsCapabilitiesInput(BaseModel):
+    audio: bool
+
+    image: bool
+
+    pdf: bool
+
+    text: bool
+
+    video: bool
+
+
+class ProviderModelsCapabilitiesInterleavedField(BaseModel):
+    field: Literal["reasoning_content", "reasoning_details"]
+
+
+ProviderModelsCapabilitiesInterleaved: TypeAlias = Union[bool, ProviderModelsCapabilitiesInterleavedField]
+
+
+class ProviderModelsCapabilitiesOutput(BaseModel):
+    audio: bool
+
+    image: bool
+
+    pdf: bool
+
+    text: bool
+
+    video: bool
+
+
+class ProviderModelsCapabilities(BaseModel):
+    attachment: bool
+
+    input: ProviderModelsCapabilitiesInput
+
+    interleaved: ProviderModelsCapabilitiesInterleaved
+
+    output: ProviderModelsCapabilitiesOutput
+
+    reasoning: bool
+
+    temperature: bool
+
+    toolcall: bool
+
+
+class ProviderModelsCostCache(BaseModel):
+    read: float
+
+    write: float
+
+
+class ProviderModelsCostExperimentalOver200KCache(BaseModel):
+    read: float
+
+    write: float
+
+
+class ProviderModelsCostExperimentalOver200K(BaseModel):
+    cache: ProviderModelsCostExperimentalOver200KCache
+
     input: float
 
     output: float
 
-    cache_read: Optional[float] = None
 
-    cache_write: Optional[float] = None
+class ProviderModelsCost(BaseModel):
+    cache: ProviderModelsCostCache
+
+    input: float
+
+    output: float
+
+    experimental_over200_k: Optional[ProviderModelsCostExperimentalOver200K] = FieldInfo(
+        alias="experimentalOver200K", default=None
+    )
 
 
 class ProviderModelsLimit(BaseModel):
@@ -32,22 +118,16 @@ class ProviderModelsLimit(BaseModel):
     output: float
 
 
-class ProviderModelsModalities(BaseModel):
-    input: List[Literal["text", "audio", "image", "video", "pdf"]]
-
-    output: List[Literal["text", "audio", "image", "video", "pdf"]]
-
-
-class ProviderModelsProvider(BaseModel):
-    npm: str
-
-
 class ProviderModels(BaseModel):
     id: str
 
-    attachment: bool
+    api: ProviderModelsAPI
+
+    capabilities: ProviderModelsCapabilities
 
     cost: ProviderModelsCost
+
+    headers: Dict[str, str]
 
     limit: ProviderModelsLimit
 
@@ -55,19 +135,13 @@ class ProviderModels(BaseModel):
 
     options: Dict[str, object]
 
-    reasoning: bool
+    provider_id: str = FieldInfo(alias="providerID")
 
     release_date: str
 
-    temperature: bool
+    status: Literal["alpha", "beta", "deprecated", "active"]
 
-    tool_call: bool
-
-    experimental: Optional[bool] = None
-
-    modalities: Optional[ProviderModelsModalities] = None
-
-    provider: Optional[ProviderModelsProvider] = None
+    family: Optional[str] = None
 
 
 class Provider(BaseModel):
@@ -79,9 +153,11 @@ class Provider(BaseModel):
 
     name: str
 
-    api: Optional[str] = None
+    options: Dict[str, object]
 
-    npm: Optional[str] = None
+    source: Literal["env", "config", "custom", "api"]
+
+    key: Optional[str] = None
 
 
 class ConfigListProvidersResponse(BaseModel):

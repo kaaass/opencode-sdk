@@ -6,7 +6,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import auth_update_credentials_params
+from ..types import auth_set_credentials_params, auth_remove_credentials_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,7 +18,8 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.auth_update_credentials_response import AuthUpdateCredentialsResponse
+from ..types.auth_set_credentials_response import AuthSetCredentialsResponse
+from ..types.auth_remove_credentials_response import AuthRemoveCredentialsResponse
 
 __all__ = ["AuthResource", "AsyncAuthResource"]
 
@@ -43,15 +44,10 @@ class AuthResource(SyncAPIResource):
         """
         return AuthResourceWithStreamingResponse(self)
 
-    @overload
-    def update_credentials(
+    def remove_credentials(
         self,
         id: str,
         *,
-        access: str,
-        expires: float,
-        refresh: str,
-        type: Literal["oauth"],
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -59,7 +55,53 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthRemoveCredentialsResponse:
+        """
+        Remove authentication credentials
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._delete(
+            f"/auth/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"directory": directory}, auth_remove_credentials_params.AuthRemoveCredentialsParams
+                ),
+            ),
+            cast_to=AuthRemoveCredentialsResponse,
+        )
+
+    @overload
+    def set_credentials(
+        self,
+        provider_id: str,
+        *,
+        access: str,
+        expires: float,
+        refresh: str,
+        type: Literal["oauth"],
+        directory: str | Omit = omit,
+        enterprise_url: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -75,9 +117,9 @@ class AuthResource(SyncAPIResource):
         ...
 
     @overload
-    def update_credentials(
+    def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         key: str,
         type: Literal["api"],
@@ -88,7 +130,7 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -104,9 +146,9 @@ class AuthResource(SyncAPIResource):
         ...
 
     @overload
-    def update_credentials(
+    def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         token: str,
         key: str,
@@ -118,7 +160,7 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -134,15 +176,16 @@ class AuthResource(SyncAPIResource):
         ...
 
     @required_args(["access", "expires", "refresh", "type"], ["key", "type"], ["token", "key", "type"])
-    def update_credentials(
+    def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         access: str | Omit = omit,
         expires: float | Omit = omit,
         refresh: str | Omit = omit,
         type: Literal["oauth"] | Literal["api"] | Literal["wellknown"],
         directory: str | Omit = omit,
+        enterprise_url: str | Omit = omit,
         key: str | Omit = omit,
         token: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -151,32 +194,31 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+    ) -> AuthSetCredentialsResponse:
+        if not provider_id:
+            raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._put(
-            f"/auth/{id}",
+            f"/auth/{provider_id}",
             body=maybe_transform(
                 {
                     "access": access,
                     "expires": expires,
                     "refresh": refresh,
                     "type": type,
+                    "enterprise_url": enterprise_url,
                     "key": key,
                     "token": token,
                 },
-                auth_update_credentials_params.AuthUpdateCredentialsParams,
+                auth_set_credentials_params.AuthSetCredentialsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {"directory": directory}, auth_update_credentials_params.AuthUpdateCredentialsParams
-                ),
+                query=maybe_transform({"directory": directory}, auth_set_credentials_params.AuthSetCredentialsParams),
             ),
-            cast_to=AuthUpdateCredentialsResponse,
+            cast_to=AuthSetCredentialsResponse,
         )
 
 
@@ -200,15 +242,10 @@ class AsyncAuthResource(AsyncAPIResource):
         """
         return AsyncAuthResourceWithStreamingResponse(self)
 
-    @overload
-    async def update_credentials(
+    async def remove_credentials(
         self,
         id: str,
         *,
-        access: str,
-        expires: float,
-        refresh: str,
-        type: Literal["oauth"],
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -216,7 +253,53 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthRemoveCredentialsResponse:
+        """
+        Remove authentication credentials
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._delete(
+            f"/auth/{id}",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"directory": directory}, auth_remove_credentials_params.AuthRemoveCredentialsParams
+                ),
+            ),
+            cast_to=AuthRemoveCredentialsResponse,
+        )
+
+    @overload
+    async def set_credentials(
+        self,
+        provider_id: str,
+        *,
+        access: str,
+        expires: float,
+        refresh: str,
+        type: Literal["oauth"],
+        directory: str | Omit = omit,
+        enterprise_url: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -232,9 +315,9 @@ class AsyncAuthResource(AsyncAPIResource):
         ...
 
     @overload
-    async def update_credentials(
+    async def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         key: str,
         type: Literal["api"],
@@ -245,7 +328,7 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -261,9 +344,9 @@ class AsyncAuthResource(AsyncAPIResource):
         ...
 
     @overload
-    async def update_credentials(
+    async def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         token: str,
         key: str,
@@ -275,7 +358,7 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
+    ) -> AuthSetCredentialsResponse:
         """
         Set authentication credentials
 
@@ -291,15 +374,16 @@ class AsyncAuthResource(AsyncAPIResource):
         ...
 
     @required_args(["access", "expires", "refresh", "type"], ["key", "type"], ["token", "key", "type"])
-    async def update_credentials(
+    async def set_credentials(
         self,
-        id: str,
+        provider_id: str,
         *,
         access: str | Omit = omit,
         expires: float | Omit = omit,
         refresh: str | Omit = omit,
         type: Literal["oauth"] | Literal["api"] | Literal["wellknown"],
         directory: str | Omit = omit,
+        enterprise_url: str | Omit = omit,
         key: str | Omit = omit,
         token: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -308,21 +392,22 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthUpdateCredentialsResponse:
-        if not id:
-            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+    ) -> AuthSetCredentialsResponse:
+        if not provider_id:
+            raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._put(
-            f"/auth/{id}",
+            f"/auth/{provider_id}",
             body=await async_maybe_transform(
                 {
                     "access": access,
                     "expires": expires,
                     "refresh": refresh,
                     "type": type,
+                    "enterprise_url": enterprise_url,
                     "key": key,
                     "token": token,
                 },
-                auth_update_credentials_params.AuthUpdateCredentialsParams,
+                auth_set_credentials_params.AuthSetCredentialsParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -330,10 +415,10 @@ class AsyncAuthResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, auth_update_credentials_params.AuthUpdateCredentialsParams
+                    {"directory": directory}, auth_set_credentials_params.AuthSetCredentialsParams
                 ),
             ),
-            cast_to=AuthUpdateCredentialsResponse,
+            cast_to=AuthSetCredentialsResponse,
         )
 
 
@@ -341,8 +426,11 @@ class AuthResourceWithRawResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
-        self.update_credentials = to_raw_response_wrapper(
-            auth.update_credentials,
+        self.remove_credentials = to_raw_response_wrapper(
+            auth.remove_credentials,
+        )
+        self.set_credentials = to_raw_response_wrapper(
+            auth.set_credentials,
         )
 
 
@@ -350,8 +438,11 @@ class AsyncAuthResourceWithRawResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
-        self.update_credentials = async_to_raw_response_wrapper(
-            auth.update_credentials,
+        self.remove_credentials = async_to_raw_response_wrapper(
+            auth.remove_credentials,
+        )
+        self.set_credentials = async_to_raw_response_wrapper(
+            auth.set_credentials,
         )
 
 
@@ -359,8 +450,11 @@ class AuthResourceWithStreamingResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
-        self.update_credentials = to_streamed_response_wrapper(
-            auth.update_credentials,
+        self.remove_credentials = to_streamed_response_wrapper(
+            auth.remove_credentials,
+        )
+        self.set_credentials = to_streamed_response_wrapper(
+            auth.set_credentials,
         )
 
 
@@ -368,6 +462,9 @@ class AsyncAuthResourceWithStreamingResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
-        self.update_credentials = async_to_streamed_response_wrapper(
-            auth.update_credentials,
+        self.remove_credentials = async_to_streamed_response_wrapper(
+            auth.remove_credentials,
+        )
+        self.set_credentials = async_to_streamed_response_wrapper(
+            auth.set_credentials,
         )

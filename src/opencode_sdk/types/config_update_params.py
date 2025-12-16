@@ -13,25 +13,36 @@ __all__ = [
     "Agent",
     "AgentBuild",
     "AgentBuildPermission",
+    "AgentCompaction",
+    "AgentCompactionPermission",
+    "AgentExplore",
+    "AgentExplorePermission",
     "AgentGeneral",
     "AgentGeneralPermission",
     "AgentPlan",
     "AgentPlanPermission",
+    "AgentSummary",
+    "AgentSummaryPermission",
+    "AgentTitle",
+    "AgentTitlePermission",
     "AgentAgentItem",
     "AgentAgentItemPermission",
     "Command",
+    "Enterprise",
     "Experimental",
     "ExperimentalHook",
     "ExperimentalHookFileEdited",
     "ExperimentalHookSessionCompleted",
-    "Formatter",
+    "FormatterUnionMember1FormatterUnionMember1Item",
     "Keybinds",
-    "Lsp",
-    "LspDisabled",
-    "LspUnionMember1",
+    "LspUnionMember1LspUnionMember1Item",
+    "LspUnionMember1LspUnionMember1ItemDisabled",
+    "LspUnionMember1LspUnionMember1ItemUnionMember1",
     "Mcp",
     "McpMcpLocalConfig",
     "McpMcpRemoteConfig",
+    "McpMcpRemoteConfigOAuth",
+    "McpMcpRemoteConfigOAuthMcpOAuthConfig",
     "Mode",
     "ModeBuild",
     "ModeBuildPermission",
@@ -43,11 +54,15 @@ __all__ = [
     "Provider",
     "ProviderModels",
     "ProviderModelsCost",
+    "ProviderModelsCostContextOver200k",
+    "ProviderModelsInterleaved",
+    "ProviderModelsInterleavedField",
     "ProviderModelsLimit",
     "ProviderModelsModalities",
     "ProviderModelsProvider",
     "ProviderOptions",
     "Tui",
+    "TuiScrollAcceleration",
     "Watcher",
 ]
 
@@ -67,8 +82,12 @@ class ConfigUpdateParams(TypedDict, total=False):
     Share newly created sessions automatically
     """
 
-    autoupdate: bool
-    """Automatically update to the latest version"""
+    autoupdate: Union[bool, Literal["notify"]]
+    """Automatically update to the latest version.
+
+    Set to true to auto-update, false to disable, or 'notify' to show update
+    notifications
+    """
 
     command: Dict[str, Command]
     """Command configuration, see https://opencode.ai/docs/commands"""
@@ -76,9 +95,17 @@ class ConfigUpdateParams(TypedDict, total=False):
     disabled_providers: SequenceNotStr[str]
     """Disable providers that are loaded automatically"""
 
+    enabled_providers: SequenceNotStr[str]
+    """When set, ONLY these providers will be enabled.
+
+    All other providers will be ignored
+    """
+
+    enterprise: Enterprise
+
     experimental: Experimental
 
-    formatter: Dict[str, Formatter]
+    formatter: Union[bool, Dict[str, FormatterUnionMember1FormatterUnionMember1Item]]
 
     instructions: SequenceNotStr[str]
     """Additional instruction files or patterns to include"""
@@ -89,7 +116,7 @@ class ConfigUpdateParams(TypedDict, total=False):
     layout: Literal["auto", "stretch"]
     """@deprecated Always uses stretch layout."""
 
-    lsp: Dict[str, Lsp]
+    lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item]]
 
     mcp: Dict[str, Mcp]
     """MCP (Model Context Protocol) server configurations"""
@@ -138,16 +165,26 @@ class ConfigUpdateParams(TypedDict, total=False):
 class AgentBuildPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class AgentBuildTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -167,19 +204,113 @@ class AgentBuildTyped(TypedDict, total=False):
 AgentBuild: TypeAlias = Union[AgentBuildTyped, Dict[str, object]]
 
 
+class AgentCompactionPermission(TypedDict, total=False):
+    bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    doom_loop: Literal["ask", "allow", "deny"]
+
+    edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
+
+    webfetch: Literal["ask", "allow", "deny"]
+
+
+class AgentCompactionTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
+    description: str
+    """Description of when to use the agent"""
+
+    disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
+
+    mode: Literal["subagent", "primary", "all"]
+
+    model: str
+
+    permission: AgentCompactionPermission
+
+    prompt: str
+
+    temperature: float
+
+    tools: Dict[str, bool]
+
+    top_p: float
+
+
+AgentCompaction: TypeAlias = Union[AgentCompactionTyped, Dict[str, object]]
+
+
+class AgentExplorePermission(TypedDict, total=False):
+    bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    doom_loop: Literal["ask", "allow", "deny"]
+
+    edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
+
+    webfetch: Literal["ask", "allow", "deny"]
+
+
+class AgentExploreTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
+    description: str
+    """Description of when to use the agent"""
+
+    disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
+
+    mode: Literal["subagent", "primary", "all"]
+
+    model: str
+
+    permission: AgentExplorePermission
+
+    prompt: str
+
+    temperature: float
+
+    tools: Dict[str, bool]
+
+    top_p: float
+
+
+AgentExplore: TypeAlias = Union[AgentExploreTyped, Dict[str, object]]
+
+
 class AgentGeneralPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class AgentGeneralTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -202,16 +333,26 @@ AgentGeneral: TypeAlias = Union[AgentGeneralTyped, Dict[str, object]]
 class AgentPlanPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class AgentPlanTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -231,19 +372,113 @@ class AgentPlanTyped(TypedDict, total=False):
 AgentPlan: TypeAlias = Union[AgentPlanTyped, Dict[str, object]]
 
 
+class AgentSummaryPermission(TypedDict, total=False):
+    bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    doom_loop: Literal["ask", "allow", "deny"]
+
+    edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
+
+    webfetch: Literal["ask", "allow", "deny"]
+
+
+class AgentSummaryTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
+    description: str
+    """Description of when to use the agent"""
+
+    disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
+
+    mode: Literal["subagent", "primary", "all"]
+
+    model: str
+
+    permission: AgentSummaryPermission
+
+    prompt: str
+
+    temperature: float
+
+    tools: Dict[str, bool]
+
+    top_p: float
+
+
+AgentSummary: TypeAlias = Union[AgentSummaryTyped, Dict[str, object]]
+
+
+class AgentTitlePermission(TypedDict, total=False):
+    bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    doom_loop: Literal["ask", "allow", "deny"]
+
+    edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
+
+    webfetch: Literal["ask", "allow", "deny"]
+
+
+class AgentTitleTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
+    description: str
+    """Description of when to use the agent"""
+
+    disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
+
+    mode: Literal["subagent", "primary", "all"]
+
+    model: str
+
+    permission: AgentTitlePermission
+
+    prompt: str
+
+    temperature: float
+
+    tools: Dict[str, bool]
+
+    top_p: float
+
+
+AgentTitle: TypeAlias = Union[AgentTitleTyped, Dict[str, object]]
+
+
 class AgentAgentItemPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class AgentAgentItemTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -264,11 +499,21 @@ AgentAgentItem: TypeAlias = Union[AgentAgentItemTyped, Dict[str, object]]
 
 
 class AgentTyped(TypedDict, total=False):
+    """Agent configuration, see https://opencode.ai/docs/agent"""
+
     build: AgentBuild
+
+    compaction: AgentCompaction
+
+    explore: AgentExplore
 
     general: AgentGeneral
 
     plan: AgentPlan
+
+    summary: AgentSummary
+
+    title: AgentTitle
 
 
 Agent: TypeAlias = Union[AgentTyped, Dict[str, AgentAgentItem]]
@@ -284,6 +529,11 @@ class Command(TypedDict, total=False):
     model: str
 
     subtask: bool
+
+
+class Enterprise(TypedDict, total=False):
+    url: str
+    """Enterprise URL"""
 
 
 class ExperimentalHookFileEdited(TypedDict, total=False):
@@ -305,12 +555,30 @@ class ExperimentalHook(TypedDict, total=False):
 
 
 class Experimental(TypedDict, total=False):
+    batch_tool: bool
+    """Enable the batch tool"""
+
+    chat_max_retries: Annotated[float, PropertyInfo(alias="chatMaxRetries")]
+    """Number of retries for chat completions on failure"""
+
+    continue_loop_on_deny: bool
+    """Continue the agent loop when a tool call is denied"""
+
     disable_paste_summary: bool
 
     hook: ExperimentalHook
 
+    open_telemetry: Annotated[bool, PropertyInfo(alias="openTelemetry")]
+    """
+    Enable OpenTelemetry spans for AI SDK calls (using the 'experimental_telemetry'
+    flag)
+    """
 
-class Formatter(TypedDict, total=False):
+    primary_tools: SequenceNotStr[str]
+    """Tools that should only be available to primary agents."""
+
+
+class FormatterUnionMember1FormatterUnionMember1Item(TypedDict, total=False):
     command: SequenceNotStr[str]
 
     disabled: bool
@@ -321,6 +589,8 @@ class Formatter(TypedDict, total=False):
 
 
 class Keybinds(TypedDict, total=False):
+    """Custom keybind configurations"""
+
     agent_cycle: str
     """Next agent"""
 
@@ -333,26 +603,65 @@ class Keybinds(TypedDict, total=False):
     app_exit: str
     """Exit the application"""
 
-    app_help: str
-    """Show help dialog"""
+    command_list: str
+    """List available commands"""
 
     editor_open: str
     """Open external editor"""
 
-    file_close: str
-    """@deprecated Close file"""
+    history_next: str
+    """Next history item"""
 
-    file_diff_toggle: str
-    """@deprecated Split/unified diff"""
+    history_previous: str
+    """Previous history item"""
 
-    file_list: str
-    """@deprecated Currently not available. List files"""
+    input_backspace: str
+    """Backspace in input"""
 
-    file_search: str
-    """@deprecated Search file"""
+    input_buffer_end: str
+    """Move to end of buffer in input"""
+
+    input_buffer_home: str
+    """Move to start of buffer in input"""
 
     input_clear: str
     """Clear input field"""
+
+    input_delete: str
+    """Delete character in input"""
+
+    input_delete_line: str
+    """Delete line in input"""
+
+    input_delete_to_line_end: str
+    """Delete to end of line in input"""
+
+    input_delete_to_line_start: str
+    """Delete to start of line in input"""
+
+    input_delete_word_backward: str
+    """Delete word backward in input"""
+
+    input_delete_word_forward: str
+    """Delete word forward in input"""
+
+    input_line_end: str
+    """Move to end of line in input"""
+
+    input_line_home: str
+    """Move to start of line in input"""
+
+    input_move_down: str
+    """Move cursor down in input"""
+
+    input_move_left: str
+    """Move cursor left in input"""
+
+    input_move_right: str
+    """Move cursor right in input"""
+
+    input_move_up: str
+    """Move cursor up in input"""
 
     input_newline: str
     """Insert newline in input"""
@@ -360,8 +669,62 @@ class Keybinds(TypedDict, total=False):
     input_paste: str
     """Paste from clipboard"""
 
+    input_redo: str
+    """Redo in input"""
+
+    input_select_buffer_end: str
+    """Select to end of buffer in input"""
+
+    input_select_buffer_home: str
+    """Select to start of buffer in input"""
+
+    input_select_down: str
+    """Select down in input"""
+
+    input_select_left: str
+    """Select left in input"""
+
+    input_select_line_end: str
+    """Select to end of line in input"""
+
+    input_select_line_home: str
+    """Select to start of line in input"""
+
+    input_select_right: str
+    """Select right in input"""
+
+    input_select_up: str
+    """Select up in input"""
+
+    input_select_visual_line_end: str
+    """Select to end of visual line in input"""
+
+    input_select_visual_line_home: str
+    """Select to start of visual line in input"""
+
+    input_select_word_backward: str
+    """Select word backward in input"""
+
+    input_select_word_forward: str
+    """Select word forward in input"""
+
     input_submit: str
     """Submit input"""
+
+    input_undo: str
+    """Undo in input"""
+
+    input_visual_line_end: str
+    """Move to end of visual line in input"""
+
+    input_visual_line_home: str
+    """Move to start of visual line in input"""
+
+    input_word_backward: str
+    """Move word backward in input"""
+
+    input_word_forward: str
+    """Move word forward in input"""
 
     leader: str
     """Leader key for keybind combinations"""
@@ -381,11 +744,8 @@ class Keybinds(TypedDict, total=False):
     messages_last: str
     """Navigate to last message"""
 
-    messages_layout_toggle: str
-    """@deprecated Toggle layout"""
-
-    messages_next: str
-    """@deprecated Navigate to next message"""
+    messages_last_user: str
+    """Navigate to last user message"""
 
     messages_page_down: str
     """Scroll messages down by one page"""
@@ -393,35 +753,38 @@ class Keybinds(TypedDict, total=False):
     messages_page_up: str
     """Scroll messages up by one page"""
 
-    messages_previous: str
-    """@deprecated Navigate to previous message"""
-
     messages_redo: str
     """Redo message"""
 
-    messages_revert: str
-    """@deprecated use messages_undo. Revert message"""
+    messages_toggle_conceal: str
+    """Toggle code block concealment in messages"""
 
     messages_undo: str
     """Undo message"""
 
+    model_cycle_favorite: str
+    """Next favorite model"""
+
+    model_cycle_favorite_reverse: str
+    """Previous favorite model"""
+
     model_cycle_recent: str
-    """Next recent model"""
+    """Next recently used model"""
 
     model_cycle_recent_reverse: str
-    """Previous recent model"""
+    """Previous recently used model"""
 
     model_list: str
     """List available models"""
 
-    project_init: str
-    """Create/update AGENTS.md"""
+    scrollbar_toggle: str
+    """Toggle session scrollbar"""
 
     session_child_cycle: str
-    """Cycle to next child session"""
+    """Next child session"""
 
     session_child_cycle_reverse: str
-    """Cycle to previous child session"""
+    """Previous child session"""
 
     session_compact: str
     """Compact the session"""
@@ -447,33 +810,30 @@ class Keybinds(TypedDict, total=False):
     session_unshare: str
     """Unshare current session"""
 
-    switch_agent: str
-    """@deprecated use agent_cycle. Next agent"""
+    sidebar_toggle: str
+    """Toggle sidebar"""
 
-    switch_agent_reverse: str
-    """@deprecated use agent_cycle_reverse. Previous agent"""
+    status_view: str
+    """View status"""
 
-    switch_mode: str
-    """@deprecated use agent_cycle. Next mode"""
-
-    switch_mode_reverse: str
-    """@deprecated use agent_cycle_reverse. Previous mode"""
+    terminal_suspend: str
+    """Suspend terminal"""
 
     theme_list: str
     """List available themes"""
 
-    thinking_blocks: str
-    """Toggle thinking blocks"""
-
     tool_details: str
-    """Toggle tool details"""
+    """Toggle tool details visibility"""
+
+    username_toggle: str
+    """Toggle username visibility"""
 
 
-class LspDisabled(TypedDict, total=False):
+class LspUnionMember1LspUnionMember1ItemDisabled(TypedDict, total=False):
     disabled: Required[Literal[True]]
 
 
-class LspUnionMember1(TypedDict, total=False):
+class LspUnionMember1LspUnionMember1ItemUnionMember1(TypedDict, total=False):
     command: Required[SequenceNotStr[str]]
 
     disabled: bool
@@ -485,7 +845,9 @@ class LspUnionMember1(TypedDict, total=False):
     initialization: Dict[str, object]
 
 
-Lsp: TypeAlias = Union[LspDisabled, LspUnionMember1]
+LspUnionMember1LspUnionMember1Item: TypeAlias = Union[
+    LspUnionMember1LspUnionMember1ItemDisabled, LspUnionMember1LspUnionMember1ItemUnionMember1
+]
 
 
 class McpMcpLocalConfig(TypedDict, total=False):
@@ -501,6 +863,29 @@ class McpMcpLocalConfig(TypedDict, total=False):
     environment: Dict[str, str]
     """Environment variables to set when running the MCP server"""
 
+    timeout: int
+    """Timeout in ms for fetching tools from the MCP server.
+
+    Defaults to 5000 (5 seconds) if not specified.
+    """
+
+
+class McpMcpRemoteConfigOAuthMcpOAuthConfig(TypedDict, total=False):
+    client_id: Annotated[str, PropertyInfo(alias="clientId")]
+    """OAuth client ID.
+
+    If not provided, dynamic client registration (RFC 7591) will be attempted.
+    """
+
+    client_secret: Annotated[str, PropertyInfo(alias="clientSecret")]
+    """OAuth client secret (if required by the authorization server)"""
+
+    scope: str
+    """OAuth scopes to request during authorization"""
+
+
+McpMcpRemoteConfigOAuth: TypeAlias = Union[McpMcpRemoteConfigOAuthMcpOAuthConfig, bool]
+
 
 class McpMcpRemoteConfig(TypedDict, total=False):
     type: Required[Literal["remote"]]
@@ -515,6 +900,18 @@ class McpMcpRemoteConfig(TypedDict, total=False):
     headers: Dict[str, str]
     """Headers to send with the request"""
 
+    oauth: McpMcpRemoteConfigOAuth
+    """OAuth authentication configuration for the MCP server.
+
+    Set to false to disable OAuth auto-detection.
+    """
+
+    timeout: int
+    """Timeout in ms for fetching tools from the MCP server.
+
+    Defaults to 5000 (5 seconds) if not specified.
+    """
+
 
 Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig]
 
@@ -522,16 +919,26 @@ Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig]
 class ModeBuildPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class ModeBuildTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -554,16 +961,26 @@ ModeBuild: TypeAlias = Union[ModeBuildTyped, Dict[str, object]]
 class ModePlanPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class ModePlanTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -586,16 +1003,26 @@ ModePlan: TypeAlias = Union[ModePlanTyped, Dict[str, object]]
 class ModeModeItemPermission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
+
+    external_directory: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
 
 
 class ModeModeItemTyped(TypedDict, total=False):
+    color: str
+    """Hex color code for the agent (e.g., #FF5733)"""
+
     description: str
     """Description of when to use the agent"""
 
     disable: bool
+
+    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     mode: Literal["subagent", "primary", "all"]
 
@@ -616,6 +1043,8 @@ ModeModeItem: TypeAlias = Union[ModeModeItemTyped, Dict[str, object]]
 
 
 class ModeTyped(TypedDict, total=False):
+    """@deprecated Use `agent` field instead."""
+
     build: ModeBuild
 
     plan: ModePlan
@@ -627,9 +1056,23 @@ Mode: TypeAlias = Union[ModeTyped, Dict[str, ModeModeItem]]
 class Permission(TypedDict, total=False):
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
+    doom_loop: Literal["ask", "allow", "deny"]
+
     edit: Literal["ask", "allow", "deny"]
 
+    external_directory: Literal["ask", "allow", "deny"]
+
     webfetch: Literal["ask", "allow", "deny"]
+
+
+class ProviderModelsCostContextOver200k(TypedDict, total=False):
+    input: Required[float]
+
+    output: Required[float]
+
+    cache_read: float
+
+    cache_write: float
 
 
 class ProviderModelsCost(TypedDict, total=False):
@@ -640,6 +1083,15 @@ class ProviderModelsCost(TypedDict, total=False):
     cache_read: float
 
     cache_write: float
+
+    context_over_200k: ProviderModelsCostContextOver200k
+
+
+class ProviderModelsInterleavedField(TypedDict, total=False):
+    field: Required[Literal["reasoning_content", "reasoning_details"]]
+
+
+ProviderModelsInterleaved: TypeAlias = Union[Literal[True], ProviderModelsInterleavedField]
 
 
 class ProviderModelsLimit(TypedDict, total=False):
@@ -667,6 +1119,12 @@ class ProviderModels(TypedDict, total=False):
 
     experimental: bool
 
+    family: str
+
+    headers: Dict[str, str]
+
+    interleaved: ProviderModelsInterleaved
+
     limit: ProviderModelsLimit
 
     modalities: ProviderModelsModalities
@@ -681,6 +1139,8 @@ class ProviderModels(TypedDict, total=False):
 
     release_date: str
 
+    status: Literal["alpha", "beta", "deprecated"]
+
     temperature: bool
 
     tool_call: bool
@@ -690,6 +1150,12 @@ class ProviderOptionsTyped(TypedDict, total=False):
     api_key: Annotated[str, PropertyInfo(alias="apiKey")]
 
     base_url: Annotated[str, PropertyInfo(alias="baseURL")]
+
+    enterprise_url: Annotated[str, PropertyInfo(alias="enterpriseUrl")]
+    """GitHub Enterprise URL for copilot authentication"""
+
+    set_cache_key: Annotated[bool, PropertyInfo(alias="setCacheKey")]
+    """Enable promptCacheKey for this provider (default false)"""
 
     timeout: Union[int, bool]
     """Timeout in milliseconds for requests to this provider.
@@ -706,6 +1172,8 @@ class Provider(TypedDict, total=False):
 
     api: str
 
+    blacklist: SequenceNotStr[str]
+
     env: SequenceNotStr[str]
 
     models: Dict[str, ProviderModels]
@@ -716,8 +1184,28 @@ class Provider(TypedDict, total=False):
 
     options: ProviderOptions
 
+    whitelist: SequenceNotStr[str]
+
+
+class TuiScrollAcceleration(TypedDict, total=False):
+    """Scroll acceleration settings"""
+
+    enabled: Required[bool]
+    """Enable scroll acceleration"""
+
 
 class Tui(TypedDict, total=False):
+    """TUI specific settings"""
+
+    diff_style: Literal["auto", "stacked"]
+    """
+    Control diff rendering style: 'auto' adapts to terminal width, 'stacked' always
+    shows single column
+    """
+
+    scroll_acceleration: TuiScrollAcceleration
+    """Scroll acceleration settings"""
+
     scroll_speed: float
     """TUI scroll speed"""
 
