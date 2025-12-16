@@ -115,10 +115,11 @@ from opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
 
-config = client.config.update(
-    agent={},
+project = client.project.update(
+    project_id="projectID",
+    icon={},
 )
-print(config.agent)
+print(project.icon)
 ```
 
 ## Handling errors

@@ -1,4 +1,4 @@
-configured_endpoints: 32
+configured_endpoints: 88
 openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/kaaass%2Fopencode-sdk-dc065d96c3906e3710ed5f5363c3cafb519b6ac5b2982f33bc94ea2f2a5011b6.yml
 openapi_spec_hash: 2ae6b7dce4ca84645a6bf40bf8668cf1
-config_hash: c8d1a59785dc22f483c155936d1072c2
+config_hash: d4f872a42e028593c282e5c107c924bb
