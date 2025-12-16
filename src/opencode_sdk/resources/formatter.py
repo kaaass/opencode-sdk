@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import mcp_retrieve_params
+from ..types import formatter_retrieve_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -16,30 +16,30 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.mcp_retrieve_response import McpRetrieveResponse
+from ..types.formatter_retrieve_response import FormatterRetrieveResponse
 
-__all__ = ["McpResource", "AsyncMcpResource"]
+__all__ = ["FormatterResource", "AsyncFormatterResource"]
 
 
-class McpResource(SyncAPIResource):
+class FormatterResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> McpResourceWithRawResponse:
+    def with_raw_response(self) -> FormatterResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return McpResourceWithRawResponse(self)
+        return FormatterResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> McpResourceWithStreamingResponse:
+    def with_streaming_response(self) -> FormatterResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return McpResourceWithStreamingResponse(self)
+        return FormatterResourceWithStreamingResponse(self)
 
     def retrieve(
         self,
@@ -51,9 +51,9 @@ class McpResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpRetrieveResponse:
+    ) -> FormatterRetrieveResponse:
         """
-        Get the status of all Model Context Protocol (MCP) servers.
+        Get formatter status
 
         Args:
           extra_headers: Send extra headers
@@ -65,37 +65,37 @@ class McpResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._get(
-            "/mcp",
+            "/formatter",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, mcp_retrieve_params.McpRetrieveParams),
+                query=maybe_transform({"directory": directory}, formatter_retrieve_params.FormatterRetrieveParams),
             ),
-            cast_to=McpRetrieveResponse,
+            cast_to=FormatterRetrieveResponse,
         )
 
 
-class AsyncMcpResource(AsyncAPIResource):
+class AsyncFormatterResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncMcpResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncFormatterResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncMcpResourceWithRawResponse(self)
+        return AsyncFormatterResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncMcpResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncFormatterResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return AsyncMcpResourceWithStreamingResponse(self)
+        return AsyncFormatterResourceWithStreamingResponse(self)
 
     async def retrieve(
         self,
@@ -107,9 +107,9 @@ class AsyncMcpResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> McpRetrieveResponse:
+    ) -> FormatterRetrieveResponse:
         """
-        Get the status of all Model Context Protocol (MCP) servers.
+        Get formatter status
 
         Args:
           extra_headers: Send extra headers
@@ -121,49 +121,51 @@ class AsyncMcpResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._get(
-            "/mcp",
+            "/formatter",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, mcp_retrieve_params.McpRetrieveParams),
+                query=await async_maybe_transform(
+                    {"directory": directory}, formatter_retrieve_params.FormatterRetrieveParams
+                ),
             ),
-            cast_to=McpRetrieveResponse,
+            cast_to=FormatterRetrieveResponse,
         )
 
 
-class McpResourceWithRawResponse:
-    def __init__(self, mcp: McpResource) -> None:
-        self._mcp = mcp
+class FormatterResourceWithRawResponse:
+    def __init__(self, formatter: FormatterResource) -> None:
+        self._formatter = formatter
 
         self.retrieve = to_raw_response_wrapper(
-            mcp.retrieve,
+            formatter.retrieve,
         )
 
 
-class AsyncMcpResourceWithRawResponse:
-    def __init__(self, mcp: AsyncMcpResource) -> None:
-        self._mcp = mcp
+class AsyncFormatterResourceWithRawResponse:
+    def __init__(self, formatter: AsyncFormatterResource) -> None:
+        self._formatter = formatter
 
         self.retrieve = async_to_raw_response_wrapper(
-            mcp.retrieve,
+            formatter.retrieve,
         )
 
 
-class McpResourceWithStreamingResponse:
-    def __init__(self, mcp: McpResource) -> None:
-        self._mcp = mcp
+class FormatterResourceWithStreamingResponse:
+    def __init__(self, formatter: FormatterResource) -> None:
+        self._formatter = formatter
 
         self.retrieve = to_streamed_response_wrapper(
-            mcp.retrieve,
+            formatter.retrieve,
         )
 
 
-class AsyncMcpResourceWithStreamingResponse:
-    def __init__(self, mcp: AsyncMcpResource) -> None:
-        self._mcp = mcp
+class AsyncFormatterResourceWithStreamingResponse:
+    def __init__(self, formatter: AsyncFormatterResource) -> None:
+        self._formatter = formatter
 
         self.retrieve = async_to_streamed_response_wrapper(
-            mcp.retrieve,
+            formatter.retrieve,
         )

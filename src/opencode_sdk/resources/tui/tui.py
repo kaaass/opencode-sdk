@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from typing_extensions import Literal
+from typing_extensions import Literal, overload
 
 import httpx
 
-from ..types import (
+from ...types import (
     tui_open_help_params,
     tui_show_toast_params,
     tui_open_models_params,
@@ -14,34 +14,48 @@ from ..types import (
     tui_clear_prompt_params,
     tui_append_prompt_params,
     tui_open_sessions_params,
+    tui_publish_event_params,
     tui_submit_prompt_params,
     tui_execute_command_params,
 )
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
-from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
-from .._response import (
+from .control import (
+    ControlResource,
+    AsyncControlResource,
+    ControlResourceWithRawResponse,
+    AsyncControlResourceWithRawResponse,
+    ControlResourceWithStreamingResponse,
+    AsyncControlResourceWithStreamingResponse,
+)
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from ..._utils import required_args, maybe_transform, async_maybe_transform
+from ..._compat import cached_property
+from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._response import (
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from .._base_client import make_request_options
-from ..types.tui_open_help_response import TuiOpenHelpResponse
-from ..types.tui_show_toast_response import TuiShowToastResponse
-from ..types.tui_open_models_response import TuiOpenModelsResponse
-from ..types.tui_open_themes_response import TuiOpenThemesResponse
-from ..types.tui_clear_prompt_response import TuiClearPromptResponse
-from ..types.tui_append_prompt_response import TuiAppendPromptResponse
-from ..types.tui_open_sessions_response import TuiOpenSessionsResponse
-from ..types.tui_submit_prompt_response import TuiSubmitPromptResponse
-from ..types.tui_execute_command_response import TuiExecuteCommandResponse
+from ..._base_client import make_request_options
+from ...types.tui_open_help_response import TuiOpenHelpResponse
+from ...types.tui_show_toast_response import TuiShowToastResponse
+from ...types.tui_open_models_response import TuiOpenModelsResponse
+from ...types.tui_open_themes_response import TuiOpenThemesResponse
+from ...types.tui_clear_prompt_response import TuiClearPromptResponse
+from ...types.tui_append_prompt_response import TuiAppendPromptResponse
+from ...types.tui_open_sessions_response import TuiOpenSessionsResponse
+from ...types.tui_publish_event_response import TuiPublishEventResponse
+from ...types.tui_submit_prompt_response import TuiSubmitPromptResponse
+from ...types.tui_execute_command_response import TuiExecuteCommandResponse
 
 __all__ = ["TuiResource", "AsyncTuiResource"]
 
 
 class TuiResource(SyncAPIResource):
+    @cached_property
+    def control(self) -> ControlResource:
+        return ControlResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> TuiResourceWithRawResponse:
         """
@@ -311,6 +325,125 @@ class TuiResource(SyncAPIResource):
             cast_to=TuiOpenThemesResponse,
         )
 
+    @overload
+    def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiPromptAppendProperties,
+        type: Literal["tui.prompt.append"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiCommandExecuteProperties,
+        type: Literal["tui.command.execute"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiToastShowProperties,
+        type: Literal["tui.toast.show"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["properties", "type"])
+    def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiPromptAppendProperties
+        | tui_publish_event_params.EventTuiCommandExecuteProperties
+        | tui_publish_event_params.EventTuiToastShowProperties,
+        type: Literal["tui.prompt.append"] | Literal["tui.command.execute"] | Literal["tui.toast.show"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        return self._post(
+            "/tui/publish",
+            body=maybe_transform(
+                {
+                    "properties": properties,
+                    "type": type,
+                },
+                tui_publish_event_params.TuiPublishEventParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"directory": directory}, tui_publish_event_params.TuiPublishEventParams),
+            ),
+            cast_to=TuiPublishEventResponse,
+        )
+
     def show_toast(
         self,
         *,
@@ -398,6 +531,10 @@ class TuiResource(SyncAPIResource):
 
 
 class AsyncTuiResource(AsyncAPIResource):
+    @cached_property
+    def control(self) -> AsyncControlResource:
+        return AsyncControlResource(self._client)
+
     @cached_property
     def with_raw_response(self) -> AsyncTuiResourceWithRawResponse:
         """
@@ -675,6 +812,127 @@ class AsyncTuiResource(AsyncAPIResource):
             cast_to=TuiOpenThemesResponse,
         )
 
+    @overload
+    async def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiPromptAppendProperties,
+        type: Literal["tui.prompt.append"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiCommandExecuteProperties,
+        type: Literal["tui.command.execute"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @overload
+    async def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiToastShowProperties,
+        type: Literal["tui.toast.show"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
+    @required_args(["properties", "type"])
+    async def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiPromptAppendProperties
+        | tui_publish_event_params.EventTuiCommandExecuteProperties
+        | tui_publish_event_params.EventTuiToastShowProperties,
+        type: Literal["tui.prompt.append"] | Literal["tui.command.execute"] | Literal["tui.toast.show"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        return await self._post(
+            "/tui/publish",
+            body=await async_maybe_transform(
+                {
+                    "properties": properties,
+                    "type": type,
+                },
+                tui_publish_event_params.TuiPublishEventParams,
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"directory": directory}, tui_publish_event_params.TuiPublishEventParams
+                ),
+            ),
+            cast_to=TuiPublishEventResponse,
+        )
+
     async def show_toast(
         self,
         *,
@@ -788,12 +1046,19 @@ class TuiResourceWithRawResponse:
         self.open_themes = to_raw_response_wrapper(
             tui.open_themes,
         )
+        self.publish_event = to_raw_response_wrapper(
+            tui.publish_event,
+        )
         self.show_toast = to_raw_response_wrapper(
             tui.show_toast,
         )
         self.submit_prompt = to_raw_response_wrapper(
             tui.submit_prompt,
         )
+
+    @cached_property
+    def control(self) -> ControlResourceWithRawResponse:
+        return ControlResourceWithRawResponse(self._tui.control)
 
 
 class AsyncTuiResourceWithRawResponse:
@@ -821,12 +1086,19 @@ class AsyncTuiResourceWithRawResponse:
         self.open_themes = async_to_raw_response_wrapper(
             tui.open_themes,
         )
+        self.publish_event = async_to_raw_response_wrapper(
+            tui.publish_event,
+        )
         self.show_toast = async_to_raw_response_wrapper(
             tui.show_toast,
         )
         self.submit_prompt = async_to_raw_response_wrapper(
             tui.submit_prompt,
         )
+
+    @cached_property
+    def control(self) -> AsyncControlResourceWithRawResponse:
+        return AsyncControlResourceWithRawResponse(self._tui.control)
 
 
 class TuiResourceWithStreamingResponse:
@@ -854,12 +1126,19 @@ class TuiResourceWithStreamingResponse:
         self.open_themes = to_streamed_response_wrapper(
             tui.open_themes,
         )
+        self.publish_event = to_streamed_response_wrapper(
+            tui.publish_event,
+        )
         self.show_toast = to_streamed_response_wrapper(
             tui.show_toast,
         )
         self.submit_prompt = to_streamed_response_wrapper(
             tui.submit_prompt,
         )
+
+    @cached_property
+    def control(self) -> ControlResourceWithStreamingResponse:
+        return ControlResourceWithStreamingResponse(self._tui.control)
 
 
 class AsyncTuiResourceWithStreamingResponse:
@@ -887,9 +1166,16 @@ class AsyncTuiResourceWithStreamingResponse:
         self.open_themes = async_to_streamed_response_wrapper(
             tui.open_themes,
         )
+        self.publish_event = async_to_streamed_response_wrapper(
+            tui.publish_event,
+        )
         self.show_toast = async_to_streamed_response_wrapper(
             tui.show_toast,
         )
         self.submit_prompt = async_to_streamed_response_wrapper(
             tui.submit_prompt,
         )
+
+    @cached_property
+    def control(self) -> AsyncControlResourceWithStreamingResponse:
+        return AsyncControlResourceWithStreamingResponse(self._tui.control)
