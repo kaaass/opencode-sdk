@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable
+from typing import Any, Dict, Iterable, cast
 from typing_extensions import Literal
 
 import httpx
@@ -31,6 +31,7 @@ from ...types import (
     session_get_children_params,
     session_send_command_params,
     session_revert_message_params,
+    session_retrieve_status_params,
     session_run_shell_command_params,
     session_send_async_message_params,
     session_submit_tool_results_params,
@@ -67,6 +68,7 @@ from ...types.session_get_status_response import SessionGetStatusResponse
 from ...types.session_initialize_response import SessionInitializeResponse
 from ...types.session_get_children_response import SessionGetChildrenResponse
 from ...types.session_send_command_response import SessionSendCommandResponse
+from ...types.session_retrieve_status_response import SessionRetrieveStatusResponse
 from ...types.session_run_shell_command_response import SessionRunShellCommandResponse
 from ...types.session_submit_tool_results_response import SessionSubmitToolResultsResponse
 from ...types.session_respond_to_permission_response import SessionRespondToPermissionResponse
@@ -678,6 +680,52 @@ class SessionResource(SyncAPIResource):
                 ),
             ),
             cast_to=Session,
+        )
+
+    def retrieve_status(
+        self,
+        session_id: str,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionRetrieveStatusResponse:
+        """
+        Retrieve the current status of a specific session (idle, busy, retry, or
+        wait-tool-result).
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return cast(
+            SessionRetrieveStatusResponse,
+            self._get(
+                f"/session/{session_id}/status",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=maybe_transform(
+                        {"directory": directory}, session_retrieve_status_params.SessionRetrieveStatusParams
+                    ),
+                ),
+                cast_to=cast(
+                    Any, SessionRetrieveStatusResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
         )
 
     def revert_message(
@@ -1610,6 +1658,52 @@ class AsyncSessionResource(AsyncAPIResource):
             cast_to=Session,
         )
 
+    async def retrieve_status(
+        self,
+        session_id: str,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionRetrieveStatusResponse:
+        """
+        Retrieve the current status of a specific session (idle, busy, retry, or
+        wait-tool-result).
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return cast(
+            SessionRetrieveStatusResponse,
+            await self._get(
+                f"/session/{session_id}/status",
+                options=make_request_options(
+                    extra_headers=extra_headers,
+                    extra_query=extra_query,
+                    extra_body=extra_body,
+                    timeout=timeout,
+                    query=await async_maybe_transform(
+                        {"directory": directory}, session_retrieve_status_params.SessionRetrieveStatusParams
+                    ),
+                ),
+                cast_to=cast(
+                    Any, SessionRetrieveStatusResponse
+                ),  # Union types cannot be passed in as arguments in the type system
+            ),
+        )
+
     async def revert_message(
         self,
         session_id: str,
@@ -1974,6 +2068,9 @@ class SessionResourceWithRawResponse:
         self.restore_reverted_messages = to_raw_response_wrapper(
             session.restore_reverted_messages,
         )
+        self.retrieve_status = to_raw_response_wrapper(
+            session.retrieve_status,
+        )
         self.revert_message = to_raw_response_wrapper(
             session.revert_message,
         )
@@ -2047,6 +2144,9 @@ class AsyncSessionResourceWithRawResponse:
         )
         self.restore_reverted_messages = async_to_raw_response_wrapper(
             session.restore_reverted_messages,
+        )
+        self.retrieve_status = async_to_raw_response_wrapper(
+            session.retrieve_status,
         )
         self.revert_message = async_to_raw_response_wrapper(
             session.revert_message,
@@ -2122,6 +2222,9 @@ class SessionResourceWithStreamingResponse:
         self.restore_reverted_messages = to_streamed_response_wrapper(
             session.restore_reverted_messages,
         )
+        self.retrieve_status = to_streamed_response_wrapper(
+            session.retrieve_status,
+        )
         self.revert_message = to_streamed_response_wrapper(
             session.revert_message,
         )
@@ -2195,6 +2298,9 @@ class AsyncSessionResourceWithStreamingResponse:
         )
         self.restore_reverted_messages = async_to_streamed_response_wrapper(
             session.restore_reverted_messages,
+        )
+        self.retrieve_status = async_to_streamed_response_wrapper(
+            session.retrieve_status,
         )
         self.revert_message = async_to_streamed_response_wrapper(
             session.revert_message,

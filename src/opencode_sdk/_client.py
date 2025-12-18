@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -21,26 +21,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import (
-    log,
-    lsp,
-    pty,
-    vcs,
-    auth,
-    file,
-    find,
-    path,
-    agent,
-    event,
-    config,
-    command,
-    global_,
-    project,
-    instance,
-    formatter,
-    remote_tool,
-)
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -48,11 +30,54 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.mcp import mcp
-from .resources.tui import tui
-from .resources.session import session
-from .resources.provider import provider
-from .resources.experimental import experimental
+
+if TYPE_CHECKING:
+    from .resources import (
+        log,
+        lsp,
+        mcp,
+        pty,
+        tui,
+        vcs,
+        auth,
+        file,
+        find,
+        path,
+        agent,
+        event,
+        config,
+        command,
+        global_,
+        project,
+        session,
+        instance,
+        provider,
+        formatter,
+        remote_tool,
+        experimental,
+    )
+    from .resources.log import LogResource, AsyncLogResource
+    from .resources.lsp import LspResource, AsyncLspResource
+    from .resources.pty import PtyResource, AsyncPtyResource
+    from .resources.vcs import VcsResource, AsyncVcsResource
+    from .resources.auth import AuthResource, AsyncAuthResource
+    from .resources.file import FileResource, AsyncFileResource
+    from .resources.find import FindResource, AsyncFindResource
+    from .resources.path import PathResource, AsyncPathResource
+    from .resources.agent import AgentResource, AsyncAgentResource
+    from .resources.event import EventResource, AsyncEventResource
+    from .resources.config import ConfigResource, AsyncConfigResource
+    from .resources.command import CommandResource, AsyncCommandResource
+    from .resources.global_ import GlobalResource, AsyncGlobalResource
+    from .resources.mcp.mcp import McpResource, AsyncMcpResource
+    from .resources.project import ProjectResource, AsyncProjectResource
+    from .resources.tui.tui import TuiResource, AsyncTuiResource
+    from .resources.instance import InstanceResource, AsyncInstanceResource
+    from .resources.formatter import FormatterResource, AsyncFormatterResource
+    from .resources.remote_tool import RemoteToolResource, AsyncRemoteToolResource
+    from .resources.session.session import SessionResource, AsyncSessionResource
+    from .resources.provider.provider import ProviderResource, AsyncProviderResource
+    from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource
 
 __all__ = [
     "Timeout",
@@ -67,31 +92,6 @@ __all__ = [
 
 
 class OpencodeSDK(SyncAPIClient):
-    project: project.ProjectResource
-    config: config.ConfigResource
-    experimental: experimental.ExperimentalResource
-    path: path.PathResource
-    session: session.SessionResource
-    command: command.CommandResource
-    find: find.FindResource
-    file: file.FileResource
-    log: log.LogResource
-    agent: agent.AgentResource
-    mcp: mcp.McpResource
-    tui: tui.TuiResource
-    auth: auth.AuthResource
-    event: event.EventResource
-    global_: global_.GlobalResource
-    pty: pty.PtyResource
-    instance: instance.InstanceResource
-    vcs: vcs.VcsResource
-    provider: provider.ProviderResource
-    remote_tool: remote_tool.RemoteToolResource
-    lsp: lsp.LspResource
-    formatter: formatter.FormatterResource
-    with_raw_response: OpencodeSDKWithRawResponse
-    with_streaming_response: OpencodeSDKWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -150,30 +150,145 @@ class OpencodeSDK(SyncAPIClient):
 
         self._default_stream_cls = Stream
 
-        self.project = project.ProjectResource(self)
-        self.config = config.ConfigResource(self)
-        self.experimental = experimental.ExperimentalResource(self)
-        self.path = path.PathResource(self)
-        self.session = session.SessionResource(self)
-        self.command = command.CommandResource(self)
-        self.find = find.FindResource(self)
-        self.file = file.FileResource(self)
-        self.log = log.LogResource(self)
-        self.agent = agent.AgentResource(self)
-        self.mcp = mcp.McpResource(self)
-        self.tui = tui.TuiResource(self)
-        self.auth = auth.AuthResource(self)
-        self.event = event.EventResource(self)
-        self.global_ = global_.GlobalResource(self)
-        self.pty = pty.PtyResource(self)
-        self.instance = instance.InstanceResource(self)
-        self.vcs = vcs.VcsResource(self)
-        self.provider = provider.ProviderResource(self)
-        self.remote_tool = remote_tool.RemoteToolResource(self)
-        self.lsp = lsp.LspResource(self)
-        self.formatter = formatter.FormatterResource(self)
-        self.with_raw_response = OpencodeSDKWithRawResponse(self)
-        self.with_streaming_response = OpencodeSDKWithStreamedResponse(self)
+    @cached_property
+    def project(self) -> ProjectResource:
+        from .resources.project import ProjectResource
+
+        return ProjectResource(self)
+
+    @cached_property
+    def config(self) -> ConfigResource:
+        from .resources.config import ConfigResource
+
+        return ConfigResource(self)
+
+    @cached_property
+    def experimental(self) -> ExperimentalResource:
+        from .resources.experimental import ExperimentalResource
+
+        return ExperimentalResource(self)
+
+    @cached_property
+    def path(self) -> PathResource:
+        from .resources.path import PathResource
+
+        return PathResource(self)
+
+    @cached_property
+    def session(self) -> SessionResource:
+        from .resources.session import SessionResource
+
+        return SessionResource(self)
+
+    @cached_property
+    def command(self) -> CommandResource:
+        from .resources.command import CommandResource
+
+        return CommandResource(self)
+
+    @cached_property
+    def find(self) -> FindResource:
+        from .resources.find import FindResource
+
+        return FindResource(self)
+
+    @cached_property
+    def file(self) -> FileResource:
+        from .resources.file import FileResource
+
+        return FileResource(self)
+
+    @cached_property
+    def log(self) -> LogResource:
+        from .resources.log import LogResource
+
+        return LogResource(self)
+
+    @cached_property
+    def agent(self) -> AgentResource:
+        from .resources.agent import AgentResource
+
+        return AgentResource(self)
+
+    @cached_property
+    def mcp(self) -> McpResource:
+        from .resources.mcp import McpResource
+
+        return McpResource(self)
+
+    @cached_property
+    def tui(self) -> TuiResource:
+        from .resources.tui import TuiResource
+
+        return TuiResource(self)
+
+    @cached_property
+    def auth(self) -> AuthResource:
+        from .resources.auth import AuthResource
+
+        return AuthResource(self)
+
+    @cached_property
+    def event(self) -> EventResource:
+        from .resources.event import EventResource
+
+        return EventResource(self)
+
+    @cached_property
+    def global_(self) -> GlobalResource:
+        from .resources.global_ import GlobalResource
+
+        return GlobalResource(self)
+
+    @cached_property
+    def pty(self) -> PtyResource:
+        from .resources.pty import PtyResource
+
+        return PtyResource(self)
+
+    @cached_property
+    def instance(self) -> InstanceResource:
+        from .resources.instance import InstanceResource
+
+        return InstanceResource(self)
+
+    @cached_property
+    def vcs(self) -> VcsResource:
+        from .resources.vcs import VcsResource
+
+        return VcsResource(self)
+
+    @cached_property
+    def provider(self) -> ProviderResource:
+        from .resources.provider import ProviderResource
+
+        return ProviderResource(self)
+
+    @cached_property
+    def remote_tool(self) -> RemoteToolResource:
+        from .resources.remote_tool import RemoteToolResource
+
+        return RemoteToolResource(self)
+
+    @cached_property
+    def lsp(self) -> LspResource:
+        from .resources.lsp import LspResource
+
+        return LspResource(self)
+
+    @cached_property
+    def formatter(self) -> FormatterResource:
+        from .resources.formatter import FormatterResource
+
+        return FormatterResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> OpencodeSDKWithRawResponse:
+        return OpencodeSDKWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> OpencodeSDKWithStreamedResponse:
+        return OpencodeSDKWithStreamedResponse(self)
 
     @property
     @override
@@ -296,31 +411,6 @@ class OpencodeSDK(SyncAPIClient):
 
 
 class AsyncOpencodeSDK(AsyncAPIClient):
-    project: project.AsyncProjectResource
-    config: config.AsyncConfigResource
-    experimental: experimental.AsyncExperimentalResource
-    path: path.AsyncPathResource
-    session: session.AsyncSessionResource
-    command: command.AsyncCommandResource
-    find: find.AsyncFindResource
-    file: file.AsyncFileResource
-    log: log.AsyncLogResource
-    agent: agent.AsyncAgentResource
-    mcp: mcp.AsyncMcpResource
-    tui: tui.AsyncTuiResource
-    auth: auth.AsyncAuthResource
-    event: event.AsyncEventResource
-    global_: global_.AsyncGlobalResource
-    pty: pty.AsyncPtyResource
-    instance: instance.AsyncInstanceResource
-    vcs: vcs.AsyncVcsResource
-    provider: provider.AsyncProviderResource
-    remote_tool: remote_tool.AsyncRemoteToolResource
-    lsp: lsp.AsyncLspResource
-    formatter: formatter.AsyncFormatterResource
-    with_raw_response: AsyncOpencodeSDKWithRawResponse
-    with_streaming_response: AsyncOpencodeSDKWithStreamedResponse
-
     # client options
     api_key: str | None
 
@@ -379,30 +469,145 @@ class AsyncOpencodeSDK(AsyncAPIClient):
 
         self._default_stream_cls = AsyncStream
 
-        self.project = project.AsyncProjectResource(self)
-        self.config = config.AsyncConfigResource(self)
-        self.experimental = experimental.AsyncExperimentalResource(self)
-        self.path = path.AsyncPathResource(self)
-        self.session = session.AsyncSessionResource(self)
-        self.command = command.AsyncCommandResource(self)
-        self.find = find.AsyncFindResource(self)
-        self.file = file.AsyncFileResource(self)
-        self.log = log.AsyncLogResource(self)
-        self.agent = agent.AsyncAgentResource(self)
-        self.mcp = mcp.AsyncMcpResource(self)
-        self.tui = tui.AsyncTuiResource(self)
-        self.auth = auth.AsyncAuthResource(self)
-        self.event = event.AsyncEventResource(self)
-        self.global_ = global_.AsyncGlobalResource(self)
-        self.pty = pty.AsyncPtyResource(self)
-        self.instance = instance.AsyncInstanceResource(self)
-        self.vcs = vcs.AsyncVcsResource(self)
-        self.provider = provider.AsyncProviderResource(self)
-        self.remote_tool = remote_tool.AsyncRemoteToolResource(self)
-        self.lsp = lsp.AsyncLspResource(self)
-        self.formatter = formatter.AsyncFormatterResource(self)
-        self.with_raw_response = AsyncOpencodeSDKWithRawResponse(self)
-        self.with_streaming_response = AsyncOpencodeSDKWithStreamedResponse(self)
+    @cached_property
+    def project(self) -> AsyncProjectResource:
+        from .resources.project import AsyncProjectResource
+
+        return AsyncProjectResource(self)
+
+    @cached_property
+    def config(self) -> AsyncConfigResource:
+        from .resources.config import AsyncConfigResource
+
+        return AsyncConfigResource(self)
+
+    @cached_property
+    def experimental(self) -> AsyncExperimentalResource:
+        from .resources.experimental import AsyncExperimentalResource
+
+        return AsyncExperimentalResource(self)
+
+    @cached_property
+    def path(self) -> AsyncPathResource:
+        from .resources.path import AsyncPathResource
+
+        return AsyncPathResource(self)
+
+    @cached_property
+    def session(self) -> AsyncSessionResource:
+        from .resources.session import AsyncSessionResource
+
+        return AsyncSessionResource(self)
+
+    @cached_property
+    def command(self) -> AsyncCommandResource:
+        from .resources.command import AsyncCommandResource
+
+        return AsyncCommandResource(self)
+
+    @cached_property
+    def find(self) -> AsyncFindResource:
+        from .resources.find import AsyncFindResource
+
+        return AsyncFindResource(self)
+
+    @cached_property
+    def file(self) -> AsyncFileResource:
+        from .resources.file import AsyncFileResource
+
+        return AsyncFileResource(self)
+
+    @cached_property
+    def log(self) -> AsyncLogResource:
+        from .resources.log import AsyncLogResource
+
+        return AsyncLogResource(self)
+
+    @cached_property
+    def agent(self) -> AsyncAgentResource:
+        from .resources.agent import AsyncAgentResource
+
+        return AsyncAgentResource(self)
+
+    @cached_property
+    def mcp(self) -> AsyncMcpResource:
+        from .resources.mcp import AsyncMcpResource
+
+        return AsyncMcpResource(self)
+
+    @cached_property
+    def tui(self) -> AsyncTuiResource:
+        from .resources.tui import AsyncTuiResource
+
+        return AsyncTuiResource(self)
+
+    @cached_property
+    def auth(self) -> AsyncAuthResource:
+        from .resources.auth import AsyncAuthResource
+
+        return AsyncAuthResource(self)
+
+    @cached_property
+    def event(self) -> AsyncEventResource:
+        from .resources.event import AsyncEventResource
+
+        return AsyncEventResource(self)
+
+    @cached_property
+    def global_(self) -> AsyncGlobalResource:
+        from .resources.global_ import AsyncGlobalResource
+
+        return AsyncGlobalResource(self)
+
+    @cached_property
+    def pty(self) -> AsyncPtyResource:
+        from .resources.pty import AsyncPtyResource
+
+        return AsyncPtyResource(self)
+
+    @cached_property
+    def instance(self) -> AsyncInstanceResource:
+        from .resources.instance import AsyncInstanceResource
+
+        return AsyncInstanceResource(self)
+
+    @cached_property
+    def vcs(self) -> AsyncVcsResource:
+        from .resources.vcs import AsyncVcsResource
+
+        return AsyncVcsResource(self)
+
+    @cached_property
+    def provider(self) -> AsyncProviderResource:
+        from .resources.provider import AsyncProviderResource
+
+        return AsyncProviderResource(self)
+
+    @cached_property
+    def remote_tool(self) -> AsyncRemoteToolResource:
+        from .resources.remote_tool import AsyncRemoteToolResource
+
+        return AsyncRemoteToolResource(self)
+
+    @cached_property
+    def lsp(self) -> AsyncLspResource:
+        from .resources.lsp import AsyncLspResource
+
+        return AsyncLspResource(self)
+
+    @cached_property
+    def formatter(self) -> AsyncFormatterResource:
+        from .resources.formatter import AsyncFormatterResource
+
+        return AsyncFormatterResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
+        return AsyncOpencodeSDKWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncOpencodeSDKWithStreamedResponse:
+        return AsyncOpencodeSDKWithStreamedResponse(self)
 
     @property
     @override
@@ -525,107 +730,559 @@ class AsyncOpencodeSDK(AsyncAPIClient):
 
 
 class OpencodeSDKWithRawResponse:
+    _client: OpencodeSDK
+
     def __init__(self, client: OpencodeSDK) -> None:
-        self.project = project.ProjectResourceWithRawResponse(client.project)
-        self.config = config.ConfigResourceWithRawResponse(client.config)
-        self.experimental = experimental.ExperimentalResourceWithRawResponse(client.experimental)
-        self.path = path.PathResourceWithRawResponse(client.path)
-        self.session = session.SessionResourceWithRawResponse(client.session)
-        self.command = command.CommandResourceWithRawResponse(client.command)
-        self.find = find.FindResourceWithRawResponse(client.find)
-        self.file = file.FileResourceWithRawResponse(client.file)
-        self.log = log.LogResourceWithRawResponse(client.log)
-        self.agent = agent.AgentResourceWithRawResponse(client.agent)
-        self.mcp = mcp.McpResourceWithRawResponse(client.mcp)
-        self.tui = tui.TuiResourceWithRawResponse(client.tui)
-        self.auth = auth.AuthResourceWithRawResponse(client.auth)
-        self.event = event.EventResourceWithRawResponse(client.event)
-        self.global_ = global_.GlobalResourceWithRawResponse(client.global_)
-        self.pty = pty.PtyResourceWithRawResponse(client.pty)
-        self.instance = instance.InstanceResourceWithRawResponse(client.instance)
-        self.vcs = vcs.VcsResourceWithRawResponse(client.vcs)
-        self.provider = provider.ProviderResourceWithRawResponse(client.provider)
-        self.remote_tool = remote_tool.RemoteToolResourceWithRawResponse(client.remote_tool)
-        self.lsp = lsp.LspResourceWithRawResponse(client.lsp)
-        self.formatter = formatter.FormatterResourceWithRawResponse(client.formatter)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.ProjectResourceWithRawResponse:
+        from .resources.project import ProjectResourceWithRawResponse
+
+        return ProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def config(self) -> config.ConfigResourceWithRawResponse:
+        from .resources.config import ConfigResourceWithRawResponse
+
+        return ConfigResourceWithRawResponse(self._client.config)
+
+    @cached_property
+    def experimental(self) -> experimental.ExperimentalResourceWithRawResponse:
+        from .resources.experimental import ExperimentalResourceWithRawResponse
+
+        return ExperimentalResourceWithRawResponse(self._client.experimental)
+
+    @cached_property
+    def path(self) -> path.PathResourceWithRawResponse:
+        from .resources.path import PathResourceWithRawResponse
+
+        return PathResourceWithRawResponse(self._client.path)
+
+    @cached_property
+    def session(self) -> session.SessionResourceWithRawResponse:
+        from .resources.session import SessionResourceWithRawResponse
+
+        return SessionResourceWithRawResponse(self._client.session)
+
+    @cached_property
+    def command(self) -> command.CommandResourceWithRawResponse:
+        from .resources.command import CommandResourceWithRawResponse
+
+        return CommandResourceWithRawResponse(self._client.command)
+
+    @cached_property
+    def find(self) -> find.FindResourceWithRawResponse:
+        from .resources.find import FindResourceWithRawResponse
+
+        return FindResourceWithRawResponse(self._client.find)
+
+    @cached_property
+    def file(self) -> file.FileResourceWithRawResponse:
+        from .resources.file import FileResourceWithRawResponse
+
+        return FileResourceWithRawResponse(self._client.file)
+
+    @cached_property
+    def log(self) -> log.LogResourceWithRawResponse:
+        from .resources.log import LogResourceWithRawResponse
+
+        return LogResourceWithRawResponse(self._client.log)
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithRawResponse:
+        from .resources.agent import AgentResourceWithRawResponse
+
+        return AgentResourceWithRawResponse(self._client.agent)
+
+    @cached_property
+    def mcp(self) -> mcp.McpResourceWithRawResponse:
+        from .resources.mcp import McpResourceWithRawResponse
+
+        return McpResourceWithRawResponse(self._client.mcp)
+
+    @cached_property
+    def tui(self) -> tui.TuiResourceWithRawResponse:
+        from .resources.tui import TuiResourceWithRawResponse
+
+        return TuiResourceWithRawResponse(self._client.tui)
+
+    @cached_property
+    def auth(self) -> auth.AuthResourceWithRawResponse:
+        from .resources.auth import AuthResourceWithRawResponse
+
+        return AuthResourceWithRawResponse(self._client.auth)
+
+    @cached_property
+    def event(self) -> event.EventResourceWithRawResponse:
+        from .resources.event import EventResourceWithRawResponse
+
+        return EventResourceWithRawResponse(self._client.event)
+
+    @cached_property
+    def global_(self) -> global_.GlobalResourceWithRawResponse:
+        from .resources.global_ import GlobalResourceWithRawResponse
+
+        return GlobalResourceWithRawResponse(self._client.global_)
+
+    @cached_property
+    def pty(self) -> pty.PtyResourceWithRawResponse:
+        from .resources.pty import PtyResourceWithRawResponse
+
+        return PtyResourceWithRawResponse(self._client.pty)
+
+    @cached_property
+    def instance(self) -> instance.InstanceResourceWithRawResponse:
+        from .resources.instance import InstanceResourceWithRawResponse
+
+        return InstanceResourceWithRawResponse(self._client.instance)
+
+    @cached_property
+    def vcs(self) -> vcs.VcsResourceWithRawResponse:
+        from .resources.vcs import VcsResourceWithRawResponse
+
+        return VcsResourceWithRawResponse(self._client.vcs)
+
+    @cached_property
+    def provider(self) -> provider.ProviderResourceWithRawResponse:
+        from .resources.provider import ProviderResourceWithRawResponse
+
+        return ProviderResourceWithRawResponse(self._client.provider)
+
+    @cached_property
+    def remote_tool(self) -> remote_tool.RemoteToolResourceWithRawResponse:
+        from .resources.remote_tool import RemoteToolResourceWithRawResponse
+
+        return RemoteToolResourceWithRawResponse(self._client.remote_tool)
+
+    @cached_property
+    def lsp(self) -> lsp.LspResourceWithRawResponse:
+        from .resources.lsp import LspResourceWithRawResponse
+
+        return LspResourceWithRawResponse(self._client.lsp)
+
+    @cached_property
+    def formatter(self) -> formatter.FormatterResourceWithRawResponse:
+        from .resources.formatter import FormatterResourceWithRawResponse
+
+        return FormatterResourceWithRawResponse(self._client.formatter)
 
 
 class AsyncOpencodeSDKWithRawResponse:
+    _client: AsyncOpencodeSDK
+
     def __init__(self, client: AsyncOpencodeSDK) -> None:
-        self.project = project.AsyncProjectResourceWithRawResponse(client.project)
-        self.config = config.AsyncConfigResourceWithRawResponse(client.config)
-        self.experimental = experimental.AsyncExperimentalResourceWithRawResponse(client.experimental)
-        self.path = path.AsyncPathResourceWithRawResponse(client.path)
-        self.session = session.AsyncSessionResourceWithRawResponse(client.session)
-        self.command = command.AsyncCommandResourceWithRawResponse(client.command)
-        self.find = find.AsyncFindResourceWithRawResponse(client.find)
-        self.file = file.AsyncFileResourceWithRawResponse(client.file)
-        self.log = log.AsyncLogResourceWithRawResponse(client.log)
-        self.agent = agent.AsyncAgentResourceWithRawResponse(client.agent)
-        self.mcp = mcp.AsyncMcpResourceWithRawResponse(client.mcp)
-        self.tui = tui.AsyncTuiResourceWithRawResponse(client.tui)
-        self.auth = auth.AsyncAuthResourceWithRawResponse(client.auth)
-        self.event = event.AsyncEventResourceWithRawResponse(client.event)
-        self.global_ = global_.AsyncGlobalResourceWithRawResponse(client.global_)
-        self.pty = pty.AsyncPtyResourceWithRawResponse(client.pty)
-        self.instance = instance.AsyncInstanceResourceWithRawResponse(client.instance)
-        self.vcs = vcs.AsyncVcsResourceWithRawResponse(client.vcs)
-        self.provider = provider.AsyncProviderResourceWithRawResponse(client.provider)
-        self.remote_tool = remote_tool.AsyncRemoteToolResourceWithRawResponse(client.remote_tool)
-        self.lsp = lsp.AsyncLspResourceWithRawResponse(client.lsp)
-        self.formatter = formatter.AsyncFormatterResourceWithRawResponse(client.formatter)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.AsyncProjectResourceWithRawResponse:
+        from .resources.project import AsyncProjectResourceWithRawResponse
+
+        return AsyncProjectResourceWithRawResponse(self._client.project)
+
+    @cached_property
+    def config(self) -> config.AsyncConfigResourceWithRawResponse:
+        from .resources.config import AsyncConfigResourceWithRawResponse
+
+        return AsyncConfigResourceWithRawResponse(self._client.config)
+
+    @cached_property
+    def experimental(self) -> experimental.AsyncExperimentalResourceWithRawResponse:
+        from .resources.experimental import AsyncExperimentalResourceWithRawResponse
+
+        return AsyncExperimentalResourceWithRawResponse(self._client.experimental)
+
+    @cached_property
+    def path(self) -> path.AsyncPathResourceWithRawResponse:
+        from .resources.path import AsyncPathResourceWithRawResponse
+
+        return AsyncPathResourceWithRawResponse(self._client.path)
+
+    @cached_property
+    def session(self) -> session.AsyncSessionResourceWithRawResponse:
+        from .resources.session import AsyncSessionResourceWithRawResponse
+
+        return AsyncSessionResourceWithRawResponse(self._client.session)
+
+    @cached_property
+    def command(self) -> command.AsyncCommandResourceWithRawResponse:
+        from .resources.command import AsyncCommandResourceWithRawResponse
+
+        return AsyncCommandResourceWithRawResponse(self._client.command)
+
+    @cached_property
+    def find(self) -> find.AsyncFindResourceWithRawResponse:
+        from .resources.find import AsyncFindResourceWithRawResponse
+
+        return AsyncFindResourceWithRawResponse(self._client.find)
+
+    @cached_property
+    def file(self) -> file.AsyncFileResourceWithRawResponse:
+        from .resources.file import AsyncFileResourceWithRawResponse
+
+        return AsyncFileResourceWithRawResponse(self._client.file)
+
+    @cached_property
+    def log(self) -> log.AsyncLogResourceWithRawResponse:
+        from .resources.log import AsyncLogResourceWithRawResponse
+
+        return AsyncLogResourceWithRawResponse(self._client.log)
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithRawResponse:
+        from .resources.agent import AsyncAgentResourceWithRawResponse
+
+        return AsyncAgentResourceWithRawResponse(self._client.agent)
+
+    @cached_property
+    def mcp(self) -> mcp.AsyncMcpResourceWithRawResponse:
+        from .resources.mcp import AsyncMcpResourceWithRawResponse
+
+        return AsyncMcpResourceWithRawResponse(self._client.mcp)
+
+    @cached_property
+    def tui(self) -> tui.AsyncTuiResourceWithRawResponse:
+        from .resources.tui import AsyncTuiResourceWithRawResponse
+
+        return AsyncTuiResourceWithRawResponse(self._client.tui)
+
+    @cached_property
+    def auth(self) -> auth.AsyncAuthResourceWithRawResponse:
+        from .resources.auth import AsyncAuthResourceWithRawResponse
+
+        return AsyncAuthResourceWithRawResponse(self._client.auth)
+
+    @cached_property
+    def event(self) -> event.AsyncEventResourceWithRawResponse:
+        from .resources.event import AsyncEventResourceWithRawResponse
+
+        return AsyncEventResourceWithRawResponse(self._client.event)
+
+    @cached_property
+    def global_(self) -> global_.AsyncGlobalResourceWithRawResponse:
+        from .resources.global_ import AsyncGlobalResourceWithRawResponse
+
+        return AsyncGlobalResourceWithRawResponse(self._client.global_)
+
+    @cached_property
+    def pty(self) -> pty.AsyncPtyResourceWithRawResponse:
+        from .resources.pty import AsyncPtyResourceWithRawResponse
+
+        return AsyncPtyResourceWithRawResponse(self._client.pty)
+
+    @cached_property
+    def instance(self) -> instance.AsyncInstanceResourceWithRawResponse:
+        from .resources.instance import AsyncInstanceResourceWithRawResponse
+
+        return AsyncInstanceResourceWithRawResponse(self._client.instance)
+
+    @cached_property
+    def vcs(self) -> vcs.AsyncVcsResourceWithRawResponse:
+        from .resources.vcs import AsyncVcsResourceWithRawResponse
+
+        return AsyncVcsResourceWithRawResponse(self._client.vcs)
+
+    @cached_property
+    def provider(self) -> provider.AsyncProviderResourceWithRawResponse:
+        from .resources.provider import AsyncProviderResourceWithRawResponse
+
+        return AsyncProviderResourceWithRawResponse(self._client.provider)
+
+    @cached_property
+    def remote_tool(self) -> remote_tool.AsyncRemoteToolResourceWithRawResponse:
+        from .resources.remote_tool import AsyncRemoteToolResourceWithRawResponse
+
+        return AsyncRemoteToolResourceWithRawResponse(self._client.remote_tool)
+
+    @cached_property
+    def lsp(self) -> lsp.AsyncLspResourceWithRawResponse:
+        from .resources.lsp import AsyncLspResourceWithRawResponse
+
+        return AsyncLspResourceWithRawResponse(self._client.lsp)
+
+    @cached_property
+    def formatter(self) -> formatter.AsyncFormatterResourceWithRawResponse:
+        from .resources.formatter import AsyncFormatterResourceWithRawResponse
+
+        return AsyncFormatterResourceWithRawResponse(self._client.formatter)
 
 
 class OpencodeSDKWithStreamedResponse:
+    _client: OpencodeSDK
+
     def __init__(self, client: OpencodeSDK) -> None:
-        self.project = project.ProjectResourceWithStreamingResponse(client.project)
-        self.config = config.ConfigResourceWithStreamingResponse(client.config)
-        self.experimental = experimental.ExperimentalResourceWithStreamingResponse(client.experimental)
-        self.path = path.PathResourceWithStreamingResponse(client.path)
-        self.session = session.SessionResourceWithStreamingResponse(client.session)
-        self.command = command.CommandResourceWithStreamingResponse(client.command)
-        self.find = find.FindResourceWithStreamingResponse(client.find)
-        self.file = file.FileResourceWithStreamingResponse(client.file)
-        self.log = log.LogResourceWithStreamingResponse(client.log)
-        self.agent = agent.AgentResourceWithStreamingResponse(client.agent)
-        self.mcp = mcp.McpResourceWithStreamingResponse(client.mcp)
-        self.tui = tui.TuiResourceWithStreamingResponse(client.tui)
-        self.auth = auth.AuthResourceWithStreamingResponse(client.auth)
-        self.event = event.EventResourceWithStreamingResponse(client.event)
-        self.global_ = global_.GlobalResourceWithStreamingResponse(client.global_)
-        self.pty = pty.PtyResourceWithStreamingResponse(client.pty)
-        self.instance = instance.InstanceResourceWithStreamingResponse(client.instance)
-        self.vcs = vcs.VcsResourceWithStreamingResponse(client.vcs)
-        self.provider = provider.ProviderResourceWithStreamingResponse(client.provider)
-        self.remote_tool = remote_tool.RemoteToolResourceWithStreamingResponse(client.remote_tool)
-        self.lsp = lsp.LspResourceWithStreamingResponse(client.lsp)
-        self.formatter = formatter.FormatterResourceWithStreamingResponse(client.formatter)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.ProjectResourceWithStreamingResponse:
+        from .resources.project import ProjectResourceWithStreamingResponse
+
+        return ProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def config(self) -> config.ConfigResourceWithStreamingResponse:
+        from .resources.config import ConfigResourceWithStreamingResponse
+
+        return ConfigResourceWithStreamingResponse(self._client.config)
+
+    @cached_property
+    def experimental(self) -> experimental.ExperimentalResourceWithStreamingResponse:
+        from .resources.experimental import ExperimentalResourceWithStreamingResponse
+
+        return ExperimentalResourceWithStreamingResponse(self._client.experimental)
+
+    @cached_property
+    def path(self) -> path.PathResourceWithStreamingResponse:
+        from .resources.path import PathResourceWithStreamingResponse
+
+        return PathResourceWithStreamingResponse(self._client.path)
+
+    @cached_property
+    def session(self) -> session.SessionResourceWithStreamingResponse:
+        from .resources.session import SessionResourceWithStreamingResponse
+
+        return SessionResourceWithStreamingResponse(self._client.session)
+
+    @cached_property
+    def command(self) -> command.CommandResourceWithStreamingResponse:
+        from .resources.command import CommandResourceWithStreamingResponse
+
+        return CommandResourceWithStreamingResponse(self._client.command)
+
+    @cached_property
+    def find(self) -> find.FindResourceWithStreamingResponse:
+        from .resources.find import FindResourceWithStreamingResponse
+
+        return FindResourceWithStreamingResponse(self._client.find)
+
+    @cached_property
+    def file(self) -> file.FileResourceWithStreamingResponse:
+        from .resources.file import FileResourceWithStreamingResponse
+
+        return FileResourceWithStreamingResponse(self._client.file)
+
+    @cached_property
+    def log(self) -> log.LogResourceWithStreamingResponse:
+        from .resources.log import LogResourceWithStreamingResponse
+
+        return LogResourceWithStreamingResponse(self._client.log)
+
+    @cached_property
+    def agent(self) -> agent.AgentResourceWithStreamingResponse:
+        from .resources.agent import AgentResourceWithStreamingResponse
+
+        return AgentResourceWithStreamingResponse(self._client.agent)
+
+    @cached_property
+    def mcp(self) -> mcp.McpResourceWithStreamingResponse:
+        from .resources.mcp import McpResourceWithStreamingResponse
+
+        return McpResourceWithStreamingResponse(self._client.mcp)
+
+    @cached_property
+    def tui(self) -> tui.TuiResourceWithStreamingResponse:
+        from .resources.tui import TuiResourceWithStreamingResponse
+
+        return TuiResourceWithStreamingResponse(self._client.tui)
+
+    @cached_property
+    def auth(self) -> auth.AuthResourceWithStreamingResponse:
+        from .resources.auth import AuthResourceWithStreamingResponse
+
+        return AuthResourceWithStreamingResponse(self._client.auth)
+
+    @cached_property
+    def event(self) -> event.EventResourceWithStreamingResponse:
+        from .resources.event import EventResourceWithStreamingResponse
+
+        return EventResourceWithStreamingResponse(self._client.event)
+
+    @cached_property
+    def global_(self) -> global_.GlobalResourceWithStreamingResponse:
+        from .resources.global_ import GlobalResourceWithStreamingResponse
+
+        return GlobalResourceWithStreamingResponse(self._client.global_)
+
+    @cached_property
+    def pty(self) -> pty.PtyResourceWithStreamingResponse:
+        from .resources.pty import PtyResourceWithStreamingResponse
+
+        return PtyResourceWithStreamingResponse(self._client.pty)
+
+    @cached_property
+    def instance(self) -> instance.InstanceResourceWithStreamingResponse:
+        from .resources.instance import InstanceResourceWithStreamingResponse
+
+        return InstanceResourceWithStreamingResponse(self._client.instance)
+
+    @cached_property
+    def vcs(self) -> vcs.VcsResourceWithStreamingResponse:
+        from .resources.vcs import VcsResourceWithStreamingResponse
+
+        return VcsResourceWithStreamingResponse(self._client.vcs)
+
+    @cached_property
+    def provider(self) -> provider.ProviderResourceWithStreamingResponse:
+        from .resources.provider import ProviderResourceWithStreamingResponse
+
+        return ProviderResourceWithStreamingResponse(self._client.provider)
+
+    @cached_property
+    def remote_tool(self) -> remote_tool.RemoteToolResourceWithStreamingResponse:
+        from .resources.remote_tool import RemoteToolResourceWithStreamingResponse
+
+        return RemoteToolResourceWithStreamingResponse(self._client.remote_tool)
+
+    @cached_property
+    def lsp(self) -> lsp.LspResourceWithStreamingResponse:
+        from .resources.lsp import LspResourceWithStreamingResponse
+
+        return LspResourceWithStreamingResponse(self._client.lsp)
+
+    @cached_property
+    def formatter(self) -> formatter.FormatterResourceWithStreamingResponse:
+        from .resources.formatter import FormatterResourceWithStreamingResponse
+
+        return FormatterResourceWithStreamingResponse(self._client.formatter)
 
 
 class AsyncOpencodeSDKWithStreamedResponse:
+    _client: AsyncOpencodeSDK
+
     def __init__(self, client: AsyncOpencodeSDK) -> None:
-        self.project = project.AsyncProjectResourceWithStreamingResponse(client.project)
-        self.config = config.AsyncConfigResourceWithStreamingResponse(client.config)
-        self.experimental = experimental.AsyncExperimentalResourceWithStreamingResponse(client.experimental)
-        self.path = path.AsyncPathResourceWithStreamingResponse(client.path)
-        self.session = session.AsyncSessionResourceWithStreamingResponse(client.session)
-        self.command = command.AsyncCommandResourceWithStreamingResponse(client.command)
-        self.find = find.AsyncFindResourceWithStreamingResponse(client.find)
-        self.file = file.AsyncFileResourceWithStreamingResponse(client.file)
-        self.log = log.AsyncLogResourceWithStreamingResponse(client.log)
-        self.agent = agent.AsyncAgentResourceWithStreamingResponse(client.agent)
-        self.mcp = mcp.AsyncMcpResourceWithStreamingResponse(client.mcp)
-        self.tui = tui.AsyncTuiResourceWithStreamingResponse(client.tui)
-        self.auth = auth.AsyncAuthResourceWithStreamingResponse(client.auth)
-        self.event = event.AsyncEventResourceWithStreamingResponse(client.event)
-        self.global_ = global_.AsyncGlobalResourceWithStreamingResponse(client.global_)
-        self.pty = pty.AsyncPtyResourceWithStreamingResponse(client.pty)
-        self.instance = instance.AsyncInstanceResourceWithStreamingResponse(client.instance)
-        self.vcs = vcs.AsyncVcsResourceWithStreamingResponse(client.vcs)
-        self.provider = provider.AsyncProviderResourceWithStreamingResponse(client.provider)
-        self.remote_tool = remote_tool.AsyncRemoteToolResourceWithStreamingResponse(client.remote_tool)
-        self.lsp = lsp.AsyncLspResourceWithStreamingResponse(client.lsp)
-        self.formatter = formatter.AsyncFormatterResourceWithStreamingResponse(client.formatter)
+        self._client = client
+
+    @cached_property
+    def project(self) -> project.AsyncProjectResourceWithStreamingResponse:
+        from .resources.project import AsyncProjectResourceWithStreamingResponse
+
+        return AsyncProjectResourceWithStreamingResponse(self._client.project)
+
+    @cached_property
+    def config(self) -> config.AsyncConfigResourceWithStreamingResponse:
+        from .resources.config import AsyncConfigResourceWithStreamingResponse
+
+        return AsyncConfigResourceWithStreamingResponse(self._client.config)
+
+    @cached_property
+    def experimental(self) -> experimental.AsyncExperimentalResourceWithStreamingResponse:
+        from .resources.experimental import AsyncExperimentalResourceWithStreamingResponse
+
+        return AsyncExperimentalResourceWithStreamingResponse(self._client.experimental)
+
+    @cached_property
+    def path(self) -> path.AsyncPathResourceWithStreamingResponse:
+        from .resources.path import AsyncPathResourceWithStreamingResponse
+
+        return AsyncPathResourceWithStreamingResponse(self._client.path)
+
+    @cached_property
+    def session(self) -> session.AsyncSessionResourceWithStreamingResponse:
+        from .resources.session import AsyncSessionResourceWithStreamingResponse
+
+        return AsyncSessionResourceWithStreamingResponse(self._client.session)
+
+    @cached_property
+    def command(self) -> command.AsyncCommandResourceWithStreamingResponse:
+        from .resources.command import AsyncCommandResourceWithStreamingResponse
+
+        return AsyncCommandResourceWithStreamingResponse(self._client.command)
+
+    @cached_property
+    def find(self) -> find.AsyncFindResourceWithStreamingResponse:
+        from .resources.find import AsyncFindResourceWithStreamingResponse
+
+        return AsyncFindResourceWithStreamingResponse(self._client.find)
+
+    @cached_property
+    def file(self) -> file.AsyncFileResourceWithStreamingResponse:
+        from .resources.file import AsyncFileResourceWithStreamingResponse
+
+        return AsyncFileResourceWithStreamingResponse(self._client.file)
+
+    @cached_property
+    def log(self) -> log.AsyncLogResourceWithStreamingResponse:
+        from .resources.log import AsyncLogResourceWithStreamingResponse
+
+        return AsyncLogResourceWithStreamingResponse(self._client.log)
+
+    @cached_property
+    def agent(self) -> agent.AsyncAgentResourceWithStreamingResponse:
+        from .resources.agent import AsyncAgentResourceWithStreamingResponse
+
+        return AsyncAgentResourceWithStreamingResponse(self._client.agent)
+
+    @cached_property
+    def mcp(self) -> mcp.AsyncMcpResourceWithStreamingResponse:
+        from .resources.mcp import AsyncMcpResourceWithStreamingResponse
+
+        return AsyncMcpResourceWithStreamingResponse(self._client.mcp)
+
+    @cached_property
+    def tui(self) -> tui.AsyncTuiResourceWithStreamingResponse:
+        from .resources.tui import AsyncTuiResourceWithStreamingResponse
+
+        return AsyncTuiResourceWithStreamingResponse(self._client.tui)
+
+    @cached_property
+    def auth(self) -> auth.AsyncAuthResourceWithStreamingResponse:
+        from .resources.auth import AsyncAuthResourceWithStreamingResponse
+
+        return AsyncAuthResourceWithStreamingResponse(self._client.auth)
+
+    @cached_property
+    def event(self) -> event.AsyncEventResourceWithStreamingResponse:
+        from .resources.event import AsyncEventResourceWithStreamingResponse
+
+        return AsyncEventResourceWithStreamingResponse(self._client.event)
+
+    @cached_property
+    def global_(self) -> global_.AsyncGlobalResourceWithStreamingResponse:
+        from .resources.global_ import AsyncGlobalResourceWithStreamingResponse
+
+        return AsyncGlobalResourceWithStreamingResponse(self._client.global_)
+
+    @cached_property
+    def pty(self) -> pty.AsyncPtyResourceWithStreamingResponse:
+        from .resources.pty import AsyncPtyResourceWithStreamingResponse
+
+        return AsyncPtyResourceWithStreamingResponse(self._client.pty)
+
+    @cached_property
+    def instance(self) -> instance.AsyncInstanceResourceWithStreamingResponse:
+        from .resources.instance import AsyncInstanceResourceWithStreamingResponse
+
+        return AsyncInstanceResourceWithStreamingResponse(self._client.instance)
+
+    @cached_property
+    def vcs(self) -> vcs.AsyncVcsResourceWithStreamingResponse:
+        from .resources.vcs import AsyncVcsResourceWithStreamingResponse
+
+        return AsyncVcsResourceWithStreamingResponse(self._client.vcs)
+
+    @cached_property
+    def provider(self) -> provider.AsyncProviderResourceWithStreamingResponse:
+        from .resources.provider import AsyncProviderResourceWithStreamingResponse
+
+        return AsyncProviderResourceWithStreamingResponse(self._client.provider)
+
+    @cached_property
+    def remote_tool(self) -> remote_tool.AsyncRemoteToolResourceWithStreamingResponse:
+        from .resources.remote_tool import AsyncRemoteToolResourceWithStreamingResponse
+
+        return AsyncRemoteToolResourceWithStreamingResponse(self._client.remote_tool)
+
+    @cached_property
+    def lsp(self) -> lsp.AsyncLspResourceWithStreamingResponse:
+        from .resources.lsp import AsyncLspResourceWithStreamingResponse
+
+        return AsyncLspResourceWithStreamingResponse(self._client.lsp)
+
+    @cached_property
+    def formatter(self) -> formatter.AsyncFormatterResourceWithStreamingResponse:
+        from .resources.formatter import AsyncFormatterResourceWithStreamingResponse
+
+        return AsyncFormatterResourceWithStreamingResponse(self._client.formatter)
 
 
 Client = OpencodeSDK
