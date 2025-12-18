@@ -20,6 +20,7 @@ from opencode_sdk.types import (
     SessionInitializeResponse,
     SessionGetChildrenResponse,
     SessionSendCommandResponse,
+    SessionRetrieveStatusResponse,
     SessionRunShellCommandResponse,
     SessionSubmitToolResultsResponse,
     SessionRespondToPermissionResponse,
@@ -736,6 +737,57 @@ class TestSession:
     def test_path_params_restore_reverted_messages(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.with_raw_response.restore_reverted_messages(
+                session_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_retrieve_status(self, client: OpencodeSDK) -> None:
+        session = client.session.retrieve_status(
+            session_id="sessionID",
+        )
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_retrieve_status_with_all_params(self, client: OpencodeSDK) -> None:
+        session = client.session.retrieve_status(
+            session_id="sessionID",
+            directory="directory",
+        )
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_retrieve_status(self, client: OpencodeSDK) -> None:
+        response = client.session.with_raw_response.retrieve_status(
+            session_id="sessionID",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = response.parse()
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_retrieve_status(self, client: OpencodeSDK) -> None:
+        with client.session.with_streaming_response.retrieve_status(
+            session_id="sessionID",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = response.parse()
+            assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_path_params_retrieve_status(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            client.session.with_raw_response.retrieve_status(
                 session_id="",
             )
 
@@ -1898,6 +1950,57 @@ class TestAsyncSession:
     async def test_path_params_restore_reverted_messages(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.with_raw_response.restore_reverted_messages(
+                session_id="",
+            )
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.retrieve_status(
+            session_id="sessionID",
+        )
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_retrieve_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.retrieve_status(
+            session_id="sessionID",
+            directory="directory",
+        )
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.session.with_raw_response.retrieve_status(
+            session_id="sessionID",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        session = await response.parse()
+        assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.session.with_streaming_response.retrieve_status(
+            session_id="sessionID",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            session = await response.parse()
+            assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_path_params_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
+            await async_client.session.with_raw_response.retrieve_status(
                 session_id="",
             )
 

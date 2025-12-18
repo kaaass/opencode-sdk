@@ -75,6 +75,7 @@ from opencode_sdk.types import (
     SessionGetTodoResponse,
     SessionInitializeResponse,
     SessionRespondToPermissionResponse,
+    SessionRetrieveStatusResponse,
     SessionRunShellCommandResponse,
     SessionSendCommandResponse,
     SessionSubmitToolResultsResponse,
@@ -98,6 +99,7 @@ Methods:
 - <code title="post /session/{sessionID}/init">client.session.<a href="./src/opencode_sdk/resources/session/session.py">initialize</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_initialize_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_initialize_response.py">SessionInitializeResponse</a></code>
 - <code title="post /session/{sessionID}/permissions/{permissionID}">client.session.<a href="./src/opencode_sdk/resources/session/session.py">respond_to_permission</a>(permission_id, \*, session_id, \*\*<a href="src/opencode_sdk/types/session_respond_to_permission_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_respond_to_permission_response.py">SessionRespondToPermissionResponse</a></code>
 - <code title="post /session/{sessionID}/unrevert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">restore_reverted_messages</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_restore_reverted_messages_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
+- <code title="get /session/{sessionID}/status">client.session.<a href="./src/opencode_sdk/resources/session/session.py">retrieve_status</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_retrieve_status_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_retrieve_status_response.py">SessionRetrieveStatusResponse</a></code>
 - <code title="post /session/{sessionID}/revert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">revert_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_revert_message_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
 - <code title="post /session/{sessionID}/shell">client.session.<a href="./src/opencode_sdk/resources/session/session.py">run_shell_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_run_shell_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_run_shell_command_response.py">SessionRunShellCommandResponse</a></code>
 - <code title="post /session/{sessionID}/prompt_async">client.session.<a href="./src/opencode_sdk/resources/session/session.py">send_async_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_send_async_message_params.py">params</a>) -> None</code>
