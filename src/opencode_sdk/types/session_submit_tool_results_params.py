@@ -16,6 +16,8 @@ class SessionSubmitToolResultsParams(TypedDict, total=False):
 
     directory: str
 
+    async_: Annotated[bool, PropertyInfo(alias="async")]
+
     continue_loop: Annotated[bool, PropertyInfo(alias="continueLoop")]
 
 

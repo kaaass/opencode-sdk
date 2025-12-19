@@ -1123,6 +1123,7 @@ class TestSession:
                 }
             ],
             directory="directory",
+            async_=True,
             continue_loop=True,
         )
         assert_matches_type(SessionSubmitToolResultsResponse, session, path=["response"])
@@ -2336,6 +2337,7 @@ class TestAsyncSession:
                 }
             ],
             directory="directory",
+            async_=True,
             continue_loop=True,
         )
         assert_matches_type(SessionSubmitToolResultsResponse, session, path=["response"])
