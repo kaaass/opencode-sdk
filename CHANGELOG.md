@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.6.0 (2025-12-19)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/kaaass/opencode-sdk/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** manual updates ([e1fe3e4](https://github.com/kaaass/opencode-sdk/commit/e1fe3e4bff84415819fe1fac815db24d3f48b32b))
+
+
+### Bug Fixes
+
+* use async_to_httpx_files in patch method ([c664f2a](https://github.com/kaaass/opencode-sdk/commit/c664f2a0202a5ffffd97345a007b37b00c3bb5e1))
+
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([6c142b9](https://github.com/kaaass/opencode-sdk/commit/6c142b9db772d6ecd4a9d30a61a79ee3ffa9651c))
+
 ## 0.5.0 (2025-12-18)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/kaaass/opencode-sdk/compare/v0.4.0...v0.5.0)
