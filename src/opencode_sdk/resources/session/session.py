@@ -949,6 +949,7 @@ class SessionResource(SyncAPIResource):
         *,
         results: Iterable[session_submit_tool_results_params.Result],
         directory: str | Omit = omit,
+        async_: bool | Omit = omit,
         continue_loop: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -977,6 +978,7 @@ class SessionResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "results": results,
+                    "async_": async_,
                     "continue_loop": continue_loop,
                 },
                 session_submit_tool_results_params.SessionSubmitToolResultsParams,
@@ -1927,6 +1929,7 @@ class AsyncSessionResource(AsyncAPIResource):
         *,
         results: Iterable[session_submit_tool_results_params.Result],
         directory: str | Omit = omit,
+        async_: bool | Omit = omit,
         continue_loop: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1955,6 +1958,7 @@ class AsyncSessionResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "results": results,
+                    "async_": async_,
                     "continue_loop": continue_loop,
                 },
                 session_submit_tool_results_params.SessionSubmitToolResultsParams,
