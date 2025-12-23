@@ -149,6 +149,7 @@ class TestAgent:
             },
             native=True,
             prompt="prompt",
+            sub_agents=["string"],
             temperature=0,
             top_p=0,
         )
@@ -328,6 +329,7 @@ class TestAsyncAgent:
             },
             native=True,
             prompt="prompt",
+            sub_agents=["string"],
             temperature=0,
             top_p=0,
         )

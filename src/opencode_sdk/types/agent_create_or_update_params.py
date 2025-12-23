@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
+from .._types import SequenceNotStr
 from .._utils import PropertyInfo
 
 __all__ = ["AgentCreateOrUpdateParams", "Permission", "Model"]
@@ -36,6 +37,8 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
     native: bool
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
 
     temperature: float
 

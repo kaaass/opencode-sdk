@@ -98,6 +98,9 @@ class AgentBuild(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -148,6 +151,9 @@ class AgentCompaction(BaseModel):
     permission: Optional[AgentCompactionPermission] = None
 
     prompt: Optional[str] = None
+
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: Optional[float] = None
 
@@ -200,6 +206,9 @@ class AgentExplore(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -250,6 +259,9 @@ class AgentGeneral(BaseModel):
     permission: Optional[AgentGeneralPermission] = None
 
     prompt: Optional[str] = None
+
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: Optional[float] = None
 
@@ -302,6 +314,9 @@ class AgentPlan(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -352,6 +367,9 @@ class AgentSummary(BaseModel):
     permission: Optional[AgentSummaryPermission] = None
 
     prompt: Optional[str] = None
+
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: Optional[float] = None
 
@@ -404,6 +422,9 @@ class AgentTitle(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -454,6 +475,9 @@ class AgentAgentItem(BaseModel):
     permission: Optional[AgentAgentItemPermission] = None
 
     prompt: Optional[str] = None
+
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: Optional[float] = None
 
@@ -933,6 +957,9 @@ class ModeBuild(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -984,6 +1011,9 @@ class ModePlan(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
@@ -1034,6 +1064,9 @@ class ModeModeItem(BaseModel):
     permission: Optional[ModeModeItemPermission] = None
 
     prompt: Optional[str] = None
+
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: Optional[float] = None
 
