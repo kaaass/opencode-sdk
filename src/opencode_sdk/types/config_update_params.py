@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, List, Union, Iterable
+from typing import Dict, List, Union, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._types import SequenceNotStr
@@ -194,6 +194,9 @@ class AgentBuildTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -235,6 +238,9 @@ class AgentCompactionTyped(TypedDict, total=False):
     permission: AgentCompactionPermission
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: float
 
@@ -278,6 +284,9 @@ class AgentExploreTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -319,6 +328,9 @@ class AgentGeneralTyped(TypedDict, total=False):
     permission: AgentGeneralPermission
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: float
 
@@ -362,6 +374,9 @@ class AgentPlanTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -403,6 +418,9 @@ class AgentSummaryTyped(TypedDict, total=False):
     permission: AgentSummaryPermission
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: float
 
@@ -446,6 +464,9 @@ class AgentTitleTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -487,6 +508,9 @@ class AgentAgentItemTyped(TypedDict, total=False):
     permission: AgentAgentItemPermission
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: float
 
@@ -948,6 +972,9 @@ class ModeBuildTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -990,6 +1017,9 @@ class ModePlanTyped(TypedDict, total=False):
 
     prompt: str
 
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
+
     temperature: float
 
     tools: Dict[str, bool]
@@ -1031,6 +1061,9 @@ class ModeModeItemTyped(TypedDict, total=False):
     permission: ModeModeItemPermission
 
     prompt: str
+
+    sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
+    """List of sub-agent names that can be invoked by this agent"""
 
     temperature: float
 

@@ -2,13 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 import httpx
 
 from ..types import agent_list_params, agent_delete_params, agent_create_or_update_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
@@ -135,6 +135,7 @@ class AgentResource(SyncAPIResource):
         model: agent_create_or_update_params.Model | Omit = omit,
         native: bool | Omit = omit,
         prompt: str | Omit = omit,
+        sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -172,6 +173,7 @@ class AgentResource(SyncAPIResource):
                     "model": model,
                     "native": native,
                     "prompt": prompt,
+                    "sub_agents": sub_agents,
                     "temperature": temperature,
                     "top_p": top_p,
                 },
@@ -299,6 +301,7 @@ class AsyncAgentResource(AsyncAPIResource):
         model: agent_create_or_update_params.Model | Omit = omit,
         native: bool | Omit = omit,
         prompt: str | Omit = omit,
+        sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -336,6 +339,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "model": model,
                     "native": native,
                     "prompt": prompt,
+                    "sub_agents": sub_agents,
                     "temperature": temperature,
                     "top_p": top_p,
                 },

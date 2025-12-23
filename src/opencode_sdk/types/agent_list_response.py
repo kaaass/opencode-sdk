@@ -58,6 +58,8 @@ class AgentListResponseItem(BaseModel):
 
     prompt: Optional[str] = None
 
+    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
+
     temperature: Optional[float] = None
 
     top_p: Optional[float] = FieldInfo(alias="topP", default=None)
