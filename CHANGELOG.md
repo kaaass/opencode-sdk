@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.7.0 (2025-12-23)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/kaaass/opencode-sdk/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** manual updates ([3bfb82f](https://github.com/kaaass/opencode-sdk/commit/3bfb82f6d929c269f1efe6af2b54f599c61ae8f2))
+
+
+### Documentation
+
+* add more examples ([be089c6](https://github.com/kaaass/opencode-sdk/commit/be089c6e77900e2ee9e54aa8efc174757039ec47))
+
 ## 0.6.0 (2025-12-19)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/kaaass/opencode-sdk/compare/v0.5.0...v0.6.0)
