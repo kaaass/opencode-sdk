@@ -959,7 +959,7 @@ class SessionResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionSubmitToolResultsResponse:
         """
-        Submit results for remote tools that are waiting for external execution, and
+        Submit results for client tools that are waiting for external execution, and
         optionally continue the inference loop.
 
         Args:
@@ -1939,7 +1939,7 @@ class AsyncSessionResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionSubmitToolResultsResponse:
         """
-        Submit results for remote tools that are waiting for external execution, and
+        Submit results for client tools that are waiting for external execution, and
         optionally continue the inference loop.
 
         Args:

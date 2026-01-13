@@ -5,10 +5,10 @@ from __future__ import annotations
 from typing import Dict
 from typing_extensions import Required, TypedDict
 
-__all__ = ["RemoteToolRegisterParams"]
+__all__ = ["ClientToolCreateParams"]
 
 
-class RemoteToolRegisterParams(TypedDict, total=False):
+class ClientToolCreateParams(TypedDict, total=False):
     id: Required[str]
 
     description: Required[str]
