@@ -6,7 +6,7 @@ from typing import Dict
 
 import httpx
 
-from ..types import remote_tool_list_params, remote_tool_register_params, remote_tool_unregister_params
+from ..types import client_tool_list_params, client_tool_create_params, client_tool_delete_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -18,69 +18,34 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.remote_tool_list_response import RemoteToolListResponse
-from ..types.remote_tool_register_response import RemoteToolRegisterResponse
-from ..types.remote_tool_unregister_response import RemoteToolUnregisterResponse
+from ..types.client_tool_list_response import ClientToolListResponse
+from ..types.client_tool_create_response import ClientToolCreateResponse
+from ..types.client_tool_delete_response import ClientToolDeleteResponse
 
-__all__ = ["RemoteToolResource", "AsyncRemoteToolResource"]
+__all__ = ["ClientToolResource", "AsyncClientToolResource"]
 
 
-class RemoteToolResource(SyncAPIResource):
+class ClientToolResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> RemoteToolResourceWithRawResponse:
+    def with_raw_response(self) -> ClientToolResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return RemoteToolResourceWithRawResponse(self)
+        return ClientToolResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> RemoteToolResourceWithStreamingResponse:
+    def with_streaming_response(self) -> ClientToolResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return RemoteToolResourceWithStreamingResponse(self)
+        return ClientToolResourceWithStreamingResponse(self)
 
-    def list(
-        self,
-        *,
-        directory: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolListResponse:
-        """
-        Get a list of all registered remote tools.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return self._get(
-            "/remote-tool",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"directory": directory}, remote_tool_list_params.RemoteToolListParams),
-            ),
-            cast_to=RemoteToolListResponse,
-        )
-
-    def register(
+    def create(
         self,
         *,
         id: str,
@@ -93,9 +58,9 @@ class RemoteToolResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolRegisterResponse:
+    ) -> ClientToolCreateResponse:
         """
-        Register a new remote tool that requires external execution.
+        Register a new client tool that requires external execution.
 
         Args:
           extra_headers: Send extra headers
@@ -107,26 +72,61 @@ class RemoteToolResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/remote-tool",
+            "/client-tool",
             body=maybe_transform(
                 {
                     "id": id,
                     "description": description,
                     "parameters": parameters,
                 },
-                remote_tool_register_params.RemoteToolRegisterParams,
+                client_tool_create_params.ClientToolCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, remote_tool_register_params.RemoteToolRegisterParams),
+                query=maybe_transform({"directory": directory}, client_tool_create_params.ClientToolCreateParams),
             ),
-            cast_to=RemoteToolRegisterResponse,
+            cast_to=ClientToolCreateResponse,
         )
 
-    def unregister(
+    def list(
+        self,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientToolListResponse:
+        """
+        Get a list of all registered client tools.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/client-tool",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"directory": directory}, client_tool_list_params.ClientToolListParams),
+            ),
+            cast_to=ClientToolListResponse,
+        )
+
+    def delete(
         self,
         id: str,
         *,
@@ -137,9 +137,9 @@ class RemoteToolResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolUnregisterResponse:
+    ) -> ClientToolDeleteResponse:
         """
-        Remove a registered remote tool.
+        Remove a registered client tool.
 
         Args:
           extra_headers: Send extra headers
@@ -153,78 +153,39 @@ class RemoteToolResource(SyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return self._delete(
-            f"/remote-tool/{id}",
+            f"/client-tool/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform(
-                    {"directory": directory}, remote_tool_unregister_params.RemoteToolUnregisterParams
-                ),
+                query=maybe_transform({"directory": directory}, client_tool_delete_params.ClientToolDeleteParams),
             ),
-            cast_to=RemoteToolUnregisterResponse,
+            cast_to=ClientToolDeleteResponse,
         )
 
 
-class AsyncRemoteToolResource(AsyncAPIResource):
+class AsyncClientToolResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncRemoteToolResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncClientToolResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncRemoteToolResourceWithRawResponse(self)
+        return AsyncClientToolResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncRemoteToolResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncClientToolResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return AsyncRemoteToolResourceWithStreamingResponse(self)
+        return AsyncClientToolResourceWithStreamingResponse(self)
 
-    async def list(
-        self,
-        *,
-        directory: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolListResponse:
-        """
-        Get a list of all registered remote tools.
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        return await self._get(
-            "/remote-tool",
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"directory": directory}, remote_tool_list_params.RemoteToolListParams
-                ),
-            ),
-            cast_to=RemoteToolListResponse,
-        )
-
-    async def register(
+    async def create(
         self,
         *,
         id: str,
@@ -237,9 +198,9 @@ class AsyncRemoteToolResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolRegisterResponse:
+    ) -> ClientToolCreateResponse:
         """
-        Register a new remote tool that requires external execution.
+        Register a new client tool that requires external execution.
 
         Args:
           extra_headers: Send extra headers
@@ -251,14 +212,14 @@ class AsyncRemoteToolResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/remote-tool",
+            "/client-tool",
             body=await async_maybe_transform(
                 {
                     "id": id,
                     "description": description,
                     "parameters": parameters,
                 },
-                remote_tool_register_params.RemoteToolRegisterParams,
+                client_tool_create_params.ClientToolCreateParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -266,13 +227,50 @@ class AsyncRemoteToolResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, remote_tool_register_params.RemoteToolRegisterParams
+                    {"directory": directory}, client_tool_create_params.ClientToolCreateParams
                 ),
             ),
-            cast_to=RemoteToolRegisterResponse,
+            cast_to=ClientToolCreateResponse,
         )
 
-    async def unregister(
+    async def list(
+        self,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientToolListResponse:
+        """
+        Get a list of all registered client tools.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/client-tool",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"directory": directory}, client_tool_list_params.ClientToolListParams
+                ),
+            ),
+            cast_to=ClientToolListResponse,
+        )
+
+    async def delete(
         self,
         id: str,
         *,
@@ -283,9 +281,9 @@ class AsyncRemoteToolResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> RemoteToolUnregisterResponse:
+    ) -> ClientToolDeleteResponse:
         """
-        Remove a registered remote tool.
+        Remove a registered client tool.
 
         Args:
           extra_headers: Send extra headers
@@ -299,75 +297,75 @@ class AsyncRemoteToolResource(AsyncAPIResource):
         if not id:
             raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
         return await self._delete(
-            f"/remote-tool/{id}",
+            f"/client-tool/{id}",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, remote_tool_unregister_params.RemoteToolUnregisterParams
+                    {"directory": directory}, client_tool_delete_params.ClientToolDeleteParams
                 ),
             ),
-            cast_to=RemoteToolUnregisterResponse,
+            cast_to=ClientToolDeleteResponse,
         )
 
 
-class RemoteToolResourceWithRawResponse:
-    def __init__(self, remote_tool: RemoteToolResource) -> None:
-        self._remote_tool = remote_tool
+class ClientToolResourceWithRawResponse:
+    def __init__(self, client_tool: ClientToolResource) -> None:
+        self._client_tool = client_tool
 
+        self.create = to_raw_response_wrapper(
+            client_tool.create,
+        )
         self.list = to_raw_response_wrapper(
-            remote_tool.list,
+            client_tool.list,
         )
-        self.register = to_raw_response_wrapper(
-            remote_tool.register,
-        )
-        self.unregister = to_raw_response_wrapper(
-            remote_tool.unregister,
+        self.delete = to_raw_response_wrapper(
+            client_tool.delete,
         )
 
 
-class AsyncRemoteToolResourceWithRawResponse:
-    def __init__(self, remote_tool: AsyncRemoteToolResource) -> None:
-        self._remote_tool = remote_tool
+class AsyncClientToolResourceWithRawResponse:
+    def __init__(self, client_tool: AsyncClientToolResource) -> None:
+        self._client_tool = client_tool
 
+        self.create = async_to_raw_response_wrapper(
+            client_tool.create,
+        )
         self.list = async_to_raw_response_wrapper(
-            remote_tool.list,
+            client_tool.list,
         )
-        self.register = async_to_raw_response_wrapper(
-            remote_tool.register,
-        )
-        self.unregister = async_to_raw_response_wrapper(
-            remote_tool.unregister,
+        self.delete = async_to_raw_response_wrapper(
+            client_tool.delete,
         )
 
 
-class RemoteToolResourceWithStreamingResponse:
-    def __init__(self, remote_tool: RemoteToolResource) -> None:
-        self._remote_tool = remote_tool
+class ClientToolResourceWithStreamingResponse:
+    def __init__(self, client_tool: ClientToolResource) -> None:
+        self._client_tool = client_tool
 
+        self.create = to_streamed_response_wrapper(
+            client_tool.create,
+        )
         self.list = to_streamed_response_wrapper(
-            remote_tool.list,
+            client_tool.list,
         )
-        self.register = to_streamed_response_wrapper(
-            remote_tool.register,
-        )
-        self.unregister = to_streamed_response_wrapper(
-            remote_tool.unregister,
+        self.delete = to_streamed_response_wrapper(
+            client_tool.delete,
         )
 
 
-class AsyncRemoteToolResourceWithStreamingResponse:
-    def __init__(self, remote_tool: AsyncRemoteToolResource) -> None:
-        self._remote_tool = remote_tool
+class AsyncClientToolResourceWithStreamingResponse:
+    def __init__(self, client_tool: AsyncClientToolResource) -> None:
+        self._client_tool = client_tool
 
+        self.create = async_to_streamed_response_wrapper(
+            client_tool.create,
+        )
         self.list = async_to_streamed_response_wrapper(
-            remote_tool.list,
+            client_tool.list,
         )
-        self.register = async_to_streamed_response_wrapper(
-            remote_tool.register,
-        )
-        self.unregister = async_to_streamed_response_wrapper(
-            remote_tool.unregister,
+        self.delete = async_to_streamed_response_wrapper(
+            client_tool.delete,
         )

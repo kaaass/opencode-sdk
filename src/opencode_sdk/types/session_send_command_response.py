@@ -25,4 +25,4 @@ class SessionSendCommandResponse(BaseModel):
     parts: List[Part]
 
     pending_remote_calls: Optional[List[PendingRemoteCall]] = FieldInfo(alias="pendingRemoteCalls", default=None)
-    """Remote tool calls waiting for external results"""
+    """Client tool calls waiting for external results"""

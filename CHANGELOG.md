@@ -1,5 +1,27 @@
 # Changelog
 
+## 0.8.0 (2026-01-13)
+
+Full Changelog: [v0.7.0...v0.8.0](https://github.com/kaaass/opencode-sdk/compare/v0.7.0...v0.8.0)
+
+### ⚠ BREAKING CHANGES
+
+* **api:** remote tool -> client tool
+
+### Bug Fixes
+
+* **client:** loosen auth header validation ([8dea4e8](https://github.com/kaaass/opencode-sdk/commit/8dea4e82ea8a331e9518c4168d7c8a91801b175c))
+
+
+### Chores
+
+* **internal:** codegen related update ([c59ddd9](https://github.com/kaaass/opencode-sdk/commit/c59ddd9c8bf8a40bd5afb948ec2aad889d3f2111))
+
+
+### Refactors
+
+* **api:** remote tool -&gt; client tool ([1941c04](https://github.com/kaaass/opencode-sdk/commit/1941c04212d04dca556b5335ba24690072b45917))
+
 ## 0.7.0 (2025-12-23)
 
 Full Changelog: [v0.6.0...v0.7.0](https://github.com/kaaass/opencode-sdk/compare/v0.6.0...v0.7.0)

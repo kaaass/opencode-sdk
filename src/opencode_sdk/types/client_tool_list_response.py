@@ -5,10 +5,10 @@ from typing_extensions import TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["RemoteToolListResponse", "RemoteToolListResponseItem"]
+__all__ = ["ClientToolListResponse", "ClientToolListResponseItem"]
 
 
-class RemoteToolListResponseItem(BaseModel):
+class ClientToolListResponseItem(BaseModel):
     id: str
 
     description: str
@@ -16,4 +16,4 @@ class RemoteToolListResponseItem(BaseModel):
     parameters: Dict[str, object]
 
 
-RemoteToolListResponse: TypeAlias = List[RemoteToolListResponseItem]
+ClientToolListResponse: TypeAlias = List[ClientToolListResponseItem]

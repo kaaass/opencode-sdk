@@ -53,7 +53,7 @@ if TYPE_CHECKING:
         instance,
         provider,
         formatter,
-        remote_tool,
+        client_tool,
         experimental,
     )
     from .resources.log import LogResource, AsyncLogResource
@@ -74,7 +74,7 @@ if TYPE_CHECKING:
     from .resources.tui.tui import TuiResource, AsyncTuiResource
     from .resources.instance import InstanceResource, AsyncInstanceResource
     from .resources.formatter import FormatterResource, AsyncFormatterResource
-    from .resources.remote_tool import RemoteToolResource, AsyncRemoteToolResource
+    from .resources.client_tool import ClientToolResource, AsyncClientToolResource
     from .resources.session.session import SessionResource, AsyncSessionResource
     from .resources.provider.provider import ProviderResource, AsyncProviderResource
     from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource
@@ -265,10 +265,10 @@ class OpencodeSDK(SyncAPIClient):
         return ProviderResource(self)
 
     @cached_property
-    def remote_tool(self) -> RemoteToolResource:
-        from .resources.remote_tool import RemoteToolResource
+    def client_tool(self) -> ClientToolResource:
+        from .resources.client_tool import ClientToolResource
 
-        return RemoteToolResource(self)
+        return ClientToolResource(self)
 
     @cached_property
     def lsp(self) -> LspResource:
@@ -314,9 +314,7 @@ class OpencodeSDK(SyncAPIClient):
 
     @override
     def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
+        if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
             return
 
         raise TypeError(
@@ -584,10 +582,10 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncProviderResource(self)
 
     @cached_property
-    def remote_tool(self) -> AsyncRemoteToolResource:
-        from .resources.remote_tool import AsyncRemoteToolResource
+    def client_tool(self) -> AsyncClientToolResource:
+        from .resources.client_tool import AsyncClientToolResource
 
-        return AsyncRemoteToolResource(self)
+        return AsyncClientToolResource(self)
 
     @cached_property
     def lsp(self) -> AsyncLspResource:
@@ -633,9 +631,7 @@ class AsyncOpencodeSDK(AsyncAPIClient):
 
     @override
     def _validate_headers(self, headers: Headers, custom_headers: Headers) -> None:
-        if self.api_key and headers.get("Authorization"):
-            return
-        if isinstance(custom_headers.get("Authorization"), Omit):
+        if headers.get("Authorization") or isinstance(custom_headers.get("Authorization"), Omit):
             return
 
         raise TypeError(
@@ -850,10 +846,10 @@ class OpencodeSDKWithRawResponse:
         return ProviderResourceWithRawResponse(self._client.provider)
 
     @cached_property
-    def remote_tool(self) -> remote_tool.RemoteToolResourceWithRawResponse:
-        from .resources.remote_tool import RemoteToolResourceWithRawResponse
+    def client_tool(self) -> client_tool.ClientToolResourceWithRawResponse:
+        from .resources.client_tool import ClientToolResourceWithRawResponse
 
-        return RemoteToolResourceWithRawResponse(self._client.remote_tool)
+        return ClientToolResourceWithRawResponse(self._client.client_tool)
 
     @cached_property
     def lsp(self) -> lsp.LspResourceWithRawResponse:
@@ -989,10 +985,10 @@ class AsyncOpencodeSDKWithRawResponse:
         return AsyncProviderResourceWithRawResponse(self._client.provider)
 
     @cached_property
-    def remote_tool(self) -> remote_tool.AsyncRemoteToolResourceWithRawResponse:
-        from .resources.remote_tool import AsyncRemoteToolResourceWithRawResponse
+    def client_tool(self) -> client_tool.AsyncClientToolResourceWithRawResponse:
+        from .resources.client_tool import AsyncClientToolResourceWithRawResponse
 
-        return AsyncRemoteToolResourceWithRawResponse(self._client.remote_tool)
+        return AsyncClientToolResourceWithRawResponse(self._client.client_tool)
 
     @cached_property
     def lsp(self) -> lsp.AsyncLspResourceWithRawResponse:
@@ -1128,10 +1124,10 @@ class OpencodeSDKWithStreamedResponse:
         return ProviderResourceWithStreamingResponse(self._client.provider)
 
     @cached_property
-    def remote_tool(self) -> remote_tool.RemoteToolResourceWithStreamingResponse:
-        from .resources.remote_tool import RemoteToolResourceWithStreamingResponse
+    def client_tool(self) -> client_tool.ClientToolResourceWithStreamingResponse:
+        from .resources.client_tool import ClientToolResourceWithStreamingResponse
 
-        return RemoteToolResourceWithStreamingResponse(self._client.remote_tool)
+        return ClientToolResourceWithStreamingResponse(self._client.client_tool)
 
     @cached_property
     def lsp(self) -> lsp.LspResourceWithStreamingResponse:
@@ -1267,10 +1263,10 @@ class AsyncOpencodeSDKWithStreamedResponse:
         return AsyncProviderResourceWithStreamingResponse(self._client.provider)
 
     @cached_property
-    def remote_tool(self) -> remote_tool.AsyncRemoteToolResourceWithStreamingResponse:
-        from .resources.remote_tool import AsyncRemoteToolResourceWithStreamingResponse
+    def client_tool(self) -> client_tool.AsyncClientToolResourceWithStreamingResponse:
+        from .resources.client_tool import AsyncClientToolResourceWithStreamingResponse
 
-        return AsyncRemoteToolResourceWithStreamingResponse(self._client.remote_tool)
+        return AsyncClientToolResourceWithStreamingResponse(self._client.client_tool)
 
     @cached_property
     def lsp(self) -> lsp.AsyncLspResourceWithStreamingResponse:
