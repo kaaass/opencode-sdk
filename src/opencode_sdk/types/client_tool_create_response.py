@@ -2,6 +2,6 @@
 
 from typing_extensions import TypeAlias
 
-__all__ = ["RemoteToolUnregisterResponse"]
+__all__ = ["ClientToolCreateResponse"]
 
-RemoteToolUnregisterResponse: TypeAlias = bool
+ClientToolCreateResponse: TypeAlias = bool

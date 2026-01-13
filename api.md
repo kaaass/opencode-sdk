@@ -407,23 +407,23 @@ Methods:
 - <code title="post /provider/{providerID}/oauth/authorize">client.provider.oauth.<a href="./src/opencode_sdk/resources/provider/oauth.py">authorize</a>(provider_id, \*\*<a href="src/opencode_sdk/types/provider/oauth_authorize_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/oauth_authorize_response.py">OAuthAuthorizeResponse</a></code>
 - <code title="post /provider/{providerID}/oauth/callback">client.provider.oauth.<a href="./src/opencode_sdk/resources/provider/oauth.py">handle_callback</a>(provider_id, \*\*<a href="src/opencode_sdk/types/provider/oauth_handle_callback_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/oauth_handle_callback_response.py">OAuthHandleCallbackResponse</a></code>
 
-# RemoteTool
+# ClientTool
 
 Types:
 
 ```python
 from opencode_sdk.types import (
-    RemoteToolListResponse,
-    RemoteToolRegisterResponse,
-    RemoteToolUnregisterResponse,
+    ClientToolCreateResponse,
+    ClientToolListResponse,
+    ClientToolDeleteResponse,
 )
 ```
 
 Methods:
 
-- <code title="get /remote-tool">client.remote_tool.<a href="./src/opencode_sdk/resources/remote_tool.py">list</a>(\*\*<a href="src/opencode_sdk/types/remote_tool_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/remote_tool_list_response.py">RemoteToolListResponse</a></code>
-- <code title="post /remote-tool">client.remote_tool.<a href="./src/opencode_sdk/resources/remote_tool.py">register</a>(\*\*<a href="src/opencode_sdk/types/remote_tool_register_params.py">params</a>) -> <a href="./src/opencode_sdk/types/remote_tool_register_response.py">RemoteToolRegisterResponse</a></code>
-- <code title="delete /remote-tool/{id}">client.remote_tool.<a href="./src/opencode_sdk/resources/remote_tool.py">unregister</a>(id, \*\*<a href="src/opencode_sdk/types/remote_tool_unregister_params.py">params</a>) -> <a href="./src/opencode_sdk/types/remote_tool_unregister_response.py">RemoteToolUnregisterResponse</a></code>
+- <code title="post /client-tool">client.client_tool.<a href="./src/opencode_sdk/resources/client_tool.py">create</a>(\*\*<a href="src/opencode_sdk/types/client_tool_create_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_tool_create_response.py">ClientToolCreateResponse</a></code>
+- <code title="get /client-tool">client.client_tool.<a href="./src/opencode_sdk/resources/client_tool.py">list</a>(\*\*<a href="src/opencode_sdk/types/client_tool_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_tool_list_response.py">ClientToolListResponse</a></code>
+- <code title="delete /client-tool/{id}">client.client_tool.<a href="./src/opencode_sdk/resources/client_tool.py">delete</a>(id, \*\*<a href="src/opencode_sdk/types/client_tool_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_tool_delete_response.py">ClientToolDeleteResponse</a></code>
 
 # Lsp
 

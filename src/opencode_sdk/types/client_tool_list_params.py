@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["RemoteToolUnregisterParams"]
+__all__ = ["ClientToolListParams"]
 
 
-class RemoteToolUnregisterParams(TypedDict, total=False):
+class ClientToolListParams(TypedDict, total=False):
     directory: str
