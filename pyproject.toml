@@ -1,5 +1,5 @@
 [project]
-name = "opencode_sdk"
+name = "ai4pa-opencode-sdk"
 version = "0.8.0"
 description = "The official Python library for the opencode-sdk API"
 dynamic = ["readme"]
