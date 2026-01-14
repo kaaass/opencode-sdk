@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.9.0 (2026-01-14)
+
+Full Changelog: [v0.8.0...v0.9.0](https://github.com/kaaass/opencode-sdk/compare/v0.8.0...v0.9.0)
+
+### Features
+
+* **client:** add support for binary request streaming ([5bde958](https://github.com/kaaass/opencode-sdk/commit/5bde958cfb80d482c2d9a0524c2ddf38b72bf6c1))
+
+
+### Build System
+
+* **ci:** 增加发布到 github 的 workflow ([96b8e7e](https://github.com/kaaass/opencode-sdk/commit/96b8e7ebb1bcf131d19276704d19751c206cbbca))
+
 ## 0.8.0 (2026-01-13)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/kaaass/opencode-sdk/compare/v0.7.0...v0.8.0)
