@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.1 (2026-01-14)
+
+Full Changelog: [v0.9.0...v0.9.1](https://github.com/kaaass/opencode-sdk/compare/v0.9.0...v0.9.1)
+
+### Chores
+
+* update SDK settings ([f4f9fe3](https://github.com/kaaass/opencode-sdk/commit/f4f9fe3087d118b5a7b0188a319d95e1be0249e5))
+
 ## 0.9.0 (2026-01-14)
 
 Full Changelog: [v0.8.0...v0.9.0](https://github.com/kaaass/opencode-sdk/compare/v0.8.0...v0.9.0)
