@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -eux
+mkdir -p dist
+rye build --clean
+rye publish --yes --token=$GITHUB_TOKEN --repository-url=https://pypi.pkg.github.com/kaaass/
