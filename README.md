@@ -1,7 +1,7 @@
 # Opencode SDK Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/opencode_sdk.svg?label=pypi%20(stable))](https://pypi.org/project/opencode_sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/ai4pa-opencode-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/ai4pa-opencode-sdk/)
 
 The Opencode SDK Python library provides convenient access to the Opencode SDK REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -16,12 +16,9 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/kaaass/opencode-sdk.git
+# install from PyPI
+pip install ai4pa-opencode-sdk
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install opencode_sdk`
 
 ## Usage
 
@@ -73,8 +70,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from the production repo
-pip install 'opencode_sdk[aiohttp] @ git+ssh://git@github.com/kaaass/opencode-sdk.git'
+# install from PyPI
+pip install ai4pa-opencode-sdk[aiohttp]
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
