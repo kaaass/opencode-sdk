@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.8.1 (2026-01-14)
+
+Full Changelog: [v0.8.0...v0.8.1](https://github.com/kaaass/opencode-sdk/compare/v0.8.0...v0.8.1)
+
+### Chores
+
+* update SDK settings ([493c534](https://github.com/kaaass/opencode-sdk/commit/493c53495bb2d05b6dfb1f10906946e276ea5f49))
+
+
+### Build System
+
+* **ci:** 增加发布到 github 的 workflow ([96b8e7e](https://github.com/kaaass/opencode-sdk/commit/96b8e7ebb1bcf131d19276704d19751c206cbbca))
+
 ## 0.8.0 (2026-01-13)
 
 Full Changelog: [v0.7.0...v0.8.0](https://github.com/kaaass/opencode-sdk/compare/v0.7.0...v0.8.0)
