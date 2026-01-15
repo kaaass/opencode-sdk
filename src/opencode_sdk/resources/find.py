@@ -93,6 +93,8 @@ class FindResource(SyncAPIResource):
         query: str,
         directory: str | Omit = omit,
         dirs: Literal["true", "false"] | Omit = omit,
+        limit: int | Omit = omit,
+        type: Literal["file", "directory"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -101,7 +103,7 @@ class FindResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveFileResponse:
         """
-        Search for files by name or pattern in the project directory.
+        Search for files or directories by name or pattern in the project directory.
 
         Args:
           extra_headers: Send extra headers
@@ -124,6 +126,8 @@ class FindResource(SyncAPIResource):
                         "query": query,
                         "directory": directory,
                         "dirs": dirs,
+                        "limit": limit,
+                        "type": type,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),
@@ -242,6 +246,8 @@ class AsyncFindResource(AsyncAPIResource):
         query: str,
         directory: str | Omit = omit,
         dirs: Literal["true", "false"] | Omit = omit,
+        limit: int | Omit = omit,
+        type: Literal["file", "directory"] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -250,7 +256,7 @@ class AsyncFindResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> FindRetrieveFileResponse:
         """
-        Search for files by name or pattern in the project directory.
+        Search for files or directories by name or pattern in the project directory.
 
         Args:
           extra_headers: Send extra headers
@@ -273,6 +279,8 @@ class AsyncFindResource(AsyncAPIResource):
                         "query": query,
                         "directory": directory,
                         "dirs": dirs,
+                        "limit": limit,
+                        "type": type,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),

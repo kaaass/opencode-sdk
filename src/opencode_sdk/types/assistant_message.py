@@ -47,6 +47,8 @@ class ErrorAPIErrorData(BaseModel):
 
     message: str
 
+    metadata: Optional[Dict[str, str]] = None
+
     response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
 
     response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)

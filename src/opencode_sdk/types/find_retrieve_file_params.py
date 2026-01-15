@@ -13,3 +13,7 @@ class FindRetrieveFileParams(TypedDict, total=False):
     directory: str
 
     dirs: Literal["true", "false"]
+
+    limit: int
+
+    type: Literal["file", "directory"]

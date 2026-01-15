@@ -37,6 +37,12 @@ class MessageSendParams(TypedDict, total=False):
     system: str
 
     tools: Dict[str, bool]
+    """
+    @deprecated tools and permissions have been merged, you can set permissions on
+    the session itself now
+    """
+
+    variant: str
 
 
 class PartTextPartInputTime(TypedDict, total=False):
@@ -103,6 +109,8 @@ class PartSubtaskPartInput(TypedDict, total=False):
     type: Required[Literal["subtask"]]
 
     id: str
+
+    command: str
 
 
 Part: TypeAlias = Union[PartTextPartInput, PartFilePartInput, PartAgentPartInput, PartSubtaskPartInput]

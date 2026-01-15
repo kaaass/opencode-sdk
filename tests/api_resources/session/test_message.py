@@ -178,6 +178,7 @@ class TestMessage:
             no_reply=True,
             system="system",
             tools={"foo": True},
+            variant="variant",
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
@@ -396,6 +397,7 @@ class TestAsyncMessage:
             no_reply=True,
             system="system",
             tools={"foo": True},
+            variant="variant",
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 

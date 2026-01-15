@@ -10,10 +10,10 @@ from .project import Project
 from .._models import BaseModel
 from .session.part import Part
 from .unknown_error import UnknownError
-from .session.message import Message
 from .session.session import Session
 from .provider_auth_error import ProviderAuthError
 from .message_aborted_error import MessageAbortedError
+from .session.message.message import Message
 from .message_output_length_error import MessageOutputLengthError
 
 __all__ = [
@@ -37,15 +37,11 @@ __all__ = [
     "PayloadEventMessagePartUpdatedProperties",
     "PayloadEventMessagePartRemoved",
     "PayloadEventMessagePartRemovedProperties",
-    "PayloadEventPermissionUpdated",
-    "PayloadEventPermissionUpdatedProperties",
-    "PayloadEventPermissionUpdatedPropertiesTime",
+    "PayloadEventPermissionAsked",
+    "PayloadEventPermissionAskedProperties",
+    "PayloadEventPermissionAskedPropertiesTool",
     "PayloadEventPermissionReplied",
     "PayloadEventPermissionRepliedProperties",
-    "PayloadEventFileEdited",
-    "PayloadEventFileEditedProperties",
-    "PayloadEventTodoUpdated",
-    "PayloadEventTodoUpdatedProperties",
     "PayloadEventSessionStatus",
     "PayloadEventSessionStatusProperties",
     "PayloadEventSessionStatusPropertiesStatus",
@@ -55,8 +51,31 @@ __all__ = [
     "PayloadEventSessionStatusPropertiesStatusUnionMember3PendingCall",
     "PayloadEventSessionIdle",
     "PayloadEventSessionIdleProperties",
+    "PayloadEventQuestionAsked",
+    "PayloadEventQuestionAskedProperties",
+    "PayloadEventQuestionAskedPropertiesQuestion",
+    "PayloadEventQuestionAskedPropertiesQuestionOption",
+    "PayloadEventQuestionAskedPropertiesTool",
+    "PayloadEventQuestionReplied",
+    "PayloadEventQuestionRepliedProperties",
+    "PayloadEventQuestionRejected",
+    "PayloadEventQuestionRejectedProperties",
     "PayloadEventSessionCompacted",
     "PayloadEventSessionCompactedProperties",
+    "PayloadEventFileEdited",
+    "PayloadEventFileEditedProperties",
+    "PayloadEventTodoUpdated",
+    "PayloadEventTodoUpdatedProperties",
+    "PayloadEventTuiPromptAppend",
+    "PayloadEventTuiPromptAppendProperties",
+    "PayloadEventTuiCommandExecute",
+    "PayloadEventTuiCommandExecuteProperties",
+    "PayloadEventTuiToastShow",
+    "PayloadEventTuiToastShowProperties",
+    "PayloadEventTuiSessionSelect",
+    "PayloadEventTuiSessionSelectProperties",
+    "PayloadEventMcpToolsChanged",
+    "PayloadEventMcpToolsChangedProperties",
     "PayloadEventCommandExecuted",
     "PayloadEventCommandExecutedProperties",
     "PayloadEventSessionCreated",
@@ -77,12 +96,6 @@ __all__ = [
     "PayloadEventFileWatcherUpdatedProperties",
     "PayloadEventVcsBranchUpdated",
     "PayloadEventVcsBranchUpdatedProperties",
-    "PayloadEventTuiPromptAppend",
-    "PayloadEventTuiPromptAppendProperties",
-    "PayloadEventTuiCommandExecute",
-    "PayloadEventTuiCommandExecuteProperties",
-    "PayloadEventTuiToastShow",
-    "PayloadEventTuiToastShowProperties",
     "PayloadEventPtyCreated",
     "PayloadEventPtyCreatedProperties",
     "PayloadEventPtyCreatedPropertiesInfo",
@@ -200,40 +213,38 @@ class PayloadEventMessagePartRemoved(BaseModel):
     type: Literal["message.part.removed"]
 
 
-class PayloadEventPermissionUpdatedPropertiesTime(BaseModel):
-    created: float
-
-
-class PayloadEventPermissionUpdatedProperties(BaseModel):
-    id: str
+class PayloadEventPermissionAskedPropertiesTool(BaseModel):
+    call_id: str = FieldInfo(alias="callID")
 
     message_id: str = FieldInfo(alias="messageID")
 
+
+class PayloadEventPermissionAskedProperties(BaseModel):
+    id: str
+
+    always: List[str]
+
     metadata: Dict[str, object]
+
+    patterns: List[str]
+
+    permission: str
 
     session_id: str = FieldInfo(alias="sessionID")
 
-    time: PayloadEventPermissionUpdatedPropertiesTime
-
-    title: str
-
-    type: str
-
-    call_id: Optional[str] = FieldInfo(alias="callID", default=None)
-
-    pattern: Union[str, List[str], None] = None
+    tool: Optional[PayloadEventPermissionAskedPropertiesTool] = None
 
 
-class PayloadEventPermissionUpdated(BaseModel):
-    properties: PayloadEventPermissionUpdatedProperties
+class PayloadEventPermissionAsked(BaseModel):
+    properties: PayloadEventPermissionAskedProperties
 
-    type: Literal["permission.updated"]
+    type: Literal["permission.asked"]
 
 
 class PayloadEventPermissionRepliedProperties(BaseModel):
-    permission_id: str = FieldInfo(alias="permissionID")
+    reply: Literal["once", "always", "reject"]
 
-    response: str
+    request_id: str = FieldInfo(alias="requestID")
 
     session_id: str = FieldInfo(alias="sessionID")
 
@@ -242,28 +253,6 @@ class PayloadEventPermissionReplied(BaseModel):
     properties: PayloadEventPermissionRepliedProperties
 
     type: Literal["permission.replied"]
-
-
-class PayloadEventFileEditedProperties(BaseModel):
-    file: str
-
-
-class PayloadEventFileEdited(BaseModel):
-    properties: PayloadEventFileEditedProperties
-
-    type: Literal["file.edited"]
-
-
-class PayloadEventTodoUpdatedProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-    todos: List[Todo]
-
-
-class PayloadEventTodoUpdated(BaseModel):
-    properties: PayloadEventTodoUpdatedProperties
-
-    type: Literal["todo.updated"]
 
 
 class PayloadEventSessionStatusPropertiesStatusType(BaseModel):
@@ -326,6 +315,80 @@ class PayloadEventSessionIdle(BaseModel):
     type: Literal["session.idle"]
 
 
+class PayloadEventQuestionAskedPropertiesQuestionOption(BaseModel):
+    description: str
+    """Explanation of choice"""
+
+    label: str
+    """Display text (1-5 words, concise)"""
+
+
+class PayloadEventQuestionAskedPropertiesQuestion(BaseModel):
+    header: str
+    """Very short label (max 12 chars)"""
+
+    options: List[PayloadEventQuestionAskedPropertiesQuestionOption]
+    """Available choices"""
+
+    question: str
+    """Complete question"""
+
+    custom: Optional[bool] = None
+    """Allow typing a custom answer (default: true)"""
+
+    multiple: Optional[bool] = None
+    """Allow selecting multiple choices"""
+
+
+class PayloadEventQuestionAskedPropertiesTool(BaseModel):
+    call_id: str = FieldInfo(alias="callID")
+
+    message_id: str = FieldInfo(alias="messageID")
+
+
+class PayloadEventQuestionAskedProperties(BaseModel):
+    id: str
+
+    questions: List[PayloadEventQuestionAskedPropertiesQuestion]
+    """Questions to ask"""
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    tool: Optional[PayloadEventQuestionAskedPropertiesTool] = None
+
+
+class PayloadEventQuestionAsked(BaseModel):
+    properties: PayloadEventQuestionAskedProperties
+
+    type: Literal["question.asked"]
+
+
+class PayloadEventQuestionRepliedProperties(BaseModel):
+    answers: List[List[str]]
+
+    request_id: str = FieldInfo(alias="requestID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class PayloadEventQuestionReplied(BaseModel):
+    properties: PayloadEventQuestionRepliedProperties
+
+    type: Literal["question.replied"]
+
+
+class PayloadEventQuestionRejectedProperties(BaseModel):
+    request_id: str = FieldInfo(alias="requestID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class PayloadEventQuestionRejected(BaseModel):
+    properties: PayloadEventQuestionRejectedProperties
+
+    type: Literal["question.rejected"]
+
+
 class PayloadEventSessionCompactedProperties(BaseModel):
     session_id: str = FieldInfo(alias="sessionID")
 
@@ -334,6 +397,104 @@ class PayloadEventSessionCompacted(BaseModel):
     properties: PayloadEventSessionCompactedProperties
 
     type: Literal["session.compacted"]
+
+
+class PayloadEventFileEditedProperties(BaseModel):
+    file: str
+
+
+class PayloadEventFileEdited(BaseModel):
+    properties: PayloadEventFileEditedProperties
+
+    type: Literal["file.edited"]
+
+
+class PayloadEventTodoUpdatedProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+    todos: List[Todo]
+
+
+class PayloadEventTodoUpdated(BaseModel):
+    properties: PayloadEventTodoUpdatedProperties
+
+    type: Literal["todo.updated"]
+
+
+class PayloadEventTuiPromptAppendProperties(BaseModel):
+    text: str
+
+
+class PayloadEventTuiPromptAppend(BaseModel):
+    properties: PayloadEventTuiPromptAppendProperties
+
+    type: Literal["tui.prompt.append"]
+
+
+class PayloadEventTuiCommandExecuteProperties(BaseModel):
+    command: Union[
+        Literal[
+            "session.list",
+            "session.new",
+            "session.share",
+            "session.interrupt",
+            "session.compact",
+            "session.page.up",
+            "session.page.down",
+            "session.half.page.up",
+            "session.half.page.down",
+            "session.first",
+            "session.last",
+            "prompt.clear",
+            "prompt.submit",
+            "agent.cycle",
+        ],
+        str,
+    ]
+
+
+class PayloadEventTuiCommandExecute(BaseModel):
+    properties: PayloadEventTuiCommandExecuteProperties
+
+    type: Literal["tui.command.execute"]
+
+
+class PayloadEventTuiToastShowProperties(BaseModel):
+    message: str
+
+    variant: Literal["info", "success", "warning", "error"]
+
+    duration: Optional[float] = None
+    """Duration in milliseconds"""
+
+    title: Optional[str] = None
+
+
+class PayloadEventTuiToastShow(BaseModel):
+    properties: PayloadEventTuiToastShowProperties
+
+    type: Literal["tui.toast.show"]
+
+
+class PayloadEventTuiSessionSelectProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+    """Session ID to navigate to"""
+
+
+class PayloadEventTuiSessionSelect(BaseModel):
+    properties: PayloadEventTuiSessionSelectProperties
+
+    type: Literal["tui.session.select"]
+
+
+class PayloadEventMcpToolsChangedProperties(BaseModel):
+    server: str
+
+
+class PayloadEventMcpToolsChanged(BaseModel):
+    properties: PayloadEventMcpToolsChangedProperties
+
+    type: Literal["mcp.tools.changed"]
 
 
 class PayloadEventCommandExecutedProperties(BaseModel):
@@ -411,6 +572,8 @@ class PayloadEventSessionErrorPropertiesErrorAPIErrorData(BaseModel):
 
     message: str
 
+    metadata: Optional[Dict[str, str]] = None
+
     response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
 
     response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
@@ -465,61 +628,6 @@ class PayloadEventVcsBranchUpdated(BaseModel):
     properties: PayloadEventVcsBranchUpdatedProperties
 
     type: Literal["vcs.branch.updated"]
-
-
-class PayloadEventTuiPromptAppendProperties(BaseModel):
-    text: str
-
-
-class PayloadEventTuiPromptAppend(BaseModel):
-    properties: PayloadEventTuiPromptAppendProperties
-
-    type: Literal["tui.prompt.append"]
-
-
-class PayloadEventTuiCommandExecuteProperties(BaseModel):
-    command: Union[
-        Literal[
-            "session.list",
-            "session.new",
-            "session.share",
-            "session.interrupt",
-            "session.compact",
-            "session.page.up",
-            "session.page.down",
-            "session.half.page.up",
-            "session.half.page.down",
-            "session.first",
-            "session.last",
-            "prompt.clear",
-            "prompt.submit",
-            "agent.cycle",
-        ],
-        str,
-    ]
-
-
-class PayloadEventTuiCommandExecute(BaseModel):
-    properties: PayloadEventTuiCommandExecuteProperties
-
-    type: Literal["tui.command.execute"]
-
-
-class PayloadEventTuiToastShowProperties(BaseModel):
-    message: str
-
-    variant: Literal["info", "success", "warning", "error"]
-
-    duration: Optional[float] = None
-    """Duration in milliseconds"""
-
-    title: Optional[str] = None
-
-
-class PayloadEventTuiToastShow(BaseModel):
-    properties: PayloadEventTuiToastShowProperties
-
-    type: Literal["tui.toast.show"]
 
 
 class PayloadEventPtyCreatedPropertiesInfo(BaseModel):
@@ -619,13 +727,21 @@ Payload: TypeAlias = Union[
     PayloadEventMessageRemoved,
     PayloadEventMessagePartUpdated,
     PayloadEventMessagePartRemoved,
-    PayloadEventPermissionUpdated,
+    PayloadEventPermissionAsked,
     PayloadEventPermissionReplied,
-    PayloadEventFileEdited,
-    PayloadEventTodoUpdated,
     PayloadEventSessionStatus,
     PayloadEventSessionIdle,
+    PayloadEventQuestionAsked,
+    PayloadEventQuestionReplied,
+    PayloadEventQuestionRejected,
     PayloadEventSessionCompacted,
+    PayloadEventFileEdited,
+    PayloadEventTodoUpdated,
+    PayloadEventTuiPromptAppend,
+    PayloadEventTuiCommandExecute,
+    PayloadEventTuiToastShow,
+    PayloadEventTuiSessionSelect,
+    PayloadEventMcpToolsChanged,
     PayloadEventCommandExecuted,
     PayloadEventSessionCreated,
     PayloadEventSessionUpdated,
@@ -634,9 +750,6 @@ Payload: TypeAlias = Union[
     PayloadEventSessionError,
     PayloadEventFileWatcherUpdated,
     PayloadEventVcsBranchUpdated,
-    PayloadEventTuiPromptAppend,
-    PayloadEventTuiCommandExecute,
-    PayloadEventTuiToastShow,
     PayloadEventPtyCreated,
     PayloadEventPtyUpdated,
     PayloadEventPtyExited,

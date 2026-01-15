@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
-from typing_extensions import Required, Annotated, TypedDict
+from typing import Iterable
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .session.file_part_source_param import FilePartSourceParam
 
-__all__ = ["SessionSendCommandParams"]
+__all__ = ["SessionSendCommandParams", "Part"]
 
 
 class SessionSendCommandParams(TypedDict, total=False):
@@ -21,3 +23,21 @@ class SessionSendCommandParams(TypedDict, total=False):
     message_id: Annotated[str, PropertyInfo(alias="messageID")]
 
     model: str
+
+    parts: Iterable[Part]
+
+    variant: str
+
+
+class Part(TypedDict, total=False):
+    mime: Required[str]
+
+    type: Required[Literal["file"]]
+
+    url: Required[str]
+
+    id: str
+
+    filename: str
+
+    source: FilePartSourceParam

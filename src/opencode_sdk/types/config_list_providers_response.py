@@ -143,6 +143,8 @@ class ProviderModels(BaseModel):
 
     family: Optional[str] = None
 
+    variants: Optional[Dict[str, Dict[str, object]]] = None
+
 
 class Provider(BaseModel):
     id: str

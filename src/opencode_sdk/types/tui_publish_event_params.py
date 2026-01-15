@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+
+from .._utils import PropertyInfo
 
 __all__ = [
     "TuiPublishEventParams",
@@ -13,6 +15,8 @@ __all__ = [
     "EventTuiCommandExecuteProperties",
     "EventTuiToastShow",
     "EventTuiToastShowProperties",
+    "EventTuiSessionSelect",
+    "EventTuiSessionSelectProperties",
 ]
 
 
@@ -79,4 +83,19 @@ class EventTuiToastShowProperties(TypedDict, total=False):
     title: str
 
 
-TuiPublishEventParams: TypeAlias = Union[EventTuiPromptAppend, EventTuiCommandExecute, EventTuiToastShow]
+class EventTuiSessionSelect(TypedDict, total=False):
+    properties: Required[EventTuiSessionSelectProperties]
+
+    type: Required[Literal["tui.session.select"]]
+
+    directory: str
+
+
+class EventTuiSessionSelectProperties(TypedDict, total=False):
+    session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
+    """Session ID to navigate to"""
+
+
+TuiPublishEventParams: TypeAlias = Union[
+    EventTuiPromptAppend, EventTuiCommandExecute, EventTuiToastShow, EventTuiSessionSelect
+]

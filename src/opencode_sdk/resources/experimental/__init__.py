@@ -8,6 +8,14 @@ from .tool import (
     ToolResourceWithStreamingResponse,
     AsyncToolResourceWithStreamingResponse,
 )
+from .worktree import (
+    WorktreeResource,
+    AsyncWorktreeResource,
+    WorktreeResourceWithRawResponse,
+    AsyncWorktreeResourceWithRawResponse,
+    WorktreeResourceWithStreamingResponse,
+    AsyncWorktreeResourceWithStreamingResponse,
+)
 from .experimental import (
     ExperimentalResource,
     AsyncExperimentalResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncToolResourceWithRawResponse",
     "ToolResourceWithStreamingResponse",
     "AsyncToolResourceWithStreamingResponse",
+    "WorktreeResource",
+    "AsyncWorktreeResource",
+    "WorktreeResourceWithRawResponse",
+    "AsyncWorktreeResourceWithRawResponse",
+    "WorktreeResourceWithStreamingResponse",
+    "AsyncWorktreeResourceWithStreamingResponse",
     "ExperimentalResource",
     "AsyncExperimentalResource",
     "ExperimentalResourceWithRawResponse",

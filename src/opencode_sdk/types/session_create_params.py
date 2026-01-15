@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 
-from typing_extensions import Annotated, TypedDict
+from typing import Iterable
+from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._utils import PropertyInfo
 
-__all__ = ["SessionCreateParams"]
+__all__ = ["SessionCreateParams", "Permission"]
 
 
 class SessionCreateParams(TypedDict, total=False):
@@ -14,4 +15,14 @@ class SessionCreateParams(TypedDict, total=False):
 
     parent_id: Annotated[str, PropertyInfo(alias="parentID")]
 
+    permission: Iterable[Permission]
+
     title: str
+
+
+class Permission(TypedDict, total=False):
+    action: Required[Literal["allow", "deny", "ask"]]
+
+    pattern: Required[str]
+
+    permission: Required[str]

@@ -89,6 +89,8 @@ class ConfigResource(SyncAPIResource):
         autoshare: bool | Omit = omit,
         autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
+        compaction: config_update_params.Compaction | Omit = omit,
+        default_agent: str | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
@@ -98,6 +100,7 @@ class ConfigResource(SyncAPIResource):
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
+        log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
         lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
@@ -105,6 +108,7 @@ class ConfigResource(SyncAPIResource):
         permission: config_update_params.Permission | Omit = omit,
         plugin: SequenceNotStr[str] | Omit = omit,
         provider: Dict[str, config_update_params.Provider] | Omit = omit,
+        server: config_update_params.Server | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
@@ -136,6 +140,9 @@ class ConfigResource(SyncAPIResource):
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
+          default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
+              to 'build' if not set or if the specified agent is invalid.
+
           disabled_providers: Disable providers that are loaded automatically
 
           enabled_providers: When set, ONLY these providers will be enabled. All other providers will be
@@ -147,6 +154,8 @@ class ConfigResource(SyncAPIResource):
 
           layout: @deprecated Always uses stretch layout.
 
+          log_level: Log level
+
           mcp: MCP (Model Context Protocol) server configurations
 
           mode: @deprecated Use `agent` field instead.
@@ -154,6 +163,8 @@ class ConfigResource(SyncAPIResource):
           model: Model to use in the format of provider/model, eg anthropic/claude-2
 
           provider: Custom provider configurations and model overrides
+
+          server: Server configuration for opencode serve and web commands
 
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
@@ -184,6 +195,8 @@ class ConfigResource(SyncAPIResource):
                     "autoshare": autoshare,
                     "autoupdate": autoupdate,
                     "command": command,
+                    "compaction": compaction,
+                    "default_agent": default_agent,
                     "disabled_providers": disabled_providers,
                     "enabled_providers": enabled_providers,
                     "enterprise": enterprise,
@@ -192,6 +205,7 @@ class ConfigResource(SyncAPIResource):
                     "instructions": instructions,
                     "keybinds": keybinds,
                     "layout": layout,
+                    "log_level": log_level,
                     "lsp": lsp,
                     "mcp": mcp,
                     "mode": mode,
@@ -199,6 +213,7 @@ class ConfigResource(SyncAPIResource):
                     "permission": permission,
                     "plugin": plugin,
                     "provider": provider,
+                    "server": server,
                     "share": share,
                     "small_model": small_model,
                     "snapshot": snapshot,
@@ -322,6 +337,8 @@ class AsyncConfigResource(AsyncAPIResource):
         autoshare: bool | Omit = omit,
         autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
+        compaction: config_update_params.Compaction | Omit = omit,
+        default_agent: str | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
@@ -331,6 +348,7 @@ class AsyncConfigResource(AsyncAPIResource):
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
+        log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
         lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
@@ -338,6 +356,7 @@ class AsyncConfigResource(AsyncAPIResource):
         permission: config_update_params.Permission | Omit = omit,
         plugin: SequenceNotStr[str] | Omit = omit,
         provider: Dict[str, config_update_params.Provider] | Omit = omit,
+        server: config_update_params.Server | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
@@ -369,6 +388,9 @@ class AsyncConfigResource(AsyncAPIResource):
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
+          default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
+              to 'build' if not set or if the specified agent is invalid.
+
           disabled_providers: Disable providers that are loaded automatically
 
           enabled_providers: When set, ONLY these providers will be enabled. All other providers will be
@@ -380,6 +402,8 @@ class AsyncConfigResource(AsyncAPIResource):
 
           layout: @deprecated Always uses stretch layout.
 
+          log_level: Log level
+
           mcp: MCP (Model Context Protocol) server configurations
 
           mode: @deprecated Use `agent` field instead.
@@ -387,6 +411,8 @@ class AsyncConfigResource(AsyncAPIResource):
           model: Model to use in the format of provider/model, eg anthropic/claude-2
 
           provider: Custom provider configurations and model overrides
+
+          server: Server configuration for opencode serve and web commands
 
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
@@ -417,6 +443,8 @@ class AsyncConfigResource(AsyncAPIResource):
                     "autoshare": autoshare,
                     "autoupdate": autoupdate,
                     "command": command,
+                    "compaction": compaction,
+                    "default_agent": default_agent,
                     "disabled_providers": disabled_providers,
                     "enabled_providers": enabled_providers,
                     "enterprise": enterprise,
@@ -425,6 +453,7 @@ class AsyncConfigResource(AsyncAPIResource):
                     "instructions": instructions,
                     "keybinds": keybinds,
                     "layout": layout,
+                    "log_level": log_level,
                     "lsp": lsp,
                     "mcp": mcp,
                     "mode": mode,
@@ -432,6 +461,7 @@ class AsyncConfigResource(AsyncAPIResource):
                     "permission": permission,
                     "plugin": plugin,
                     "provider": provider,
+                    "server": server,
                     "share": share,
                     "small_model": small_model,
                     "snapshot": snapshot,

@@ -99,6 +99,8 @@ class AllModels(BaseModel):
 
     status: Optional[Literal["alpha", "beta", "deprecated"]] = None
 
+    variants: Optional[Dict[str, Dict[str, object]]] = None
+
 
 class All(BaseModel):
     id: str

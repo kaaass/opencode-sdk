@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Optional
+from typing import Dict, Iterable, Optional
 from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
@@ -18,9 +18,7 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     options: Required[Dict[str, object]]
 
-    permission: Required[Permission]
-
-    tools: Required[Dict[str, bool]]
+    permission: Required[Iterable[Permission]]
 
     directory: str
 
@@ -30,13 +28,13 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     hidden: bool
 
-    max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-
     model: Model
 
     native: bool
 
     prompt: str
+
+    steps: int
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
 
@@ -46,15 +44,11 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
 
 class Permission(TypedDict, total=False):
-    bash: Required[Dict[str, Literal["ask", "allow", "deny"]]]
+    action: Required[Literal["allow", "deny", "ask"]]
 
-    edit: Required[Literal["ask", "allow", "deny"]]
+    pattern: Required[str]
 
-    doom_loop: Literal["ask", "allow", "deny"]
-
-    external_directory: Literal["ask", "allow", "deny"]
-
-    webfetch: Literal["ask", "allow", "deny"]
+    permission: Required[str]
 
 
 class Model(TypedDict, total=False):

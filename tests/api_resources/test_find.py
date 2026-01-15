@@ -79,6 +79,8 @@ class TestFind:
             query="query",
             directory="directory",
             dirs="true",
+            limit=1,
+            type="file",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
@@ -215,6 +217,8 @@ class TestAsyncFind:
             query="query",
             directory="directory",
             dirs="true",
+            limit=1,
+            type="file",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
