@@ -21,6 +21,8 @@ class OAuth(TypedDict, total=False):
 
     directory: str
 
+    account_id: Annotated[str, PropertyInfo(alias="accountId")]
+
     enterprise_url: Annotated[str, PropertyInfo(alias="enterpriseUrl")]
 
 

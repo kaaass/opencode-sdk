@@ -1,28 +1,15 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-
-from pydantic import Field as FieldInfo
+from typing import List
 
 from .._models import BaseModel
 from .session.part import Part
 from .assistant_message import AssistantMessage
 
-__all__ = ["SessionSendCommandResponse", "PendingRemoteCall"]
-
-
-class PendingRemoteCall(BaseModel):
-    call_id: str = FieldInfo(alias="callID")
-
-    input: Dict[str, object]
-
-    tool: str
+__all__ = ["SessionSendCommandResponse"]
 
 
 class SessionSendCommandResponse(BaseModel):
     info: AssistantMessage
 
     parts: List[Part]
-
-    pending_remote_calls: Optional[List[PendingRemoteCall]] = FieldInfo(alias="pendingRemoteCalls", default=None)
-    """Client tool calls waiting for external results"""

@@ -10,10 +10,10 @@ from .project import Project
 from .._models import BaseModel
 from .session.part import Part
 from .unknown_error import UnknownError
-from .session.message import Message
 from .session.session import Session
 from .provider_auth_error import ProviderAuthError
 from .message_aborted_error import MessageAbortedError
+from .session.message.message import Message
 from .message_output_length_error import MessageOutputLengthError
 
 __all__ = [
@@ -36,15 +36,11 @@ __all__ = [
     "EventMessagePartUpdatedProperties",
     "EventMessagePartRemoved",
     "EventMessagePartRemovedProperties",
-    "EventPermissionUpdated",
-    "EventPermissionUpdatedProperties",
-    "EventPermissionUpdatedPropertiesTime",
+    "EventPermissionAsked",
+    "EventPermissionAskedProperties",
+    "EventPermissionAskedPropertiesTool",
     "EventPermissionReplied",
     "EventPermissionRepliedProperties",
-    "EventFileEdited",
-    "EventFileEditedProperties",
-    "EventTodoUpdated",
-    "EventTodoUpdatedProperties",
     "EventSessionStatus",
     "EventSessionStatusProperties",
     "EventSessionStatusPropertiesStatus",
@@ -54,8 +50,31 @@ __all__ = [
     "EventSessionStatusPropertiesStatusUnionMember3PendingCall",
     "EventSessionIdle",
     "EventSessionIdleProperties",
+    "EventQuestionAsked",
+    "EventQuestionAskedProperties",
+    "EventQuestionAskedPropertiesQuestion",
+    "EventQuestionAskedPropertiesQuestionOption",
+    "EventQuestionAskedPropertiesTool",
+    "EventQuestionReplied",
+    "EventQuestionRepliedProperties",
+    "EventQuestionRejected",
+    "EventQuestionRejectedProperties",
     "EventSessionCompacted",
     "EventSessionCompactedProperties",
+    "EventFileEdited",
+    "EventFileEditedProperties",
+    "EventTodoUpdated",
+    "EventTodoUpdatedProperties",
+    "EventTuiPromptAppend",
+    "EventTuiPromptAppendProperties",
+    "EventTuiCommandExecute",
+    "EventTuiCommandExecuteProperties",
+    "EventTuiToastShow",
+    "EventTuiToastShowProperties",
+    "EventTuiSessionSelect",
+    "EventTuiSessionSelectProperties",
+    "EventMcpToolsChanged",
+    "EventMcpToolsChangedProperties",
     "EventCommandExecuted",
     "EventCommandExecutedProperties",
     "EventSessionCreated",
@@ -76,12 +95,6 @@ __all__ = [
     "EventFileWatcherUpdatedProperties",
     "EventVcsBranchUpdated",
     "EventVcsBranchUpdatedProperties",
-    "EventTuiPromptAppend",
-    "EventTuiPromptAppendProperties",
-    "EventTuiCommandExecute",
-    "EventTuiCommandExecuteProperties",
-    "EventTuiToastShow",
-    "EventTuiToastShowProperties",
     "EventPtyCreated",
     "EventPtyCreatedProperties",
     "EventPtyCreatedPropertiesInfo",
@@ -199,40 +212,38 @@ class EventMessagePartRemoved(BaseModel):
     type: Literal["message.part.removed"]
 
 
-class EventPermissionUpdatedPropertiesTime(BaseModel):
-    created: float
-
-
-class EventPermissionUpdatedProperties(BaseModel):
-    id: str
+class EventPermissionAskedPropertiesTool(BaseModel):
+    call_id: str = FieldInfo(alias="callID")
 
     message_id: str = FieldInfo(alias="messageID")
 
+
+class EventPermissionAskedProperties(BaseModel):
+    id: str
+
+    always: List[str]
+
     metadata: Dict[str, object]
+
+    patterns: List[str]
+
+    permission: str
 
     session_id: str = FieldInfo(alias="sessionID")
 
-    time: EventPermissionUpdatedPropertiesTime
-
-    title: str
-
-    type: str
-
-    call_id: Optional[str] = FieldInfo(alias="callID", default=None)
-
-    pattern: Union[str, List[str], None] = None
+    tool: Optional[EventPermissionAskedPropertiesTool] = None
 
 
-class EventPermissionUpdated(BaseModel):
-    properties: EventPermissionUpdatedProperties
+class EventPermissionAsked(BaseModel):
+    properties: EventPermissionAskedProperties
 
-    type: Literal["permission.updated"]
+    type: Literal["permission.asked"]
 
 
 class EventPermissionRepliedProperties(BaseModel):
-    permission_id: str = FieldInfo(alias="permissionID")
+    reply: Literal["once", "always", "reject"]
 
-    response: str
+    request_id: str = FieldInfo(alias="requestID")
 
     session_id: str = FieldInfo(alias="sessionID")
 
@@ -241,28 +252,6 @@ class EventPermissionReplied(BaseModel):
     properties: EventPermissionRepliedProperties
 
     type: Literal["permission.replied"]
-
-
-class EventFileEditedProperties(BaseModel):
-    file: str
-
-
-class EventFileEdited(BaseModel):
-    properties: EventFileEditedProperties
-
-    type: Literal["file.edited"]
-
-
-class EventTodoUpdatedProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-    todos: List[Todo]
-
-
-class EventTodoUpdated(BaseModel):
-    properties: EventTodoUpdatedProperties
-
-    type: Literal["todo.updated"]
 
 
 class EventSessionStatusPropertiesStatusType(BaseModel):
@@ -323,6 +312,80 @@ class EventSessionIdle(BaseModel):
     type: Literal["session.idle"]
 
 
+class EventQuestionAskedPropertiesQuestionOption(BaseModel):
+    description: str
+    """Explanation of choice"""
+
+    label: str
+    """Display text (1-5 words, concise)"""
+
+
+class EventQuestionAskedPropertiesQuestion(BaseModel):
+    header: str
+    """Very short label (max 12 chars)"""
+
+    options: List[EventQuestionAskedPropertiesQuestionOption]
+    """Available choices"""
+
+    question: str
+    """Complete question"""
+
+    custom: Optional[bool] = None
+    """Allow typing a custom answer (default: true)"""
+
+    multiple: Optional[bool] = None
+    """Allow selecting multiple choices"""
+
+
+class EventQuestionAskedPropertiesTool(BaseModel):
+    call_id: str = FieldInfo(alias="callID")
+
+    message_id: str = FieldInfo(alias="messageID")
+
+
+class EventQuestionAskedProperties(BaseModel):
+    id: str
+
+    questions: List[EventQuestionAskedPropertiesQuestion]
+    """Questions to ask"""
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    tool: Optional[EventQuestionAskedPropertiesTool] = None
+
+
+class EventQuestionAsked(BaseModel):
+    properties: EventQuestionAskedProperties
+
+    type: Literal["question.asked"]
+
+
+class EventQuestionRepliedProperties(BaseModel):
+    answers: List[List[str]]
+
+    request_id: str = FieldInfo(alias="requestID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventQuestionReplied(BaseModel):
+    properties: EventQuestionRepliedProperties
+
+    type: Literal["question.replied"]
+
+
+class EventQuestionRejectedProperties(BaseModel):
+    request_id: str = FieldInfo(alias="requestID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventQuestionRejected(BaseModel):
+    properties: EventQuestionRejectedProperties
+
+    type: Literal["question.rejected"]
+
+
 class EventSessionCompactedProperties(BaseModel):
     session_id: str = FieldInfo(alias="sessionID")
 
@@ -331,6 +394,104 @@ class EventSessionCompacted(BaseModel):
     properties: EventSessionCompactedProperties
 
     type: Literal["session.compacted"]
+
+
+class EventFileEditedProperties(BaseModel):
+    file: str
+
+
+class EventFileEdited(BaseModel):
+    properties: EventFileEditedProperties
+
+    type: Literal["file.edited"]
+
+
+class EventTodoUpdatedProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+    todos: List[Todo]
+
+
+class EventTodoUpdated(BaseModel):
+    properties: EventTodoUpdatedProperties
+
+    type: Literal["todo.updated"]
+
+
+class EventTuiPromptAppendProperties(BaseModel):
+    text: str
+
+
+class EventTuiPromptAppend(BaseModel):
+    properties: EventTuiPromptAppendProperties
+
+    type: Literal["tui.prompt.append"]
+
+
+class EventTuiCommandExecuteProperties(BaseModel):
+    command: Union[
+        Literal[
+            "session.list",
+            "session.new",
+            "session.share",
+            "session.interrupt",
+            "session.compact",
+            "session.page.up",
+            "session.page.down",
+            "session.half.page.up",
+            "session.half.page.down",
+            "session.first",
+            "session.last",
+            "prompt.clear",
+            "prompt.submit",
+            "agent.cycle",
+        ],
+        str,
+    ]
+
+
+class EventTuiCommandExecute(BaseModel):
+    properties: EventTuiCommandExecuteProperties
+
+    type: Literal["tui.command.execute"]
+
+
+class EventTuiToastShowProperties(BaseModel):
+    message: str
+
+    variant: Literal["info", "success", "warning", "error"]
+
+    duration: Optional[float] = None
+    """Duration in milliseconds"""
+
+    title: Optional[str] = None
+
+
+class EventTuiToastShow(BaseModel):
+    properties: EventTuiToastShowProperties
+
+    type: Literal["tui.toast.show"]
+
+
+class EventTuiSessionSelectProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+    """Session ID to navigate to"""
+
+
+class EventTuiSessionSelect(BaseModel):
+    properties: EventTuiSessionSelectProperties
+
+    type: Literal["tui.session.select"]
+
+
+class EventMcpToolsChangedProperties(BaseModel):
+    server: str
+
+
+class EventMcpToolsChanged(BaseModel):
+    properties: EventMcpToolsChangedProperties
+
+    type: Literal["mcp.tools.changed"]
 
 
 class EventCommandExecutedProperties(BaseModel):
@@ -408,6 +569,8 @@ class EventSessionErrorPropertiesErrorAPIErrorData(BaseModel):
 
     message: str
 
+    metadata: Optional[Dict[str, str]] = None
+
     response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
 
     response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
@@ -462,61 +625,6 @@ class EventVcsBranchUpdated(BaseModel):
     properties: EventVcsBranchUpdatedProperties
 
     type: Literal["vcs.branch.updated"]
-
-
-class EventTuiPromptAppendProperties(BaseModel):
-    text: str
-
-
-class EventTuiPromptAppend(BaseModel):
-    properties: EventTuiPromptAppendProperties
-
-    type: Literal["tui.prompt.append"]
-
-
-class EventTuiCommandExecuteProperties(BaseModel):
-    command: Union[
-        Literal[
-            "session.list",
-            "session.new",
-            "session.share",
-            "session.interrupt",
-            "session.compact",
-            "session.page.up",
-            "session.page.down",
-            "session.half.page.up",
-            "session.half.page.down",
-            "session.first",
-            "session.last",
-            "prompt.clear",
-            "prompt.submit",
-            "agent.cycle",
-        ],
-        str,
-    ]
-
-
-class EventTuiCommandExecute(BaseModel):
-    properties: EventTuiCommandExecuteProperties
-
-    type: Literal["tui.command.execute"]
-
-
-class EventTuiToastShowProperties(BaseModel):
-    message: str
-
-    variant: Literal["info", "success", "warning", "error"]
-
-    duration: Optional[float] = None
-    """Duration in milliseconds"""
-
-    title: Optional[str] = None
-
-
-class EventTuiToastShow(BaseModel):
-    properties: EventTuiToastShowProperties
-
-    type: Literal["tui.toast.show"]
 
 
 class EventPtyCreatedPropertiesInfo(BaseModel):
@@ -616,13 +724,21 @@ EventListResponse: TypeAlias = Union[
     EventMessageRemoved,
     EventMessagePartUpdated,
     EventMessagePartRemoved,
-    EventPermissionUpdated,
+    EventPermissionAsked,
     EventPermissionReplied,
-    EventFileEdited,
-    EventTodoUpdated,
     EventSessionStatus,
     EventSessionIdle,
+    EventQuestionAsked,
+    EventQuestionReplied,
+    EventQuestionRejected,
     EventSessionCompacted,
+    EventFileEdited,
+    EventTodoUpdated,
+    EventTuiPromptAppend,
+    EventTuiCommandExecute,
+    EventTuiToastShow,
+    EventTuiSessionSelect,
+    EventMcpToolsChanged,
     EventCommandExecuted,
     EventSessionCreated,
     EventSessionUpdated,
@@ -631,9 +747,6 @@ EventListResponse: TypeAlias = Union[
     EventSessionError,
     EventFileWatcherUpdated,
     EventVcsBranchUpdated,
-    EventTuiPromptAppend,
-    EventTuiCommandExecute,
-    EventTuiToastShow,
     EventPtyCreated,
     EventPtyUpdated,
     EventPtyExited,

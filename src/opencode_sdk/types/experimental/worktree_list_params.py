@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from typing_extensions import TypedDict
 
-__all__ = ["AuthRemoveCredentialsParams"]
+__all__ = ["WorktreeListParams"]
 
 
-class AuthRemoveCredentialsParams(TypedDict, total=False):
+class WorktreeListParams(TypedDict, total=False):
     directory: str

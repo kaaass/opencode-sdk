@@ -16,6 +16,7 @@ from ...types import (
     tui_open_sessions_params,
     tui_publish_event_params,
     tui_submit_prompt_params,
+    tui_select_session_params,
     tui_execute_command_params,
 )
 from .control import (
@@ -46,6 +47,7 @@ from ...types.tui_append_prompt_response import TuiAppendPromptResponse
 from ...types.tui_open_sessions_response import TuiOpenSessionsResponse
 from ...types.tui_publish_event_response import TuiPublishEventResponse
 from ...types.tui_submit_prompt_response import TuiSubmitPromptResponse
+from ...types.tui_select_session_response import TuiSelectSessionResponse
 from ...types.tui_execute_command_response import TuiExecuteCommandResponse
 
 __all__ = ["TuiResource", "AsyncTuiResource"]
@@ -409,14 +411,46 @@ class TuiResource(SyncAPIResource):
         """
         ...
 
+    @overload
+    def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiSessionSelectProperties,
+        type: Literal["tui.session.select"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
     @required_args(["properties", "type"])
     def publish_event(
         self,
         *,
         properties: tui_publish_event_params.EventTuiPromptAppendProperties
         | tui_publish_event_params.EventTuiCommandExecuteProperties
-        | tui_publish_event_params.EventTuiToastShowProperties,
-        type: Literal["tui.prompt.append"] | Literal["tui.command.execute"] | Literal["tui.toast.show"],
+        | tui_publish_event_params.EventTuiToastShowProperties
+        | tui_publish_event_params.EventTuiSessionSelectProperties,
+        type: Literal["tui.prompt.append"]
+        | Literal["tui.command.execute"]
+        | Literal["tui.toast.show"]
+        | Literal["tui.session.select"],
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -442,6 +476,45 @@ class TuiResource(SyncAPIResource):
                 query=maybe_transform({"directory": directory}, tui_publish_event_params.TuiPublishEventParams),
             ),
             cast_to=TuiPublishEventResponse,
+        )
+
+    def select_session(
+        self,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiSelectSessionResponse:
+        """
+        Navigate the TUI to display the specified session.
+
+        Args:
+          session_id: Session ID to navigate to
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/tui/select-session",
+            body=maybe_transform({"session_id": session_id}, tui_select_session_params.TuiSelectSessionParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform({"directory": directory}, tui_select_session_params.TuiSelectSessionParams),
+            ),
+            cast_to=TuiSelectSessionResponse,
         )
 
     def show_toast(
@@ -896,14 +969,46 @@ class AsyncTuiResource(AsyncAPIResource):
         """
         ...
 
+    @overload
+    async def publish_event(
+        self,
+        *,
+        properties: tui_publish_event_params.EventTuiSessionSelectProperties,
+        type: Literal["tui.session.select"],
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiPublishEventResponse:
+        """
+        Publish a TUI event
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        ...
+
     @required_args(["properties", "type"])
     async def publish_event(
         self,
         *,
         properties: tui_publish_event_params.EventTuiPromptAppendProperties
         | tui_publish_event_params.EventTuiCommandExecuteProperties
-        | tui_publish_event_params.EventTuiToastShowProperties,
-        type: Literal["tui.prompt.append"] | Literal["tui.command.execute"] | Literal["tui.toast.show"],
+        | tui_publish_event_params.EventTuiToastShowProperties
+        | tui_publish_event_params.EventTuiSessionSelectProperties,
+        type: Literal["tui.prompt.append"]
+        | Literal["tui.command.execute"]
+        | Literal["tui.toast.show"]
+        | Literal["tui.session.select"],
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -931,6 +1036,49 @@ class AsyncTuiResource(AsyncAPIResource):
                 ),
             ),
             cast_to=TuiPublishEventResponse,
+        )
+
+    async def select_session(
+        self,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> TuiSelectSessionResponse:
+        """
+        Navigate the TUI to display the specified session.
+
+        Args:
+          session_id: Session ID to navigate to
+
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/tui/select-session",
+            body=await async_maybe_transform(
+                {"session_id": session_id}, tui_select_session_params.TuiSelectSessionParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"directory": directory}, tui_select_session_params.TuiSelectSessionParams
+                ),
+            ),
+            cast_to=TuiSelectSessionResponse,
         )
 
     async def show_toast(
@@ -1049,6 +1197,9 @@ class TuiResourceWithRawResponse:
         self.publish_event = to_raw_response_wrapper(
             tui.publish_event,
         )
+        self.select_session = to_raw_response_wrapper(
+            tui.select_session,
+        )
         self.show_toast = to_raw_response_wrapper(
             tui.show_toast,
         )
@@ -1088,6 +1239,9 @@ class AsyncTuiResourceWithRawResponse:
         )
         self.publish_event = async_to_raw_response_wrapper(
             tui.publish_event,
+        )
+        self.select_session = async_to_raw_response_wrapper(
+            tui.select_session,
         )
         self.show_toast = async_to_raw_response_wrapper(
             tui.show_toast,
@@ -1129,6 +1283,9 @@ class TuiResourceWithStreamingResponse:
         self.publish_event = to_streamed_response_wrapper(
             tui.publish_event,
         )
+        self.select_session = to_streamed_response_wrapper(
+            tui.select_session,
+        )
         self.show_toast = to_streamed_response_wrapper(
             tui.show_toast,
         )
@@ -1168,6 +1325,9 @@ class AsyncTuiResourceWithStreamingResponse:
         )
         self.publish_event = async_to_streamed_response_wrapper(
             tui.publish_event,
+        )
+        self.select_session = async_to_streamed_response_wrapper(
+            tui.select_session,
         )
         self.show_toast = async_to_streamed_response_wrapper(
             tui.show_toast,

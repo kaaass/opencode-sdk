@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import typing_extensions
 from typing import Any, Dict, Iterable, cast
 from typing_extensions import Literal
 
@@ -38,14 +39,6 @@ from ...types import (
     session_respond_to_permission_params,
     session_restore_reverted_messages_params,
 )
-from .message import (
-    MessageResource,
-    AsyncMessageResource,
-    MessageResourceWithRawResponse,
-    AsyncMessageResourceWithRawResponse,
-    MessageResourceWithStreamingResponse,
-    AsyncMessageResourceWithStreamingResponse,
-)
 from ..._types import Body, Omit, Query, Headers, NoneType, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
 from ..._compat import cached_property
@@ -57,7 +50,16 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
+from .message.message import (
+    MessageResource,
+    AsyncMessageResource,
+    MessageResourceWithRawResponse,
+    AsyncMessageResourceWithRawResponse,
+    MessageResourceWithStreamingResponse,
+    AsyncMessageResourceWithStreamingResponse,
+)
 from ...types.session.session import Session
+from ...types.assistant_message import AssistantMessage
 from ...types.session_list_response import SessionListResponse
 from ...types.session_abort_response import SessionAbortResponse
 from ...types.session_delete_response import SessionDeleteResponse
@@ -69,7 +71,6 @@ from ...types.session_initialize_response import SessionInitializeResponse
 from ...types.session_get_children_response import SessionGetChildrenResponse
 from ...types.session_send_command_response import SessionSendCommandResponse
 from ...types.session_retrieve_status_response import SessionRetrieveStatusResponse
-from ...types.session_run_shell_command_response import SessionRunShellCommandResponse
 from ...types.session_submit_tool_results_response import SessionSubmitToolResultsResponse
 from ...types.session_respond_to_permission_response import SessionRespondToPermissionResponse
 
@@ -109,6 +110,7 @@ class SessionResource(SyncAPIResource):
         *,
         directory: str | Omit = omit,
         parent_id: str | Omit = omit,
+        permission: Iterable[session_create_params.Permission] | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -135,6 +137,7 @@ class SessionResource(SyncAPIResource):
             body=maybe_transform(
                 {
                     "parent_id": parent_id,
+                    "permission": permission,
                     "title": title,
                 },
                 session_create_params.SessionCreateParams,
@@ -238,6 +241,9 @@ class SessionResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        limit: float | Omit = omit,
+        search: str | Omit = omit,
+        start: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -249,6 +255,12 @@ class SessionResource(SyncAPIResource):
         Get a list of all OpenCode sessions, sorted by most recently updated.
 
         Args:
+          limit: Maximum number of sessions to return
+
+          search: Filter sessions by title (case-insensitive)
+
+          start: Filter sessions updated on or after this timestamp (milliseconds since epoch)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -264,7 +276,15 @@ class SessionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, session_list_params.SessionListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "limit": limit,
+                        "search": search,
+                        "start": start,
+                    },
+                    session_list_params.SessionListParams,
+                ),
             ),
             cast_to=SessionListResponse,
         )
@@ -594,6 +614,7 @@ class SessionResource(SyncAPIResource):
             cast_to=SessionInitializeResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     def respond_to_permission(
         self,
         permission_id: str,
@@ -792,7 +813,7 @@ class SessionResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionRunShellCommandResponse:
+    ) -> AssistantMessage:
         """
         Execute a shell command within the session context and return the AI's response.
 
@@ -826,7 +847,7 @@ class SessionResource(SyncAPIResource):
                     {"directory": directory}, session_run_shell_command_params.SessionRunShellCommandParams
                 ),
             ),
-            cast_to=SessionRunShellCommandResponse,
+            cast_to=AssistantMessage,
         )
 
     def send_async_message(
@@ -841,6 +862,7 @@ class SessionResource(SyncAPIResource):
         no_reply: bool | Omit = omit,
         system: str | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -853,6 +875,9 @@ class SessionResource(SyncAPIResource):
         if needed and returning immediately.
 
         Args:
+          tools: @deprecated tools and permissions have been merged, you can set permissions on
+              the session itself now
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -875,6 +900,7 @@ class SessionResource(SyncAPIResource):
                     "no_reply": no_reply,
                     "system": system,
                     "tools": tools,
+                    "variant": variant,
                 },
                 session_send_async_message_params.SessionSendAsyncMessageParams,
             ),
@@ -900,6 +926,8 @@ class SessionResource(SyncAPIResource):
         agent: str | Omit = omit,
         message_id: str | Omit = omit,
         model: str | Omit = omit,
+        parts: Iterable[session_send_command_params.Part] | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -930,6 +958,8 @@ class SessionResource(SyncAPIResource):
                     "agent": agent,
                     "message_id": message_id,
                     "model": model,
+                    "parts": parts,
+                    "variant": variant,
                 },
                 session_send_command_params.SessionSendCommandParams,
             ),
@@ -959,7 +989,7 @@ class SessionResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionSubmitToolResultsResponse:
         """
-        Submit results for client tools that are waiting for external execution, and
+        Submit results for remote tools that are waiting for external execution, and
         optionally continue the inference loop.
 
         Args:
@@ -1002,6 +1032,7 @@ class SessionResource(SyncAPIResource):
         model_id: str,
         provider_id: str,
         directory: str | Omit = omit,
+        auto: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1030,6 +1061,7 @@ class SessionResource(SyncAPIResource):
                 {
                     "model_id": model_id,
                     "provider_id": provider_id,
+                    "auto": auto,
                 },
                 session_summarize_params.SessionSummarizeParams,
             ),
@@ -1077,6 +1109,7 @@ class AsyncSessionResource(AsyncAPIResource):
         *,
         directory: str | Omit = omit,
         parent_id: str | Omit = omit,
+        permission: Iterable[session_create_params.Permission] | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1103,6 +1136,7 @@ class AsyncSessionResource(AsyncAPIResource):
             body=await async_maybe_transform(
                 {
                     "parent_id": parent_id,
+                    "permission": permission,
                     "title": title,
                 },
                 session_create_params.SessionCreateParams,
@@ -1208,6 +1242,9 @@ class AsyncSessionResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        limit: float | Omit = omit,
+        search: str | Omit = omit,
+        start: float | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1219,6 +1256,12 @@ class AsyncSessionResource(AsyncAPIResource):
         Get a list of all OpenCode sessions, sorted by most recently updated.
 
         Args:
+          limit: Maximum number of sessions to return
+
+          search: Filter sessions by title (case-insensitive)
+
+          start: Filter sessions updated on or after this timestamp (milliseconds since epoch)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1234,7 +1277,15 @@ class AsyncSessionResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, session_list_params.SessionListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "limit": limit,
+                        "search": search,
+                        "start": start,
+                    },
+                    session_list_params.SessionListParams,
+                ),
             ),
             cast_to=SessionListResponse,
         )
@@ -1572,6 +1623,7 @@ class AsyncSessionResource(AsyncAPIResource):
             cast_to=SessionInitializeResponse,
         )
 
+    @typing_extensions.deprecated("deprecated")
     async def respond_to_permission(
         self,
         permission_id: str,
@@ -1770,7 +1822,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionRunShellCommandResponse:
+    ) -> AssistantMessage:
         """
         Execute a shell command within the session context and return the AI's response.
 
@@ -1804,7 +1856,7 @@ class AsyncSessionResource(AsyncAPIResource):
                     {"directory": directory}, session_run_shell_command_params.SessionRunShellCommandParams
                 ),
             ),
-            cast_to=SessionRunShellCommandResponse,
+            cast_to=AssistantMessage,
         )
 
     async def send_async_message(
@@ -1819,6 +1871,7 @@ class AsyncSessionResource(AsyncAPIResource):
         no_reply: bool | Omit = omit,
         system: str | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1831,6 +1884,9 @@ class AsyncSessionResource(AsyncAPIResource):
         if needed and returning immediately.
 
         Args:
+          tools: @deprecated tools and permissions have been merged, you can set permissions on
+              the session itself now
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -1853,6 +1909,7 @@ class AsyncSessionResource(AsyncAPIResource):
                     "no_reply": no_reply,
                     "system": system,
                     "tools": tools,
+                    "variant": variant,
                 },
                 session_send_async_message_params.SessionSendAsyncMessageParams,
             ),
@@ -1878,6 +1935,8 @@ class AsyncSessionResource(AsyncAPIResource):
         agent: str | Omit = omit,
         message_id: str | Omit = omit,
         model: str | Omit = omit,
+        parts: Iterable[session_send_command_params.Part] | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1908,6 +1967,8 @@ class AsyncSessionResource(AsyncAPIResource):
                     "agent": agent,
                     "message_id": message_id,
                     "model": model,
+                    "parts": parts,
+                    "variant": variant,
                 },
                 session_send_command_params.SessionSendCommandParams,
             ),
@@ -1939,7 +2000,7 @@ class AsyncSessionResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> SessionSubmitToolResultsResponse:
         """
-        Submit results for client tools that are waiting for external execution, and
+        Submit results for remote tools that are waiting for external execution, and
         optionally continue the inference loop.
 
         Args:
@@ -1982,6 +2043,7 @@ class AsyncSessionResource(AsyncAPIResource):
         model_id: str,
         provider_id: str,
         directory: str | Omit = omit,
+        auto: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -2010,6 +2072,7 @@ class AsyncSessionResource(AsyncAPIResource):
                 {
                     "model_id": model_id,
                     "provider_id": provider_id,
+                    "auto": auto,
                 },
                 session_summarize_params.SessionSummarizeParams,
             ),
@@ -2066,8 +2129,10 @@ class SessionResourceWithRawResponse:
         self.initialize = to_raw_response_wrapper(
             session.initialize,
         )
-        self.respond_to_permission = to_raw_response_wrapper(
-            session.respond_to_permission,
+        self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
+            to_raw_response_wrapper(
+                session.respond_to_permission,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.restore_reverted_messages = to_raw_response_wrapper(
             session.restore_reverted_messages,
@@ -2143,8 +2208,10 @@ class AsyncSessionResourceWithRawResponse:
         self.initialize = async_to_raw_response_wrapper(
             session.initialize,
         )
-        self.respond_to_permission = async_to_raw_response_wrapper(
-            session.respond_to_permission,
+        self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
+            async_to_raw_response_wrapper(
+                session.respond_to_permission,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.restore_reverted_messages = async_to_raw_response_wrapper(
             session.restore_reverted_messages,
@@ -2220,8 +2287,10 @@ class SessionResourceWithStreamingResponse:
         self.initialize = to_streamed_response_wrapper(
             session.initialize,
         )
-        self.respond_to_permission = to_streamed_response_wrapper(
-            session.respond_to_permission,
+        self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
+            to_streamed_response_wrapper(
+                session.respond_to_permission,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.restore_reverted_messages = to_streamed_response_wrapper(
             session.restore_reverted_messages,
@@ -2297,8 +2366,10 @@ class AsyncSessionResourceWithStreamingResponse:
         self.initialize = async_to_streamed_response_wrapper(
             session.initialize,
         )
-        self.respond_to_permission = async_to_streamed_response_wrapper(
-            session.respond_to_permission,
+        self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
+            async_to_streamed_response_wrapper(
+                session.respond_to_permission,  # pyright: ignore[reportDeprecated],
+            )
         )
         self.restore_reverted_messages = async_to_streamed_response_wrapper(
             session.restore_reverted_messages,

@@ -52,7 +52,9 @@ if TYPE_CHECKING:
         session,
         instance,
         provider,
+        question,
         formatter,
+        permission,
         client_tool,
         experimental,
     )
@@ -73,7 +75,9 @@ if TYPE_CHECKING:
     from .resources.project import ProjectResource, AsyncProjectResource
     from .resources.tui.tui import TuiResource, AsyncTuiResource
     from .resources.instance import InstanceResource, AsyncInstanceResource
+    from .resources.question import QuestionResource, AsyncQuestionResource
     from .resources.formatter import FormatterResource, AsyncFormatterResource
+    from .resources.permission import PermissionResource, AsyncPermissionResource
     from .resources.client_tool import ClientToolResource, AsyncClientToolResource
     from .resources.session.session import SessionResource, AsyncSessionResource
     from .resources.provider.provider import ProviderResource, AsyncProviderResource
@@ -275,6 +279,18 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.formatter import FormatterResource
 
         return FormatterResource(self)
+
+    @cached_property
+    def permission(self) -> PermissionResource:
+        from .resources.permission import PermissionResource
+
+        return PermissionResource(self)
+
+    @cached_property
+    def question(self) -> QuestionResource:
+        from .resources.question import QuestionResource
+
+        return QuestionResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -586,6 +602,18 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncFormatterResource(self)
 
     @cached_property
+    def permission(self) -> AsyncPermissionResource:
+        from .resources.permission import AsyncPermissionResource
+
+        return AsyncPermissionResource(self)
+
+    @cached_property
+    def question(self) -> AsyncQuestionResource:
+        from .resources.question import AsyncQuestionResource
+
+        return AsyncQuestionResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
         return AsyncOpencodeSDKWithRawResponse(self)
 
@@ -847,6 +875,18 @@ class OpencodeSDKWithRawResponse:
 
         return FormatterResourceWithRawResponse(self._client.formatter)
 
+    @cached_property
+    def permission(self) -> permission.PermissionResourceWithRawResponse:
+        from .resources.permission import PermissionResourceWithRawResponse
+
+        return PermissionResourceWithRawResponse(self._client.permission)
+
+    @cached_property
+    def question(self) -> question.QuestionResourceWithRawResponse:
+        from .resources.question import QuestionResourceWithRawResponse
+
+        return QuestionResourceWithRawResponse(self._client.question)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -985,6 +1025,18 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.formatter import AsyncFormatterResourceWithRawResponse
 
         return AsyncFormatterResourceWithRawResponse(self._client.formatter)
+
+    @cached_property
+    def permission(self) -> permission.AsyncPermissionResourceWithRawResponse:
+        from .resources.permission import AsyncPermissionResourceWithRawResponse
+
+        return AsyncPermissionResourceWithRawResponse(self._client.permission)
+
+    @cached_property
+    def question(self) -> question.AsyncQuestionResourceWithRawResponse:
+        from .resources.question import AsyncQuestionResourceWithRawResponse
+
+        return AsyncQuestionResourceWithRawResponse(self._client.question)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1125,6 +1177,18 @@ class OpencodeSDKWithStreamedResponse:
 
         return FormatterResourceWithStreamingResponse(self._client.formatter)
 
+    @cached_property
+    def permission(self) -> permission.PermissionResourceWithStreamingResponse:
+        from .resources.permission import PermissionResourceWithStreamingResponse
+
+        return PermissionResourceWithStreamingResponse(self._client.permission)
+
+    @cached_property
+    def question(self) -> question.QuestionResourceWithStreamingResponse:
+        from .resources.question import QuestionResourceWithStreamingResponse
+
+        return QuestionResourceWithStreamingResponse(self._client.question)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1263,6 +1327,18 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.formatter import AsyncFormatterResourceWithStreamingResponse
 
         return AsyncFormatterResourceWithStreamingResponse(self._client.formatter)
+
+    @cached_property
+    def permission(self) -> permission.AsyncPermissionResourceWithStreamingResponse:
+        from .resources.permission import AsyncPermissionResourceWithStreamingResponse
+
+        return AsyncPermissionResourceWithStreamingResponse(self._client.permission)
+
+    @cached_property
+    def question(self) -> question.AsyncQuestionResourceWithStreamingResponse:
+        from .resources.question import AsyncQuestionResourceWithStreamingResponse
+
+        return AsyncQuestionResourceWithStreamingResponse(self._client.question)
 
 
 Client = OpencodeSDK

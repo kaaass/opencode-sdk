@@ -13,21 +13,30 @@ __all__ = [
     "Agent",
     "AgentBuild",
     "AgentBuildPermission",
+    "AgentBuildPermissionUnionMember0",
     "AgentCompaction",
     "AgentCompactionPermission",
+    "AgentCompactionPermissionUnionMember0",
     "AgentExplore",
     "AgentExplorePermission",
+    "AgentExplorePermissionUnionMember0",
     "AgentGeneral",
     "AgentGeneralPermission",
+    "AgentGeneralPermissionUnionMember0",
     "AgentPlan",
     "AgentPlanPermission",
+    "AgentPlanPermissionUnionMember0",
     "AgentSummary",
     "AgentSummaryPermission",
+    "AgentSummaryPermissionUnionMember0",
     "AgentTitle",
     "AgentTitlePermission",
+    "AgentTitlePermissionUnionMember0",
     "AgentAgentItem",
     "AgentAgentItemPermission",
+    "AgentAgentItemPermissionUnionMember0",
     "Command",
+    "Compaction",
     "Enterprise",
     "Experimental",
     "ExperimentalHook",
@@ -43,14 +52,19 @@ __all__ = [
     "McpMcpRemoteConfig",
     "McpMcpRemoteConfigOAuth",
     "McpMcpRemoteConfigOAuthMcpOAuthConfig",
+    "McpEnabled",
     "Mode",
     "ModeBuild",
     "ModeBuildPermission",
+    "ModeBuildPermissionUnionMember0",
     "ModePlan",
     "ModePlanPermission",
+    "ModePlanPermissionUnionMember0",
     "ModeModeItem",
     "ModeModeItemPermission",
+    "ModeModeItemPermissionUnionMember0",
     "Permission",
+    "PermissionUnionMember0",
     "Provider",
     "ProviderModels",
     "ProviderModelsCost",
@@ -60,7 +74,9 @@ __all__ = [
     "ProviderModelsLimit",
     "ProviderModelsModalities",
     "ProviderModelsProvider",
+    "ProviderModelsVariants",
     "ProviderOptions",
+    "Server",
     "Tui",
     "TuiScrollAcceleration",
     "Watcher",
@@ -92,6 +108,15 @@ class ConfigUpdateParams(TypedDict, total=False):
     command: Dict[str, Command]
     """Command configuration, see https://opencode.ai/docs/commands"""
 
+    compaction: Compaction
+
+    default_agent: str
+    """Default agent to use when none is specified.
+
+    Must be a primary agent. Falls back to 'build' if not set or if the specified
+    agent is invalid.
+    """
+
     disabled_providers: SequenceNotStr[str]
     """Disable providers that are loaded automatically"""
 
@@ -116,6 +141,9 @@ class ConfigUpdateParams(TypedDict, total=False):
     layout: Literal["auto", "stretch"]
     """@deprecated Always uses stretch layout."""
 
+    log_level: Annotated[Literal["DEBUG", "INFO", "WARN", "ERROR"], PropertyInfo(alias="logLevel")]
+    """Log level"""
+
     lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item]]
 
     mcp: Dict[str, Mcp]
@@ -133,6 +161,9 @@ class ConfigUpdateParams(TypedDict, total=False):
 
     provider: Dict[str, Provider]
     """Custom provider configurations and model overrides"""
+
+    server: Server
+    """Server configuration for opencode serve and web commands"""
 
     share: Literal["manual", "auto", "disabled"]
     """
@@ -162,16 +193,48 @@ class ConfigUpdateParams(TypedDict, total=False):
     watcher: Watcher
 
 
-class AgentBuildPermission(TypedDict, total=False):
+class AgentBuildPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentBuildPermissionUnionMember0: TypeAlias = Union[
+    AgentBuildPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentBuildPermission: TypeAlias = Union[AgentBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentBuildTyped(TypedDict, total=False):
@@ -183,16 +246,27 @@ class AgentBuildTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentBuildPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -200,6 +274,7 @@ class AgentBuildTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -207,16 +282,48 @@ class AgentBuildTyped(TypedDict, total=False):
 AgentBuild: TypeAlias = Union[AgentBuildTyped, Dict[str, object]]
 
 
-class AgentCompactionPermission(TypedDict, total=False):
+class AgentCompactionPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentCompactionPermissionUnionMember0: TypeAlias = Union[
+    AgentCompactionPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentCompactionPermission: TypeAlias = Union[AgentCompactionPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentCompactionTyped(TypedDict, total=False):
@@ -228,16 +335,27 @@ class AgentCompactionTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentCompactionPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -245,6 +363,7 @@ class AgentCompactionTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -252,16 +371,48 @@ class AgentCompactionTyped(TypedDict, total=False):
 AgentCompaction: TypeAlias = Union[AgentCompactionTyped, Dict[str, object]]
 
 
-class AgentExplorePermission(TypedDict, total=False):
+class AgentExplorePermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentExplorePermissionUnionMember0: TypeAlias = Union[
+    AgentExplorePermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentExplorePermission: TypeAlias = Union[AgentExplorePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentExploreTyped(TypedDict, total=False):
@@ -273,16 +424,27 @@ class AgentExploreTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentExplorePermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -290,6 +452,7 @@ class AgentExploreTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -297,16 +460,48 @@ class AgentExploreTyped(TypedDict, total=False):
 AgentExplore: TypeAlias = Union[AgentExploreTyped, Dict[str, object]]
 
 
-class AgentGeneralPermission(TypedDict, total=False):
+class AgentGeneralPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentGeneralPermissionUnionMember0: TypeAlias = Union[
+    AgentGeneralPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentGeneralPermission: TypeAlias = Union[AgentGeneralPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentGeneralTyped(TypedDict, total=False):
@@ -318,16 +513,27 @@ class AgentGeneralTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentGeneralPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -335,6 +541,7 @@ class AgentGeneralTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -342,16 +549,48 @@ class AgentGeneralTyped(TypedDict, total=False):
 AgentGeneral: TypeAlias = Union[AgentGeneralTyped, Dict[str, object]]
 
 
-class AgentPlanPermission(TypedDict, total=False):
+class AgentPlanPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentPlanPermissionUnionMember0: TypeAlias = Union[
+    AgentPlanPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentPlanPermission: TypeAlias = Union[AgentPlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentPlanTyped(TypedDict, total=False):
@@ -363,16 +602,27 @@ class AgentPlanTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentPlanPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -380,6 +630,7 @@ class AgentPlanTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -387,16 +638,48 @@ class AgentPlanTyped(TypedDict, total=False):
 AgentPlan: TypeAlias = Union[AgentPlanTyped, Dict[str, object]]
 
 
-class AgentSummaryPermission(TypedDict, total=False):
+class AgentSummaryPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentSummaryPermissionUnionMember0: TypeAlias = Union[
+    AgentSummaryPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentSummaryPermission: TypeAlias = Union[AgentSummaryPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentSummaryTyped(TypedDict, total=False):
@@ -408,16 +691,27 @@ class AgentSummaryTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentSummaryPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -425,6 +719,7 @@ class AgentSummaryTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -432,16 +727,48 @@ class AgentSummaryTyped(TypedDict, total=False):
 AgentSummary: TypeAlias = Union[AgentSummaryTyped, Dict[str, object]]
 
 
-class AgentTitlePermission(TypedDict, total=False):
+class AgentTitlePermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentTitlePermissionUnionMember0: TypeAlias = Union[
+    AgentTitlePermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentTitlePermission: TypeAlias = Union[AgentTitlePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentTitleTyped(TypedDict, total=False):
@@ -453,16 +780,27 @@ class AgentTitleTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentTitlePermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -470,6 +808,7 @@ class AgentTitleTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -477,16 +816,48 @@ class AgentTitleTyped(TypedDict, total=False):
 AgentTitle: TypeAlias = Union[AgentTitleTyped, Dict[str, object]]
 
 
-class AgentAgentItemPermission(TypedDict, total=False):
+class AgentAgentItemPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+AgentAgentItemPermissionUnionMember0: TypeAlias = Union[
+    AgentAgentItemPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+AgentAgentItemPermission: TypeAlias = Union[AgentAgentItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentAgentItemTyped(TypedDict, total=False):
@@ -498,16 +869,27 @@ class AgentAgentItemTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: AgentAgentItemPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -515,6 +897,7 @@ class AgentAgentItemTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -555,6 +938,14 @@ class Command(TypedDict, total=False):
     subtask: bool
 
 
+class Compaction(TypedDict, total=False):
+    auto: bool
+    """Enable automatic compaction when context is full (default: true)"""
+
+    prune: bool
+    """Enable pruning of old tool outputs (default: true)"""
+
+
 class Enterprise(TypedDict, total=False):
     url: str
     """Enterprise URL"""
@@ -591,6 +982,9 @@ class Experimental(TypedDict, total=False):
     disable_paste_summary: bool
 
     hook: ExperimentalHook
+
+    mcp_timeout: int
+    """Timeout in milliseconds for model context protocol (MCP) requests"""
 
     open_telemetry: Annotated[bool, PropertyInfo(alias="openTelemetry")]
     """
@@ -771,11 +1165,17 @@ class Keybinds(TypedDict, total=False):
     messages_last_user: str
     """Navigate to last user message"""
 
+    messages_next: str
+    """Navigate to next message"""
+
     messages_page_down: str
     """Scroll messages down by one page"""
 
     messages_page_up: str
     """Scroll messages up by one page"""
+
+    messages_previous: str
+    """Navigate to previous message"""
 
     messages_redo: str
     """Redo message"""
@@ -816,6 +1216,9 @@ class Keybinds(TypedDict, total=False):
     session_export: str
     """Export session to editor"""
 
+    session_fork: str
+    """Fork session from message"""
+
     session_interrupt: str
     """Interrupt current session"""
 
@@ -824,6 +1227,12 @@ class Keybinds(TypedDict, total=False):
 
     session_new: str
     """Create a new session"""
+
+    session_parent: str
+    """Go to parent session"""
+
+    session_rename: str
+    """Rename session"""
 
     session_share: str
     """Share current session"""
@@ -843,14 +1252,23 @@ class Keybinds(TypedDict, total=False):
     terminal_suspend: str
     """Suspend terminal"""
 
+    terminal_title_toggle: str
+    """Toggle terminal title"""
+
     theme_list: str
     """List available themes"""
+
+    tips_toggle: str
+    """Toggle tips on home screen"""
 
     tool_details: str
     """Toggle tool details visibility"""
 
     username_toggle: str
     """Toggle username visibility"""
+
+    variant_cycle: str
+    """Cycle model variants"""
 
 
 class LspUnionMember1LspUnionMember1ItemDisabled(TypedDict, total=False):
@@ -937,19 +1355,55 @@ class McpMcpRemoteConfig(TypedDict, total=False):
     """
 
 
-Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig]
+class McpEnabled(TypedDict, total=False):
+    enabled: Required[bool]
 
 
-class ModeBuildPermission(TypedDict, total=False):
+Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig, McpEnabled]
+
+
+class ModeBuildPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+ModeBuildPermissionUnionMember0: TypeAlias = Union[
+    ModeBuildPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+ModeBuildPermission: TypeAlias = Union[ModeBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModeBuildTyped(TypedDict, total=False):
@@ -961,16 +1415,27 @@ class ModeBuildTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: ModeBuildPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -978,6 +1443,7 @@ class ModeBuildTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -985,16 +1451,48 @@ class ModeBuildTyped(TypedDict, total=False):
 ModeBuild: TypeAlias = Union[ModeBuildTyped, Dict[str, object]]
 
 
-class ModePlanPermission(TypedDict, total=False):
+class ModePlanPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+ModePlanPermissionUnionMember0: TypeAlias = Union[
+    ModePlanPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+ModePlanPermission: TypeAlias = Union[ModePlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModePlanTyped(TypedDict, total=False):
@@ -1006,16 +1504,27 @@ class ModePlanTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: ModePlanPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -1023,6 +1532,7 @@ class ModePlanTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -1030,16 +1540,48 @@ class ModePlanTyped(TypedDict, total=False):
 ModePlan: TypeAlias = Union[ModePlanTyped, Dict[str, object]]
 
 
-class ModeModeItemPermission(TypedDict, total=False):
+class ModeModeItemPermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+ModeModeItemPermissionUnionMember0: TypeAlias = Union[
+    ModeModeItemPermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+ModeModeItemPermission: TypeAlias = Union[ModeModeItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModeModeItemTyped(TypedDict, total=False):
@@ -1051,16 +1593,27 @@ class ModeModeItemTyped(TypedDict, total=False):
 
     disable: bool
 
+    hidden: bool
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Annotated[int, PropertyInfo(alias="maxSteps")]
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Literal["subagent", "primary", "all"]
 
     model: str
 
+    options: Dict[str, object]
+
     permission: ModeModeItemPermission
 
     prompt: str
+
+    steps: int
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
     """List of sub-agent names that can be invoked by this agent"""
@@ -1068,6 +1621,7 @@ class ModeModeItemTyped(TypedDict, total=False):
     temperature: float
 
     tools: Dict[str, bool]
+    """@deprecated Use 'permission' field instead"""
 
     top_p: float
 
@@ -1086,16 +1640,48 @@ class ModeTyped(TypedDict, total=False):
 Mode: TypeAlias = Union[ModeTyped, Dict[str, ModeModeItem]]
 
 
-class Permission(TypedDict, total=False):
+class PermissionUnionMember0Typed(TypedDict, total=False):
+    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    codesearch: Literal["ask", "allow", "deny"]
 
     doom_loop: Literal["ask", "allow", "deny"]
 
-    edit: Literal["ask", "allow", "deny"]
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    external_directory: Literal["ask", "allow", "deny"]
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    question: Literal["ask", "allow", "deny"]
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+
+    todoread: Literal["ask", "allow", "deny"]
+
+    todowrite: Literal["ask", "allow", "deny"]
 
     webfetch: Literal["ask", "allow", "deny"]
+
+    websearch: Literal["ask", "allow", "deny"]
+
+
+PermissionUnionMember0: TypeAlias = Union[
+    PermissionUnionMember0Typed,
+    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
+]
+
+Permission: TypeAlias = Union[PermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ProviderModelsCostContextOver200k(TypedDict, total=False):
@@ -1143,6 +1729,14 @@ class ProviderModelsProvider(TypedDict, total=False):
     npm: Required[str]
 
 
+class ProviderModelsVariantsTyped(TypedDict, total=False):
+    disabled: bool
+    """Disable this variant for the model"""
+
+
+ProviderModelsVariants: TypeAlias = Union[ProviderModelsVariantsTyped, Dict[str, object]]
+
+
 class ProviderModels(TypedDict, total=False):
     id: str
 
@@ -1177,6 +1771,9 @@ class ProviderModels(TypedDict, total=False):
     temperature: bool
 
     tool_call: bool
+
+    variants: Dict[str, ProviderModelsVariants]
+    """Variant-specific configuration"""
 
 
 class ProviderOptionsTyped(TypedDict, total=False):
@@ -1218,6 +1815,22 @@ class Provider(TypedDict, total=False):
     options: ProviderOptions
 
     whitelist: SequenceNotStr[str]
+
+
+class Server(TypedDict, total=False):
+    """Server configuration for opencode serve and web commands"""
+
+    cors: SequenceNotStr[str]
+    """Additional domains to allow for CORS"""
+
+    hostname: str
+    """Hostname to listen on"""
+
+    mdns: bool
+    """Enable mDNS service discovery"""
+
+    port: int
+    """Port to listen on"""
 
 
 class TuiScrollAcceleration(TypedDict, total=False):

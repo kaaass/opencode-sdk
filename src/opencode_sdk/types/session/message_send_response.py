@@ -25,4 +25,4 @@ class MessageSendResponse(BaseModel):
     parts: List[Part]
 
     pending_remote_calls: Optional[List[PendingRemoteCall]] = FieldInfo(alias="pendingRemoteCalls", default=None)
-    """Client tool calls waiting for external results"""
+    """Remote tool calls waiting for external results"""

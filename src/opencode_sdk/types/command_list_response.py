@@ -9,6 +9,8 @@ __all__ = ["CommandListResponse", "CommandListResponseItem"]
 
 
 class CommandListResponseItem(BaseModel):
+    hints: List[str]
+
     name: str
 
     template: str
@@ -16,6 +18,8 @@ class CommandListResponseItem(BaseModel):
     agent: Optional[str] = None
 
     description: Optional[str] = None
+
+    mcp: Optional[bool] = None
 
     model: Optional[str] = None
 

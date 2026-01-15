@@ -6,6 +6,7 @@ from .part import Part as Part
 from .message import Message as Message
 from .session import Session as Session
 from .file_part import FilePart as FilePart
+from .part_param import PartParam as PartParam
 from .file_part_param import FilePartParam as FilePartParam
 from .file_part_source import FilePartSource as FilePartSource
 from .message_send_params import MessageSendParams as MessageSendParams
