@@ -28,6 +28,16 @@ Methods:
 
 # Experimental
 
+Types:
+
+```python
+from opencode_sdk.types import ExperimentalGetResourcesResponse
+```
+
+Methods:
+
+- <code title="get /experimental/resource">client.experimental.<a href="./src/opencode_sdk/resources/experimental/experimental.py">get_resources</a>(\*\*<a href="src/opencode_sdk/types/experimental_get_resources_params.py">params</a>) -> <a href="./src/opencode_sdk/types/experimental_get_resources_response.py">ExperimentalGetResourcesResponse</a></code>
+
 ## Tool
 
 Types:
@@ -40,6 +50,19 @@ Methods:
 
 - <code title="get /experimental/tool/ids">client.experimental.tool.<a href="./src/opencode_sdk/resources/experimental/tool.py">list_ids</a>(\*\*<a href="src/opencode_sdk/types/experimental/tool_list_ids_params.py">params</a>) -> <a href="./src/opencode_sdk/types/experimental/tool_list_ids_response.py">ToolListIDsResponse</a></code>
 - <code title="get /experimental/tool">client.experimental.tool.<a href="./src/opencode_sdk/resources/experimental/tool.py">list_tools</a>(\*\*<a href="src/opencode_sdk/types/experimental/tool_list_tools_params.py">params</a>) -> <a href="./src/opencode_sdk/types/experimental/tool_list_tools_response.py">ToolListToolsResponse</a></code>
+
+## Worktree
+
+Types:
+
+```python
+from opencode_sdk.types.experimental import WorktreeCreateResponse, WorktreeListResponse
+```
+
+Methods:
+
+- <code title="post /experimental/worktree">client.experimental.worktree.<a href="./src/opencode_sdk/resources/experimental/worktree.py">create</a>(\*\*<a href="src/opencode_sdk/types/experimental/worktree_create_params.py">params</a>) -> <a href="./src/opencode_sdk/types/experimental/worktree_create_response.py">WorktreeCreateResponse</a></code>
+- <code title="get /experimental/worktree">client.experimental.worktree.<a href="./src/opencode_sdk/resources/experimental/worktree.py">list</a>(\*\*<a href="src/opencode_sdk/types/experimental/worktree_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/experimental/worktree_list_response.py">WorktreeListResponse</a></code>
 
 # Path
 
@@ -76,7 +99,6 @@ from opencode_sdk.types import (
     SessionInitializeResponse,
     SessionRespondToPermissionResponse,
     SessionRetrieveStatusResponse,
-    SessionRunShellCommandResponse,
     SessionSendCommandResponse,
     SessionSubmitToolResultsResponse,
     SessionSummarizeResponse,
@@ -101,7 +123,7 @@ Methods:
 - <code title="post /session/{sessionID}/unrevert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">restore_reverted_messages</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_restore_reverted_messages_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
 - <code title="get /session/{sessionID}/status">client.session.<a href="./src/opencode_sdk/resources/session/session.py">retrieve_status</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_retrieve_status_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_retrieve_status_response.py">SessionRetrieveStatusResponse</a></code>
 - <code title="post /session/{sessionID}/revert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">revert_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_revert_message_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
-- <code title="post /session/{sessionID}/shell">client.session.<a href="./src/opencode_sdk/resources/session/session.py">run_shell_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_run_shell_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_run_shell_command_response.py">SessionRunShellCommandResponse</a></code>
+- <code title="post /session/{sessionID}/shell">client.session.<a href="./src/opencode_sdk/resources/session/session.py">run_shell_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_run_shell_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/assistant_message.py">AssistantMessage</a></code>
 - <code title="post /session/{sessionID}/prompt_async">client.session.<a href="./src/opencode_sdk/resources/session/session.py">send_async_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_send_async_message_params.py">params</a>) -> None</code>
 - <code title="post /session/{sessionID}/command">client.session.<a href="./src/opencode_sdk/resources/session/session.py">send_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_send_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_send_command_response.py">SessionSendCommandResponse</a></code>
 - <code title="post /session/{sessionID}/tool-results">client.session.<a href="./src/opencode_sdk/resources/session/session.py">submit_tool_results</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_submit_tool_results_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_submit_tool_results_response.py">SessionSubmitToolResultsResponse</a></code>
@@ -133,9 +155,22 @@ from opencode_sdk.types.session import (
 
 Methods:
 
-- <code title="get /session/{sessionID}/message/{messageID}">client.session.message.<a href="./src/opencode_sdk/resources/session/message.py">retrieve</a>(message_id, \*, session_id, \*\*<a href="src/opencode_sdk/types/session/message_retrieve_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_retrieve_response.py">MessageRetrieveResponse</a></code>
-- <code title="get /session/{sessionID}/message">client.session.message.<a href="./src/opencode_sdk/resources/session/message.py">get_all</a>(session_id, \*\*<a href="src/opencode_sdk/types/session/message_get_all_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_get_all_response.py">MessageGetAllResponse</a></code>
-- <code title="post /session/{sessionID}/message">client.session.message.<a href="./src/opencode_sdk/resources/session/message.py">send</a>(session_id, \*\*<a href="src/opencode_sdk/types/session/message_send_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_send_response.py">MessageSendResponse</a></code>
+- <code title="get /session/{sessionID}/message/{messageID}">client.session.message.<a href="./src/opencode_sdk/resources/session/message/message.py">retrieve</a>(message_id, \*, session_id, \*\*<a href="src/opencode_sdk/types/session/message_retrieve_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_retrieve_response.py">MessageRetrieveResponse</a></code>
+- <code title="get /session/{sessionID}/message">client.session.message.<a href="./src/opencode_sdk/resources/session/message/message.py">get_all</a>(session_id, \*\*<a href="src/opencode_sdk/types/session/message_get_all_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_get_all_response.py">MessageGetAllResponse</a></code>
+- <code title="post /session/{sessionID}/message">client.session.message.<a href="./src/opencode_sdk/resources/session/message/message.py">send</a>(session_id, \*\*<a href="src/opencode_sdk/types/session/message_send_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message_send_response.py">MessageSendResponse</a></code>
+
+### Part
+
+Types:
+
+```python
+from opencode_sdk.types.session.message import PartDeleteResponse
+```
+
+Methods:
+
+- <code title="patch /session/{sessionID}/message/{messageID}/part/{partID}">client.session.message.part.<a href="./src/opencode_sdk/resources/session/message/part.py">update</a>(part_id, \*, path_session_id, path_message_id, \*\*<a href="src/opencode_sdk/types/session/message/part_update_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/part.py">Part</a></code>
+- <code title="delete /session/{sessionID}/message/{messageID}/part/{partID}">client.session.message.part.<a href="./src/opencode_sdk/resources/session/message/part.py">delete</a>(part_id, \*, session_id, message_id, \*\*<a href="src/opencode_sdk/types/session/message/part_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/message/part_delete_response.py">PartDeleteResponse</a></code>
 
 # Command
 
@@ -264,6 +299,7 @@ from opencode_sdk.types import (
     TuiOpenSessionsResponse,
     TuiOpenThemesResponse,
     TuiPublishEventResponse,
+    TuiSelectSessionResponse,
     TuiShowToastResponse,
     TuiSubmitPromptResponse,
 )
@@ -279,6 +315,7 @@ Methods:
 - <code title="post /tui/open-sessions">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">open_sessions</a>(\*\*<a href="src/opencode_sdk/types/tui_open_sessions_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_open_sessions_response.py">TuiOpenSessionsResponse</a></code>
 - <code title="post /tui/open-themes">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">open_themes</a>(\*\*<a href="src/opencode_sdk/types/tui_open_themes_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_open_themes_response.py">TuiOpenThemesResponse</a></code>
 - <code title="post /tui/publish">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">publish_event</a>(\*\*<a href="src/opencode_sdk/types/tui_publish_event_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_publish_event_response.py">TuiPublishEventResponse</a></code>
+- <code title="post /tui/select-session">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">select_session</a>(\*\*<a href="src/opencode_sdk/types/tui_select_session_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_select_session_response.py">TuiSelectSessionResponse</a></code>
 - <code title="post /tui/show-toast">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">show_toast</a>(\*\*<a href="src/opencode_sdk/types/tui_show_toast_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_show_toast_response.py">TuiShowToastResponse</a></code>
 - <code title="post /tui/submit-prompt">client.tui.<a href="./src/opencode_sdk/resources/tui/tui.py">submit_prompt</a>(\*\*<a href="src/opencode_sdk/types/tui_submit_prompt_params.py">params</a>) -> <a href="./src/opencode_sdk/types/tui_submit_prompt_response.py">TuiSubmitPromptResponse</a></code>
 
@@ -300,12 +337,11 @@ Methods:
 Types:
 
 ```python
-from opencode_sdk.types import AuthRemoveCredentialsResponse, AuthSetCredentialsResponse
+from opencode_sdk.types import AuthSetCredentialsResponse
 ```
 
 Methods:
 
-- <code title="delete /auth/{id}">client.auth.<a href="./src/opencode_sdk/resources/auth.py">remove_credentials</a>(id, \*\*<a href="src/opencode_sdk/types/auth_remove_credentials_params.py">params</a>) -> <a href="./src/opencode_sdk/types/auth_remove_credentials_response.py">AuthRemoveCredentialsResponse</a></code>
 - <code title="put /auth/{providerID}">client.auth.<a href="./src/opencode_sdk/resources/auth.py">set_credentials</a>(provider_id, \*\*<a href="src/opencode_sdk/types/auth_set_credentials_params.py">params</a>) -> <a href="./src/opencode_sdk/types/auth_set_credentials_response.py">AuthSetCredentialsResponse</a></code>
 
 # Event
@@ -325,12 +361,17 @@ Methods:
 Types:
 
 ```python
-from opencode_sdk.types import GlobalDisposeInstanceResponse, GlobalRetrieveEventsResponse
+from opencode_sdk.types import (
+    GlobalDisposeInstanceResponse,
+    GlobalGetHealthResponse,
+    GlobalRetrieveEventsResponse,
+)
 ```
 
 Methods:
 
 - <code title="post /global/dispose">client.global*.<a href="./src/opencode_sdk/resources/global*.py">dispose_instance</a>() -> <a href="./src/opencode_sdk/types/global_dispose_instance_response.py">GlobalDisposeInstanceResponse</a></code>
+- <code title="get /global/health">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_health</a>() -> <a href="./src/opencode_sdk/types/global_get_health_response.py">GlobalGetHealthResponse</a></code>
 - <code title="get /global/event">client.global*.<a href="./src/opencode_sdk/resources/global*.py">retrieve_events</a>() -> <a href="./src/opencode_sdk/types/global_retrieve_events_response.py">GlobalRetrieveEventsResponse</a></code>
 
 # Pty
@@ -448,3 +489,34 @@ from opencode_sdk.types import FormatterRetrieveResponse
 Methods:
 
 - <code title="get /formatter">client.formatter.<a href="./src/opencode_sdk/resources/formatter.py">retrieve</a>(\*\*<a href="src/opencode_sdk/types/formatter_retrieve_params.py">params</a>) -> <a href="./src/opencode_sdk/types/formatter_retrieve_response.py">FormatterRetrieveResponse</a></code>
+
+# Permission
+
+Types:
+
+```python
+from opencode_sdk.types import PermissionListResponse, PermissionReplyResponse
+```
+
+Methods:
+
+- <code title="get /permission">client.permission.<a href="./src/opencode_sdk/resources/permission.py">list</a>(\*\*<a href="src/opencode_sdk/types/permission_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/permission_list_response.py">PermissionListResponse</a></code>
+- <code title="post /permission/{requestID}/reply">client.permission.<a href="./src/opencode_sdk/resources/permission.py">reply</a>(request_id, \*\*<a href="src/opencode_sdk/types/permission_reply_params.py">params</a>) -> <a href="./src/opencode_sdk/types/permission_reply_response.py">PermissionReplyResponse</a></code>
+
+# Question
+
+Types:
+
+```python
+from opencode_sdk.types import (
+    QuestionListPendingResponse,
+    QuestionRejectResponse,
+    QuestionReplyResponse,
+)
+```
+
+Methods:
+
+- <code title="get /question">client.question.<a href="./src/opencode_sdk/resources/question.py">list_pending</a>(\*\*<a href="src/opencode_sdk/types/question_list_pending_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_list_pending_response.py">QuestionListPendingResponse</a></code>
+- <code title="post /question/{requestID}/reject">client.question.<a href="./src/opencode_sdk/resources/question.py">reject</a>(request_id, \*\*<a href="src/opencode_sdk/types/question_reject_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_reject_response.py">QuestionRejectResponse</a></code>
+- <code title="post /question/{requestID}/reply">client.question.<a href="./src/opencode_sdk/resources/question.py">reply</a>(request_id, \*\*<a href="src/opencode_sdk/types/question_reply_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_reply_response.py">QuestionReplyResponse</a></code>

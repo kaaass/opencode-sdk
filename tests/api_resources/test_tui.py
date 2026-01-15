@@ -19,6 +19,7 @@ from opencode_sdk.types import (
     TuiOpenSessionsResponse,
     TuiPublishEventResponse,
     TuiSubmitPromptResponse,
+    TuiSelectSessionResponse,
     TuiExecuteCommandResponse,
 )
 
@@ -446,6 +447,96 @@ class TestTui:
 
             tui = response.parse()
             assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_publish_event_overload_4(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        )
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_publish_event_with_all_params_overload_4(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+            directory="directory",
+        )
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tui = response.parse()
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tui = response.parse()
+            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_select_session(self, client: OpencodeSDK) -> None:
+        tui = client.tui.select_session(
+            session_id="ses",
+        )
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_select_session_with_all_params(self, client: OpencodeSDK) -> None:
+        tui = client.tui.select_session(
+            session_id="ses",
+            directory="directory",
+        )
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_select_session(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.select_session(
+            session_id="ses",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tui = response.parse()
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_select_session(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.select_session(
+            session_id="ses",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tui = response.parse()
+            assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -958,6 +1049,96 @@ class TestAsyncTui:
 
             tui = await response.parse()
             assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        )
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_publish_event_with_all_params_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+            directory="directory",
+        )
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tui = await response.parse()
+        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.publish_event(
+            properties={"session_id": "ses"},
+            type="tui.session.select",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tui = await response.parse()
+            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_select_session(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.select_session(
+            session_id="ses",
+        )
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_select_session_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.select_session(
+            session_id="ses",
+            directory="directory",
+        )
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_select_session(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.select_session(
+            session_id="ses",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        tui = await response.parse()
+        assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_select_session(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.select_session(
+            session_id="ses",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            tui = await response.parse()
+            assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

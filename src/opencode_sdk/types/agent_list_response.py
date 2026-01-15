@@ -16,15 +16,11 @@ __all__ = [
 
 
 class AgentListResponseItemPermission(BaseModel):
-    bash: Dict[str, Literal["ask", "allow", "deny"]]
+    action: Literal["allow", "deny", "ask"]
 
-    edit: Literal["ask", "allow", "deny"]
+    pattern: str
 
-    doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
-
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
-
-    webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+    permission: str
 
 
 class AgentListResponseItemModel(BaseModel):
@@ -40,9 +36,7 @@ class AgentListResponseItem(BaseModel):
 
     options: Dict[str, object]
 
-    permission: AgentListResponseItemPermission
-
-    tools: Dict[str, bool]
+    permission: List[AgentListResponseItemPermission]
 
     color: Optional[str] = None
 
@@ -50,13 +44,13 @@ class AgentListResponseItem(BaseModel):
 
     hidden: Optional[bool] = None
 
-    max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-
     model: Optional[AgentListResponseItemModel] = None
 
     native: Optional[bool] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
 

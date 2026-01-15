@@ -15,3 +15,5 @@ class SessionSummarizeParams(TypedDict, total=False):
     provider_id: Required[Annotated[str, PropertyInfo(alias="providerID")]]
 
     directory: str
+
+    auto: bool

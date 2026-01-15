@@ -5,8 +5,8 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from ..._models import BaseModel
-from ..assistant_message import AssistantMessage
+from ...._models import BaseModel
+from ...assistant_message import AssistantMessage
 
 __all__ = [
     "Message",
@@ -66,6 +66,8 @@ class UserMessage(BaseModel):
     system: Optional[str] = None
 
     tools: Optional[Dict[str, bool]] = None
+
+    variant: Optional[str] = None
 
 
 Message: TypeAlias = Union[UserMessage, AssistantMessage]

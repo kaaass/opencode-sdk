@@ -12,21 +12,30 @@ __all__ = [
     "Agent",
     "AgentBuild",
     "AgentBuildPermission",
+    "AgentBuildPermissionUnionMember0",
     "AgentCompaction",
     "AgentCompactionPermission",
+    "AgentCompactionPermissionUnionMember0",
     "AgentExplore",
     "AgentExplorePermission",
+    "AgentExplorePermissionUnionMember0",
     "AgentGeneral",
     "AgentGeneralPermission",
+    "AgentGeneralPermissionUnionMember0",
     "AgentPlan",
     "AgentPlanPermission",
+    "AgentPlanPermissionUnionMember0",
     "AgentSummary",
     "AgentSummaryPermission",
+    "AgentSummaryPermissionUnionMember0",
     "AgentTitle",
     "AgentTitlePermission",
+    "AgentTitlePermissionUnionMember0",
     "AgentAgentItem",
     "AgentAgentItemPermission",
+    "AgentAgentItemPermissionUnionMember0",
     "Command",
+    "Compaction",
     "Enterprise",
     "Experimental",
     "ExperimentalHook",
@@ -42,14 +51,19 @@ __all__ = [
     "McpMcpRemoteConfig",
     "McpMcpRemoteConfigOAuth",
     "McpMcpRemoteConfigOAuthMcpOAuthConfig",
+    "McpEnabled",
     "Mode",
     "ModeBuild",
     "ModeBuildPermission",
+    "ModeBuildPermissionUnionMember0",
     "ModePlan",
     "ModePlanPermission",
+    "ModePlanPermissionUnionMember0",
     "ModeModeItem",
     "ModeModeItemPermission",
+    "ModeModeItemPermissionUnionMember0",
     "Permission",
+    "PermissionUnionMember0",
     "Provider",
     "ProviderModels",
     "ProviderModelsCost",
@@ -59,23 +73,70 @@ __all__ = [
     "ProviderModelsLimit",
     "ProviderModelsModalities",
     "ProviderModelsProvider",
+    "ProviderModelsVariants",
     "ProviderOptions",
+    "Server",
     "Tui",
     "TuiScrollAcceleration",
     "Watcher",
 ]
 
 
-class AgentBuildPermission(BaseModel):
+class AgentBuildPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentBuildPermission: TypeAlias = Union[AgentBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentBuild(BaseModel):
@@ -87,16 +148,27 @@ class AgentBuild(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentBuildPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -104,6 +176,7 @@ class AgentBuild(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -120,16 +193,61 @@ class AgentBuild(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentCompactionPermission(BaseModel):
+class AgentCompactionPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentCompactionPermission: TypeAlias = Union[AgentCompactionPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentCompaction(BaseModel):
@@ -141,16 +259,27 @@ class AgentCompaction(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentCompactionPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -158,6 +287,7 @@ class AgentCompaction(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -174,16 +304,61 @@ class AgentCompaction(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentExplorePermission(BaseModel):
+class AgentExplorePermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentExplorePermission: TypeAlias = Union[AgentExplorePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentExplore(BaseModel):
@@ -195,16 +370,27 @@ class AgentExplore(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentExplorePermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -212,6 +398,7 @@ class AgentExplore(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -228,16 +415,61 @@ class AgentExplore(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentGeneralPermission(BaseModel):
+class AgentGeneralPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentGeneralPermission: TypeAlias = Union[AgentGeneralPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentGeneral(BaseModel):
@@ -249,16 +481,27 @@ class AgentGeneral(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentGeneralPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -266,6 +509,7 @@ class AgentGeneral(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -282,16 +526,61 @@ class AgentGeneral(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentPlanPermission(BaseModel):
+class AgentPlanPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentPlanPermission: TypeAlias = Union[AgentPlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentPlan(BaseModel):
@@ -303,16 +592,27 @@ class AgentPlan(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentPlanPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -320,6 +620,7 @@ class AgentPlan(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -336,16 +637,61 @@ class AgentPlan(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentSummaryPermission(BaseModel):
+class AgentSummaryPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentSummaryPermission: TypeAlias = Union[AgentSummaryPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentSummary(BaseModel):
@@ -357,16 +703,27 @@ class AgentSummary(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentSummaryPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -374,6 +731,7 @@ class AgentSummary(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -390,16 +748,61 @@ class AgentSummary(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentTitlePermission(BaseModel):
+class AgentTitlePermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentTitlePermission: TypeAlias = Union[AgentTitlePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentTitle(BaseModel):
@@ -411,16 +814,27 @@ class AgentTitle(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentTitlePermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -428,6 +842,7 @@ class AgentTitle(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -444,16 +859,61 @@ class AgentTitle(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class AgentAgentItemPermission(BaseModel):
+class AgentAgentItemPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+AgentAgentItemPermission: TypeAlias = Union[AgentAgentItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class AgentAgentItem(BaseModel):
@@ -465,16 +925,27 @@ class AgentAgentItem(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[AgentAgentItemPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -482,6 +953,7 @@ class AgentAgentItem(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -540,6 +1012,14 @@ class Command(BaseModel):
     subtask: Optional[bool] = None
 
 
+class Compaction(BaseModel):
+    auto: Optional[bool] = None
+    """Enable automatic compaction when context is full (default: true)"""
+
+    prune: Optional[bool] = None
+    """Enable pruning of old tool outputs (default: true)"""
+
+
 class Enterprise(BaseModel):
     url: Optional[str] = None
     """Enterprise URL"""
@@ -576,6 +1056,9 @@ class Experimental(BaseModel):
     disable_paste_summary: Optional[bool] = None
 
     hook: Optional[ExperimentalHook] = None
+
+    mcp_timeout: Optional[int] = None
+    """Timeout in milliseconds for model context protocol (MCP) requests"""
 
     open_telemetry: Optional[bool] = FieldInfo(alias="openTelemetry", default=None)
     """
@@ -756,11 +1239,17 @@ class Keybinds(BaseModel):
     messages_last_user: Optional[str] = None
     """Navigate to last user message"""
 
+    messages_next: Optional[str] = None
+    """Navigate to next message"""
+
     messages_page_down: Optional[str] = None
     """Scroll messages down by one page"""
 
     messages_page_up: Optional[str] = None
     """Scroll messages up by one page"""
+
+    messages_previous: Optional[str] = None
+    """Navigate to previous message"""
 
     messages_redo: Optional[str] = None
     """Redo message"""
@@ -801,6 +1290,9 @@ class Keybinds(BaseModel):
     session_export: Optional[str] = None
     """Export session to editor"""
 
+    session_fork: Optional[str] = None
+    """Fork session from message"""
+
     session_interrupt: Optional[str] = None
     """Interrupt current session"""
 
@@ -809,6 +1301,12 @@ class Keybinds(BaseModel):
 
     session_new: Optional[str] = None
     """Create a new session"""
+
+    session_parent: Optional[str] = None
+    """Go to parent session"""
+
+    session_rename: Optional[str] = None
+    """Rename session"""
 
     session_share: Optional[str] = None
     """Share current session"""
@@ -828,14 +1326,23 @@ class Keybinds(BaseModel):
     terminal_suspend: Optional[str] = None
     """Suspend terminal"""
 
+    terminal_title_toggle: Optional[str] = None
+    """Toggle terminal title"""
+
     theme_list: Optional[str] = None
     """List available themes"""
+
+    tips_toggle: Optional[str] = None
+    """Toggle tips on home screen"""
 
     tool_details: Optional[str] = None
     """Toggle tool details visibility"""
 
     username_toggle: Optional[str] = None
     """Toggle username visibility"""
+
+    variant_cycle: Optional[str] = None
+    """Cycle model variants"""
 
 
 class LspUnionMember1LspUnionMember1ItemDisabled(BaseModel):
@@ -922,19 +1429,68 @@ class McpMcpRemoteConfig(BaseModel):
     """
 
 
-Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig]
+class McpEnabled(BaseModel):
+    enabled: bool
 
 
-class ModeBuildPermission(BaseModel):
+Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig, McpEnabled]
+
+
+class ModeBuildPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+ModeBuildPermission: TypeAlias = Union[ModeBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModeBuild(BaseModel):
@@ -946,16 +1502,27 @@ class ModeBuild(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[ModeBuildPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -963,6 +1530,7 @@ class ModeBuild(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -979,16 +1547,61 @@ class ModeBuild(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class ModePlanPermission(BaseModel):
+class ModePlanPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+ModePlanPermission: TypeAlias = Union[ModePlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModePlan(BaseModel):
@@ -1000,16 +1613,27 @@ class ModePlan(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[ModePlanPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -1017,6 +1641,7 @@ class ModePlan(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -1033,16 +1658,61 @@ class ModePlan(BaseModel):
         __pydantic_extra__: Dict[str, object]
 
 
-class ModeModeItemPermission(BaseModel):
+class ModeModeItemPermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+ModeModeItemPermission: TypeAlias = Union[ModeModeItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ModeModeItem(BaseModel):
@@ -1054,16 +1724,27 @@ class ModeModeItem(BaseModel):
 
     disable: Optional[bool] = None
 
+    hidden: Optional[bool] = None
+    """
+    Hide this subagent from the @ autocomplete menu (default: false, only applies to
+    mode: subagent)
+    """
+
     max_steps: Optional[int] = FieldInfo(alias="maxSteps", default=None)
-    """Maximum number of agentic iterations before forcing text-only response"""
+    """@deprecated Use 'steps' field instead."""
 
     mode: Optional[Literal["subagent", "primary", "all"]] = None
 
     model: Optional[str] = None
 
+    options: Optional[Dict[str, object]] = None
+
     permission: Optional[ModeModeItemPermission] = None
 
     prompt: Optional[str] = None
+
+    steps: Optional[int] = None
+    """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
     """List of sub-agent names that can be invoked by this agent"""
@@ -1071,6 +1752,7 @@ class ModeModeItem(BaseModel):
     temperature: Optional[float] = None
 
     tools: Optional[Dict[str, bool]] = None
+    """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
 
@@ -1107,16 +1789,61 @@ class Mode(BaseModel):
         __pydantic_extra__: Dict[str, ModeModeItem]
 
 
-class Permission(BaseModel):
+class PermissionUnionMember0(BaseModel):
+    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
+
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    codesearch: Optional[Literal["ask", "allow", "deny"]] = None
 
     doom_loop: Optional[Literal["ask", "allow", "deny"]] = None
 
-    edit: Optional[Literal["ask", "allow", "deny"]] = None
+    edit: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    external_directory: Optional[Literal["ask", "allow", "deny"]] = None
+    external_directory: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    glob: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    grep: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    list: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    lsp: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    question: Optional[Literal["ask", "allow", "deny"]] = None
+
+    read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+
+    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+
+    todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
     webfetch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    websearch: Optional[Literal["ask", "allow", "deny"]] = None
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(
+            self, attr: str
+        ) -> Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]: ...
+    else:
+        __pydantic_extra__: Dict[
+            str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+        ]
+
+
+Permission: TypeAlias = Union[PermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
 class ProviderModelsCostContextOver200k(BaseModel):
@@ -1164,6 +1891,23 @@ class ProviderModelsProvider(BaseModel):
     npm: str
 
 
+class ProviderModelsVariants(BaseModel):
+    disabled: Optional[bool] = None
+    """Disable this variant for the model"""
+
+    if TYPE_CHECKING:
+        # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
+        # value to this field, so for compatibility we avoid doing it at runtime.
+        __pydantic_extra__: Dict[str, object] = FieldInfo(init=False)  # pyright: ignore[reportIncompatibleVariableOverride]
+
+        # Stub to indicate that arbitrary properties are accepted.
+        # To access properties that are not valid identifiers you can use `getattr`, e.g.
+        # `getattr(obj, '$type')`
+        def __getattr__(self, attr: str) -> object: ...
+    else:
+        __pydantic_extra__: Dict[str, object]
+
+
 class ProviderModels(BaseModel):
     id: Optional[str] = None
 
@@ -1198,6 +1942,9 @@ class ProviderModels(BaseModel):
     temperature: Optional[bool] = None
 
     tool_call: Optional[bool] = None
+
+    variants: Optional[Dict[str, ProviderModelsVariants]] = None
+    """Variant-specific configuration"""
 
 
 class ProviderOptions(BaseModel):
@@ -1250,6 +1997,22 @@ class Provider(BaseModel):
     whitelist: Optional[List[str]] = None
 
 
+class Server(BaseModel):
+    """Server configuration for opencode serve and web commands"""
+
+    cors: Optional[List[str]] = None
+    """Additional domains to allow for CORS"""
+
+    hostname: Optional[str] = None
+    """Hostname to listen on"""
+
+    mdns: Optional[bool] = None
+    """Enable mDNS service discovery"""
+
+    port: Optional[int] = None
+    """Port to listen on"""
+
+
 class TuiScrollAcceleration(BaseModel):
     """Scroll acceleration settings"""
 
@@ -1300,6 +2063,15 @@ class Config(BaseModel):
     command: Optional[Dict[str, Command]] = None
     """Command configuration, see https://opencode.ai/docs/commands"""
 
+    compaction: Optional[Compaction] = None
+
+    default_agent: Optional[str] = None
+    """Default agent to use when none is specified.
+
+    Must be a primary agent. Falls back to 'build' if not set or if the specified
+    agent is invalid.
+    """
+
     disabled_providers: Optional[List[str]] = None
     """Disable providers that are loaded automatically"""
 
@@ -1324,6 +2096,9 @@ class Config(BaseModel):
     layout: Optional[Literal["auto", "stretch"]] = None
     """@deprecated Always uses stretch layout."""
 
+    log_level: Optional[Literal["DEBUG", "INFO", "WARN", "ERROR"]] = FieldInfo(alias="logLevel", default=None)
+    """Log level"""
+
     lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item], None] = None
 
     mcp: Optional[Dict[str, Mcp]] = None
@@ -1341,6 +2116,9 @@ class Config(BaseModel):
 
     provider: Optional[Dict[str, Provider]] = None
     """Custom provider configurations and model overrides"""
+
+    server: Optional[Server] = None
+    """Server configuration for opencode serve and web commands"""
 
     share: Optional[Literal["manual", "auto", "disabled"]] = None
     """

@@ -1,12 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
+from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = ["Session", "Time", "Revert", "Share", "Summary", "SummaryDiff"]
+__all__ = ["Session", "Time", "Permission", "Revert", "Share", "Summary", "SummaryDiff"]
 
 
 class Time(BaseModel):
@@ -17,6 +18,14 @@ class Time(BaseModel):
     archived: Optional[float] = None
 
     compacting: Optional[float] = None
+
+
+class Permission(BaseModel):
+    action: Literal["allow", "deny", "ask"]
+
+    pattern: str
+
+    permission: str
 
 
 class Revert(BaseModel):
@@ -62,6 +71,8 @@ class Session(BaseModel):
 
     project_id: str = FieldInfo(alias="projectID")
 
+    slug: str
+
     time: Time
 
     title: str
@@ -69,6 +80,8 @@ class Session(BaseModel):
     version: str
 
     parent_id: Optional[str] = FieldInfo(alias="parentID", default=None)
+
+    permission: Optional[List[Permission]] = None
 
     revert: Optional[Revert] = None
 

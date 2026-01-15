@@ -4,8 +4,8 @@ from typing import List
 from typing_extensions import TypeAlias
 
 from .part import Part
-from .message import Message
 from ..._models import BaseModel
+from .message.message import Message
 
 __all__ = ["MessageGetAllResponse", "MessageGetAllResponseItem"]
 

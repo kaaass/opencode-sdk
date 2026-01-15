@@ -81,6 +81,8 @@ class UnionMember1(BaseModel):
 
     type: Literal["subtask"]
 
+    command: Optional[str] = None
+
 
 class ReasoningPartTime(BaseModel):
     start: float
@@ -294,6 +296,8 @@ class RetryPartErrorData(BaseModel):
     is_retryable: bool = FieldInfo(alias="isRetryable")
 
     message: str
+
+    metadata: Optional[Dict[str, str]] = None
 
     response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
 

@@ -115,11 +115,13 @@ class TestAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         )
         assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
 
@@ -130,25 +132,24 @@ class TestAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-                "doom_loop": "ask",
-                "external_directory": "ask",
-                "webfetch": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
             directory="directory",
             color="color",
             description="description",
             hidden=True,
-            max_steps=1,
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
             native=True,
             prompt="prompt",
+            steps=1,
             sub_agents=["string"],
             temperature=0,
             top_p=0,
@@ -162,11 +163,13 @@ class TestAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -181,11 +184,13 @@ class TestAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -295,11 +300,13 @@ class TestAsyncAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         )
         assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
 
@@ -310,25 +317,24 @@ class TestAsyncAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-                "doom_loop": "ask",
-                "external_directory": "ask",
-                "webfetch": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
             directory="directory",
             color="color",
             description="description",
             hidden=True,
-            max_steps=1,
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
             native=True,
             prompt="prompt",
+            steps=1,
             sub_agents=["string"],
             temperature=0,
             top_p=0,
@@ -342,11 +348,13 @@ class TestAsyncAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         )
 
         assert response.is_closed is True
@@ -361,11 +369,13 @@ class TestAsyncAgent:
             mode="subagent",
             name="name",
             options={"foo": "bar"},
-            permission={
-                "bash": {"foo": "ask"},
-                "edit": "ask",
-            },
-            tools={"foo": True},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

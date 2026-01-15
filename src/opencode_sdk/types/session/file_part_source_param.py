@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Literal, Required, TypeAlias, TypedDict
+from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
+from ..._utils import PropertyInfo
 from ..range_param import RangeParam
 from .file_part_source_text_param import FilePartSourceTextParam
 
-__all__ = ["FilePartSourceParam", "FileSource", "SymbolSource"]
+__all__ = ["FilePartSourceParam", "FileSource", "SymbolSource", "ResourceSource"]
 
 
 class FileSource(TypedDict, total=False):
@@ -33,4 +34,14 @@ class SymbolSource(TypedDict, total=False):
     type: Required[Literal["symbol"]]
 
 
-FilePartSourceParam: TypeAlias = Union[FileSource, SymbolSource]
+class ResourceSource(TypedDict, total=False):
+    client_name: Required[Annotated[str, PropertyInfo(alias="clientName")]]
+
+    text: Required[FilePartSourceTextParam]
+
+    type: Required[Literal["resource"]]
+
+    uri: Required[str]
+
+
+FilePartSourceParam: TypeAlias = Union[FileSource, SymbolSource, ResourceSource]
