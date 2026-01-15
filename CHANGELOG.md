@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.0 (2026-01-15)
+
+Full Changelog: [v0.9.2...v0.10.0](https://github.com/kaaass/opencode-sdk/compare/v0.9.2...v0.10.0)
+
+### Features
+
+* **api:** manual updates ([793be18](https://github.com/kaaass/opencode-sdk/commit/793be1814fdd1b0f336c4ba6b30be9bfca614928))
+
 ## 0.9.2 (2026-01-14)
 
 Full Changelog: [v0.9.1...v0.9.2](https://github.com/kaaass/opencode-sdk/compare/v0.9.1...v0.9.2)
