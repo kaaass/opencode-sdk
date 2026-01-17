@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.10.1 (2026-01-17)
+
+Full Changelog: [v0.10.0...v0.10.1](https://github.com/kaaass/opencode-sdk/compare/v0.10.0...v0.10.1)
+
+### Chores
+
+* **internal:** update `actions/checkout` version ([c35a4e7](https://github.com/kaaass/opencode-sdk/commit/c35a4e7d036258fc51cabd00359736a3af56718b))
+
 ## 0.10.0 (2026-01-15)
 
 Full Changelog: [v0.9.2...v0.10.0](https://github.com/kaaass/opencode-sdk/compare/v0.9.2...v0.10.0)
