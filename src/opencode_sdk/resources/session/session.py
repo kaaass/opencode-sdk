@@ -31,6 +31,7 @@ from ...types import (
     session_initialize_params,
     session_get_children_params,
     session_send_command_params,
+    session_list_artifacts_params,
     session_revert_message_params,
     session_retrieve_status_params,
     session_run_shell_command_params,
@@ -70,6 +71,7 @@ from ...types.session_get_status_response import SessionGetStatusResponse
 from ...types.session_initialize_response import SessionInitializeResponse
 from ...types.session_get_children_response import SessionGetChildrenResponse
 from ...types.session_send_command_response import SessionSendCommandResponse
+from ...types.session_list_artifacts_response import SessionListArtifactsResponse
 from ...types.session_retrieve_status_response import SessionRetrieveStatusResponse
 from ...types.session_submit_tool_results_response import SessionSubmitToolResultsResponse
 from ...types.session_respond_to_permission_response import SessionRespondToPermissionResponse
@@ -612,6 +614,46 @@ class SessionResource(SyncAPIResource):
                 query=maybe_transform({"directory": directory}, session_initialize_params.SessionInitializeParams),
             ),
             cast_to=SessionInitializeResponse,
+        )
+
+    def list_artifacts(
+        self,
+        session_id: str,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionListArtifactsResponse:
+        """
+        List all artifacts for a session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return self._get(
+            f"/session/{session_id}/artifacts",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {"directory": directory}, session_list_artifacts_params.SessionListArtifactsParams
+                ),
+            ),
+            cast_to=SessionListArtifactsResponse,
         )
 
     @typing_extensions.deprecated("deprecated")
@@ -1623,6 +1665,46 @@ class AsyncSessionResource(AsyncAPIResource):
             cast_to=SessionInitializeResponse,
         )
 
+    async def list_artifacts(
+        self,
+        session_id: str,
+        *,
+        directory: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SessionListArtifactsResponse:
+        """
+        List all artifacts for a session
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        return await self._get(
+            f"/session/{session_id}/artifacts",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {"directory": directory}, session_list_artifacts_params.SessionListArtifactsParams
+                ),
+            ),
+            cast_to=SessionListArtifactsResponse,
+        )
+
     @typing_extensions.deprecated("deprecated")
     async def respond_to_permission(
         self,
@@ -2129,6 +2211,9 @@ class SessionResourceWithRawResponse:
         self.initialize = to_raw_response_wrapper(
             session.initialize,
         )
+        self.list_artifacts = to_raw_response_wrapper(
+            session.list_artifacts,
+        )
         self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
             to_raw_response_wrapper(
                 session.respond_to_permission,  # pyright: ignore[reportDeprecated],
@@ -2207,6 +2292,9 @@ class AsyncSessionResourceWithRawResponse:
         )
         self.initialize = async_to_raw_response_wrapper(
             session.initialize,
+        )
+        self.list_artifacts = async_to_raw_response_wrapper(
+            session.list_artifacts,
         )
         self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
             async_to_raw_response_wrapper(
@@ -2287,6 +2375,9 @@ class SessionResourceWithStreamingResponse:
         self.initialize = to_streamed_response_wrapper(
             session.initialize,
         )
+        self.list_artifacts = to_streamed_response_wrapper(
+            session.list_artifacts,
+        )
         self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
             to_streamed_response_wrapper(
                 session.respond_to_permission,  # pyright: ignore[reportDeprecated],
@@ -2365,6 +2456,9 @@ class AsyncSessionResourceWithStreamingResponse:
         )
         self.initialize = async_to_streamed_response_wrapper(
             session.initialize,
+        )
+        self.list_artifacts = async_to_streamed_response_wrapper(
+            session.list_artifacts,
         )
         self.respond_to_permission = (  # pyright: ignore[reportDeprecated]
             async_to_streamed_response_wrapper(

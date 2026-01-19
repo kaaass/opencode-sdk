@@ -66,6 +66,12 @@ __all__ = [
     "PayloadEventFileEditedProperties",
     "PayloadEventTodoUpdated",
     "PayloadEventTodoUpdatedProperties",
+    "PayloadEventArtifactCreated",
+    "PayloadEventArtifactCreatedProperties",
+    "PayloadEventArtifactCreatedPropertiesInfo",
+    "PayloadEventArtifactCreatedPropertiesInfoTime",
+    "PayloadEventArtifactDeleted",
+    "PayloadEventArtifactDeletedProperties",
     "PayloadEventTuiPromptAppend",
     "PayloadEventTuiPromptAppendProperties",
     "PayloadEventTuiCommandExecute",
@@ -107,6 +113,9 @@ __all__ = [
     "PayloadEventPtyDeleted",
     "PayloadEventPtyDeletedProperties",
     "PayloadEventServerConnected",
+    "PayloadEventServerConnectedProperties",
+    "PayloadEventServerConnectedPropertiesVersion",
+    "PayloadEventServerConnectedPropertiesVersionUpstream",
     "PayloadEventGlobalDisposed",
 ]
 
@@ -421,6 +430,50 @@ class PayloadEventTodoUpdated(BaseModel):
     type: Literal["todo.updated"]
 
 
+class PayloadEventArtifactCreatedPropertiesInfoTime(BaseModel):
+    created: float
+
+
+class PayloadEventArtifactCreatedPropertiesInfo(BaseModel):
+    id: str
+
+    filename: str
+
+    hash: str
+
+    mime: str
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    size: int
+
+    time: PayloadEventArtifactCreatedPropertiesInfoTime
+
+    metadata: Optional[Dict[str, object]] = None
+
+
+class PayloadEventArtifactCreatedProperties(BaseModel):
+    info: PayloadEventArtifactCreatedPropertiesInfo
+
+
+class PayloadEventArtifactCreated(BaseModel):
+    properties: PayloadEventArtifactCreatedProperties
+
+    type: Literal["artifact.created"]
+
+
+class PayloadEventArtifactDeletedProperties(BaseModel):
+    artifact_id: str = FieldInfo(alias="artifactID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class PayloadEventArtifactDeleted(BaseModel):
+    properties: PayloadEventArtifactDeletedProperties
+
+    type: Literal["artifact.deleted"]
+
+
 class PayloadEventTuiPromptAppendProperties(BaseModel):
     text: str
 
@@ -704,8 +757,28 @@ class PayloadEventPtyDeleted(BaseModel):
     type: Literal["pty.deleted"]
 
 
+class PayloadEventServerConnectedPropertiesVersionUpstream(BaseModel):
+    commit: str
+
+    version: str
+
+
+class PayloadEventServerConnectedPropertiesVersion(BaseModel):
+    api: str
+
+    channel: str
+
+    upstream: PayloadEventServerConnectedPropertiesVersionUpstream
+
+    version: str
+
+
+class PayloadEventServerConnectedProperties(BaseModel):
+    version: PayloadEventServerConnectedPropertiesVersion
+
+
 class PayloadEventServerConnected(BaseModel):
-    properties: object
+    properties: PayloadEventServerConnectedProperties
 
     type: Literal["server.connected"]
 
@@ -737,6 +810,8 @@ Payload: TypeAlias = Union[
     PayloadEventSessionCompacted,
     PayloadEventFileEdited,
     PayloadEventTodoUpdated,
+    PayloadEventArtifactCreated,
+    PayloadEventArtifactDeleted,
     PayloadEventTuiPromptAppend,
     PayloadEventTuiCommandExecute,
     PayloadEventTuiToastShow,

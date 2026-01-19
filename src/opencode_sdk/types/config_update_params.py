@@ -92,6 +92,12 @@ class ConfigUpdateParams(TypedDict, total=False):
     agent: Agent
     """Agent configuration, see https://opencode.ai/docs/agent"""
 
+    artifact_allowed_paths: SequenceNotStr[str]
+    """
+    允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
+    配。默认允许 /tmp 路径。
+    """
+
     autoshare: bool
     """@deprecated Use 'share' field instead.
 
@@ -109,6 +115,9 @@ class ConfigUpdateParams(TypedDict, total=False):
     """Command configuration, see https://opencode.ai/docs/commands"""
 
     compaction: Compaction
+
+    custom_provider_npm_whitelist: SequenceNotStr[str]
+    """允许用于 custom provider 的 npm 包白名单"""
 
     default_agent: str
     """Default agent to use when none is specified.
@@ -265,6 +274,9 @@ class AgentBuildTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -353,6 +365,9 @@ class AgentCompactionTyped(TypedDict, total=False):
     permission: AgentCompactionPermission
 
     prompt: str
+
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -443,6 +458,9 @@ class AgentExploreTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -531,6 +549,9 @@ class AgentGeneralTyped(TypedDict, total=False):
     permission: AgentGeneralPermission
 
     prompt: str
+
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -621,6 +642,9 @@ class AgentPlanTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -709,6 +733,9 @@ class AgentSummaryTyped(TypedDict, total=False):
     permission: AgentSummaryPermission
 
     prompt: str
+
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -799,6 +826,9 @@ class AgentTitleTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -887,6 +917,9 @@ class AgentAgentItemTyped(TypedDict, total=False):
     permission: AgentAgentItemPermission
 
     prompt: str
+
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -1020,6 +1053,9 @@ class Keybinds(TypedDict, total=False):
 
     app_exit: str
     """Exit the application"""
+
+    artifacts_list: str
+    """View artifacts"""
 
     command_list: str
     """List available commands"""
@@ -1434,6 +1470,9 @@ class ModeBuildTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -1523,6 +1562,9 @@ class ModePlanTyped(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
+
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -1611,6 +1653,9 @@ class ModeModeItemTyped(TypedDict, total=False):
     permission: ModeModeItemPermission
 
     prompt: str
+
+    skills: Optional[SequenceNotStr[str]]
+    """List of skill names that can be invoked by this agent"""
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""

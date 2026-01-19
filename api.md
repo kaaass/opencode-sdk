@@ -97,6 +97,7 @@ from opencode_sdk.types import (
     SessionGetStatusResponse,
     SessionGetTodoResponse,
     SessionInitializeResponse,
+    SessionListArtifactsResponse,
     SessionRespondToPermissionResponse,
     SessionRetrieveStatusResponse,
     SessionSendCommandResponse,
@@ -119,6 +120,7 @@ Methods:
 - <code title="get /session/status">client.session.<a href="./src/opencode_sdk/resources/session/session.py">get_status</a>(\*\*<a href="src/opencode_sdk/types/session_get_status_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_get_status_response.py">SessionGetStatusResponse</a></code>
 - <code title="get /session/{sessionID}/todo">client.session.<a href="./src/opencode_sdk/resources/session/session.py">get_todo</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_get_todo_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_get_todo_response.py">SessionGetTodoResponse</a></code>
 - <code title="post /session/{sessionID}/init">client.session.<a href="./src/opencode_sdk/resources/session/session.py">initialize</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_initialize_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_initialize_response.py">SessionInitializeResponse</a></code>
+- <code title="get /session/{sessionID}/artifacts">client.session.<a href="./src/opencode_sdk/resources/session/session.py">list_artifacts</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_list_artifacts_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_list_artifacts_response.py">SessionListArtifactsResponse</a></code>
 - <code title="post /session/{sessionID}/permissions/{permissionID}">client.session.<a href="./src/opencode_sdk/resources/session/session.py">respond_to_permission</a>(permission_id, \*, session_id, \*\*<a href="src/opencode_sdk/types/session_respond_to_permission_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_respond_to_permission_response.py">SessionRespondToPermissionResponse</a></code>
 - <code title="post /session/{sessionID}/unrevert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">restore_reverted_messages</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_restore_reverted_messages_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
 - <code title="get /session/{sessionID}/status">client.session.<a href="./src/opencode_sdk/resources/session/session.py">retrieve_status</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_retrieve_status_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_retrieve_status_response.py">SessionRetrieveStatusResponse</a></code>
@@ -364,6 +366,7 @@ Types:
 from opencode_sdk.types import (
     GlobalDisposeInstanceResponse,
     GlobalGetHealthResponse,
+    GlobalGetVersionResponse,
     GlobalRetrieveEventsResponse,
 )
 ```
@@ -372,6 +375,7 @@ Methods:
 
 - <code title="post /global/dispose">client.global*.<a href="./src/opencode_sdk/resources/global*.py">dispose_instance</a>() -> <a href="./src/opencode_sdk/types/global_dispose_instance_response.py">GlobalDisposeInstanceResponse</a></code>
 - <code title="get /global/health">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_health</a>() -> <a href="./src/opencode_sdk/types/global_get_health_response.py">GlobalGetHealthResponse</a></code>
+- <code title="get /global/version">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_version</a>() -> <a href="./src/opencode_sdk/types/global_get_version_response.py">GlobalGetVersionResponse</a></code>
 - <code title="get /global/event">client.global*.<a href="./src/opencode_sdk/resources/global*.py">retrieve_events</a>() -> <a href="./src/opencode_sdk/types/global_retrieve_events_response.py">GlobalRetrieveEventsResponse</a></code>
 
 # Pty
@@ -448,6 +452,24 @@ Methods:
 - <code title="post /provider/{providerID}/oauth/authorize">client.provider.oauth.<a href="./src/opencode_sdk/resources/provider/oauth.py">authorize</a>(provider_id, \*\*<a href="src/opencode_sdk/types/provider/oauth_authorize_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/oauth_authorize_response.py">OAuthAuthorizeResponse</a></code>
 - <code title="post /provider/{providerID}/oauth/callback">client.provider.oauth.<a href="./src/opencode_sdk/resources/provider/oauth.py">handle_callback</a>(provider_id, \*\*<a href="src/opencode_sdk/types/provider/oauth_handle_callback_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/oauth_handle_callback_response.py">OAuthHandleCallbackResponse</a></code>
 
+## Custom
+
+Types:
+
+```python
+from opencode_sdk.types.provider import (
+    CustomCreateResponse,
+    CustomListResponse,
+    CustomDeleteResponse,
+)
+```
+
+Methods:
+
+- <code title="post /provider/custom">client.provider.custom.<a href="./src/opencode_sdk/resources/provider/custom.py">create</a>(\*\*<a href="src/opencode_sdk/types/provider/custom_create_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/custom_create_response.py">CustomCreateResponse</a></code>
+- <code title="get /provider/custom">client.provider.custom.<a href="./src/opencode_sdk/resources/provider/custom.py">list</a>(\*\*<a href="src/opencode_sdk/types/provider/custom_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/custom_list_response.py">CustomListResponse</a></code>
+- <code title="delete /provider/custom/{id}">client.provider.custom.<a href="./src/opencode_sdk/resources/provider/custom.py">delete</a>(id, \*\*<a href="src/opencode_sdk/types/provider/custom_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/provider/custom_delete_response.py">CustomDeleteResponse</a></code>
+
 # ClientTool
 
 Types:
@@ -520,3 +542,28 @@ Methods:
 - <code title="get /question">client.question.<a href="./src/opencode_sdk/resources/question.py">list_pending</a>(\*\*<a href="src/opencode_sdk/types/question_list_pending_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_list_pending_response.py">QuestionListPendingResponse</a></code>
 - <code title="post /question/{requestID}/reject">client.question.<a href="./src/opencode_sdk/resources/question.py">reject</a>(request_id, \*\*<a href="src/opencode_sdk/types/question_reject_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_reject_response.py">QuestionRejectResponse</a></code>
 - <code title="post /question/{requestID}/reply">client.question.<a href="./src/opencode_sdk/resources/question.py">reply</a>(request_id, \*\*<a href="src/opencode_sdk/types/question_reply_params.py">params</a>) -> <a href="./src/opencode_sdk/types/question_reply_response.py">QuestionReplyResponse</a></code>
+
+# Artifact
+
+Types:
+
+```python
+from opencode_sdk.types import ArtifactDeleteResponse
+```
+
+Methods:
+
+- <code title="delete /artifact/{artifactID}">client.artifact.<a href="./src/opencode_sdk/resources/artifact.py">delete</a>(artifact_id, \*\*<a href="src/opencode_sdk/types/artifact_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/artifact_delete_response.py">ArtifactDeleteResponse</a></code>
+- <code title="get /artifact/{artifactID}/download">client.artifact.<a href="./src/opencode_sdk/resources/artifact.py">download</a>(artifact_id, \*\*<a href="src/opencode_sdk/types/artifact_download_params.py">params</a>) -> BinaryAPIResponse</code>
+
+# Skill
+
+Types:
+
+```python
+from opencode_sdk.types import SkillListResponse
+```
+
+Methods:
+
+- <code title="get /skill">client.skill.<a href="./src/opencode_sdk/resources/skill.py">list</a>(\*\*<a href="src/opencode_sdk/types/skill_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/skill_list_response.py">SkillListResponse</a></code>

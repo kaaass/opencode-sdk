@@ -86,10 +86,12 @@ class ConfigResource(SyncAPIResource):
         directory: str | Omit = omit,
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
+        artifact_allowed_paths: SequenceNotStr[str] | Omit = omit,
         autoshare: bool | Omit = omit,
         autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
         compaction: config_update_params.Compaction | Omit = omit,
+        custom_provider_npm_whitelist: SequenceNotStr[str] | Omit = omit,
         default_agent: str | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
         enabled_providers: SequenceNotStr[str] | Omit = omit,
@@ -132,6 +134,9 @@ class ConfigResource(SyncAPIResource):
 
           agent: Agent configuration, see https://opencode.ai/docs/agent
 
+          artifact_allowed_paths: 允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
+              配。默认允许 /tmp 路径。
+
           autoshare: @deprecated Use 'share' field instead. Share newly created sessions
               automatically
 
@@ -139,6 +144,8 @@ class ConfigResource(SyncAPIResource):
               disable, or 'notify' to show update notifications
 
           command: Command configuration, see https://opencode.ai/docs/commands
+
+          custom_provider_npm_whitelist: 允许用于 custom provider 的 npm 包白名单
 
           default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
               to 'build' if not set or if the specified agent is invalid.
@@ -192,10 +199,12 @@ class ConfigResource(SyncAPIResource):
                 {
                     "schema": schema,
                     "agent": agent,
+                    "artifact_allowed_paths": artifact_allowed_paths,
                     "autoshare": autoshare,
                     "autoupdate": autoupdate,
                     "command": command,
                     "compaction": compaction,
+                    "custom_provider_npm_whitelist": custom_provider_npm_whitelist,
                     "default_agent": default_agent,
                     "disabled_providers": disabled_providers,
                     "enabled_providers": enabled_providers,
@@ -334,10 +343,12 @@ class AsyncConfigResource(AsyncAPIResource):
         directory: str | Omit = omit,
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
+        artifact_allowed_paths: SequenceNotStr[str] | Omit = omit,
         autoshare: bool | Omit = omit,
         autoupdate: Union[bool, Literal["notify"]] | Omit = omit,
         command: Dict[str, config_update_params.Command] | Omit = omit,
         compaction: config_update_params.Compaction | Omit = omit,
+        custom_provider_npm_whitelist: SequenceNotStr[str] | Omit = omit,
         default_agent: str | Omit = omit,
         disabled_providers: SequenceNotStr[str] | Omit = omit,
         enabled_providers: SequenceNotStr[str] | Omit = omit,
@@ -380,6 +391,9 @@ class AsyncConfigResource(AsyncAPIResource):
 
           agent: Agent configuration, see https://opencode.ai/docs/agent
 
+          artifact_allowed_paths: 允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
+              配。默认允许 /tmp 路径。
+
           autoshare: @deprecated Use 'share' field instead. Share newly created sessions
               automatically
 
@@ -387,6 +401,8 @@ class AsyncConfigResource(AsyncAPIResource):
               disable, or 'notify' to show update notifications
 
           command: Command configuration, see https://opencode.ai/docs/commands
+
+          custom_provider_npm_whitelist: 允许用于 custom provider 的 npm 包白名单
 
           default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
               to 'build' if not set or if the specified agent is invalid.
@@ -440,10 +456,12 @@ class AsyncConfigResource(AsyncAPIResource):
                 {
                     "schema": schema,
                     "agent": agent,
+                    "artifact_allowed_paths": artifact_allowed_paths,
                     "autoshare": autoshare,
                     "autoupdate": autoupdate,
                     "command": command,
                     "compaction": compaction,
+                    "custom_provider_npm_whitelist": custom_provider_npm_whitelist,
                     "default_agent": default_agent,
                     "disabled_providers": disabled_providers,
                     "enabled_providers": enabled_providers,
