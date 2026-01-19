@@ -96,6 +96,14 @@ from .event import (
     EventResourceWithStreamingResponse,
     AsyncEventResourceWithStreamingResponse,
 )
+from .skill import (
+    SkillResource,
+    AsyncSkillResource,
+    SkillResourceWithRawResponse,
+    AsyncSkillResourceWithRawResponse,
+    SkillResourceWithStreamingResponse,
+    AsyncSkillResourceWithStreamingResponse,
+)
 from .config import (
     ConfigResource,
     AsyncConfigResource,
@@ -135,6 +143,14 @@ from .session import (
     AsyncSessionResourceWithRawResponse,
     SessionResourceWithStreamingResponse,
     AsyncSessionResourceWithStreamingResponse,
+)
+from .artifact import (
+    ArtifactResource,
+    AsyncArtifactResource,
+    ArtifactResourceWithRawResponse,
+    AsyncArtifactResourceWithRawResponse,
+    ArtifactResourceWithStreamingResponse,
+    AsyncArtifactResourceWithStreamingResponse,
 )
 from .instance import (
     InstanceResource,
@@ -338,4 +354,16 @@ __all__ = [
     "AsyncQuestionResourceWithRawResponse",
     "QuestionResourceWithStreamingResponse",
     "AsyncQuestionResourceWithStreamingResponse",
+    "ArtifactResource",
+    "AsyncArtifactResource",
+    "ArtifactResourceWithRawResponse",
+    "AsyncArtifactResourceWithRawResponse",
+    "ArtifactResourceWithStreamingResponse",
+    "AsyncArtifactResourceWithStreamingResponse",
+    "SkillResource",
+    "AsyncSkillResource",
+    "SkillResourceWithRawResponse",
+    "AsyncSkillResourceWithRawResponse",
+    "SkillResourceWithStreamingResponse",
+    "AsyncSkillResourceWithStreamingResponse",
 ]

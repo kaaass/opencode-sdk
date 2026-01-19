@@ -34,6 +34,8 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     prompt: str
 
+    skills: Optional[SequenceNotStr[str]]
+
     steps: int
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]

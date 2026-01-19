@@ -8,6 +8,14 @@ from .oauth import (
     OAuthResourceWithStreamingResponse,
     AsyncOAuthResourceWithStreamingResponse,
 )
+from .custom import (
+    CustomResource,
+    AsyncCustomResource,
+    CustomResourceWithRawResponse,
+    AsyncCustomResourceWithRawResponse,
+    CustomResourceWithStreamingResponse,
+    AsyncCustomResourceWithStreamingResponse,
+)
 from .provider import (
     ProviderResource,
     AsyncProviderResource,
@@ -24,6 +32,12 @@ __all__ = [
     "AsyncOAuthResourceWithRawResponse",
     "OAuthResourceWithStreamingResponse",
     "AsyncOAuthResourceWithStreamingResponse",
+    "CustomResource",
+    "AsyncCustomResource",
+    "CustomResourceWithRawResponse",
+    "AsyncCustomResourceWithRawResponse",
+    "CustomResourceWithStreamingResponse",
+    "AsyncCustomResourceWithStreamingResponse",
     "ProviderResource",
     "AsyncProviderResource",
     "ProviderResourceWithRawResponse",

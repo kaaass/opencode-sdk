@@ -45,11 +45,13 @@ if TYPE_CHECKING:
         path,
         agent,
         event,
+        skill,
         config,
         command,
         global_,
         project,
         session,
+        artifact,
         instance,
         provider,
         question,
@@ -68,12 +70,14 @@ if TYPE_CHECKING:
     from .resources.path import PathResource, AsyncPathResource
     from .resources.agent import AgentResource, AsyncAgentResource
     from .resources.event import EventResource, AsyncEventResource
+    from .resources.skill import SkillResource, AsyncSkillResource
     from .resources.config import ConfigResource, AsyncConfigResource
     from .resources.command import CommandResource, AsyncCommandResource
     from .resources.global_ import GlobalResource, AsyncGlobalResource
     from .resources.mcp.mcp import McpResource, AsyncMcpResource
     from .resources.project import ProjectResource, AsyncProjectResource
     from .resources.tui.tui import TuiResource, AsyncTuiResource
+    from .resources.artifact import ArtifactResource, AsyncArtifactResource
     from .resources.instance import InstanceResource, AsyncInstanceResource
     from .resources.question import QuestionResource, AsyncQuestionResource
     from .resources.formatter import FormatterResource, AsyncFormatterResource
@@ -291,6 +295,18 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.question import QuestionResource
 
         return QuestionResource(self)
+
+    @cached_property
+    def artifact(self) -> ArtifactResource:
+        from .resources.artifact import ArtifactResource
+
+        return ArtifactResource(self)
+
+    @cached_property
+    def skill(self) -> SkillResource:
+        from .resources.skill import SkillResource
+
+        return SkillResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -614,6 +630,18 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncQuestionResource(self)
 
     @cached_property
+    def artifact(self) -> AsyncArtifactResource:
+        from .resources.artifact import AsyncArtifactResource
+
+        return AsyncArtifactResource(self)
+
+    @cached_property
+    def skill(self) -> AsyncSkillResource:
+        from .resources.skill import AsyncSkillResource
+
+        return AsyncSkillResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
         return AsyncOpencodeSDKWithRawResponse(self)
 
@@ -887,6 +915,18 @@ class OpencodeSDKWithRawResponse:
 
         return QuestionResourceWithRawResponse(self._client.question)
 
+    @cached_property
+    def artifact(self) -> artifact.ArtifactResourceWithRawResponse:
+        from .resources.artifact import ArtifactResourceWithRawResponse
+
+        return ArtifactResourceWithRawResponse(self._client.artifact)
+
+    @cached_property
+    def skill(self) -> skill.SkillResourceWithRawResponse:
+        from .resources.skill import SkillResourceWithRawResponse
+
+        return SkillResourceWithRawResponse(self._client.skill)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -1037,6 +1077,18 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.question import AsyncQuestionResourceWithRawResponse
 
         return AsyncQuestionResourceWithRawResponse(self._client.question)
+
+    @cached_property
+    def artifact(self) -> artifact.AsyncArtifactResourceWithRawResponse:
+        from .resources.artifact import AsyncArtifactResourceWithRawResponse
+
+        return AsyncArtifactResourceWithRawResponse(self._client.artifact)
+
+    @cached_property
+    def skill(self) -> skill.AsyncSkillResourceWithRawResponse:
+        from .resources.skill import AsyncSkillResourceWithRawResponse
+
+        return AsyncSkillResourceWithRawResponse(self._client.skill)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1189,6 +1241,18 @@ class OpencodeSDKWithStreamedResponse:
 
         return QuestionResourceWithStreamingResponse(self._client.question)
 
+    @cached_property
+    def artifact(self) -> artifact.ArtifactResourceWithStreamingResponse:
+        from .resources.artifact import ArtifactResourceWithStreamingResponse
+
+        return ArtifactResourceWithStreamingResponse(self._client.artifact)
+
+    @cached_property
+    def skill(self) -> skill.SkillResourceWithStreamingResponse:
+        from .resources.skill import SkillResourceWithStreamingResponse
+
+        return SkillResourceWithStreamingResponse(self._client.skill)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1339,6 +1403,18 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.question import AsyncQuestionResourceWithStreamingResponse
 
         return AsyncQuestionResourceWithStreamingResponse(self._client.question)
+
+    @cached_property
+    def artifact(self) -> artifact.AsyncArtifactResourceWithStreamingResponse:
+        from .resources.artifact import AsyncArtifactResourceWithStreamingResponse
+
+        return AsyncArtifactResourceWithStreamingResponse(self._client.artifact)
+
+    @cached_property
+    def skill(self) -> skill.AsyncSkillResourceWithStreamingResponse:
+        from .resources.skill import AsyncSkillResourceWithStreamingResponse
+
+        return AsyncSkillResourceWithStreamingResponse(self._client.skill)
 
 
 Client = OpencodeSDK

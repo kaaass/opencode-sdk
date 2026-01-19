@@ -16,6 +16,7 @@ from .._response import (
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
 from ..types.global_get_health_response import GlobalGetHealthResponse
+from ..types.global_get_version_response import GlobalGetVersionResponse
 from ..types.global_retrieve_events_response import GlobalRetrieveEventsResponse
 from ..types.global_dispose_instance_response import GlobalDisposeInstanceResponse
 
@@ -78,6 +79,25 @@ class GlobalResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GlobalGetHealthResponse,
+        )
+
+    def get_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GlobalGetVersionResponse:
+        """Get detailed version information including local, API, and upstream versions."""
+        return self._get(
+            "/global/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GlobalGetVersionResponse,
         )
 
     def retrieve_events(
@@ -161,6 +181,25 @@ class AsyncGlobalResource(AsyncAPIResource):
             cast_to=GlobalGetHealthResponse,
         )
 
+    async def get_version(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GlobalGetVersionResponse:
+        """Get detailed version information including local, API, and upstream versions."""
+        return await self._get(
+            "/global/version",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GlobalGetVersionResponse,
+        )
+
     async def retrieve_events(
         self,
         *,
@@ -194,6 +233,9 @@ class GlobalResourceWithRawResponse:
         self.get_health = to_raw_response_wrapper(
             global_.get_health,
         )
+        self.get_version = to_raw_response_wrapper(
+            global_.get_version,
+        )
         self.retrieve_events = to_raw_response_wrapper(
             global_.retrieve_events,
         )
@@ -208,6 +250,9 @@ class AsyncGlobalResourceWithRawResponse:
         )
         self.get_health = async_to_raw_response_wrapper(
             global_.get_health,
+        )
+        self.get_version = async_to_raw_response_wrapper(
+            global_.get_version,
         )
         self.retrieve_events = async_to_raw_response_wrapper(
             global_.retrieve_events,
@@ -224,6 +269,9 @@ class GlobalResourceWithStreamingResponse:
         self.get_health = to_streamed_response_wrapper(
             global_.get_health,
         )
+        self.get_version = to_streamed_response_wrapper(
+            global_.get_version,
+        )
         self.retrieve_events = to_streamed_response_wrapper(
             global_.retrieve_events,
         )
@@ -238,6 +286,9 @@ class AsyncGlobalResourceWithStreamingResponse:
         )
         self.get_health = async_to_streamed_response_wrapper(
             global_.get_health,
+        )
+        self.get_version = async_to_streamed_response_wrapper(
+            global_.get_version,
         )
         self.retrieve_events = async_to_streamed_response_wrapper(
             global_.retrieve_events,

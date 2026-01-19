@@ -167,6 +167,9 @@ class AgentBuild(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -277,6 +280,9 @@ class AgentCompaction(BaseModel):
     permission: Optional[AgentCompactionPermission] = None
 
     prompt: Optional[str] = None
+
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -389,6 +395,9 @@ class AgentExplore(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -499,6 +508,9 @@ class AgentGeneral(BaseModel):
     permission: Optional[AgentGeneralPermission] = None
 
     prompt: Optional[str] = None
+
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -611,6 +623,9 @@ class AgentPlan(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -721,6 +736,9 @@ class AgentSummary(BaseModel):
     permission: Optional[AgentSummaryPermission] = None
 
     prompt: Optional[str] = None
+
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -833,6 +851,9 @@ class AgentTitle(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -943,6 +964,9 @@ class AgentAgentItem(BaseModel):
     permission: Optional[AgentAgentItemPermission] = None
 
     prompt: Optional[str] = None
+
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -1094,6 +1118,9 @@ class Keybinds(BaseModel):
 
     app_exit: Optional[str] = None
     """Exit the application"""
+
+    artifacts_list: Optional[str] = None
+    """View artifacts"""
 
     command_list: Optional[str] = None
     """List available commands"""
@@ -1521,6 +1548,9 @@ class ModeBuild(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -1632,6 +1662,9 @@ class ModePlan(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
+
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
@@ -1742,6 +1775,9 @@ class ModeModeItem(BaseModel):
     permission: Optional[ModeModeItemPermission] = None
 
     prompt: Optional[str] = None
+
+    skills: Optional[List[str]] = None
+    """List of skill names that can be invoked by this agent"""
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
@@ -2047,6 +2083,12 @@ class Config(BaseModel):
     agent: Optional[Agent] = None
     """Agent configuration, see https://opencode.ai/docs/agent"""
 
+    artifact_allowed_paths: Optional[List[str]] = None
+    """
+    允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
+    配。默认允许 /tmp 路径。
+    """
+
     autoshare: Optional[bool] = None
     """@deprecated Use 'share' field instead.
 
@@ -2064,6 +2106,9 @@ class Config(BaseModel):
     """Command configuration, see https://opencode.ai/docs/commands"""
 
     compaction: Optional[Compaction] = None
+
+    custom_provider_npm_whitelist: Optional[List[str]] = None
+    """允许用于 custom provider 的 npm 包白名单"""
 
     default_agent: Optional[str] = None
     """Default agent to use when none is specified.

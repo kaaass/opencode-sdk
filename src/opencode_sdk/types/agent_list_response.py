@@ -50,6 +50,8 @@ class AgentListResponseItem(BaseModel):
 
     prompt: Optional[str] = None
 
+    skills: Optional[List[str]] = None
+
     steps: Optional[int] = None
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
