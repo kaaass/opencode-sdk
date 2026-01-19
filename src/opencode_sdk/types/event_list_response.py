@@ -65,6 +65,12 @@ __all__ = [
     "EventFileEditedProperties",
     "EventTodoUpdated",
     "EventTodoUpdatedProperties",
+    "EventArtifactCreated",
+    "EventArtifactCreatedProperties",
+    "EventArtifactCreatedPropertiesInfo",
+    "EventArtifactCreatedPropertiesInfoTime",
+    "EventArtifactDeleted",
+    "EventArtifactDeletedProperties",
     "EventTuiPromptAppend",
     "EventTuiPromptAppendProperties",
     "EventTuiCommandExecute",
@@ -106,6 +112,9 @@ __all__ = [
     "EventPtyDeleted",
     "EventPtyDeletedProperties",
     "EventServerConnected",
+    "EventServerConnectedProperties",
+    "EventServerConnectedPropertiesVersion",
+    "EventServerConnectedPropertiesVersionUpstream",
     "EventGlobalDisposed",
 ]
 
@@ -418,6 +427,50 @@ class EventTodoUpdated(BaseModel):
     type: Literal["todo.updated"]
 
 
+class EventArtifactCreatedPropertiesInfoTime(BaseModel):
+    created: float
+
+
+class EventArtifactCreatedPropertiesInfo(BaseModel):
+    id: str
+
+    filename: str
+
+    hash: str
+
+    mime: str
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    size: int
+
+    time: EventArtifactCreatedPropertiesInfoTime
+
+    metadata: Optional[Dict[str, object]] = None
+
+
+class EventArtifactCreatedProperties(BaseModel):
+    info: EventArtifactCreatedPropertiesInfo
+
+
+class EventArtifactCreated(BaseModel):
+    properties: EventArtifactCreatedProperties
+
+    type: Literal["artifact.created"]
+
+
+class EventArtifactDeletedProperties(BaseModel):
+    artifact_id: str = FieldInfo(alias="artifactID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventArtifactDeleted(BaseModel):
+    properties: EventArtifactDeletedProperties
+
+    type: Literal["artifact.deleted"]
+
+
 class EventTuiPromptAppendProperties(BaseModel):
     text: str
 
@@ -701,8 +754,28 @@ class EventPtyDeleted(BaseModel):
     type: Literal["pty.deleted"]
 
 
+class EventServerConnectedPropertiesVersionUpstream(BaseModel):
+    commit: str
+
+    version: str
+
+
+class EventServerConnectedPropertiesVersion(BaseModel):
+    api: str
+
+    channel: str
+
+    upstream: EventServerConnectedPropertiesVersionUpstream
+
+    version: str
+
+
+class EventServerConnectedProperties(BaseModel):
+    version: EventServerConnectedPropertiesVersion
+
+
 class EventServerConnected(BaseModel):
-    properties: object
+    properties: EventServerConnectedProperties
 
     type: Literal["server.connected"]
 
@@ -734,6 +807,8 @@ EventListResponse: TypeAlias = Union[
     EventSessionCompacted,
     EventFileEdited,
     EventTodoUpdated,
+    EventArtifactCreated,
+    EventArtifactDeleted,
     EventTuiPromptAppend,
     EventTuiCommandExecute,
     EventTuiToastShow,

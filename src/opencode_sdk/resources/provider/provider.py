@@ -12,6 +12,14 @@ from .oauth import (
     OAuthResourceWithStreamingResponse,
     AsyncOAuthResourceWithStreamingResponse,
 )
+from .custom import (
+    CustomResource,
+    AsyncCustomResource,
+    CustomResourceWithRawResponse,
+    AsyncCustomResourceWithRawResponse,
+    CustomResourceWithStreamingResponse,
+    AsyncCustomResourceWithStreamingResponse,
+)
 from ...types import provider_list_params, provider_get_auth_methods_params
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import maybe_transform, async_maybe_transform
@@ -34,6 +42,10 @@ class ProviderResource(SyncAPIResource):
     @cached_property
     def oauth(self) -> OAuthResource:
         return OAuthResource(self._client)
+
+    @cached_property
+    def custom(self) -> CustomResource:
+        return CustomResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> ProviderResourceWithRawResponse:
@@ -132,6 +144,10 @@ class AsyncProviderResource(AsyncAPIResource):
     @cached_property
     def oauth(self) -> AsyncOAuthResource:
         return AsyncOAuthResource(self._client)
+
+    @cached_property
+    def custom(self) -> AsyncCustomResource:
+        return AsyncCustomResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncProviderResourceWithRawResponse:
@@ -241,6 +257,10 @@ class ProviderResourceWithRawResponse:
     def oauth(self) -> OAuthResourceWithRawResponse:
         return OAuthResourceWithRawResponse(self._provider.oauth)
 
+    @cached_property
+    def custom(self) -> CustomResourceWithRawResponse:
+        return CustomResourceWithRawResponse(self._provider.custom)
+
 
 class AsyncProviderResourceWithRawResponse:
     def __init__(self, provider: AsyncProviderResource) -> None:
@@ -256,6 +276,10 @@ class AsyncProviderResourceWithRawResponse:
     @cached_property
     def oauth(self) -> AsyncOAuthResourceWithRawResponse:
         return AsyncOAuthResourceWithRawResponse(self._provider.oauth)
+
+    @cached_property
+    def custom(self) -> AsyncCustomResourceWithRawResponse:
+        return AsyncCustomResourceWithRawResponse(self._provider.custom)
 
 
 class ProviderResourceWithStreamingResponse:
@@ -273,6 +297,10 @@ class ProviderResourceWithStreamingResponse:
     def oauth(self) -> OAuthResourceWithStreamingResponse:
         return OAuthResourceWithStreamingResponse(self._provider.oauth)
 
+    @cached_property
+    def custom(self) -> CustomResourceWithStreamingResponse:
+        return CustomResourceWithStreamingResponse(self._provider.custom)
+
 
 class AsyncProviderResourceWithStreamingResponse:
     def __init__(self, provider: AsyncProviderResource) -> None:
@@ -288,3 +316,7 @@ class AsyncProviderResourceWithStreamingResponse:
     @cached_property
     def oauth(self) -> AsyncOAuthResourceWithStreamingResponse:
         return AsyncOAuthResourceWithStreamingResponse(self._provider.oauth)
+
+    @cached_property
+    def custom(self) -> AsyncCustomResourceWithStreamingResponse:
+        return AsyncCustomResourceWithStreamingResponse(self._provider.custom)
