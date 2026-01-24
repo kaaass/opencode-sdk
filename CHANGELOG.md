@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.11.1 (2026-01-24)
+
+Full Changelog: [v0.11.0...v0.11.1](https://github.com/kaaass/opencode-sdk/compare/v0.11.0...v0.11.1)
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([a0564a0](https://github.com/kaaass/opencode-sdk/commit/a0564a02048db4bd7468eaf7b7fa6b02976ca7a6))
+
 ## 0.11.0 (2026-01-19)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/kaaass/opencode-sdk/compare/v0.10.0...v0.11.0)
