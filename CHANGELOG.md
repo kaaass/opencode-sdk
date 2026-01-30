@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.12.0 (2026-01-30)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/kaaass/opencode-sdk/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **client:** add custom JSON encoder for extended type support ([5be0a19](https://github.com/kaaass/opencode-sdk/commit/5be0a19d885978f53d1cc55733d0a984e727457a))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([a0564a0](https://github.com/kaaass/opencode-sdk/commit/a0564a02048db4bd7468eaf7b7fa6b02976ca7a6))
+
 ## 0.11.0 (2026-01-19)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/kaaass/opencode-sdk/compare/v0.10.0...v0.11.0)
