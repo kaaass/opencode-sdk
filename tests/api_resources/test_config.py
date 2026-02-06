@@ -368,7 +368,7 @@ class TestConfig:
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
-            formatter=True,
+            formatter=False,
             instructions=["string"],
             keybinds={
                 "agent_cycle": "agent_cycle",
@@ -462,7 +462,7 @@ class TestConfig:
             },
             layout="auto",
             log_level="DEBUG",
-            lsp=True,
+            lsp=False,
             mcp={
                 "foo": {
                     "command": ["string"],
@@ -1057,7 +1057,7 @@ class TestAsyncConfig:
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
-            formatter=True,
+            formatter=False,
             instructions=["string"],
             keybinds={
                 "agent_cycle": "agent_cycle",
@@ -1151,7 +1151,7 @@ class TestAsyncConfig:
             },
             layout="auto",
             log_level="DEBUG",
-            lsp=True,
+            lsp=False,
             mcp={
                 "foo": {
                     "command": ["string"],

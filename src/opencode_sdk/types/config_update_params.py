@@ -139,7 +139,7 @@ class ConfigUpdateParams(TypedDict, total=False):
 
     experimental: Experimental
 
-    formatter: Union[bool, Dict[str, FormatterUnionMember1FormatterUnionMember1Item]]
+    formatter: Union[Literal[False], Dict[str, FormatterUnionMember1FormatterUnionMember1Item]]
 
     instructions: SequenceNotStr[str]
     """Additional instruction files or patterns to include"""
@@ -153,7 +153,7 @@ class ConfigUpdateParams(TypedDict, total=False):
     log_level: Annotated[Literal["DEBUG", "INFO", "WARN", "ERROR"], PropertyInfo(alias="logLevel")]
     """Log level"""
 
-    lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item]]
+    lsp: Union[Literal[False], Dict[str, LspUnionMember1LspUnionMember1Item]]
 
     mcp: Dict[str, Mcp]
     """MCP (Model Context Protocol) server configurations"""
@@ -1362,7 +1362,7 @@ class McpMcpRemoteConfigOAuthMcpOAuthConfig(TypedDict, total=False):
     """OAuth scopes to request during authorization"""
 
 
-McpMcpRemoteConfigOAuth: TypeAlias = Union[McpMcpRemoteConfigOAuthMcpOAuthConfig, bool]
+McpMcpRemoteConfigOAuth: TypeAlias = Union[McpMcpRemoteConfigOAuthMcpOAuthConfig, Literal[False]]
 
 
 class McpMcpRemoteConfig(TypedDict, total=False):
@@ -1832,7 +1832,7 @@ class ProviderOptionsTyped(TypedDict, total=False):
     set_cache_key: Annotated[bool, PropertyInfo(alias="setCacheKey")]
     """Enable promptCacheKey for this provider (default false)"""
 
-    timeout: Union[int, bool]
+    timeout: Union[int, Literal[False]]
     """Timeout in milliseconds for requests to this provider.
 
     Default is 300000 (5 minutes). Set to false to disable timeout.
