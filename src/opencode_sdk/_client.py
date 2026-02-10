@@ -58,6 +58,7 @@ if TYPE_CHECKING:
         formatter,
         permission,
         client_tool,
+        client_skill,
         experimental,
     )
     from .resources.log import LogResource, AsyncLogResource
@@ -83,6 +84,7 @@ if TYPE_CHECKING:
     from .resources.formatter import FormatterResource, AsyncFormatterResource
     from .resources.permission import PermissionResource, AsyncPermissionResource
     from .resources.client_tool import ClientToolResource, AsyncClientToolResource
+    from .resources.client_skill import ClientSkillResource, AsyncClientSkillResource
     from .resources.session.session import SessionResource, AsyncSessionResource
     from .resources.provider.provider import ProviderResource, AsyncProviderResource
     from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource
@@ -313,6 +315,12 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.skill import SkillResource
 
         return SkillResource(self)
+
+    @cached_property
+    def client_skill(self) -> ClientSkillResource:
+        from .resources.client_skill import ClientSkillResource
+
+        return ClientSkillResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -656,6 +664,12 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncSkillResource(self)
 
     @cached_property
+    def client_skill(self) -> AsyncClientSkillResource:
+        from .resources.client_skill import AsyncClientSkillResource
+
+        return AsyncClientSkillResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
         return AsyncOpencodeSDKWithRawResponse(self)
 
@@ -943,6 +957,12 @@ class OpencodeSDKWithRawResponse:
 
         return SkillResourceWithRawResponse(self._client.skill)
 
+    @cached_property
+    def client_skill(self) -> client_skill.ClientSkillResourceWithRawResponse:
+        from .resources.client_skill import ClientSkillResourceWithRawResponse
+
+        return ClientSkillResourceWithRawResponse(self._client.client_skill)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -1105,6 +1125,12 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.skill import AsyncSkillResourceWithRawResponse
 
         return AsyncSkillResourceWithRawResponse(self._client.skill)
+
+    @cached_property
+    def client_skill(self) -> client_skill.AsyncClientSkillResourceWithRawResponse:
+        from .resources.client_skill import AsyncClientSkillResourceWithRawResponse
+
+        return AsyncClientSkillResourceWithRawResponse(self._client.client_skill)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1269,6 +1295,12 @@ class OpencodeSDKWithStreamedResponse:
 
         return SkillResourceWithStreamingResponse(self._client.skill)
 
+    @cached_property
+    def client_skill(self) -> client_skill.ClientSkillResourceWithStreamingResponse:
+        from .resources.client_skill import ClientSkillResourceWithStreamingResponse
+
+        return ClientSkillResourceWithStreamingResponse(self._client.client_skill)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1431,6 +1463,12 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.skill import AsyncSkillResourceWithStreamingResponse
 
         return AsyncSkillResourceWithStreamingResponse(self._client.skill)
+
+    @cached_property
+    def client_skill(self) -> client_skill.AsyncClientSkillResourceWithStreamingResponse:
+        from .resources.client_skill import AsyncClientSkillResourceWithStreamingResponse
+
+        return AsyncClientSkillResourceWithStreamingResponse(self._client.client_skill)
 
 
 Client = OpencodeSDK
