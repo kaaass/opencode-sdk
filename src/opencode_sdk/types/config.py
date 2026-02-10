@@ -1427,7 +1427,7 @@ class McpMcpRemoteConfigOAuthMcpOAuthConfig(BaseModel):
     """OAuth scopes to request during authorization"""
 
 
-McpMcpRemoteConfigOAuth: TypeAlias = Union[McpMcpRemoteConfigOAuthMcpOAuthConfig, bool]
+McpMcpRemoteConfigOAuth: TypeAlias = Union[McpMcpRemoteConfigOAuthMcpOAuthConfig, Literal[False]]
 
 
 class McpMcpRemoteConfig(BaseModel):
@@ -1994,7 +1994,7 @@ class ProviderOptions(BaseModel):
     set_cache_key: Optional[bool] = FieldInfo(alias="setCacheKey", default=None)
     """Enable promptCacheKey for this provider (default false)"""
 
-    timeout: Union[int, bool, None] = None
+    timeout: Union[int, Literal[False], None] = None
     """Timeout in milliseconds for requests to this provider.
 
     Default is 300000 (5 minutes). Set to false to disable timeout.
@@ -2130,7 +2130,7 @@ class Config(BaseModel):
 
     experimental: Optional[Experimental] = None
 
-    formatter: Union[bool, Dict[str, FormatterUnionMember1FormatterUnionMember1Item], None] = None
+    formatter: Union[Literal[False], Dict[str, FormatterUnionMember1FormatterUnionMember1Item], None] = None
 
     instructions: Optional[List[str]] = None
     """Additional instruction files or patterns to include"""
@@ -2144,7 +2144,7 @@ class Config(BaseModel):
     log_level: Optional[Literal["DEBUG", "INFO", "WARN", "ERROR"]] = FieldInfo(alias="logLevel", default=None)
     """Log level"""
 
-    lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item], None] = None
+    lsp: Union[Literal[False], Dict[str, LspUnionMember1LspUnionMember1Item], None] = None
 
     mcp: Optional[Dict[str, Mcp]] = None
     """MCP (Model Context Protocol) server configurations"""

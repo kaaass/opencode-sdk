@@ -567,3 +567,21 @@ from opencode_sdk.types import SkillListResponse
 Methods:
 
 - <code title="get /skill">client.skill.<a href="./src/opencode_sdk/resources/skill.py">list</a>(\*\*<a href="src/opencode_sdk/types/skill_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/skill_list_response.py">SkillListResponse</a></code>
+
+# ClientSkill
+
+Types:
+
+```python
+from opencode_sdk.types import (
+    ClientSkillListResponse,
+    ClientSkillDeleteResponse,
+    ClientSkillUploadResponse,
+)
+```
+
+Methods:
+
+- <code title="get /client-skill">client.client_skill.<a href="./src/opencode_sdk/resources/client_skill.py">list</a>(\*\*<a href="src/opencode_sdk/types/client_skill_list_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_skill_list_response.py">ClientSkillListResponse</a></code>
+- <code title="delete /client-skill/{name}">client.client_skill.<a href="./src/opencode_sdk/resources/client_skill.py">delete</a>(name, \*\*<a href="src/opencode_sdk/types/client_skill_delete_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_skill_delete_response.py">ClientSkillDeleteResponse</a></code>
+- <code title="post /client-skill">client.client_skill.<a href="./src/opencode_sdk/resources/client_skill.py">upload</a>(\*\*<a href="src/opencode_sdk/types/client_skill_upload_params.py">params</a>) -> <a href="./src/opencode_sdk/types/client_skill_upload_response.py">ClientSkillUploadResponse</a></code>

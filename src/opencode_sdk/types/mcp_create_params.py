@@ -60,7 +60,7 @@ class ConfigMcpRemoteConfigOAuthMcpOAuthConfig(TypedDict, total=False):
     """OAuth scopes to request during authorization"""
 
 
-ConfigMcpRemoteConfigOAuth: TypeAlias = Union[ConfigMcpRemoteConfigOAuthMcpOAuthConfig, bool]
+ConfigMcpRemoteConfigOAuth: TypeAlias = Union[ConfigMcpRemoteConfigOAuthMcpOAuthConfig, Literal[False]]
 
 
 class ConfigMcpRemoteConfig(TypedDict, total=False):

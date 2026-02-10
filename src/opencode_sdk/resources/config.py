@@ -97,13 +97,13 @@ class ConfigResource(SyncAPIResource):
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
-        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
+        lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
@@ -354,13 +354,13 @@ class AsyncConfigResource(AsyncAPIResource):
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
-        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
+        lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
