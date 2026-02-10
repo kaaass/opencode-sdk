@@ -1,5 +1,25 @@
 # Changelog
 
+## 0.12.0 (2026-02-10)
+
+Full Changelog: [v0.11.0...v0.12.0](https://github.com/kaaass/opencode-sdk/compare/v0.11.0...v0.12.0)
+
+### Features
+
+* **api:** client skill ([29d65bb](https://github.com/kaaass/opencode-sdk/commit/29d65bbdff4998ec73740e67ca97222402f6bb1a))
+* **client:** add custom JSON encoder for extended type support ([5be0a19](https://github.com/kaaass/opencode-sdk/commit/5be0a19d885978f53d1cc55733d0a984e727457a))
+
+
+### Bug Fixes
+
+* **types:** correctly define false enum ([2994304](https://github.com/kaaass/opencode-sdk/commit/2994304d234353a58f0c714c6738bd99eb7b7907))
+
+
+### Chores
+
+* **ci:** upgrade `actions/github-script` ([a0564a0](https://github.com/kaaass/opencode-sdk/commit/a0564a02048db4bd7468eaf7b7fa6b02976ca7a6))
+* **internal:** bump dependencies ([b6448b2](https://github.com/kaaass/opencode-sdk/commit/b6448b2e4b4e652809fae7a8a6d43f424bfa2b00))
+
 ## 0.11.0 (2026-01-19)
 
 Full Changelog: [v0.10.0...v0.11.0](https://github.com/kaaass/opencode-sdk/compare/v0.10.0...v0.11.0)
