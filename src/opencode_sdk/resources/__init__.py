@@ -200,6 +200,14 @@ from .client_tool import (
     ClientToolResourceWithStreamingResponse,
     AsyncClientToolResourceWithStreamingResponse,
 )
+from .client_skill import (
+    ClientSkillResource,
+    AsyncClientSkillResource,
+    ClientSkillResourceWithRawResponse,
+    AsyncClientSkillResourceWithRawResponse,
+    ClientSkillResourceWithStreamingResponse,
+    AsyncClientSkillResourceWithStreamingResponse,
+)
 from .experimental import (
     ExperimentalResource,
     AsyncExperimentalResource,
@@ -366,4 +374,10 @@ __all__ = [
     "AsyncSkillResourceWithRawResponse",
     "SkillResourceWithStreamingResponse",
     "AsyncSkillResourceWithStreamingResponse",
+    "ClientSkillResource",
+    "AsyncClientSkillResource",
+    "ClientSkillResourceWithRawResponse",
+    "AsyncClientSkillResourceWithRawResponse",
+    "ClientSkillResourceWithStreamingResponse",
+    "AsyncClientSkillResourceWithStreamingResponse",
 ]
