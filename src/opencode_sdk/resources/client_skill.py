@@ -2,11 +2,13 @@
 
 from __future__ import annotations
 
+from typing import Mapping, cast
+
 import httpx
 
 from ..types import client_skill_list_params, client_skill_delete_params, client_skill_upload_params
-from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
+from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -119,6 +121,7 @@ class ClientSkillResource(SyncAPIResource):
     def upload(
         self,
         *,
+        file: FileTypes,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -131,6 +134,8 @@ class ClientSkillResource(SyncAPIResource):
         Upload a skill package (tar.gz) to be loaded at runtime.
 
         Args:
+          file: Skill package file (tar.gz format)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -139,8 +144,16 @@ class ClientSkillResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return self._post(
             "/client-skill",
+            body=maybe_transform(body, client_skill_upload_params.ClientSkillUploadParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -252,6 +265,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
     async def upload(
         self,
         *,
+        file: FileTypes,
         directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -264,6 +278,8 @@ class AsyncClientSkillResource(AsyncAPIResource):
         Upload a skill package (tar.gz) to be loaded at runtime.
 
         Args:
+          file: Skill package file (tar.gz format)
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -272,8 +288,16 @@ class AsyncClientSkillResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
+        body = deepcopy_minimal({"file": file})
+        files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
+        # It should be noted that the actual Content-Type header that will be
+        # sent to the server will contain a `boundary` parameter, e.g.
+        # multipart/form-data; boundary=---abc--
+        extra_headers = {"Content-Type": "multipart/form-data", **(extra_headers or {})}
         return await self._post(
             "/client-skill",
+            body=await async_maybe_transform(body, client_skill_upload_params.ClientSkillUploadParams),
+            files=files,
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
