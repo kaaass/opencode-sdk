@@ -111,13 +111,16 @@ class TestClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_upload(self, client: OpencodeSDK) -> None:
-        client_skill = client.client_skill.upload()
+        client_skill = client.client_skill.upload(
+            file=b"raw file contents",
+        )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_upload_with_all_params(self, client: OpencodeSDK) -> None:
         client_skill = client.client_skill.upload(
+            file=b"raw file contents",
             directory="directory",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
@@ -125,7 +128,9 @@ class TestClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_upload(self, client: OpencodeSDK) -> None:
-        response = client.client_skill.with_raw_response.upload()
+        response = client.client_skill.with_raw_response.upload(
+            file=b"raw file contents",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -135,7 +140,9 @@ class TestClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_upload(self, client: OpencodeSDK) -> None:
-        with client.client_skill.with_streaming_response.upload() as response:
+        with client.client_skill.with_streaming_response.upload(
+            file=b"raw file contents",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -240,13 +247,16 @@ class TestAsyncClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_upload(self, async_client: AsyncOpencodeSDK) -> None:
-        client_skill = await async_client.client_skill.upload()
+        client_skill = await async_client.client_skill.upload(
+            file=b"raw file contents",
+        )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_upload_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_skill = await async_client.client_skill.upload(
+            file=b"raw file contents",
             directory="directory",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
@@ -254,7 +264,9 @@ class TestAsyncClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.client_skill.with_raw_response.upload()
+        response = await async_client.client_skill.with_raw_response.upload(
+            file=b"raw file contents",
+        )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -264,7 +276,9 @@ class TestAsyncClientSkill:
     @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.client_skill.with_streaming_response.upload() as response:
+        async with async_client.client_skill.with_streaming_response.upload(
+            file=b"raw file contents",
+        ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
