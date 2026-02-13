@@ -47,6 +47,7 @@ from .session_list_params import SessionListParams as SessionListParams
 from .skill_list_response import SkillListResponse as SkillListResponse
 from .config_update_params import ConfigUpdateParams as ConfigUpdateParams
 from .find_retrieve_params import FindRetrieveParams as FindRetrieveParams
+from .global_exit_response import GlobalExitResponse as GlobalExitResponse
 from .mcp_connect_response import McpConnectResponse as McpConnectResponse
 from .path_retrieve_params import PathRetrieveParams as PathRetrieveParams
 from .provider_list_params import ProviderListParams as ProviderListParams

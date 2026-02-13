@@ -15,6 +15,7 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
+from ..types.global_exit_response import GlobalExitResponse
 from ..types.global_get_health_response import GlobalGetHealthResponse
 from ..types.global_get_version_response import GlobalGetVersionResponse
 from ..types.global_retrieve_events_response import GlobalRetrieveEventsResponse
@@ -60,6 +61,25 @@ class GlobalResource(SyncAPIResource):
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=GlobalDisposeInstanceResponse,
+        )
+
+    def exit(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GlobalExitResponse:
+        """Gracefully shutdown the OpenCode server. Docker will restart it automatically."""
+        return self._post(
+            "/global/exit",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GlobalExitResponse,
         )
 
     def get_health(
@@ -162,6 +182,25 @@ class AsyncGlobalResource(AsyncAPIResource):
             cast_to=GlobalDisposeInstanceResponse,
         )
 
+    async def exit(
+        self,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> GlobalExitResponse:
+        """Gracefully shutdown the OpenCode server. Docker will restart it automatically."""
+        return await self._post(
+            "/global/exit",
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=GlobalExitResponse,
+        )
+
     async def get_health(
         self,
         *,
@@ -230,6 +269,9 @@ class GlobalResourceWithRawResponse:
         self.dispose_instance = to_raw_response_wrapper(
             global_.dispose_instance,
         )
+        self.exit = to_raw_response_wrapper(
+            global_.exit,
+        )
         self.get_health = to_raw_response_wrapper(
             global_.get_health,
         )
@@ -247,6 +289,9 @@ class AsyncGlobalResourceWithRawResponse:
 
         self.dispose_instance = async_to_raw_response_wrapper(
             global_.dispose_instance,
+        )
+        self.exit = async_to_raw_response_wrapper(
+            global_.exit,
         )
         self.get_health = async_to_raw_response_wrapper(
             global_.get_health,
@@ -266,6 +311,9 @@ class GlobalResourceWithStreamingResponse:
         self.dispose_instance = to_streamed_response_wrapper(
             global_.dispose_instance,
         )
+        self.exit = to_streamed_response_wrapper(
+            global_.exit,
+        )
         self.get_health = to_streamed_response_wrapper(
             global_.get_health,
         )
@@ -283,6 +331,9 @@ class AsyncGlobalResourceWithStreamingResponse:
 
         self.dispose_instance = async_to_streamed_response_wrapper(
             global_.dispose_instance,
+        )
+        self.exit = async_to_streamed_response_wrapper(
+            global_.exit,
         )
         self.get_health = async_to_streamed_response_wrapper(
             global_.get_health,
