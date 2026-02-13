@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.14.0 (2026-02-13)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/kaaass/opencode-sdk/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** 0.12.1 ([2951395](https://github.com/kaaass/opencode-sdk/commit/2951395836127c8e1c7ca8b1681b664965d02a4c))
+
+
+### Chores
+
+* format all `api.md` files ([3fc3f72](https://github.com/kaaass/opencode-sdk/commit/3fc3f72b96c40f548d9e0c0ea223ae3b745ebeec))
+* **internal:** fix lint error on Python 3.14 ([a534952](https://github.com/kaaass/opencode-sdk/commit/a534952d38ca42d7ea1204e905d58503fdb63ccd))
+
 ## 0.13.0 (2026-02-11)
 
 Full Changelog: [v0.12.0...v0.13.0](https://github.com/kaaass/opencode-sdk/compare/v0.12.0...v0.13.0)
