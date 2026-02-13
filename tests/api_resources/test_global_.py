@@ -9,7 +9,12 @@ import pytest
 
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import GlobalGetHealthResponse, GlobalGetVersionResponse, GlobalDisposeInstanceResponse
+from opencode_sdk.types import (
+    GlobalExitResponse,
+    GlobalGetHealthResponse,
+    GlobalGetVersionResponse,
+    GlobalDisposeInstanceResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -42,6 +47,34 @@ class TestGlobal:
 
             global_ = response.parse()
             assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_method_exit(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.exit()
+        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_raw_response_exit(self, client: OpencodeSDK) -> None:
+        response = client.global_.with_raw_response.exit()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        global_ = response.parse()
+        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    def test_streaming_response_exit(self, client: OpencodeSDK) -> None:
+        with client.global_.with_streaming_response.exit() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            global_ = response.parse()
+            assert_matches_type(GlobalExitResponse, global_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -159,6 +192,34 @@ class TestAsyncGlobal:
 
             global_ = await response.parse()
             assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_method_exit(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.exit()
+        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_raw_response_exit(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.with_raw_response.exit()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        global_ = await response.parse()
+        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Prism tests are disabled")
+    @parametrize
+    async def test_streaming_response_exit(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.with_streaming_response.exit() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            global_ = await response.parse()
+            assert_matches_type(GlobalExitResponse, global_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

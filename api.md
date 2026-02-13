@@ -365,6 +365,7 @@ Types:
 ```python
 from opencode_sdk.types import (
     GlobalDisposeInstanceResponse,
+    GlobalExitResponse,
     GlobalGetHealthResponse,
     GlobalGetVersionResponse,
     GlobalRetrieveEventsResponse,
@@ -374,6 +375,7 @@ from opencode_sdk.types import (
 Methods:
 
 - <code title="post /global/dispose">client.global*.<a href="./src/opencode_sdk/resources/global*.py">dispose_instance</a>() -> <a href="./src/opencode_sdk/types/global_dispose_instance_response.py">GlobalDisposeInstanceResponse</a></code>
+- <code title="post /global/exit">client.global*.<a href="./src/opencode_sdk/resources/global*.py">exit</a>() -> <a href="./src/opencode_sdk/types/global_exit_response.py">GlobalExitResponse</a></code>
 - <code title="get /global/health">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_health</a>() -> <a href="./src/opencode_sdk/types/global_get_health_response.py">GlobalGetHealthResponse</a></code>
 - <code title="get /global/version">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_version</a>() -> <a href="./src/opencode_sdk/types/global_get_version_response.py">GlobalGetVersionResponse</a></code>
 - <code title="get /global/event">client.global*.<a href="./src/opencode_sdk/resources/global*.py">retrieve_events</a>() -> <a href="./src/opencode_sdk/types/global_retrieve_events_response.py">GlobalRetrieveEventsResponse</a></code>
