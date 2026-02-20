@@ -134,13 +134,13 @@ class TestGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_events(self, client: OpencodeSDK) -> None:
         global__stream = client.global_.retrieve_events()
         global__stream.response.close()
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_events(self, client: OpencodeSDK) -> None:
         response = client.global_.with_raw_response.retrieve_events()
@@ -149,7 +149,7 @@ class TestGlobal:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_events(self, client: OpencodeSDK) -> None:
         with client.global_.with_streaming_response.retrieve_events() as response:
@@ -279,13 +279,13 @@ class TestAsyncGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
         global__stream = await async_client.global_.retrieve_events()
         await global__stream.response.aclose()
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.global_.with_raw_response.retrieve_events()
@@ -294,7 +294,7 @@ class TestAsyncGlobal:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip(reason="Mock server doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.global_.with_streaming_response.retrieve_events() as response:
