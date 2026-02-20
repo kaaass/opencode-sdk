@@ -20,13 +20,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestProvider:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: OpencodeSDK) -> None:
         provider = client.provider.list()
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         provider = client.provider.list(
@@ -34,7 +34,7 @@ class TestProvider:
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: OpencodeSDK) -> None:
         response = client.provider.with_raw_response.list()
@@ -44,7 +44,7 @@ class TestProvider:
         provider = response.parse()
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: OpencodeSDK) -> None:
         with client.provider.with_streaming_response.list() as response:
@@ -56,13 +56,13 @@ class TestProvider:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_auth_methods(self, client: OpencodeSDK) -> None:
         provider = client.provider.get_auth_methods()
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_auth_methods_with_all_params(self, client: OpencodeSDK) -> None:
         provider = client.provider.get_auth_methods(
@@ -70,7 +70,7 @@ class TestProvider:
         )
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_auth_methods(self, client: OpencodeSDK) -> None:
         response = client.provider.with_raw_response.get_auth_methods()
@@ -80,7 +80,7 @@ class TestProvider:
         provider = response.parse()
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_auth_methods(self, client: OpencodeSDK) -> None:
         with client.provider.with_streaming_response.get_auth_methods() as response:
@@ -98,13 +98,13 @@ class TestAsyncProvider:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.list()
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.list(
@@ -112,7 +112,7 @@ class TestAsyncProvider:
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.provider.with_raw_response.list()
@@ -122,7 +122,7 @@ class TestAsyncProvider:
         provider = await response.parse()
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.provider.with_streaming_response.list() as response:
@@ -134,13 +134,13 @@ class TestAsyncProvider:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_auth_methods(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.get_auth_methods()
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_auth_methods_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.get_auth_methods(
@@ -148,7 +148,7 @@ class TestAsyncProvider:
         )
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_auth_methods(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.provider.with_raw_response.get_auth_methods()
@@ -158,7 +158,7 @@ class TestAsyncProvider:
         provider = await response.parse()
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_auth_methods(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.provider.with_streaming_response.get_auth_methods() as response:

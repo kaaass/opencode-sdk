@@ -17,13 +17,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestExperimental:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_resources(self, client: OpencodeSDK) -> None:
         experimental = client.experimental.get_resources()
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_resources_with_all_params(self, client: OpencodeSDK) -> None:
         experimental = client.experimental.get_resources(
@@ -31,7 +31,7 @@ class TestExperimental:
         )
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_resources(self, client: OpencodeSDK) -> None:
         response = client.experimental.with_raw_response.get_resources()
@@ -41,7 +41,7 @@ class TestExperimental:
         experimental = response.parse()
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_resources(self, client: OpencodeSDK) -> None:
         with client.experimental.with_streaming_response.get_resources() as response:
@@ -59,13 +59,13 @@ class TestAsyncExperimental:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_resources(self, async_client: AsyncOpencodeSDK) -> None:
         experimental = await async_client.experimental.get_resources()
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_resources_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         experimental = await async_client.experimental.get_resources(
@@ -73,7 +73,7 @@ class TestAsyncExperimental:
         )
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_resources(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.experimental.with_raw_response.get_resources()
@@ -83,7 +83,7 @@ class TestAsyncExperimental:
         experimental = await response.parse()
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_resources(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.experimental.with_streaming_response.get_resources() as response:

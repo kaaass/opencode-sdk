@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFind:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve(
@@ -29,7 +29,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve(
@@ -38,7 +38,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
         response = client.find.with_raw_response.retrieve(
@@ -50,7 +50,7 @@ class TestFind:
         find = response.parse()
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
         with client.find.with_streaming_response.retrieve(
@@ -64,7 +64,7 @@ class TestFind:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_file(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve_file(
@@ -72,7 +72,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_file_with_all_params(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve_file(
@@ -84,7 +84,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_file(self, client: OpencodeSDK) -> None:
         response = client.find.with_raw_response.retrieve_file(
@@ -96,7 +96,7 @@ class TestFind:
         find = response.parse()
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_file(self, client: OpencodeSDK) -> None:
         with client.find.with_streaming_response.retrieve_file(
@@ -110,7 +110,7 @@ class TestFind:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_symbol(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve_symbol(
@@ -118,7 +118,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_symbol_with_all_params(self, client: OpencodeSDK) -> None:
         find = client.find.retrieve_symbol(
@@ -127,7 +127,7 @@ class TestFind:
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve_symbol(self, client: OpencodeSDK) -> None:
         response = client.find.with_raw_response.retrieve_symbol(
@@ -139,7 +139,7 @@ class TestFind:
         find = response.parse()
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve_symbol(self, client: OpencodeSDK) -> None:
         with client.find.with_streaming_response.retrieve_symbol(
@@ -159,7 +159,7 @@ class TestAsyncFind:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve(
@@ -167,7 +167,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve(
@@ -176,7 +176,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.find.with_raw_response.retrieve(
@@ -188,7 +188,7 @@ class TestAsyncFind:
         find = await response.parse()
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.find.with_streaming_response.retrieve(
@@ -202,7 +202,7 @@ class TestAsyncFind:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve_file(
@@ -210,7 +210,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_file_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve_file(
@@ -222,7 +222,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.find.with_raw_response.retrieve_file(
@@ -234,7 +234,7 @@ class TestAsyncFind:
         find = await response.parse()
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.find.with_streaming_response.retrieve_file(
@@ -248,7 +248,7 @@ class TestAsyncFind:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve_symbol(
@@ -256,7 +256,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_symbol_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         find = await async_client.find.retrieve_symbol(
@@ -265,7 +265,7 @@ class TestAsyncFind:
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.find.with_raw_response.retrieve_symbol(
@@ -277,7 +277,7 @@ class TestAsyncFind:
         find = await response.parse()
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.find.with_streaming_response.retrieve_symbol(
