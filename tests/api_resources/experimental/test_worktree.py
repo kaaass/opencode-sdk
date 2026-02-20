@@ -20,13 +20,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestWorktree:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.create()
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.create(
@@ -36,7 +36,7 @@ class TestWorktree:
         )
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OpencodeSDK) -> None:
         response = client.experimental.worktree.with_raw_response.create()
@@ -46,7 +46,7 @@ class TestWorktree:
         worktree = response.parse()
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: OpencodeSDK) -> None:
         with client.experimental.worktree.with_streaming_response.create() as response:
@@ -58,13 +58,13 @@ class TestWorktree:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.list()
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.list(
@@ -72,7 +72,7 @@ class TestWorktree:
         )
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: OpencodeSDK) -> None:
         response = client.experimental.worktree.with_raw_response.list()
@@ -82,7 +82,7 @@ class TestWorktree:
         worktree = response.parse()
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: OpencodeSDK) -> None:
         with client.experimental.worktree.with_streaming_response.list() as response:
@@ -100,13 +100,13 @@ class TestAsyncWorktree:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.create()
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.create(
@@ -116,7 +116,7 @@ class TestAsyncWorktree:
         )
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.experimental.worktree.with_raw_response.create()
@@ -126,7 +126,7 @@ class TestAsyncWorktree:
         worktree = await response.parse()
         assert_matches_type(WorktreeCreateResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.experimental.worktree.with_streaming_response.create() as response:
@@ -138,13 +138,13 @@ class TestAsyncWorktree:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.list()
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.list(
@@ -152,7 +152,7 @@ class TestAsyncWorktree:
         )
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.experimental.worktree.with_raw_response.list()
@@ -162,7 +162,7 @@ class TestAsyncWorktree:
         worktree = await response.parse()
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.experimental.worktree.with_streaming_response.list() as response:

@@ -20,13 +20,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestControl:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_next_request(self, client: OpencodeSDK) -> None:
         control = client.tui.control.get_next_request()
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_next_request_with_all_params(self, client: OpencodeSDK) -> None:
         control = client.tui.control.get_next_request(
@@ -34,7 +34,7 @@ class TestControl:
         )
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_next_request(self, client: OpencodeSDK) -> None:
         response = client.tui.control.with_raw_response.get_next_request()
@@ -44,7 +44,7 @@ class TestControl:
         control = response.parse()
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_next_request(self, client: OpencodeSDK) -> None:
         with client.tui.control.with_streaming_response.get_next_request() as response:
@@ -56,13 +56,13 @@ class TestControl:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_submit_response(self, client: OpencodeSDK) -> None:
         control = client.tui.control.submit_response()
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_submit_response_with_all_params(self, client: OpencodeSDK) -> None:
         control = client.tui.control.submit_response(
@@ -71,7 +71,7 @@ class TestControl:
         )
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_submit_response(self, client: OpencodeSDK) -> None:
         response = client.tui.control.with_raw_response.submit_response()
@@ -81,7 +81,7 @@ class TestControl:
         control = response.parse()
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_submit_response(self, client: OpencodeSDK) -> None:
         with client.tui.control.with_streaming_response.submit_response() as response:
@@ -99,13 +99,13 @@ class TestAsyncControl:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_next_request(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.get_next_request()
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_next_request_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.get_next_request(
@@ -113,7 +113,7 @@ class TestAsyncControl:
         )
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_next_request(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.tui.control.with_raw_response.get_next_request()
@@ -123,7 +123,7 @@ class TestAsyncControl:
         control = await response.parse()
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_next_request(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.tui.control.with_streaming_response.get_next_request() as response:
@@ -135,13 +135,13 @@ class TestAsyncControl:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_submit_response(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.submit_response()
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_submit_response_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.submit_response(
@@ -150,7 +150,7 @@ class TestAsyncControl:
         )
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_submit_response(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.tui.control.with_raw_response.submit_response()
@@ -160,7 +160,7 @@ class TestAsyncControl:
         control = await response.parse()
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_submit_response(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.tui.control.with_streaming_response.submit_response() as response:

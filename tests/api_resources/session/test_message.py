@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestMessage:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: OpencodeSDK) -> None:
         message = client.session.message.retrieve(
@@ -30,7 +30,7 @@ class TestMessage:
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         message = client.session.message.retrieve(
@@ -40,7 +40,7 @@ class TestMessage:
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
         response = client.session.message.with_raw_response.retrieve(
@@ -53,7 +53,7 @@ class TestMessage:
         message = response.parse()
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
         with client.session.message.with_streaming_response.retrieve(
@@ -68,7 +68,7 @@ class TestMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -83,7 +83,7 @@ class TestMessage:
                 session_id="sessionID",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_all(self, client: OpencodeSDK) -> None:
         message = client.session.message.get_all(
@@ -91,7 +91,7 @@ class TestMessage:
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_all_with_all_params(self, client: OpencodeSDK) -> None:
         message = client.session.message.get_all(
@@ -101,7 +101,7 @@ class TestMessage:
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_all(self, client: OpencodeSDK) -> None:
         response = client.session.message.with_raw_response.get_all(
@@ -113,7 +113,7 @@ class TestMessage:
         message = response.parse()
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_all(self, client: OpencodeSDK) -> None:
         with client.session.message.with_streaming_response.get_all(
@@ -127,7 +127,7 @@ class TestMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_get_all(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -135,7 +135,7 @@ class TestMessage:
                 session_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_send(self, client: OpencodeSDK) -> None:
         message = client.session.message.send(
@@ -149,7 +149,7 @@ class TestMessage:
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_send_with_all_params(self, client: OpencodeSDK) -> None:
         message = client.session.message.send(
@@ -182,7 +182,7 @@ class TestMessage:
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_send(self, client: OpencodeSDK) -> None:
         response = client.session.message.with_raw_response.send(
@@ -200,7 +200,7 @@ class TestMessage:
         message = response.parse()
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_send(self, client: OpencodeSDK) -> None:
         with client.session.message.with_streaming_response.send(
@@ -220,7 +220,7 @@ class TestMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_send(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -240,7 +240,7 @@ class TestAsyncMessage:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.retrieve(
@@ -249,7 +249,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.retrieve(
@@ -259,7 +259,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.with_raw_response.retrieve(
@@ -272,7 +272,7 @@ class TestAsyncMessage:
         message = await response.parse()
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.with_streaming_response.retrieve(
@@ -287,7 +287,7 @@ class TestAsyncMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -302,7 +302,7 @@ class TestAsyncMessage:
                 session_id="sessionID",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_all(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.get_all(
@@ -310,7 +310,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_all_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.get_all(
@@ -320,7 +320,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_all(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.with_raw_response.get_all(
@@ -332,7 +332,7 @@ class TestAsyncMessage:
         message = await response.parse()
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_all(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.with_streaming_response.get_all(
@@ -346,7 +346,7 @@ class TestAsyncMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_get_all(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -354,7 +354,7 @@ class TestAsyncMessage:
                 session_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_send(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.send(
@@ -368,7 +368,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_send_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.send(
@@ -401,7 +401,7 @@ class TestAsyncMessage:
         )
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_send(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.with_raw_response.send(
@@ -419,7 +419,7 @@ class TestAsyncMessage:
         message = await response.parse()
         assert_matches_type(MessageSendResponse, message, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_send(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.with_streaming_response.send(
@@ -439,7 +439,7 @@ class TestAsyncMessage:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_send(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
