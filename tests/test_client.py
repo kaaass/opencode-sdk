@@ -983,6 +983,8 @@ class TestOpencodeSDK:
             monkeypatch.delenv(var, raising=False)
 
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has this set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
 
         client = DefaultHttpxClient()
 
@@ -1916,6 +1918,8 @@ class TestAsyncOpencodeSDK:
             monkeypatch.delenv(var, raising=False)
 
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has this set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
 
         client = DefaultAsyncHttpxClient()
 
