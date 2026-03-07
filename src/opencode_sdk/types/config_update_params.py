@@ -202,7 +202,11 @@ class ConfigUpdateParams(TypedDict, total=False):
     watcher: Watcher
 
 
-class AgentBuildPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentBuildPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -238,15 +242,10 @@ class AgentBuildPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentBuildPermissionUnionMember0: TypeAlias = Union[
-    AgentBuildPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentBuildPermission: TypeAlias = Union[AgentBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentBuildTyped(TypedDict, total=False):
+class AgentBuild(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -291,10 +290,11 @@ class AgentBuildTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentBuild: TypeAlias = Union[AgentBuildTyped, Dict[str, object]]
-
-
-class AgentCompactionPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentCompactionPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -330,15 +330,10 @@ class AgentCompactionPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentCompactionPermissionUnionMember0: TypeAlias = Union[
-    AgentCompactionPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentCompactionPermission: TypeAlias = Union[AgentCompactionPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentCompactionTyped(TypedDict, total=False):
+class AgentCompaction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -383,10 +378,11 @@ class AgentCompactionTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentCompaction: TypeAlias = Union[AgentCompactionTyped, Dict[str, object]]
-
-
-class AgentExplorePermissionUnionMember0Typed(TypedDict, total=False):
+class AgentExplorePermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -422,15 +418,10 @@ class AgentExplorePermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentExplorePermissionUnionMember0: TypeAlias = Union[
-    AgentExplorePermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentExplorePermission: TypeAlias = Union[AgentExplorePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentExploreTyped(TypedDict, total=False):
+class AgentExplore(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -475,10 +466,11 @@ class AgentExploreTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentExplore: TypeAlias = Union[AgentExploreTyped, Dict[str, object]]
-
-
-class AgentGeneralPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentGeneralPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -514,15 +506,10 @@ class AgentGeneralPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentGeneralPermissionUnionMember0: TypeAlias = Union[
-    AgentGeneralPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentGeneralPermission: TypeAlias = Union[AgentGeneralPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentGeneralTyped(TypedDict, total=False):
+class AgentGeneral(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -567,10 +554,11 @@ class AgentGeneralTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentGeneral: TypeAlias = Union[AgentGeneralTyped, Dict[str, object]]
-
-
-class AgentPlanPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentPlanPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -606,15 +594,10 @@ class AgentPlanPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentPlanPermissionUnionMember0: TypeAlias = Union[
-    AgentPlanPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentPlanPermission: TypeAlias = Union[AgentPlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentPlanTyped(TypedDict, total=False):
+class AgentPlan(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -659,10 +642,11 @@ class AgentPlanTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentPlan: TypeAlias = Union[AgentPlanTyped, Dict[str, object]]
-
-
-class AgentSummaryPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentSummaryPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -698,15 +682,10 @@ class AgentSummaryPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentSummaryPermissionUnionMember0: TypeAlias = Union[
-    AgentSummaryPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentSummaryPermission: TypeAlias = Union[AgentSummaryPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentSummaryTyped(TypedDict, total=False):
+class AgentSummary(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -751,10 +730,11 @@ class AgentSummaryTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentSummary: TypeAlias = Union[AgentSummaryTyped, Dict[str, object]]
-
-
-class AgentTitlePermissionUnionMember0Typed(TypedDict, total=False):
+class AgentTitlePermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -790,15 +770,10 @@ class AgentTitlePermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentTitlePermissionUnionMember0: TypeAlias = Union[
-    AgentTitlePermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentTitlePermission: TypeAlias = Union[AgentTitlePermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentTitleTyped(TypedDict, total=False):
+class AgentTitle(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -843,10 +818,11 @@ class AgentTitleTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentTitle: TypeAlias = Union[AgentTitleTyped, Dict[str, object]]
-
-
-class AgentAgentItemPermissionUnionMember0Typed(TypedDict, total=False):
+class AgentAgentItemPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -882,15 +858,10 @@ class AgentAgentItemPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-AgentAgentItemPermissionUnionMember0: TypeAlias = Union[
-    AgentAgentItemPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 AgentAgentItemPermission: TypeAlias = Union[AgentAgentItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class AgentAgentItemTyped(TypedDict, total=False):
+class AgentAgentItem(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -935,10 +906,7 @@ class AgentAgentItemTyped(TypedDict, total=False):
     top_p: float
 
 
-AgentAgentItem: TypeAlias = Union[AgentAgentItemTyped, Dict[str, object]]
-
-
-class AgentTyped(TypedDict, total=False):
+class Agent(TypedDict, total=False, extra_items=AgentAgentItem):  # type: ignore[call-arg]
     """Agent configuration, see https://opencode.ai/docs/agent"""
 
     build: AgentBuild
@@ -954,9 +922,6 @@ class AgentTyped(TypedDict, total=False):
     summary: AgentSummary
 
     title: AgentTitle
-
-
-Agent: TypeAlias = Union[AgentTyped, Dict[str, AgentAgentItem]]
 
 
 class Command(TypedDict, total=False):
@@ -1398,7 +1363,11 @@ class McpEnabled(TypedDict, total=False):
 Mcp: TypeAlias = Union[McpMcpLocalConfig, McpMcpRemoteConfig, McpEnabled]
 
 
-class ModeBuildPermissionUnionMember0Typed(TypedDict, total=False):
+class ModeBuildPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -1434,15 +1403,10 @@ class ModeBuildPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-ModeBuildPermissionUnionMember0: TypeAlias = Union[
-    ModeBuildPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 ModeBuildPermission: TypeAlias = Union[ModeBuildPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class ModeBuildTyped(TypedDict, total=False):
+class ModeBuild(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -1487,10 +1451,11 @@ class ModeBuildTyped(TypedDict, total=False):
     top_p: float
 
 
-ModeBuild: TypeAlias = Union[ModeBuildTyped, Dict[str, object]]
-
-
-class ModePlanPermissionUnionMember0Typed(TypedDict, total=False):
+class ModePlanPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -1526,15 +1491,10 @@ class ModePlanPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-ModePlanPermissionUnionMember0: TypeAlias = Union[
-    ModePlanPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 ModePlanPermission: TypeAlias = Union[ModePlanPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class ModePlanTyped(TypedDict, total=False):
+class ModePlan(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -1579,10 +1539,11 @@ class ModePlanTyped(TypedDict, total=False):
     top_p: float
 
 
-ModePlan: TypeAlias = Union[ModePlanTyped, Dict[str, object]]
-
-
-class ModeModeItemPermissionUnionMember0Typed(TypedDict, total=False):
+class ModeModeItemPermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -1618,15 +1579,10 @@ class ModeModeItemPermissionUnionMember0Typed(TypedDict, total=False):
     websearch: Literal["ask", "allow", "deny"]
 
 
-ModeModeItemPermissionUnionMember0: TypeAlias = Union[
-    ModeModeItemPermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
-
 ModeModeItemPermission: TypeAlias = Union[ModeModeItemPermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
 
-class ModeModeItemTyped(TypedDict, total=False):
+class ModeModeItem(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     color: str
     """Hex color code for the agent (e.g., #FF5733)"""
 
@@ -1671,10 +1627,7 @@ class ModeModeItemTyped(TypedDict, total=False):
     top_p: float
 
 
-ModeModeItem: TypeAlias = Union[ModeModeItemTyped, Dict[str, object]]
-
-
-class ModeTyped(TypedDict, total=False):
+class Mode(TypedDict, total=False, extra_items=ModeModeItem):  # type: ignore[call-arg]
     """@deprecated Use `agent` field instead."""
 
     build: ModeBuild
@@ -1682,10 +1635,11 @@ class ModeTyped(TypedDict, total=False):
     plan: ModePlan
 
 
-Mode: TypeAlias = Union[ModeTyped, Dict[str, ModeModeItem]]
-
-
-class PermissionUnionMember0Typed(TypedDict, total=False):
+class PermissionUnionMember0(
+    TypedDict,
+    total=False,
+    extra_items=Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]],
+):  # type: ignore[call-arg]
     _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
 
     bash: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
@@ -1720,11 +1674,6 @@ class PermissionUnionMember0Typed(TypedDict, total=False):
 
     websearch: Literal["ask", "allow", "deny"]
 
-
-PermissionUnionMember0: TypeAlias = Union[
-    PermissionUnionMember0Typed,
-    Dict[str, Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]],
-]
 
 Permission: TypeAlias = Union[PermissionUnionMember0, Literal["ask", "allow", "deny"]]
 
@@ -1774,12 +1723,9 @@ class ProviderModelsProvider(TypedDict, total=False):
     npm: Required[str]
 
 
-class ProviderModelsVariantsTyped(TypedDict, total=False):
+class ProviderModelsVariants(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     disabled: bool
     """Disable this variant for the model"""
-
-
-ProviderModelsVariants: TypeAlias = Union[ProviderModelsVariantsTyped, Dict[str, object]]
 
 
 class ProviderModels(TypedDict, total=False):
@@ -1821,7 +1767,7 @@ class ProviderModels(TypedDict, total=False):
     """Variant-specific configuration"""
 
 
-class ProviderOptionsTyped(TypedDict, total=False):
+class ProviderOptions(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
     api_key: Annotated[str, PropertyInfo(alias="apiKey")]
 
     base_url: Annotated[str, PropertyInfo(alias="baseURL")]
@@ -1837,9 +1783,6 @@ class ProviderOptionsTyped(TypedDict, total=False):
 
     Default is 300000 (5 minutes). Set to false to disable timeout.
     """
-
-
-ProviderOptions: TypeAlias = Union[ProviderOptionsTyped, Dict[str, object]]
 
 
 class Provider(TypedDict, total=False):
