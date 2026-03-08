@@ -112,7 +112,7 @@ class TestClientSkill:
     @parametrize
     def test_method_upload(self, client: OpencodeSDK) -> None:
         client_skill = client.client_skill.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 
@@ -120,7 +120,7 @@ class TestClientSkill:
     @parametrize
     def test_method_upload_with_all_params(self, client: OpencodeSDK) -> None:
         client_skill = client.client_skill.upload(
-            file=b"raw file contents",
+            file=b"Example data",
             directory="directory",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
@@ -129,7 +129,7 @@ class TestClientSkill:
     @parametrize
     def test_raw_response_upload(self, client: OpencodeSDK) -> None:
         response = client.client_skill.with_raw_response.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -141,7 +141,7 @@ class TestClientSkill:
     @parametrize
     def test_streaming_response_upload(self, client: OpencodeSDK) -> None:
         with client.client_skill.with_streaming_response.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -248,7 +248,7 @@ class TestAsyncClientSkill:
     @parametrize
     async def test_method_upload(self, async_client: AsyncOpencodeSDK) -> None:
         client_skill = await async_client.client_skill.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 
@@ -256,7 +256,7 @@ class TestAsyncClientSkill:
     @parametrize
     async def test_method_upload_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_skill = await async_client.client_skill.upload(
-            file=b"raw file contents",
+            file=b"Example data",
             directory="directory",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
@@ -265,7 +265,7 @@ class TestAsyncClientSkill:
     @parametrize
     async def test_raw_response_upload(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.client_skill.with_raw_response.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         )
 
         assert response.is_closed is True
@@ -277,7 +277,7 @@ class TestAsyncClientSkill:
     @parametrize
     async def test_streaming_response_upload(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.client_skill.with_streaming_response.upload(
-            file=b"raw file contents",
+            file=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
