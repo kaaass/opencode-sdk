@@ -9,7 +9,7 @@ import httpx
 
 from ..types import agent_list_params, agent_delete_params, agent_create_or_update_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -108,7 +108,7 @@ class AgentResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._delete(
-            f"/agent/{name}",
+            path_template("/agent/{name}", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -274,7 +274,7 @@ class AsyncAgentResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._delete(
-            f"/agent/{name}",
+            path_template("/agent/{name}", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

@@ -5,7 +5,7 @@ from __future__ import annotations
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -73,7 +73,7 @@ class OAuthResource(SyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._post(
-            f"/provider/{provider_id}/oauth/authorize",
+            path_template("/provider/{provider_id}/oauth/authorize", provider_id=provider_id),
             body=maybe_transform({"method": method}, oauth_authorize_params.OAuthAuthorizeParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -118,7 +118,7 @@ class OAuthResource(SyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._post(
-            f"/provider/{provider_id}/oauth/callback",
+            path_template("/provider/{provider_id}/oauth/callback", provider_id=provider_id),
             body=maybe_transform(
                 {
                     "method": method,
@@ -188,7 +188,7 @@ class AsyncOAuthResource(AsyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._post(
-            f"/provider/{provider_id}/oauth/authorize",
+            path_template("/provider/{provider_id}/oauth/authorize", provider_id=provider_id),
             body=await async_maybe_transform({"method": method}, oauth_authorize_params.OAuthAuthorizeParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -235,7 +235,7 @@ class AsyncOAuthResource(AsyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._post(
-            f"/provider/{provider_id}/oauth/callback",
+            path_template("/provider/{provider_id}/oauth/callback", provider_id=provider_id),
             body=await async_maybe_transform(
                 {
                     "method": method,

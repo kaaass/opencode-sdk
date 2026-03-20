@@ -8,7 +8,7 @@ import httpx
 
 from ..types import client_skill_list_params, client_skill_delete_params, client_skill_upload_params
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
-from .._utils import extract_files, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -107,7 +107,7 @@ class ClientSkillResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._delete(
-            f"/client-skill/{name}",
+            path_template("/client-skill/{name}", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -249,7 +249,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._delete(
-            f"/client-skill/{name}",
+            path_template("/client-skill/{name}", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

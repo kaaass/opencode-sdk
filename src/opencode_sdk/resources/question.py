@@ -8,7 +8,7 @@ import httpx
 
 from ..types import question_reply_params, question_reject_params, question_list_pending_params
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import maybe_transform, async_maybe_transform
+from .._utils import path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -107,7 +107,7 @@ class QuestionResource(SyncAPIResource):
         if not request_id:
             raise ValueError(f"Expected a non-empty value for `request_id` but received {request_id!r}")
         return self._post(
-            f"/question/{request_id}/reject",
+            path_template("/question/{request_id}/reject", request_id=request_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -148,7 +148,7 @@ class QuestionResource(SyncAPIResource):
         if not request_id:
             raise ValueError(f"Expected a non-empty value for `request_id` but received {request_id!r}")
         return self._post(
-            f"/question/{request_id}/reply",
+            path_template("/question/{request_id}/reply", request_id=request_id),
             body=maybe_transform({"answers": answers}, question_reply_params.QuestionReplyParams),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -245,7 +245,7 @@ class AsyncQuestionResource(AsyncAPIResource):
         if not request_id:
             raise ValueError(f"Expected a non-empty value for `request_id` but received {request_id!r}")
         return await self._post(
-            f"/question/{request_id}/reject",
+            path_template("/question/{request_id}/reject", request_id=request_id),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -288,7 +288,7 @@ class AsyncQuestionResource(AsyncAPIResource):
         if not request_id:
             raise ValueError(f"Expected a non-empty value for `request_id` but received {request_id!r}")
         return await self._post(
-            f"/question/{request_id}/reply",
+            path_template("/question/{request_id}/reply", request_id=request_id),
             body=await async_maybe_transform({"answers": answers}, question_reply_params.QuestionReplyParams),
             options=make_request_options(
                 extra_headers=extra_headers,
