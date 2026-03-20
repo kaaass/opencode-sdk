@@ -7,7 +7,7 @@ from typing import Any, cast
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -75,7 +75,7 @@ class AuthResource(SyncAPIResource):
         return cast(
             AuthAuthenticateResponse,
             self._post(
-                f"/mcp/{name}/auth/authenticate",
+                path_template("/mcp/{name}/auth/authenticate", name=name),
                 options=make_request_options(
                     extra_headers=extra_headers,
                     extra_query=extra_query,
@@ -122,7 +122,7 @@ class AuthResource(SyncAPIResource):
         return cast(
             AuthCompleteResponse,
             self._post(
-                f"/mcp/{name}/auth/callback",
+                path_template("/mcp/{name}/auth/callback", name=name),
                 body=maybe_transform({"code": code}, auth_complete_params.AuthCompleteParams),
                 options=make_request_options(
                     extra_headers=extra_headers,
@@ -164,7 +164,7 @@ class AuthResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._delete(
-            f"/mcp/{name}/auth",
+            path_template("/mcp/{name}/auth", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -202,7 +202,7 @@ class AuthResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._post(
-            f"/mcp/{name}/auth",
+            path_template("/mcp/{name}/auth", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -263,7 +263,7 @@ class AsyncAuthResource(AsyncAPIResource):
         return cast(
             AuthAuthenticateResponse,
             await self._post(
-                f"/mcp/{name}/auth/authenticate",
+                path_template("/mcp/{name}/auth/authenticate", name=name),
                 options=make_request_options(
                     extra_headers=extra_headers,
                     extra_query=extra_query,
@@ -312,7 +312,7 @@ class AsyncAuthResource(AsyncAPIResource):
         return cast(
             AuthCompleteResponse,
             await self._post(
-                f"/mcp/{name}/auth/callback",
+                path_template("/mcp/{name}/auth/callback", name=name),
                 body=await async_maybe_transform({"code": code}, auth_complete_params.AuthCompleteParams),
                 options=make_request_options(
                     extra_headers=extra_headers,
@@ -356,7 +356,7 @@ class AsyncAuthResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._delete(
-            f"/mcp/{name}/auth",
+            path_template("/mcp/{name}/auth", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -394,7 +394,7 @@ class AsyncAuthResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._post(
-            f"/mcp/{name}/auth",
+            path_template("/mcp/{name}/auth", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

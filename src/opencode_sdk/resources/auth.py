@@ -8,7 +8,7 @@ import httpx
 
 from ..types import auth_set_credentials_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from .._utils import required_args, maybe_transform, async_maybe_transform
+from .._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -159,7 +159,7 @@ class AuthResource(SyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._put(
-            f"/auth/{provider_id}",
+            path_template("/auth/{provider_id}", provider_id=provider_id),
             body=maybe_transform(
                 {
                     "access": access,
@@ -320,7 +320,7 @@ class AsyncAuthResource(AsyncAPIResource):
         if not provider_id:
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._put(
-            f"/auth/{provider_id}",
+            path_template("/auth/{provider_id}", provider_id=provider_id),
             body=await async_maybe_transform(
                 {
                     "access": access,

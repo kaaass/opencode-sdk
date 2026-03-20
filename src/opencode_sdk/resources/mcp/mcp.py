@@ -20,7 +20,7 @@ from ...types import (
     mcp_disconnect_params,
 )
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
-from ..._utils import maybe_transform, async_maybe_transform
+from ..._utils import path_template, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -169,7 +169,7 @@ class McpResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._post(
-            f"/mcp/{name}/connect",
+            path_template("/mcp/{name}/connect", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -207,7 +207,7 @@ class McpResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return self._post(
-            f"/mcp/{name}/disconnect",
+            path_template("/mcp/{name}/disconnect", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -384,7 +384,7 @@ class AsyncMcpResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._post(
-            f"/mcp/{name}/connect",
+            path_template("/mcp/{name}/connect", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -422,7 +422,7 @@ class AsyncMcpResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return await self._post(
-            f"/mcp/{name}/disconnect",
+            path_template("/mcp/{name}/disconnect", name=name),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

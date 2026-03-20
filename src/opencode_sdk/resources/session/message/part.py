@@ -8,7 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ...._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from ...._utils import required_args, maybe_transform, async_maybe_transform
+from ...._utils import path_template, required_args, maybe_transform, async_maybe_transform
 from ...._compat import cached_property
 from ...._resource import SyncAPIResource, AsyncAPIResource
 from ...._response import (
@@ -595,7 +595,12 @@ class PartResource(SyncAPIResource):
         return cast(
             Part,
             self._patch(
-                f"/session/{path_session_id}/message/{path_message_id}/part/{part_id}",
+                path_template(
+                    "/session/{path_session_id}/message/{path_message_id}/part/{part_id}",
+                    path_session_id=path_session_id,
+                    path_message_id=path_message_id,
+                    part_id=part_id,
+                ),
                 body=maybe_transform(
                     {
                         "id": id,
@@ -675,7 +680,12 @@ class PartResource(SyncAPIResource):
         if not part_id:
             raise ValueError(f"Expected a non-empty value for `part_id` but received {part_id!r}")
         return self._delete(
-            f"/session/{session_id}/message/{message_id}/part/{part_id}",
+            path_template(
+                "/session/{session_id}/message/{message_id}/part/{part_id}",
+                session_id=session_id,
+                message_id=message_id,
+                part_id=part_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -1256,7 +1266,12 @@ class AsyncPartResource(AsyncAPIResource):
         return cast(
             Part,
             await self._patch(
-                f"/session/{path_session_id}/message/{path_message_id}/part/{part_id}",
+                path_template(
+                    "/session/{path_session_id}/message/{path_message_id}/part/{part_id}",
+                    path_session_id=path_session_id,
+                    path_message_id=path_message_id,
+                    part_id=part_id,
+                ),
                 body=await async_maybe_transform(
                     {
                         "id": id,
@@ -1336,7 +1351,12 @@ class AsyncPartResource(AsyncAPIResource):
         if not part_id:
             raise ValueError(f"Expected a non-empty value for `part_id` but received {part_id!r}")
         return await self._delete(
-            f"/session/{session_id}/message/{message_id}/part/{part_id}",
+            path_template(
+                "/session/{session_id}/message/{message_id}/part/{part_id}",
+                session_id=session_id,
+                message_id=message_id,
+                part_id=part_id,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
