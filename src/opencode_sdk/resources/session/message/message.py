@@ -25,8 +25,15 @@ from ...._response import (
     async_to_streamed_response_wrapper,
 )
 from ...._base_client import make_request_options
-from ....types.session import message_send_params, message_get_all_params, message_retrieve_params
+from ....types.session import (
+    message_send_params,
+    message_delete_params,
+    message_get_all_params,
+    message_retrieve_params,
+)
+from ....types.session.output_format_param import OutputFormatParam
 from ....types.session.message_send_response import MessageSendResponse
+from ....types.session.message_delete_response import MessageDeleteResponse
 from ....types.session.message_get_all_response import MessageGetAllResponse
 from ....types.session.message_retrieve_response import MessageRetrieveResponse
 
@@ -105,6 +112,56 @@ class MessageResource(SyncAPIResource):
             cast_to=MessageRetrieveResponse,
         )
 
+    def delete(
+        self,
+        message_id: str,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageDeleteResponse:
+        """
+        Permanently delete a specific message (and all of its parts) from a session.
+        This does not revert any file changes that may have been made while processing
+        the message.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return self._delete(
+            path_template("/session/{session_id}/message/{message_id}", session_id=session_id, message_id=message_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_delete_params.MessageDeleteParams,
+                ),
+            ),
+            cast_to=MessageDeleteResponse,
+        )
+
     def get_all(
         self,
         session_id: str,
@@ -164,7 +221,7 @@ class MessageResource(SyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         agent: str | Omit = omit,
-        format: message_send_params.Format | Omit = omit,
+        format: OutputFormatParam | Omit = omit,
         message_id: str | Omit = omit,
         model: message_send_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,
@@ -300,6 +357,56 @@ class AsyncMessageResource(AsyncAPIResource):
             cast_to=MessageRetrieveResponse,
         )
 
+    async def delete(
+        self,
+        message_id: str,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> MessageDeleteResponse:
+        """
+        Permanently delete a specific message (and all of its parts) from a session.
+        This does not revert any file changes that may have been made while processing
+        the message.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not session_id:
+            raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
+        if not message_id:
+            raise ValueError(f"Expected a non-empty value for `message_id` but received {message_id!r}")
+        return await self._delete(
+            path_template("/session/{session_id}/message/{message_id}", session_id=session_id, message_id=message_id),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_delete_params.MessageDeleteParams,
+                ),
+            ),
+            cast_to=MessageDeleteResponse,
+        )
+
     async def get_all(
         self,
         session_id: str,
@@ -359,7 +466,7 @@ class AsyncMessageResource(AsyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         agent: str | Omit = omit,
-        format: message_send_params.Format | Omit = omit,
+        format: OutputFormatParam | Omit = omit,
         message_id: str | Omit = omit,
         model: message_send_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,
@@ -430,6 +537,9 @@ class MessageResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             message.retrieve,
         )
+        self.delete = to_raw_response_wrapper(
+            message.delete,
+        )
         self.get_all = to_raw_response_wrapper(
             message.get_all,
         )
@@ -448,6 +558,9 @@ class AsyncMessageResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             message.retrieve,
+        )
+        self.delete = async_to_raw_response_wrapper(
+            message.delete,
         )
         self.get_all = async_to_raw_response_wrapper(
             message.get_all,
@@ -468,6 +581,9 @@ class MessageResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             message.retrieve,
         )
+        self.delete = to_streamed_response_wrapper(
+            message.delete,
+        )
         self.get_all = to_streamed_response_wrapper(
             message.get_all,
         )
@@ -486,6 +602,9 @@ class AsyncMessageResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             message.retrieve,
+        )
+        self.delete = async_to_streamed_response_wrapper(
+            message.delete,
         )
         self.get_all = async_to_streamed_response_wrapper(
             message.get_all,

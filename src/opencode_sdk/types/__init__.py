@@ -2,64 +2,126 @@
 
 from __future__ import annotations
 
+from .pty import Pty as Pty
 from .todo import Todo as Todo
+from .agent import Agent as Agent
 from .range import Range as Range
 from .config import Config as Config
+from .shared import (
+    AgentConfig as AgentConfig,
+    ServerConfig as ServerConfig,
+    McpLocalConfig as McpLocalConfig,
+    McpOAuthConfig as McpOAuthConfig,
+    ProviderConfig as ProviderConfig,
+    McpRemoteConfig as McpRemoteConfig,
+)
 from .project import Project as Project
 from .session import Session as Session
+from .artifact import Artifact as Artifact
+from .provider import Provider as Provider
+from .api_error import APIError as APIError
+from .pty_exited import PtyExited as PtyExited
+from .file_edited import FileEdited as FileEdited
+from .lsp_updated import LspUpdated as LspUpdated
+from .pty_created import PtyCreated as PtyCreated
+from .pty_deleted import PtyDeleted as PtyDeleted
+from .pty_updated import PtyUpdated as PtyUpdated
 from .range_param import RangeParam as RangeParam
+from .session_diff import SessionDiff as SessionDiff
+from .session_idle import SessionIdle as SessionIdle
+from .todo_updated import TodoUpdated as TodoUpdated
+from .session_error import SessionError as SessionError
 from .unknown_error import UnknownError as UnknownError
+from .question_asked import QuestionAsked as QuestionAsked
+from .session_status import SessionStatus as SessionStatus
+from .worktree_ready import WorktreeReady as WorktreeReady
+from .api_error_param import APIErrorParam as APIErrorParam
+from .global_disposed import GlobalDisposed as GlobalDisposed
+from .message_removed import MessageRemoved as MessageRemoved
+from .message_updated import MessageUpdated as MessageUpdated
+from .permission_rule import PermissionRule as PermissionRule
+from .project_updated import ProjectUpdated as ProjectUpdated
 from .pty_list_params import PtyListParams as PtyListParams
+from .session_created import SessionCreated as SessionCreated
+from .session_deleted import SessionDeleted as SessionDeleted
+from .session_updated import SessionUpdated as SessionUpdated
+from .workspace_ready import WorkspaceReady as WorkspaceReady
+from .worktree_failed import WorktreeFailed as WorktreeFailed
+from .artifact_created import ArtifactCreated as ArtifactCreated
+from .artifact_deleted import ArtifactDeleted as ArtifactDeleted
+from .command_executed import CommandExecuted as CommandExecuted
+from .event_toast_show import EventToastShow as EventToastShow
 from .file_list_params import FileListParams as FileListParams
 from .file_read_params import FileReadParams as FileReadParams
 from .log_write_params import LogWriteParams as LogWriteParams
+from .permission_asked import PermissionAsked as PermissionAsked
+from .question_replied import QuestionReplied as QuestionReplied
+from .question_request import QuestionRequest as QuestionRequest
+from .server_connected import ServerConnected as ServerConnected
+from .workspace_failed import WorkspaceFailed as WorkspaceFailed
+from .workspace_status import WorkspaceStatus as WorkspaceStatus
 from .agent_list_params import AgentListParams as AgentListParams
 from .assistant_message import AssistantMessage as AssistantMessage
 from .event_list_params import EventListParams as EventListParams
 from .mcp_create_params import McpCreateParams as McpCreateParams
+from .mcp_tools_changed import McpToolsChanged as McpToolsChanged
 from .pty_create_params import PtyCreateParams as PtyCreateParams
 from .pty_delete_params import PtyDeleteParams as PtyDeleteParams
 from .pty_list_response import PtyListResponse as PtyListResponse
 from .pty_update_params import PtyUpdateParams as PtyUpdateParams
+from .question_rejected import QuestionRejected as QuestionRejected
+from .session_compacted import SessionCompacted as SessionCompacted
 from .skill_list_params import SkillListParams as SkillListParams
 from .file_list_response import FileListResponse as FileListResponse
 from .file_read_response import FileReadResponse as FileReadResponse
 from .log_write_response import LogWriteResponse as LogWriteResponse
 from .mcp_connect_params import McpConnectParams as McpConnectParams
+from .message_part_delta import MessagePartDelta as MessagePartDelta
+from .permission_replied import PermissionReplied as PermissionReplied
+from .permission_request import PermissionRequest as PermissionRequest
 from .pty_connect_params import PtyConnectParams as PtyConnectParams
+from .snapshot_file_diff import SnapshotFileDiff as SnapshotFileDiff
 from .vc_retrieve_params import VcRetrieveParams as VcRetrieveParams
+from .vcs_branch_updated import VcsBranchUpdated as VcsBranchUpdated
 from .agent_delete_params import AgentDeleteParams as AgentDeleteParams
 from .agent_list_response import AgentListResponse as AgentListResponse
 from .command_list_params import CommandListParams as CommandListParams
 from .event_list_response import EventListResponse as EventListResponse
+from .event_prompt_append import EventPromptAppend as EventPromptAppend
 from .mcp_create_response import McpCreateResponse as McpCreateResponse
 from .mcp_retrieve_params import McpRetrieveParams as McpRetrieveParams
 from .project_list_params import ProjectListParams as ProjectListParams
 from .provider_auth_error import ProviderAuthError as ProviderAuthError
-from .pty_create_response import PtyCreateResponse as PtyCreateResponse
 from .pty_delete_response import PtyDeleteResponse as PtyDeleteResponse
 from .pty_retrieve_params import PtyRetrieveParams as PtyRetrieveParams
-from .pty_update_response import PtyUpdateResponse as PtyUpdateResponse
 from .session_fork_params import SessionForkParams as SessionForkParams
 from .session_list_params import SessionListParams as SessionListParams
 from .skill_list_response import SkillListResponse as SkillListResponse
 from .config_update_params import ConfigUpdateParams as ConfigUpdateParams
+from .event_session_select import EventSessionSelect as EventSessionSelect
+from .file_watcher_updated import FileWatcherUpdated as FileWatcherUpdated
 from .find_retrieve_params import FindRetrieveParams as FindRetrieveParams
+from .installation_updated import InstallationUpdated as InstallationUpdated
 from .mcp_connect_response import McpConnectResponse as McpConnectResponse
+from .message_part_removed import MessagePartRemoved as MessagePartRemoved
+from .message_part_updated import MessagePartUpdated as MessagePartUpdated
 from .path_retrieve_params import PathRetrieveParams as PathRetrieveParams
 from .provider_list_params import ProviderListParams as ProviderListParams
 from .pty_connect_response import PtyConnectResponse as PtyConnectResponse
 from .session_abort_params import SessionAbortParams as SessionAbortParams
+from .session_event_status import SessionEventStatus as SessionEventStatus
 from .tui_open_help_params import TuiOpenHelpParams as TuiOpenHelpParams
 from .vc_retrieve_response import VcRetrieveResponse as VcRetrieveResponse
 from .agent_delete_response import AgentDeleteResponse as AgentDeleteResponse
 from .command_list_response import CommandListResponse as CommandListResponse
+from .event_command_execute import EventCommandExecute as EventCommandExecute
+from .global_upgrade_params import GlobalUpgradeParams as GlobalUpgradeParams
 from .mcp_disconnect_params import McpDisconnectParams as McpDisconnectParams
 from .mcp_retrieve_response import McpRetrieveResponse as McpRetrieveResponse
 from .message_aborted_error import MessageAbortedError as MessageAbortedError
+from .permission_rule_param import PermissionRuleParam as PermissionRuleParam
 from .project_list_response import ProjectListResponse as ProjectListResponse
 from .project_update_params import ProjectUpdateParams as ProjectUpdateParams
-from .pty_retrieve_response import PtyRetrieveResponse as PtyRetrieveResponse
 from .question_reply_params import QuestionReplyParams as QuestionReplyParams
 from .session_create_params import SessionCreateParams as SessionCreateParams
 from .session_delete_params import SessionDeleteParams as SessionDeleteParams
@@ -68,8 +130,11 @@ from .session_update_params import SessionUpdateParams as SessionUpdateParams
 from .tui_show_toast_params import TuiShowToastParams as TuiShowToastParams
 from .artifact_delete_params import ArtifactDeleteParams as ArtifactDeleteParams
 from .config_retrieve_params import ConfigRetrieveParams as ConfigRetrieveParams
+from .context_overflow_error import ContextOverflowError as ContextOverflowError
+from .event_toast_show_param import EventToastShowParam as EventToastShowParam
 from .file_get_status_params import FileGetStatusParams as FileGetStatusParams
 from .find_retrieve_response import FindRetrieveResponse as FindRetrieveResponse
+from .lsp_client_diagnostics import LspClientDiagnostics as LspClientDiagnostics
 from .path_retrieve_response import PathRetrieveResponse as PathRetrieveResponse
 from .permission_list_params import PermissionListParams as PermissionListParams
 from .provider_list_response import ProviderListResponse as ProviderListResponse
@@ -79,7 +144,9 @@ from .tui_open_help_response import TuiOpenHelpResponse as TuiOpenHelpResponse
 from .tui_open_models_params import TuiOpenModelsParams as TuiOpenModelsParams
 from .tui_open_themes_params import TuiOpenThemesParams as TuiOpenThemesParams
 from .client_tool_list_params import ClientToolListParams as ClientToolListParams
+from .global_upgrade_response import GlobalUpgradeResponse as GlobalUpgradeResponse
 from .instance_dispose_params import InstanceDisposeParams as InstanceDisposeParams
+from .mcp_browser_open_failed import McpBrowserOpenFailed as McpBrowserOpenFailed
 from .mcp_disconnect_response import McpDisconnectResponse as McpDisconnectResponse
 from .permission_reply_params import PermissionReplyParams as PermissionReplyParams
 from .question_reply_response import QuestionReplyResponse as QuestionReplyResponse
@@ -87,6 +154,7 @@ from .session_delete_response import SessionDeleteResponse as SessionDeleteRespo
 from .session_get_diff_params import SessionGetDiffParams as SessionGetDiffParams
 from .session_get_todo_params import SessionGetTodoParams as SessionGetTodoParams
 from .session_retrieve_params import SessionRetrieveParams as SessionRetrieveParams
+from .structured_output_error import StructuredOutputError as StructuredOutputError
 from .tui_clear_prompt_params import TuiClearPromptParams as TuiClearPromptParams
 from .tui_show_toast_response import TuiShowToastResponse as TuiShowToastResponse
 from .vc_retrieve_diff_params import VcRetrieveDiffParams as VcRetrieveDiffParams
@@ -96,6 +164,7 @@ from .client_skill_list_params import ClientSkillListParams as ClientSkillListPa
 from .file_get_status_response import FileGetStatusResponse as FileGetStatusResponse
 from .permission_list_response import PermissionListResponse as PermissionListResponse
 from .question_reject_response import QuestionRejectResponse as QuestionRejectResponse
+from .server_instance_disposed import ServerInstanceDisposed as ServerInstanceDisposed
 from .session_summarize_params import SessionSummarizeParams as SessionSummarizeParams
 from .tui_append_prompt_params import TuiAppendPromptParams as TuiAppendPromptParams
 from .tui_open_models_response import TuiOpenModelsResponse as TuiOpenModelsResponse
@@ -106,6 +175,7 @@ from .tui_submit_prompt_params import TuiSubmitPromptParams as TuiSubmitPromptPa
 from .client_tool_create_params import ClientToolCreateParams as ClientToolCreateParams
 from .client_tool_delete_params import ClientToolDeleteParams as ClientToolDeleteParams
 from .client_tool_list_response import ClientToolListResponse as ClientToolListResponse
+from .event_prompt_append_param import EventPromptAppendParam as EventPromptAppendParam
 from .find_retrieve_file_params import FindRetrieveFileParams as FindRetrieveFileParams
 from .formatter_retrieve_params import FormatterRetrieveParams as FormatterRetrieveParams
 from .instance_dispose_response import InstanceDisposeResponse as InstanceDisposeResponse
@@ -120,6 +190,7 @@ from .vc_retrieve_diff_response import VcRetrieveDiffResponse as VcRetrieveDiffR
 from .client_skill_delete_params import ClientSkillDeleteParams as ClientSkillDeleteParams
 from .client_skill_list_response import ClientSkillListResponse as ClientSkillListResponse
 from .client_skill_upload_params import ClientSkillUploadParams as ClientSkillUploadParams
+from .event_session_select_param import EventSessionSelectParam as EventSessionSelectParam
 from .global_get_health_response import GlobalGetHealthResponse as GlobalGetHealthResponse
 from .lsp_retrieve_status_params import LspRetrieveStatusParams as LspRetrieveStatusParams
 from .session_summarize_response import SessionSummarizeResponse as SessionSummarizeResponse
@@ -131,6 +202,7 @@ from .tui_submit_prompt_response import TuiSubmitPromptResponse as TuiSubmitProm
 from .auth_set_credentials_params import AuthSetCredentialsParams as AuthSetCredentialsParams
 from .client_tool_create_response import ClientToolCreateResponse as ClientToolCreateResponse
 from .client_tool_delete_response import ClientToolDeleteResponse as ClientToolDeleteResponse
+from .event_command_execute_param import EventCommandExecuteParam as EventCommandExecuteParam
 from .find_retrieve_file_response import FindRetrieveFileResponse as FindRetrieveFileResponse
 from .find_retrieve_symbol_params import FindRetrieveSymbolParams as FindRetrieveSymbolParams
 from .formatter_retrieve_response import FormatterRetrieveResponse as FormatterRetrieveResponse
@@ -150,6 +222,7 @@ from .tui_execute_command_response import TuiExecuteCommandResponse as TuiExecut
 from .agent_create_or_update_params import AgentCreateOrUpdateParams as AgentCreateOrUpdateParams
 from .auth_set_credentials_response import AuthSetCredentialsResponse as AuthSetCredentialsResponse
 from .find_retrieve_symbol_response import FindRetrieveSymbolResponse as FindRetrieveSymbolResponse
+from .installation_update_available import InstallationUpdateAvailable as InstallationUpdateAvailable
 from .session_get_children_response import SessionGetChildrenResponse as SessionGetChildrenResponse
 from .session_list_artifacts_params import SessionListArtifactsParams as SessionListArtifactsParams
 from .session_revert_message_params import SessionRevertMessageParams as SessionRevertMessageParams
@@ -161,16 +234,18 @@ from .agent_create_or_update_response import AgentCreateOrUpdateResponse as Agen
 from .global_retrieve_events_response import GlobalRetrieveEventsResponse as GlobalRetrieveEventsResponse
 from .project_retrieve_current_params import ProjectRetrieveCurrentParams as ProjectRetrieveCurrentParams
 from .session_list_artifacts_response import SessionListArtifactsResponse as SessionListArtifactsResponse
+from .auth_remove_credentials_response import AuthRemoveCredentialsResponse as AuthRemoveCredentialsResponse
 from .global_dispose_instance_response import GlobalDisposeInstanceResponse as GlobalDisposeInstanceResponse
 from .provider_get_auth_methods_params import ProviderGetAuthMethodsParams as ProviderGetAuthMethodsParams
-from .session_retrieve_status_response import SessionRetrieveStatusResponse as SessionRetrieveStatusResponse
 from .session_run_shell_command_params import SessionRunShellCommandParams as SessionRunShellCommandParams
 from .experimental_get_resources_params import ExperimentalGetResourcesParams as ExperimentalGetResourcesParams
+from .experimental_list_sessions_params import ExperimentalListSessionsParams as ExperimentalListSessionsParams
 from .session_send_async_message_params import SessionSendAsyncMessageParams as SessionSendAsyncMessageParams
 from .provider_get_auth_methods_response import ProviderGetAuthMethodsResponse as ProviderGetAuthMethodsResponse
 from .session_run_shell_command_response import SessionRunShellCommandResponse as SessionRunShellCommandResponse
 from .session_submit_tool_results_params import SessionSubmitToolResultsParams as SessionSubmitToolResultsParams
 from .experimental_get_resources_response import ExperimentalGetResourcesResponse as ExperimentalGetResourcesResponse
+from .experimental_list_sessions_response import ExperimentalListSessionsResponse as ExperimentalListSessionsResponse
 from .session_respond_to_permission_params import SessionRespondToPermissionParams as SessionRespondToPermissionParams
 from .session_submit_tool_results_response import SessionSubmitToolResultsResponse as SessionSubmitToolResultsResponse
 from .session_respond_to_permission_response import (

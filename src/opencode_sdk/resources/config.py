@@ -20,7 +20,10 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.config import Config
+from ..types.shared_params.server_config import ServerConfig
+from ..types.shared_params.provider_config import ProviderConfig
 from ..types.config_list_providers_response import ConfigListProvidersResponse
+from ..types.global_.permission_config_param import PermissionConfigParam
 
 __all__ = ["ConfigResource", "AsyncConfigResource"]
 
@@ -114,10 +117,10 @@ class ConfigResource(SyncAPIResource):
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
-        permission: config_update_params.Permission | Omit = omit,
+        permission: PermissionConfigParam | Omit = omit,
         plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
-        provider: Dict[str, config_update_params.Provider] | Omit = omit,
-        server: config_update_params.Server | Omit = omit,
+        provider: Dict[str, ProviderConfig] | Omit = omit,
+        server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
@@ -386,10 +389,10 @@ class AsyncConfigResource(AsyncAPIResource):
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
-        permission: config_update_params.Permission | Omit = omit,
+        permission: PermissionConfigParam | Omit = omit,
         plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
-        provider: Dict[str, config_update_params.Provider] | Omit = omit,
-        server: config_update_params.Server | Omit = omit,
+        provider: Dict[str, ProviderConfig] | Omit = omit,
+        server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,

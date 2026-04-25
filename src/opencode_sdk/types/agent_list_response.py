@@ -1,66 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import List
+from typing_extensions import TypeAlias
 
-from pydantic import Field as FieldInfo
+from .agent import Agent
 
-from .._models import BaseModel
+__all__ = ["AgentListResponse"]
 
-__all__ = [
-    "AgentListResponse",
-    "AgentListResponseItem",
-    "AgentListResponseItemPermission",
-    "AgentListResponseItemModel",
-]
-
-
-class AgentListResponseItemPermission(BaseModel):
-    action: Literal["allow", "deny", "ask"]
-
-    pattern: str
-
-    permission: str
-
-
-class AgentListResponseItemModel(BaseModel):
-    api_model_id: str = FieldInfo(alias="modelID")
-
-    provider_id: str = FieldInfo(alias="providerID")
-
-
-class AgentListResponseItem(BaseModel):
-    mode: Literal["subagent", "primary", "all"]
-
-    name: str
-
-    options: Dict[str, object]
-
-    permission: List[AgentListResponseItemPermission]
-
-    color: Optional[str] = None
-
-    description: Optional[str] = None
-
-    hidden: Optional[bool] = None
-
-    model: Optional[AgentListResponseItemModel] = None
-
-    native: Optional[bool] = None
-
-    prompt: Optional[str] = None
-
-    skills: Optional[List[str]] = None
-
-    steps: Optional[int] = None
-
-    sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
-
-    temperature: Optional[float] = None
-
-    top_p: Optional[float] = FieldInfo(alias="topP", default=None)
-
-    variant: Optional[str] = None
-
-
-AgentListResponse: TypeAlias = List[AgentListResponseItem]
+AgentListResponse: TypeAlias = List[Agent]

@@ -380,7 +380,7 @@ class TuiResource(SyncAPIResource):
     def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiPromptAppendProperties,
+        properties: tui_publish_event_params.EventPromptAppendProperties,
         type: Literal["tui.prompt.append"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -409,7 +409,7 @@ class TuiResource(SyncAPIResource):
     def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiCommandExecuteProperties,
+        properties: tui_publish_event_params.EventCommandExecuteProperties,
         type: Literal["tui.command.execute"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -438,7 +438,7 @@ class TuiResource(SyncAPIResource):
     def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiToastShowProperties,
+        properties: tui_publish_event_params.EventToastShowProperties,
         type: Literal["tui.toast.show"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -467,7 +467,7 @@ class TuiResource(SyncAPIResource):
     def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiSessionSelectProperties,
+        properties: tui_publish_event_params.EventSessionSelectProperties,
         type: Literal["tui.session.select"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -496,10 +496,10 @@ class TuiResource(SyncAPIResource):
     def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiPromptAppendProperties
-        | tui_publish_event_params.EventTuiCommandExecuteProperties
-        | tui_publish_event_params.EventTuiToastShowProperties
-        | tui_publish_event_params.EventTuiSessionSelectProperties,
+        properties: tui_publish_event_params.EventPromptAppendProperties
+        | tui_publish_event_params.EventCommandExecuteProperties
+        | tui_publish_event_params.EventToastShowProperties
+        | tui_publish_event_params.EventSessionSelectProperties,
         type: Literal["tui.prompt.append"]
         | Literal["tui.command.execute"]
         | Literal["tui.toast.show"]
@@ -1011,7 +1011,7 @@ class AsyncTuiResource(AsyncAPIResource):
     async def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiPromptAppendProperties,
+        properties: tui_publish_event_params.EventPromptAppendProperties,
         type: Literal["tui.prompt.append"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -1040,7 +1040,7 @@ class AsyncTuiResource(AsyncAPIResource):
     async def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiCommandExecuteProperties,
+        properties: tui_publish_event_params.EventCommandExecuteProperties,
         type: Literal["tui.command.execute"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -1069,7 +1069,7 @@ class AsyncTuiResource(AsyncAPIResource):
     async def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiToastShowProperties,
+        properties: tui_publish_event_params.EventToastShowProperties,
         type: Literal["tui.toast.show"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -1098,7 +1098,7 @@ class AsyncTuiResource(AsyncAPIResource):
     async def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiSessionSelectProperties,
+        properties: tui_publish_event_params.EventSessionSelectProperties,
         type: Literal["tui.session.select"],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
@@ -1127,10 +1127,10 @@ class AsyncTuiResource(AsyncAPIResource):
     async def publish_event(
         self,
         *,
-        properties: tui_publish_event_params.EventTuiPromptAppendProperties
-        | tui_publish_event_params.EventTuiCommandExecuteProperties
-        | tui_publish_event_params.EventTuiToastShowProperties
-        | tui_publish_event_params.EventTuiSessionSelectProperties,
+        properties: tui_publish_event_params.EventPromptAppendProperties
+        | tui_publish_event_params.EventCommandExecuteProperties
+        | tui_publish_event_params.EventToastShowProperties
+        | tui_publish_event_params.EventSessionSelectProperties,
         type: Literal["tui.prompt.append"]
         | Literal["tui.command.execute"]
         | Literal["tui.toast.show"]

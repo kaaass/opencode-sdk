@@ -2,13 +2,17 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable
+from typing import Dict, Union
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from ...._types import SequenceNotStr
 from ...._utils import PropertyInfo
-from ..file_part_param import FilePartParam
+from ...api_error_param import APIErrorParam
 from ..file_part_source_param import FilePartSourceParam
+from ..tool_state_error_param import ToolStateErrorParam
+from ..tool_state_pending_param import ToolStatePendingParam
+from ..tool_state_running_param import ToolStateRunningParam
+from ..tool_state_completed_param import ToolStateCompletedParam
 
 __all__ = [
     "PartUpdateParams",
@@ -21,13 +25,6 @@ __all__ = [
     "FilePart",
     "ToolPart",
     "ToolPartState",
-    "ToolPartStateToolStatePending",
-    "ToolPartStateToolStateRunning",
-    "ToolPartStateToolStateRunningTime",
-    "ToolPartStateToolStateCompleted",
-    "ToolPartStateToolStateCompletedTime",
-    "ToolPartStateToolStateError",
-    "ToolPartStateToolStateErrorTime",
     "StepStartPart",
     "StepFinishPart",
     "StepFinishPartTokens",
@@ -37,8 +34,6 @@ __all__ = [
     "AgentPart",
     "AgentPartSource",
     "RetryPart",
-    "RetryPartError",
-    "RetryPartErrorData",
     "RetryPartTime",
     "CompactionPart",
 ]
@@ -194,77 +189,8 @@ class ToolPart(TypedDict, total=False):
     metadata: Dict[str, object]
 
 
-class ToolPartStateToolStatePending(TypedDict, total=False):
-    input: Required[Dict[str, object]]
-
-    raw: Required[str]
-
-    status: Required[Literal["pending"]]
-
-
-class ToolPartStateToolStateRunningTime(TypedDict, total=False):
-    start: Required[float]
-
-
-class ToolPartStateToolStateRunning(TypedDict, total=False):
-    input: Required[Dict[str, object]]
-
-    status: Required[Literal["running"]]
-
-    time: Required[ToolPartStateToolStateRunningTime]
-
-    metadata: Dict[str, object]
-
-    title: str
-
-
-class ToolPartStateToolStateCompletedTime(TypedDict, total=False):
-    end: Required[float]
-
-    start: Required[float]
-
-    compacted: float
-
-
-class ToolPartStateToolStateCompleted(TypedDict, total=False):
-    input: Required[Dict[str, object]]
-
-    metadata: Required[Dict[str, object]]
-
-    output: Required[str]
-
-    status: Required[Literal["completed"]]
-
-    time: Required[ToolPartStateToolStateCompletedTime]
-
-    title: Required[str]
-
-    attachments: Iterable[FilePartParam]
-
-
-class ToolPartStateToolStateErrorTime(TypedDict, total=False):
-    end: Required[float]
-
-    start: Required[float]
-
-
-class ToolPartStateToolStateError(TypedDict, total=False):
-    error: Required[str]
-
-    input: Required[Dict[str, object]]
-
-    status: Required[Literal["error"]]
-
-    time: Required[ToolPartStateToolStateErrorTime]
-
-    metadata: Dict[str, object]
-
-
 ToolPartState: TypeAlias = Union[
-    ToolPartStateToolStatePending,
-    ToolPartStateToolStateRunning,
-    ToolPartStateToolStateCompleted,
-    ToolPartStateToolStateError,
+    ToolStatePendingParam, ToolStateRunningParam, ToolStateCompletedParam, ToolStateErrorParam
 ]
 
 
@@ -413,7 +339,7 @@ class RetryPart(TypedDict, total=False):
 
     attempt: Required[float]
 
-    error: Required[RetryPartError]
+    error: Required[APIErrorParam]
 
     body_message_id: Required[Annotated[str, PropertyInfo(alias="messageID")]]
 
@@ -426,26 +352,6 @@ class RetryPart(TypedDict, total=False):
     directory: str
 
     workspace: str
-
-
-class RetryPartErrorData(TypedDict, total=False):
-    is_retryable: Required[Annotated[bool, PropertyInfo(alias="isRetryable")]]
-
-    message: Required[str]
-
-    metadata: Dict[str, str]
-
-    response_body: Annotated[str, PropertyInfo(alias="responseBody")]
-
-    response_headers: Annotated[Dict[str, str], PropertyInfo(alias="responseHeaders")]
-
-    status_code: Annotated[float, PropertyInfo(alias="statusCode")]
-
-
-class RetryPartError(TypedDict, total=False):
-    data: Required[RetryPartErrorData]
-
-    name: Required[Literal["APIError"]]
 
 
 class RetryPartTime(TypedDict, total=False):

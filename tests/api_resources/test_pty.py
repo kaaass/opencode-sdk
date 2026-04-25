@@ -10,12 +10,10 @@ import pytest
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 from opencode_sdk.types import (
+    Pty,
     PtyListResponse,
-    PtyCreateResponse,
     PtyDeleteResponse,
-    PtyUpdateResponse,
     PtyConnectResponse,
-    PtyRetrieveResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -28,7 +26,7 @@ class TestPty:
     @parametrize
     def test_method_create(self, client: OpencodeSDK) -> None:
         pty = client.pty.create()
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -42,7 +40,7 @@ class TestPty:
             env={"foo": "string"},
             title="title",
         )
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -52,7 +50,7 @@ class TestPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = response.parse()
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -62,7 +60,7 @@ class TestPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = response.parse()
-            assert_matches_type(PtyCreateResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -72,7 +70,7 @@ class TestPty:
         pty = client.pty.retrieve(
             pty_id="ptyID",
         )
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -82,7 +80,7 @@ class TestPty:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -94,7 +92,7 @@ class TestPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = response.parse()
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -106,7 +104,7 @@ class TestPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = response.parse()
-            assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -124,7 +122,7 @@ class TestPty:
         pty = client.pty.update(
             pty_id="ptyID",
         )
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -139,7 +137,7 @@ class TestPty:
             },
             title="title",
         )
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -151,7 +149,7 @@ class TestPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = response.parse()
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -163,7 +161,7 @@ class TestPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = response.parse()
-            assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -326,7 +324,7 @@ class TestAsyncPty:
     @parametrize
     async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
         pty = await async_client.pty.create()
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -340,7 +338,7 @@ class TestAsyncPty:
             env={"foo": "string"},
             title="title",
         )
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -350,7 +348,7 @@ class TestAsyncPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = await response.parse()
-        assert_matches_type(PtyCreateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -360,7 +358,7 @@ class TestAsyncPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = await response.parse()
-            assert_matches_type(PtyCreateResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -370,7 +368,7 @@ class TestAsyncPty:
         pty = await async_client.pty.retrieve(
             pty_id="ptyID",
         )
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -380,7 +378,7 @@ class TestAsyncPty:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -392,7 +390,7 @@ class TestAsyncPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = await response.parse()
-        assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -404,7 +402,7 @@ class TestAsyncPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = await response.parse()
-            assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -422,7 +420,7 @@ class TestAsyncPty:
         pty = await async_client.pty.update(
             pty_id="ptyID",
         )
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -437,7 +435,7 @@ class TestAsyncPty:
             },
             title="title",
         )
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -449,7 +447,7 @@ class TestAsyncPty:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         pty = await response.parse()
-        assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+        assert_matches_type(Pty, pty, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -461,7 +459,7 @@ class TestAsyncPty:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             pty = await response.parse()
-            assert_matches_type(PtyUpdateResponse, pty, path=["response"])
+            assert_matches_type(Pty, pty, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

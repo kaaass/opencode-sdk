@@ -3,26 +3,16 @@
 from __future__ import annotations
 
 from typing import Dict, Union, Iterable
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing_extensions import Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
-from .session.file_part_source_param import FilePartSourceParam
+from .session.output_format_param import OutputFormatParam
+from .session.file_part_input_param import FilePartInputParam
+from .session.text_part_input_param import TextPartInputParam
+from .session.agent_part_input_param import AgentPartInputParam
+from .session.subtask_part_input_param import SubtaskPartInputParam
 
-__all__ = [
-    "SessionSendAsyncMessageParams",
-    "Part",
-    "PartTextPartInput",
-    "PartTextPartInputTime",
-    "PartFilePartInput",
-    "PartAgentPartInput",
-    "PartAgentPartInputSource",
-    "PartSubtaskPartInput",
-    "PartSubtaskPartInputModel",
-    "Format",
-    "FormatOutputFormatText",
-    "FormatOutputFormatJsonSchema",
-    "Model",
-]
+__all__ = ["SessionSendAsyncMessageParams", "Part", "Model"]
 
 
 class SessionSendAsyncMessageParams(TypedDict, total=False):
@@ -34,7 +24,7 @@ class SessionSendAsyncMessageParams(TypedDict, total=False):
 
     agent: str
 
-    format: Format
+    format: OutputFormatParam
 
     message_id: Annotated[str, PropertyInfo(alias="messageID")]
 
@@ -53,98 +43,7 @@ class SessionSendAsyncMessageParams(TypedDict, total=False):
     variant: str
 
 
-class PartTextPartInputTime(TypedDict, total=False):
-    start: Required[float]
-
-    end: float
-
-
-class PartTextPartInput(TypedDict, total=False):
-    text: Required[str]
-
-    type: Required[Literal["text"]]
-
-    id: str
-
-    ignored: bool
-
-    metadata: Dict[str, object]
-
-    synthetic: bool
-
-    time: PartTextPartInputTime
-
-
-class PartFilePartInput(TypedDict, total=False):
-    mime: Required[str]
-
-    type: Required[Literal["file"]]
-
-    url: Required[str]
-
-    id: str
-
-    filename: str
-
-    source: FilePartSourceParam
-
-
-class PartAgentPartInputSource(TypedDict, total=False):
-    end: Required[int]
-
-    start: Required[int]
-
-    value: Required[str]
-
-
-class PartAgentPartInput(TypedDict, total=False):
-    name: Required[str]
-
-    type: Required[Literal["agent"]]
-
-    id: str
-
-    source: PartAgentPartInputSource
-
-
-class PartSubtaskPartInputModel(TypedDict, total=False):
-    model_id: Required[Annotated[str, PropertyInfo(alias="modelID")]]
-
-    provider_id: Required[Annotated[str, PropertyInfo(alias="providerID")]]
-
-
-class PartSubtaskPartInput(TypedDict, total=False):
-    agent: Required[str]
-
-    description: Required[str]
-
-    prompt: Required[str]
-
-    type: Required[Literal["subtask"]]
-
-    id: str
-
-    command: str
-
-    model: PartSubtaskPartInputModel
-
-
-Part: TypeAlias = Union[PartTextPartInput, PartFilePartInput, PartAgentPartInput, PartSubtaskPartInput]
-
-
-class FormatOutputFormatText(TypedDict, total=False):
-    type: Required[Literal["text"]]
-
-
-class FormatOutputFormatJsonSchema(TypedDict, total=False):
-    schema: Required[Dict[str, object]]
-
-    type: Required[Literal["json_schema"]]
-
-    retry_count: Annotated[int, PropertyInfo(alias="retryCount")]
-
-
-Format: TypeAlias = Union[FormatOutputFormatText, FormatOutputFormatJsonSchema]
+Part: TypeAlias = Union[TextPartInputParam, FilePartInputParam, AgentPartInputParam, SubtaskPartInputParam]
 
 
 class Model(TypedDict, total=False):

@@ -7,6 +7,11 @@ from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 from .file_part import FilePart
+from ..api_error import APIError
+from .tool_state_error import ToolStateError
+from .tool_state_pending import ToolStatePending
+from .tool_state_running import ToolStateRunning
+from .tool_state_completed import ToolStateCompleted
 
 __all__ = [
     "Part",
@@ -18,13 +23,6 @@ __all__ = [
     "ReasoningPartTime",
     "ToolPart",
     "ToolPartState",
-    "ToolPartStateToolStatePending",
-    "ToolPartStateToolStateRunning",
-    "ToolPartStateToolStateRunningTime",
-    "ToolPartStateToolStateCompleted",
-    "ToolPartStateToolStateCompletedTime",
-    "ToolPartStateToolStateError",
-    "ToolPartStateToolStateErrorTime",
     "StepStartPart",
     "StepFinishPart",
     "StepFinishPartTokens",
@@ -34,8 +32,6 @@ __all__ = [
     "AgentPart",
     "AgentPartSource",
     "RetryPart",
-    "RetryPartError",
-    "RetryPartErrorData",
     "RetryPartTime",
     "CompactionPart",
 ]
@@ -115,78 +111,7 @@ class ReasoningPart(BaseModel):
     metadata: Optional[Dict[str, object]] = None
 
 
-class ToolPartStateToolStatePending(BaseModel):
-    input: Dict[str, object]
-
-    raw: str
-
-    status: Literal["pending"]
-
-
-class ToolPartStateToolStateRunningTime(BaseModel):
-    start: float
-
-
-class ToolPartStateToolStateRunning(BaseModel):
-    input: Dict[str, object]
-
-    status: Literal["running"]
-
-    time: ToolPartStateToolStateRunningTime
-
-    metadata: Optional[Dict[str, object]] = None
-
-    title: Optional[str] = None
-
-
-class ToolPartStateToolStateCompletedTime(BaseModel):
-    end: float
-
-    start: float
-
-    compacted: Optional[float] = None
-
-
-class ToolPartStateToolStateCompleted(BaseModel):
-    input: Dict[str, object]
-
-    metadata: Dict[str, object]
-
-    output: str
-
-    status: Literal["completed"]
-
-    time: ToolPartStateToolStateCompletedTime
-
-    title: str
-
-    attachments: Optional[List[FilePart]] = None
-
-
-class ToolPartStateToolStateErrorTime(BaseModel):
-    end: float
-
-    start: float
-
-
-class ToolPartStateToolStateError(BaseModel):
-    error: str
-
-    input: Dict[str, object]
-
-    status: Literal["error"]
-
-    time: ToolPartStateToolStateErrorTime
-
-    metadata: Optional[Dict[str, object]] = None
-
-
-ToolPartState: TypeAlias = Union[
-    ToolPartStateToolStatePending,
-    ToolPartStateToolStateRunning,
-    ToolPartStateToolStateCompleted,
-    ToolPartStateToolStateError,
-]
+ToolPartState: TypeAlias = Union[ToolStatePending, ToolStateRunning, ToolStateCompleted, ToolStateError]
 
 
 class ToolPart(BaseModel):
@@ -303,26 +228,6 @@ class AgentPart(BaseModel):
     source: Optional[AgentPartSource] = None
 
 
-class RetryPartErrorData(BaseModel):
-    is_retryable: bool = FieldInfo(alias="isRetryable")
-
-    message: str
-
-    metadata: Optional[Dict[str, str]] = None
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
-
-    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
-
-
-class RetryPartError(BaseModel):
-    data: RetryPartErrorData
-
-    name: Literal["APIError"]
-
-
 class RetryPartTime(BaseModel):
     created: float
 
@@ -332,7 +237,7 @@ class RetryPart(BaseModel):
 
     attempt: float
 
-    error: RetryPartError
+    error: APIError
 
     message_id: str = FieldInfo(alias="messageID")
 

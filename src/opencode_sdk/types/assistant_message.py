@@ -1,30 +1,20 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
+from typing import Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
+from .api_error import APIError
 from .unknown_error import UnknownError
 from .provider_auth_error import ProviderAuthError
 from .message_aborted_error import MessageAbortedError
+from .context_overflow_error import ContextOverflowError
+from .structured_output_error import StructuredOutputError
 from .message_output_length_error import MessageOutputLengthError
 
-__all__ = [
-    "AssistantMessage",
-    "Path",
-    "Time",
-    "Tokens",
-    "TokensCache",
-    "Error",
-    "ErrorStructuredOutputError",
-    "ErrorStructuredOutputErrorData",
-    "ErrorContextOverflowError",
-    "ErrorContextOverflowErrorData",
-    "ErrorAPIError",
-    "ErrorAPIErrorData",
-]
+__all__ = ["AssistantMessage", "Path", "Time", "Tokens", "TokensCache", "Error"]
 
 
 class Path(BaseModel):
@@ -57,58 +47,14 @@ class Tokens(BaseModel):
     total: Optional[float] = None
 
 
-class ErrorStructuredOutputErrorData(BaseModel):
-    message: str
-
-    retries: float
-
-
-class ErrorStructuredOutputError(BaseModel):
-    data: ErrorStructuredOutputErrorData
-
-    name: Literal["StructuredOutputError"]
-
-
-class ErrorContextOverflowErrorData(BaseModel):
-    message: str
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-
-class ErrorContextOverflowError(BaseModel):
-    data: ErrorContextOverflowErrorData
-
-    name: Literal["ContextOverflowError"]
-
-
-class ErrorAPIErrorData(BaseModel):
-    is_retryable: bool = FieldInfo(alias="isRetryable")
-
-    message: str
-
-    metadata: Optional[Dict[str, str]] = None
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
-
-    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
-
-
-class ErrorAPIError(BaseModel):
-    data: ErrorAPIErrorData
-
-    name: Literal["APIError"]
-
-
 Error: TypeAlias = Union[
     ProviderAuthError,
     UnknownError,
     MessageOutputLengthError,
     MessageAbortedError,
-    ErrorStructuredOutputError,
-    ErrorContextOverflowError,
-    ErrorAPIError,
+    StructuredOutputError,
+    ContextOverflowError,
+    APIError,
 ]
 
 

@@ -7,8 +7,9 @@ from typing_extensions import Literal, Required, Annotated, TypedDict
 
 from .._types import SequenceNotStr
 from .._utils import PropertyInfo
+from .permission_rule_param import PermissionRuleParam
 
-__all__ = ["AgentCreateOrUpdateParams", "Permission", "Model"]
+__all__ = ["AgentCreateOrUpdateParams", "Model"]
 
 
 class AgentCreateOrUpdateParams(TypedDict, total=False):
@@ -18,7 +19,7 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     options: Required[Dict[str, object]]
 
-    permission: Required[Iterable[Permission]]
+    permission: Required[Iterable[PermissionRuleParam]]
 
     directory: str
 
@@ -47,14 +48,6 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
     top_p: Annotated[float, PropertyInfo(alias="topP")]
 
     variant: str
-
-
-class Permission(TypedDict, total=False):
-    action: Required[Literal["allow", "deny", "ask"]]
-
-    pattern: Required[str]
-
-    permission: Required[str]
 
 
 class Model(TypedDict, total=False):

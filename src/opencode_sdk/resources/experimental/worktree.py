@@ -15,9 +15,16 @@ from ..._response import (
     async_to_streamed_response_wrapper,
 )
 from ..._base_client import make_request_options
-from ...types.experimental import worktree_list_params, worktree_create_params
+from ...types.experimental import (
+    worktree_list_params,
+    worktree_reset_params,
+    worktree_create_params,
+    worktree_remove_params,
+)
 from ...types.experimental.worktree_list_response import WorktreeListResponse
+from ...types.experimental.worktree_reset_response import WorktreeResetResponse
 from ...types.experimental.worktree_create_response import WorktreeCreateResponse
+from ...types.experimental.worktree_remove_response import WorktreeRemoveResponse
 
 __all__ = ["WorktreeResource", "AsyncWorktreeResource"]
 
@@ -138,6 +145,94 @@ class WorktreeResource(SyncAPIResource):
             cast_to=WorktreeListResponse,
         )
 
+    def remove(
+        self,
+        *,
+        body_directory: str,
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorktreeRemoveResponse:
+        """
+        Remove a git worktree and delete its branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._delete(
+            "/experimental/worktree",
+            body=maybe_transform({"body_directory": body_directory}, worktree_remove_params.WorktreeRemoveParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "query_directory": query_directory,
+                        "workspace": workspace,
+                    },
+                    worktree_remove_params.WorktreeRemoveParams,
+                ),
+            ),
+            cast_to=WorktreeRemoveResponse,
+        )
+
+    def reset(
+        self,
+        *,
+        body_directory: str,
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorktreeResetResponse:
+        """
+        Reset a worktree branch to the primary default branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/experimental/worktree/reset",
+            body=maybe_transform({"body_directory": body_directory}, worktree_reset_params.WorktreeResetParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "query_directory": query_directory,
+                        "workspace": workspace,
+                    },
+                    worktree_reset_params.WorktreeResetParams,
+                ),
+            ),
+            cast_to=WorktreeResetResponse,
+        )
+
 
 class AsyncWorktreeResource(AsyncAPIResource):
     @cached_property
@@ -255,6 +350,98 @@ class AsyncWorktreeResource(AsyncAPIResource):
             cast_to=WorktreeListResponse,
         )
 
+    async def remove(
+        self,
+        *,
+        body_directory: str,
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorktreeRemoveResponse:
+        """
+        Remove a git worktree and delete its branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._delete(
+            "/experimental/worktree",
+            body=await async_maybe_transform(
+                {"body_directory": body_directory}, worktree_remove_params.WorktreeRemoveParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "query_directory": query_directory,
+                        "workspace": workspace,
+                    },
+                    worktree_remove_params.WorktreeRemoveParams,
+                ),
+            ),
+            cast_to=WorktreeRemoveResponse,
+        )
+
+    async def reset(
+        self,
+        *,
+        body_directory: str,
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorktreeResetResponse:
+        """
+        Reset a worktree branch to the primary default branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/experimental/worktree/reset",
+            body=await async_maybe_transform(
+                {"body_directory": body_directory}, worktree_reset_params.WorktreeResetParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "query_directory": query_directory,
+                        "workspace": workspace,
+                    },
+                    worktree_reset_params.WorktreeResetParams,
+                ),
+            ),
+            cast_to=WorktreeResetResponse,
+        )
+
 
 class WorktreeResourceWithRawResponse:
     def __init__(self, worktree: WorktreeResource) -> None:
@@ -265,6 +452,12 @@ class WorktreeResourceWithRawResponse:
         )
         self.list = to_raw_response_wrapper(
             worktree.list,
+        )
+        self.remove = to_raw_response_wrapper(
+            worktree.remove,
+        )
+        self.reset = to_raw_response_wrapper(
+            worktree.reset,
         )
 
 
@@ -278,6 +471,12 @@ class AsyncWorktreeResourceWithRawResponse:
         self.list = async_to_raw_response_wrapper(
             worktree.list,
         )
+        self.remove = async_to_raw_response_wrapper(
+            worktree.remove,
+        )
+        self.reset = async_to_raw_response_wrapper(
+            worktree.reset,
+        )
 
 
 class WorktreeResourceWithStreamingResponse:
@@ -290,6 +489,12 @@ class WorktreeResourceWithStreamingResponse:
         self.list = to_streamed_response_wrapper(
             worktree.list,
         )
+        self.remove = to_streamed_response_wrapper(
+            worktree.remove,
+        )
+        self.reset = to_streamed_response_wrapper(
+            worktree.reset,
+        )
 
 
 class AsyncWorktreeResourceWithStreamingResponse:
@@ -301,4 +506,10 @@ class AsyncWorktreeResourceWithStreamingResponse:
         )
         self.list = async_to_streamed_response_wrapper(
             worktree.list,
+        )
+        self.remove = async_to_streamed_response_wrapper(
+            worktree.remove,
+        )
+        self.reset = async_to_streamed_response_wrapper(
+            worktree.reset,
         )

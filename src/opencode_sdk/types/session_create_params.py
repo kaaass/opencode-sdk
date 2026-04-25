@@ -3,11 +3,12 @@
 from __future__ import annotations
 
 from typing import Dict, Iterable
-from typing_extensions import Literal, Required, Annotated, TypedDict
+from typing_extensions import Literal, Annotated, TypedDict
 
 from .._utils import PropertyInfo
+from .permission_rule_param import PermissionRuleParam
 
-__all__ = ["SessionCreateParams", "Permission"]
+__all__ = ["SessionCreateParams"]
 
 
 class SessionCreateParams(TypedDict, total=False):
@@ -21,16 +22,8 @@ class SessionCreateParams(TypedDict, total=False):
 
     parent_id: Annotated[str, PropertyInfo(alias="parentID")]
 
-    permission: Iterable[Permission]
+    permission: Iterable[PermissionRuleParam]
 
     title: str
 
     workspace_id: Annotated[str, PropertyInfo(alias="workspaceID")]
-
-
-class Permission(TypedDict, total=False):
-    action: Required[Literal["allow", "deny", "ask"]]
-
-    pattern: Required[str]
-
-    permission: Required[str]

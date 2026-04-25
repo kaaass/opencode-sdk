@@ -20,6 +20,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.auth_set_credentials_response import AuthSetCredentialsResponse
+from ..types.auth_remove_credentials_response import AuthRemoveCredentialsResponse
 
 __all__ = ["AuthResource", "AsyncAuthResource"]
 
@@ -43,6 +44,39 @@ class AuthResource(SyncAPIResource):
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
         return AuthResourceWithStreamingResponse(self)
+
+    def remove_credentials(
+        self,
+        provider_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthRemoveCredentialsResponse:
+        """
+        Remove authentication credentials
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not provider_id:
+            raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
+        return self._delete(
+            path_template("/auth/{provider_id}", provider_id=provider_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthRemoveCredentialsResponse,
+        )
 
     @overload
     def set_credentials(
@@ -200,6 +234,39 @@ class AsyncAuthResource(AsyncAPIResource):
         """
         return AsyncAuthResourceWithStreamingResponse(self)
 
+    async def remove_credentials(
+        self,
+        provider_id: str,
+        *,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> AuthRemoveCredentialsResponse:
+        """
+        Remove authentication credentials
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not provider_id:
+            raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
+        return await self._delete(
+            path_template("/auth/{provider_id}", provider_id=provider_id),
+            options=make_request_options(
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+            ),
+            cast_to=AuthRemoveCredentialsResponse,
+        )
+
     @overload
     async def set_credentials(
         self,
@@ -340,6 +407,9 @@ class AuthResourceWithRawResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
+        self.remove_credentials = to_raw_response_wrapper(
+            auth.remove_credentials,
+        )
         self.set_credentials = to_raw_response_wrapper(
             auth.set_credentials,
         )
@@ -349,6 +419,9 @@ class AsyncAuthResourceWithRawResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
+        self.remove_credentials = async_to_raw_response_wrapper(
+            auth.remove_credentials,
+        )
         self.set_credentials = async_to_raw_response_wrapper(
             auth.set_credentials,
         )
@@ -358,6 +431,9 @@ class AuthResourceWithStreamingResponse:
     def __init__(self, auth: AuthResource) -> None:
         self._auth = auth
 
+        self.remove_credentials = to_streamed_response_wrapper(
+            auth.remove_credentials,
+        )
         self.set_credentials = to_streamed_response_wrapper(
             auth.set_credentials,
         )
@@ -367,6 +443,9 @@ class AsyncAuthResourceWithStreamingResponse:
     def __init__(self, auth: AsyncAuthResource) -> None:
         self._auth = auth
 
+        self.remove_credentials = async_to_streamed_response_wrapper(
+            auth.remove_credentials,
+        )
         self.set_credentials = async_to_streamed_response_wrapper(
             auth.set_credentials,
         )
