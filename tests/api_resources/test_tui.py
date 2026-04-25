@@ -8,8 +8,9 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
+    TuiPublishResponse,
     TuiOpenHelpResponse,
     TuiShowToastResponse,
     TuiOpenModelsResponse,
@@ -17,7 +18,6 @@ from opencode_sdk.types import (
     TuiClearPromptResponse,
     TuiAppendPromptResponse,
     TuiOpenSessionsResponse,
-    TuiPublishEventResponse,
     TuiSubmitPromptResponse,
     TuiSelectSessionResponse,
     TuiExecuteCommandResponse,
@@ -304,28 +304,28 @@ class TestTui:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_overload_1(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_overload_1(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_with_all_params_overload_1(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_with_all_params_overload_1(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_publish_event_overload_1(self, client: OpencodeSDK) -> None:
-        response = client.tui.with_raw_response.publish_event(
+    def test_raw_response_publish_overload_1(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         )
@@ -333,12 +333,12 @@ class TestTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_publish_event_overload_1(self, client: OpencodeSDK) -> None:
-        with client.tui.with_streaming_response.publish_event(
+    def test_streaming_response_publish_overload_1(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         ) as response:
@@ -346,34 +346,34 @@ class TestTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_overload_2(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_overload_2(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_with_all_params_overload_2(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_with_all_params_overload_2(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_publish_event_overload_2(self, client: OpencodeSDK) -> None:
-        response = client.tui.with_raw_response.publish_event(
+    def test_raw_response_publish_overload_2(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         )
@@ -381,12 +381,12 @@ class TestTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_publish_event_overload_2(self, client: OpencodeSDK) -> None:
-        with client.tui.with_streaming_response.publish_event(
+    def test_streaming_response_publish_overload_2(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         ) as response:
@@ -394,26 +394,26 @@ class TestTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_overload_3(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_overload_3(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={
                 "message": "message",
                 "variant": "info",
             },
             type="tui.toast.show",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -424,12 +424,12 @@ class TestTui:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_publish_event_overload_3(self, client: OpencodeSDK) -> None:
-        response = client.tui.with_raw_response.publish_event(
+    def test_raw_response_publish_overload_3(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -440,12 +440,12 @@ class TestTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_publish_event_overload_3(self, client: OpencodeSDK) -> None:
-        with client.tui.with_streaming_response.publish_event(
+    def test_streaming_response_publish_overload_3(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -456,34 +456,34 @@ class TestTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_overload_4(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_overload_4(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_publish_event_with_all_params_overload_4(self, client: OpencodeSDK) -> None:
-        tui = client.tui.publish_event(
+    def test_method_publish_with_all_params_overload_4(self, client: OpencodeSDK) -> None:
+        tui = client.tui.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
-        response = client.tui.with_raw_response.publish_event(
+    def test_raw_response_publish_overload_4(self, client: OpencodeSDK) -> None:
+        response = client.tui.with_raw_response.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
@@ -491,12 +491,12 @@ class TestTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
-        with client.tui.with_streaming_response.publish_event(
+    def test_streaming_response_publish_overload_4(self, client: OpencodeSDK) -> None:
+        with client.tui.with_streaming_response.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         ) as response:
@@ -504,7 +504,7 @@ class TestTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -920,28 +920,28 @@ class TestAsyncTui:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_with_all_params_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_with_all_params_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_publish_event_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.tui.with_raw_response.publish_event(
+    async def test_raw_response_publish_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         )
@@ -949,12 +949,12 @@ class TestAsyncTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = await response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_publish_event_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.tui.with_streaming_response.publish_event(
+    async def test_streaming_response_publish_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.publish(
             properties={"text": "text"},
             type="tui.prompt.append",
         ) as response:
@@ -962,34 +962,34 @@ class TestAsyncTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = await response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_with_all_params_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_with_all_params_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_publish_event_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.tui.with_raw_response.publish_event(
+    async def test_raw_response_publish_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         )
@@ -997,12 +997,12 @@ class TestAsyncTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = await response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_publish_event_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.tui.with_streaming_response.publish_event(
+    async def test_streaming_response_publish_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.publish(
             properties={"command": "session.list"},
             type="tui.command.execute",
         ) as response:
@@ -1010,26 +1010,26 @@ class TestAsyncTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = await response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={
                 "message": "message",
                 "variant": "info",
             },
             type="tui.toast.show",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -1040,12 +1040,12 @@ class TestAsyncTui:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_publish_event_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.tui.with_raw_response.publish_event(
+    async def test_raw_response_publish_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -1056,12 +1056,12 @@ class TestAsyncTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = await response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_publish_event_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.tui.with_streaming_response.publish_event(
+    async def test_streaming_response_publish_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.publish(
             properties={
                 "message": "message",
                 "variant": "info",
@@ -1072,34 +1072,34 @@ class TestAsyncTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = await response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_publish_event_with_all_params_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
-        tui = await async_client.tui.publish_event(
+    async def test_method_publish_with_all_params_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        tui = await async_client.tui.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.tui.with_raw_response.publish_event(
+    async def test_raw_response_publish_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.tui.with_raw_response.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
@@ -1107,12 +1107,12 @@ class TestAsyncTui:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         tui = await response.parse()
-        assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+        assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.tui.with_streaming_response.publish_event(
+    async def test_streaming_response_publish_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.tui.with_streaming_response.publish(
             properties={"session_id": "sessionID"},
             type="tui.session.select",
         ) as response:
@@ -1120,7 +1120,7 @@ class TestAsyncTui:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             tui = await response.parse()
-            assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
+            assert_matches_type(TuiPublishResponse, tui, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import Config
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types.global_ import Config
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,14 +19,14 @@ class TestConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: OpencodeSDK) -> None:
-        config = client.global_.config.retrieve()
+    def test_method_get_config(self, client: OpencodeSDK) -> None:
+        config = client.global_.config.get_config()
         assert_matches_type(Config, config, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
-        response = client.global_.config.with_raw_response.retrieve()
+    def test_raw_response_get_config(self, client: OpencodeSDK) -> None:
+        response = client.global_.config.with_raw_response.get_config()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -35,8 +35,8 @@ class TestConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
-        with client.global_.config.with_streaming_response.retrieve() as response:
+    def test_streaming_response_get_config(self, client: OpencodeSDK) -> None:
+        with client.global_.config.with_streaming_response.get_config() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -47,14 +47,14 @@ class TestConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update(self, client: OpencodeSDK) -> None:
-        config = client.global_.config.update()
+    def test_method_update_config(self, client: OpencodeSDK) -> None:
+        config = client.global_.config.update_config()
         assert_matches_type(Config, config, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_update_with_all_params(self, client: OpencodeSDK) -> None:
-        config = client.global_.config.update(
+    def test_method_update_config_with_all_params(self, client: OpencodeSDK) -> None:
+        config = client.global_.config.update_config(
             schema="$schema",
             agent={
                 "build": {
@@ -362,8 +362,8 @@ class TestConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_update(self, client: OpencodeSDK) -> None:
-        response = client.global_.config.with_raw_response.update()
+    def test_raw_response_update_config(self, client: OpencodeSDK) -> None:
+        response = client.global_.config.with_raw_response.update_config()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -372,8 +372,8 @@ class TestConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_update(self, client: OpencodeSDK) -> None:
-        with client.global_.config.with_streaming_response.update() as response:
+    def test_streaming_response_update_config(self, client: OpencodeSDK) -> None:
+        with client.global_.config.with_streaming_response.update_config() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -390,14 +390,14 @@ class TestAsyncConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        config = await async_client.global_.config.retrieve()
+    async def test_method_get_config(self, async_client: AsyncOpencodeSDK) -> None:
+        config = await async_client.global_.config.get_config()
         assert_matches_type(Config, config, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.global_.config.with_raw_response.retrieve()
+    async def test_raw_response_get_config(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.config.with_raw_response.get_config()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -406,8 +406,8 @@ class TestAsyncConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.global_.config.with_streaming_response.retrieve() as response:
+    async def test_streaming_response_get_config(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.config.with_streaming_response.get_config() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
@@ -418,14 +418,14 @@ class TestAsyncConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update(self, async_client: AsyncOpencodeSDK) -> None:
-        config = await async_client.global_.config.update()
+    async def test_method_update_config(self, async_client: AsyncOpencodeSDK) -> None:
+        config = await async_client.global_.config.update_config()
         assert_matches_type(Config, config, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_update_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        config = await async_client.global_.config.update(
+    async def test_method_update_config_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        config = await async_client.global_.config.update_config(
             schema="$schema",
             agent={
                 "build": {
@@ -733,8 +733,8 @@ class TestAsyncConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_update(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.global_.config.with_raw_response.update()
+    async def test_raw_response_update_config(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.config.with_raw_response.update_config()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -743,8 +743,8 @@ class TestAsyncConfig:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_update(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.global_.config.with_streaming_response.update() as response:
+    async def test_streaming_response_update_config(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.config.with_streaming_response.update_config() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 

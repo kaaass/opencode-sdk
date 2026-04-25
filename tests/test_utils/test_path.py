@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from opencode_sdk._utils._path import path_template
+from ai4pa_opencode_sdk._utils._path import path_template
 
 
 @pytest.mark.parametrize(

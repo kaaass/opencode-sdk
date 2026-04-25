@@ -7,7 +7,7 @@ from typing import Any, cast
 
 import pytest
 
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

@@ -8,15 +8,15 @@ from typing_extensions import Required, Annotated, TypedDict
 
 import pytest
 
-from opencode_sdk._types import Base64FileInput, omit, not_given
-from opencode_sdk._utils import (
+from ai4pa_opencode_sdk._types import Base64FileInput, omit, not_given
+from ai4pa_opencode_sdk._utils import (
     PropertyInfo,
     transform as _transform,
     parse_datetime,
     async_transform as _async_transform,
 )
-from opencode_sdk._compat import PYDANTIC_V1
-from opencode_sdk._models import BaseModel
+from ai4pa_opencode_sdk._compat import PYDANTIC_V1
+from ai4pa_opencode_sdk._models import BaseModel
 
 _T = TypeVar("_T")
 

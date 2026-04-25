@@ -8,11 +8,11 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     ProjectListResponse,
 )
-from opencode_sdk.types.project import Project
+from ai4pa_opencode_sdk.types.project import Project
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
