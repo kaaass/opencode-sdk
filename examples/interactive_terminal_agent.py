@@ -18,8 +18,9 @@ import threading
 from typing import Any, Optional
 
 from opencode_sdk import OpencodeSDK, omit, id_ascending
-from opencode_sdk.types.session import message_create_params
+from opencode_sdk.types.session import message_send_params
 from opencode_sdk.types.event_list_response import EventListResponse
+from opencode_sdk.types.session.text_part_input_param import TextPartInputParam
 
 try:
     from rich.panel import Panel  # type: ignore[import-not-found]
@@ -78,10 +79,10 @@ class InteractiveTerminalAgent:
         self.event_thread: Optional[threading.Thread] = None
         self.stop_event = threading.Event()
 
-    def _print(self, text: str = '\n', **kwargs: Any) -> None:
+    def _print(self, text: str = "\n", **kwargs: Any) -> None:
         """统一的打印方法,支持 Rich 和普通输出。"""
         # 从 kwargs 中提取 file 参数（Rich 不支持 file 参数）
-        file = kwargs.pop('file', None)
+        file = kwargs.pop("file", None)
 
         if self.console:  # type: ignore[truthy-bool]
             # Rich Console 使用 stderr 参数而不是 file
@@ -104,9 +105,9 @@ class InteractiveTerminalAgent:
             print(f"\n{'=' * 60}")
             if title:
                 print(f"{title}")
-                print('-' * 60)
+                print("-" * 60)
             print(content)
-            print('=' * 60)
+            print("=" * 60)
 
     def initialize(self) -> None:
         """初始化 Agent:获取配置、创建会话、订阅事件。"""
@@ -133,8 +134,8 @@ class InteractiveTerminalAgent:
             if not providers:
                 raise RuntimeError("没有可用的 provider")
 
-            self.provider_id = 'anthropic'
-            self.model_id = 'claude-sonnet-4-5-20250929'
+            self.provider_id = "anthropic"
+            self.model_id = "claude-sonnet-4-5-20250929"
 
             self._print(f"[green]使用模型:[/green] {self.provider_id} - {self.model_id}")
 
@@ -185,26 +186,26 @@ class InteractiveTerminalAgent:
         """处理从 SSE 接收到的事件。"""
         # 事件类型通过 discriminator 'type' 区分
         event_data = event.model_dump()
-        event_type = event_data.get('type')
-        properties = event_data.get('properties', {})
+        event_type = event_data.get("type")
+        properties = event_data.get("properties", {})
 
-        if event_type == 'message.updated':
-            self._handle_message_update(properties.get('info', {}))
-        elif event_type == 'message.part.updated':
-            self._handle_part_update(properties.get('part', {}))
-        elif event_type == 'session.error':
+        if event_type == "message.updated":
+            self._handle_message_update(properties.get("info", {}))
+        elif event_type == "message.part.updated":
+            self._handle_part_update(properties.get("part", {}))
+        elif event_type == "session.error":
             self._handle_error(properties)
 
     def _handle_message_update(self, info: dict[str, Any]) -> None:
         """处理消息更新事件。"""
-        if info.get('role') != 'assistant':
+        if info.get("role") != "assistant":
             return
 
-        message_id = info.get('id')
-        time_info = info.get('time', {})
+        message_id = info.get("id")
+        time_info = info.get("time", {})
 
         # 检查消息是否完成
-        if time_info.get('completed', 0):
+        if time_info.get("completed", 0):
             self.current_message_id = None
             self.message_completed = True
         else:
@@ -216,60 +217,61 @@ class InteractiveTerminalAgent:
 
     def _handle_part_update(self, part: dict[str, Any]) -> None:
         """处理消息部分更新事件。"""
-        part_type = part.get('type')
+        part_type = part.get("type")
 
-        if part_type == 'text':
+        if part_type == "text":
             self._handle_text_part(part)
-        elif part_type == 'tool':
+        elif part_type == "tool":
             self._handle_tool_part(part)
-        elif part_type == 'reasoning':
+        elif part_type == "reasoning":
             self._handle_reasoning_part(part)
 
     def _handle_text_part(self, part: dict[str, Any]) -> None:
         """处理文本部分的流式更新。"""
-        part_id = str(part.get('id', ''))
-        text = str(part.get('text', ''))
+        part_id = str(part.get("id", ""))
+        text = str(part.get("text", ""))
 
         # 存储累积的文本
-        old_text = self.current_text_parts.get(part_id, '')
+        old_text = self.current_text_parts.get(part_id, "")
         self.current_text_parts[part_id] = text
 
         # 只打印新增的文本 (delta)
         if text.startswith(old_text):
-            delta = text[len(old_text):]
+            delta = text[len(old_text) :]
             if delta:
                 # 不换行,流式输出
                 if self.console:  # type: ignore[truthy-bool]
-                    self.console.print(delta, end='')  # type: ignore[union-attr]
+                    self.console.print(delta, end="")  # type: ignore[union-attr]
                 else:
-                    print(delta, end='', flush=True)
+                    print(delta, end="", flush=True)
 
     def _handle_tool_part(self, part: dict[str, Any]) -> None:
         """处理工具调用部分的更新。"""
-        part_id = str(part.get('id', ''))
-        tool_name = part.get('tool')
-        state = part.get('state', {})
-        status = state.get('status')
+        part_id = str(part.get("id", ""))
+        tool_name = part.get("tool")
+        state = part.get("state", {})
+        status = state.get("status")
 
         # 存储工具状态
         self.current_tool_parts[part_id] = part
 
-        if status == 'running':
-            tool_input = state.get('input', {})
-            title = state.get('title', f'运行 {tool_name}')
+        if status == "running":
+            tool_input = state.get("input", {})
+            title = state.get("title", f"运行 {tool_name}")
             self._print(f"\n\n[bold yellow]🔧 {title}[/bold yellow]")
 
             # 显示工具输入 (简化)
             if tool_input:
                 import json
+
                 input_str = json.dumps(tool_input, ensure_ascii=False, indent=2)
                 if len(input_str) > 200:
-                    input_str = input_str[:200] + '...'
+                    input_str = input_str[:200] + "..."
                 self._print(f"[dim]{input_str}[/dim]")
 
-        elif status == 'completed':
-            output = state.get('output', '')
-            title = state.get('title', f'{tool_name} 完成')
+        elif status == "completed":
+            output = state.get("output", "")
+            title = state.get("title", f"{tool_name} 完成")
             self._print(f"\n[green]✓ {title}[/green]")
 
             # 显示截断的输出
@@ -280,25 +282,26 @@ class InteractiveTerminalAgent:
 
             self._print()  # 添加空行
 
-        elif status == 'error':
-            error = state.get('error', 'Unknown error')
+        elif status == "error":
+            error = state.get("error", "Unknown error")
             self._print(f"\n[bold red]✗ {tool_name} 失败:[/bold red] {error}\n")
 
     def _handle_reasoning_part(self, part: dict[str, Any]) -> None:
         """处理推理部分的更新。"""
-        text = part.get('text', '')
+        text = part.get("text", "")
         if text:
             self._print(f"\n[italic dim]推理: {text}[/italic dim]\n")
 
     def _handle_error(self, properties: dict[str, Any]) -> None:
         """处理会话错误事件。"""
-        error = properties.get('error', {})
-        error_name = error.get('name', 'Unknown error')
-        error_data = error.get('data', {})
+        error = properties.get("error", {})
+        error_name = error.get("name", "Unknown error")
+        error_data = error.get("data", {})
 
         self._print(f"\n[bold red]错误:[/bold red] {error_name}")
         if error_data:
             import json
+
             self._print(f"[red]{json.dumps(error_data, ensure_ascii=False, indent=2)}[/red]")
 
         self.message_completed = True
@@ -322,33 +325,25 @@ class InteractiveTerminalAgent:
         self._print_panel(text, title="[bold blue]你[/bold blue]", border_style="blue")
 
         # 使用 ID 生成器生成消息ID和部分ID
-        message_id = id_ascending('message')
-        part_id = id_ascending('part')
+        message_id = id_ascending("message")
+        part_id = id_ascending("part")
 
         # 显示 AI 响应头
-        self._print("\n[bold cyan]AI 助手:[/bold cyan] ", end='')
+        self._print("\n[bold cyan]AI 助手:[/bold cyan] ", end="")
 
         # 创建消息部分
-        parts = [
-            message_create_params.PartTextPartInput(
-                id=part_id,
-                type='text',
-                text=text,
-                synthetic=False
-            )
-        ]
+        parts = [TextPartInputParam(id=part_id, type="text", text=text, synthetic=False)]
 
         # 发送消息
         try:
-            _result = self.client.session.message.create(
-                id=self.session_id,
+            _result = self.client.session.message.send(
+                self.session_id,
                 parts=parts,
                 agent=self.agent_name or omit,
                 message_id=message_id or omit,
-                model=message_create_params.Model(
-                    provider_id=self.provider_id,
-                    model_id=self.model_id
-                ) if self.provider_id and self.model_id else omit
+                model=message_send_params.Model(provider_id=self.provider_id, model_id=self.model_id)
+                if self.provider_id and self.model_id
+                else omit,
             )
         except Exception as e:
             self._print(f"\n[bold red]发送消息失败:[/bold red] {e}")
@@ -379,7 +374,7 @@ class InteractiveTerminalAgent:
                 if not user_input:
                     continue
 
-                if user_input.lower() in ['exit', 'quit', 'q']:
+                if user_input.lower() in ["exit", "quit", "q"]:
                     break
 
                 # 发送消息并显示响应
@@ -406,7 +401,7 @@ def main() -> None:
     import argparse
 
     parser = argparse.ArgumentParser(
-        description='OpenCode 交互式终端 Agent',
+        description="OpenCode 交互式终端 Agent",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
@@ -415,12 +410,10 @@ def main() -> None:
 
 环境变量:
   OPENCODE_SDK_BASE_URL                      # OpenCode 服务器地址
-        """
+        """,
     )
     parser.add_argument(
-        '--url',
-        default='http://localhost:3000',
-        help='OpenCode 服务器地址 (默认: http://localhost:3000)'
+        "--url", default="http://localhost:3000", help="OpenCode 服务器地址 (默认: http://localhost:3000)"
     )
 
     args = parser.parse_args()
@@ -437,11 +430,12 @@ def main() -> None:
     except Exception as e:
         print(f"\n致命错误: {e}", file=sys.stderr)
         import traceback
+
         traceback.print_exc()
         sys.exit(1)
     finally:
         agent.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
