@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     ClientToolListResponse,
     ClientToolCreateResponse,
     ClientToolDeleteResponse,
@@ -21,7 +21,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestClientTool:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.create(
@@ -31,7 +31,7 @@ class TestClientTool:
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.create(
@@ -39,10 +39,11 @@ class TestClientTool:
             description="description",
             parameters={"foo": "bar"},
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OpencodeSDK) -> None:
         response = client.client_tool.with_raw_response.create(
@@ -56,7 +57,7 @@ class TestClientTool:
         client_tool = response.parse()
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: OpencodeSDK) -> None:
         with client.client_tool.with_streaming_response.create(
@@ -72,21 +73,22 @@ class TestClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.list()
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list(self, client: OpencodeSDK) -> None:
         response = client.client_tool.with_raw_response.list()
@@ -96,7 +98,7 @@ class TestClientTool:
         client_tool = response.parse()
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list(self, client: OpencodeSDK) -> None:
         with client.client_tool.with_streaming_response.list() as response:
@@ -108,7 +110,7 @@ class TestClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.delete(
@@ -116,16 +118,17 @@ class TestClientTool:
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_with_all_params(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: OpencodeSDK) -> None:
         response = client.client_tool.with_raw_response.delete(
@@ -137,7 +140,7 @@ class TestClientTool:
         client_tool = response.parse()
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: OpencodeSDK) -> None:
         with client.client_tool.with_streaming_response.delete(
@@ -151,7 +154,7 @@ class TestClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
@@ -165,7 +168,7 @@ class TestAsyncClientTool:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.create(
@@ -175,7 +178,7 @@ class TestAsyncClientTool:
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.create(
@@ -183,10 +186,11 @@ class TestAsyncClientTool:
             description="description",
             parameters={"foo": "bar"},
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.client_tool.with_raw_response.create(
@@ -200,7 +204,7 @@ class TestAsyncClientTool:
         client_tool = await response.parse()
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.client_tool.with_streaming_response.create(
@@ -216,21 +220,22 @@ class TestAsyncClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.list()
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.client_tool.with_raw_response.list()
@@ -240,7 +245,7 @@ class TestAsyncClientTool:
         client_tool = await response.parse()
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.client_tool.with_streaming_response.list() as response:
@@ -252,7 +257,7 @@ class TestAsyncClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.delete(
@@ -260,16 +265,17 @@ class TestAsyncClientTool:
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.client_tool.with_raw_response.delete(
@@ -281,7 +287,7 @@ class TestAsyncClientTool:
         client_tool = await response.parse()
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.client_tool.with_streaming_response.delete(
@@ -295,7 +301,7 @@ class TestAsyncClientTool:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):

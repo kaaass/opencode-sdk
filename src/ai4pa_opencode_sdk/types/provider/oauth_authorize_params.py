@@ -1,0 +1,20 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Dict
+from typing_extensions import Required, TypedDict
+
+__all__ = ["OAuthAuthorizeParams"]
+
+
+class OAuthAuthorizeParams(TypedDict, total=False):
+    method: Required[float]
+    """Auth method index"""
+
+    directory: str
+
+    workspace: str
+
+    inputs: Dict[str, str]
+    """Prompt inputs"""

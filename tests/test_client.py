@@ -19,13 +19,12 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK, APIResponseValidationError
-from opencode_sdk._types import Omit
-from opencode_sdk._utils import asyncify
-from opencode_sdk._models import BaseModel, FinalRequestOptions
-from opencode_sdk._streaming import Stream, AsyncStream
-from opencode_sdk._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from opencode_sdk._base_client import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK, APIResponseValidationError
+from ai4pa_opencode_sdk._types import Omit
+from ai4pa_opencode_sdk._utils import asyncify
+from ai4pa_opencode_sdk._models import BaseModel, FinalRequestOptions
+from ai4pa_opencode_sdk._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from ai4pa_opencode_sdk._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
@@ -287,10 +286,10 @@ class TestOpencodeSDK:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "opencode_sdk/_legacy_response.py",
-                        "opencode_sdk/_response.py",
+                        "ai4pa_opencode_sdk/_legacy_response.py",
+                        "ai4pa_opencode_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "opencode_sdk/_compat.py",
+                        "ai4pa_opencode_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -438,6 +437,30 @@ class TestOpencodeSDK:
         assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
 
         client.close()
+
+    def test_hardcoded_query_params_in_url(self, client: OpencodeSDK) -> None:
+        request = client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true"}
+
+        request = client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/foo?beta=true",
+                params={"limit": "10", "page": "abc"},
+            )
+        )
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true", "limit": "10", "page": "abc"}
+
+        request = client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/files/a%2Fb?beta=true",
+                params={"limit": "10"},
+            )
+        )
+        assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
 
     def test_request_extra_json(self, client: OpencodeSDK) -> None:
         request = client._build_request(
@@ -819,17 +842,6 @@ class TestOpencodeSDK:
             )
 
     @pytest.mark.respx(base_url=base_url)
-    def test_default_stream_cls(self, respx_mock: MockRouter, client: OpencodeSDK) -> None:
-        class Model(BaseModel):
-            name: str
-
-        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        stream = client.post("/foo", cast_to=Model, stream=True, stream_cls=Stream[Model])
-        assert isinstance(stream, Stream)
-        stream.response.close()
-
-    @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -879,27 +891,27 @@ class TestOpencodeSDK:
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter, client: OpencodeSDK) -> None:
-        respx_mock.get("/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.get("/global/health").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            client.project.with_streaming_response.list().__enter__()
+            client.global_.with_streaming_response.get_health().__enter__()
 
         assert _get_open_connections(client) == 0
 
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter, client: OpencodeSDK) -> None:
-        respx_mock.get("/project").mock(return_value=httpx.Response(500))
+        respx_mock.get("/global/health").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            client.project.with_streaming_response.list().__enter__()
+            client.global_.with_streaming_response.get_health().__enter__()
         assert _get_open_connections(client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
@@ -922,15 +934,15 @@ class TestOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.list()
+        response = client.global_.with_raw_response.get_health()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
         self, client: OpencodeSDK, failures_before_success: int, respx_mock: MockRouter
@@ -946,14 +958,14 @@ class TestOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = client.global_.with_raw_response.get_health(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
         self, client: OpencodeSDK, failures_before_success: int, respx_mock: MockRouter
@@ -969,9 +981,9 @@ class TestOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = client.project.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = client.global_.with_raw_response.get_health(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -983,6 +995,14 @@ class TestOpencodeSDK:
             monkeypatch.delenv(var, raising=False)
 
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has any proxy env vars set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultHttpxClient()
 
@@ -1203,10 +1223,10 @@ class TestAsyncOpencodeSDK:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "opencode_sdk/_legacy_response.py",
-                        "opencode_sdk/_response.py",
+                        "ai4pa_opencode_sdk/_legacy_response.py",
+                        "ai4pa_opencode_sdk/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "opencode_sdk/_compat.py",
+                        "ai4pa_opencode_sdk/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1356,6 +1376,30 @@ class TestAsyncOpencodeSDK:
         assert dict(url.params) == {"foo": "baz", "query_param": "overridden"}
 
         await client.close()
+
+    async def test_hardcoded_query_params_in_url(self, async_client: AsyncOpencodeSDK) -> None:
+        request = async_client._build_request(FinalRequestOptions(method="get", url="/foo?beta=true"))
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true"}
+
+        request = async_client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/foo?beta=true",
+                params={"limit": "10", "page": "abc"},
+            )
+        )
+        url = httpx.URL(request.url)
+        assert dict(url.params) == {"beta": "true", "limit": "10", "page": "abc"}
+
+        request = async_client._build_request(
+            FinalRequestOptions(
+                method="get",
+                url="/files/a%2Fb?beta=true",
+                params={"limit": "10"},
+            )
+        )
+        assert request.url.raw_path == b"/files/a%2Fb?beta=true&limit=10"
 
     def test_request_extra_json(self, client: OpencodeSDK) -> None:
         request = client._build_request(
@@ -1744,17 +1788,6 @@ class TestAsyncOpencodeSDK:
             )
 
     @pytest.mark.respx(base_url=base_url)
-    async def test_default_stream_cls(self, respx_mock: MockRouter, async_client: AsyncOpencodeSDK) -> None:
-        class Model(BaseModel):
-            name: str
-
-        respx_mock.post("/foo").mock(return_value=httpx.Response(200, json={"foo": "bar"}))
-
-        stream = await async_client.post("/foo", cast_to=Model, stream=True, stream_cls=AsyncStream[Model])
-        assert isinstance(stream, AsyncStream)
-        await stream.response.aclose()
-
-    @pytest.mark.respx(base_url=base_url)
     async def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
         class Model(BaseModel):
             name: str
@@ -1804,31 +1837,31 @@ class TestAsyncOpencodeSDK:
         calculated = async_client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOpencodeSDK
     ) -> None:
-        respx_mock.get("/project").mock(side_effect=httpx.TimeoutException("Test timeout error"))
+        respx_mock.get("/global/health").mock(side_effect=httpx.TimeoutException("Test timeout error"))
 
         with pytest.raises(APITimeoutError):
-            await async_client.project.with_streaming_response.list().__aenter__()
+            await async_client.global_.with_streaming_response.get_health().__aenter__()
 
         assert _get_open_connections(async_client) == 0
 
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(
         self, respx_mock: MockRouter, async_client: AsyncOpencodeSDK
     ) -> None:
-        respx_mock.get("/project").mock(return_value=httpx.Response(500))
+        respx_mock.get("/global/health").mock(return_value=httpx.Response(500))
 
         with pytest.raises(APIStatusError):
-            await async_client.project.with_streaming_response.list().__aenter__()
+            await async_client.global_.with_streaming_response.get_health().__aenter__()
         assert _get_open_connections(async_client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
@@ -1851,15 +1884,15 @@ class TestAsyncOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.list()
+        response = await client.global_.with_raw_response.get_health()
 
         assert response.retries_taken == failures_before_success
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_omit_retry_count_header(
         self, async_client: AsyncOpencodeSDK, failures_before_success: int, respx_mock: MockRouter
@@ -1875,14 +1908,14 @@ class TestAsyncOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.list(extra_headers={"x-stainless-retry-count": Omit()})
+        response = await client.global_.with_raw_response.get_health(extra_headers={"x-stainless-retry-count": Omit()})
 
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("ai4pa_opencode_sdk._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_overwrite_retry_count_header(
         self, async_client: AsyncOpencodeSDK, failures_before_success: int, respx_mock: MockRouter
@@ -1898,9 +1931,9 @@ class TestAsyncOpencodeSDK:
                 return httpx.Response(500)
             return httpx.Response(200)
 
-        respx_mock.get("/project").mock(side_effect=retry_handler)
+        respx_mock.get("/global/health").mock(side_effect=retry_handler)
 
-        response = await client.project.with_raw_response.list(extra_headers={"x-stainless-retry-count": "42"})
+        response = await client.global_.with_raw_response.get_health(extra_headers={"x-stainless-retry-count": "42"})
 
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
@@ -1916,6 +1949,14 @@ class TestAsyncOpencodeSDK:
             monkeypatch.delenv(var, raising=False)
 
         monkeypatch.setenv("HTTPS_PROXY", "https://example.org")
+        # Delete in case our environment has any proxy env vars set
+        monkeypatch.delenv("HTTP_PROXY", raising=False)
+        monkeypatch.delenv("ALL_PROXY", raising=False)
+        monkeypatch.delenv("NO_PROXY", raising=False)
+        monkeypatch.delenv("http_proxy", raising=False)
+        monkeypatch.delenv("https_proxy", raising=False)
+        monkeypatch.delenv("all_proxy", raising=False)
+        monkeypatch.delenv("no_proxy", raising=False)
 
         client = DefaultAsyncHttpxClient()
 

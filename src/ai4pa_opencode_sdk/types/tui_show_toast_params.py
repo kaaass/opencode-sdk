@@ -1,0 +1,22 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing_extensions import Literal, Required, TypedDict
+
+__all__ = ["TuiShowToastParams"]
+
+
+class TuiShowToastParams(TypedDict, total=False):
+    message: Required[str]
+
+    variant: Required[Literal["info", "success", "warning", "error"]]
+
+    directory: str
+
+    workspace: str
+
+    duration: float
+    """Duration in milliseconds"""
+
+    title: str

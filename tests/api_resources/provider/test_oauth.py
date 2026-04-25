@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types.provider import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types.provider import (
     OAuthAuthorizeResponse,
     OAuthHandleCallbackResponse,
 )
@@ -20,7 +20,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestOAuth:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_authorize(self, client: OpencodeSDK) -> None:
         oauth = client.provider.oauth.authorize(
@@ -29,17 +29,19 @@ class TestOAuth:
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_authorize_with_all_params(self, client: OpencodeSDK) -> None:
         oauth = client.provider.oauth.authorize(
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
+            inputs={"foo": "string"},
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_authorize(self, client: OpencodeSDK) -> None:
         response = client.provider.oauth.with_raw_response.authorize(
@@ -52,7 +54,7 @@ class TestOAuth:
         oauth = response.parse()
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_authorize(self, client: OpencodeSDK) -> None:
         with client.provider.oauth.with_streaming_response.authorize(
@@ -67,7 +69,7 @@ class TestOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_authorize(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
@@ -76,7 +78,7 @@ class TestOAuth:
                 method=0,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_handle_callback(self, client: OpencodeSDK) -> None:
         oauth = client.provider.oauth.handle_callback(
@@ -85,18 +87,19 @@ class TestOAuth:
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_handle_callback_with_all_params(self, client: OpencodeSDK) -> None:
         oauth = client.provider.oauth.handle_callback(
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
             code="code",
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_handle_callback(self, client: OpencodeSDK) -> None:
         response = client.provider.oauth.with_raw_response.handle_callback(
@@ -109,7 +112,7 @@ class TestOAuth:
         oauth = response.parse()
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_handle_callback(self, client: OpencodeSDK) -> None:
         with client.provider.oauth.with_streaming_response.handle_callback(
@@ -124,7 +127,7 @@ class TestOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_handle_callback(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
@@ -139,7 +142,7 @@ class TestAsyncOAuth:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_authorize(self, async_client: AsyncOpencodeSDK) -> None:
         oauth = await async_client.provider.oauth.authorize(
@@ -148,17 +151,19 @@ class TestAsyncOAuth:
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_authorize_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         oauth = await async_client.provider.oauth.authorize(
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
+            inputs={"foo": "string"},
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_authorize(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.provider.oauth.with_raw_response.authorize(
@@ -171,7 +176,7 @@ class TestAsyncOAuth:
         oauth = await response.parse()
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_authorize(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.provider.oauth.with_streaming_response.authorize(
@@ -186,7 +191,7 @@ class TestAsyncOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_authorize(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):
@@ -195,7 +200,7 @@ class TestAsyncOAuth:
                 method=0,
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_handle_callback(self, async_client: AsyncOpencodeSDK) -> None:
         oauth = await async_client.provider.oauth.handle_callback(
@@ -204,18 +209,19 @@ class TestAsyncOAuth:
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_handle_callback_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         oauth = await async_client.provider.oauth.handle_callback(
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
             code="code",
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_handle_callback(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.provider.oauth.with_raw_response.handle_callback(
@@ -228,7 +234,7 @@ class TestAsyncOAuth:
         oauth = await response.parse()
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_handle_callback(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.provider.oauth.with_streaming_response.handle_callback(
@@ -243,7 +249,7 @@ class TestAsyncOAuth:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_handle_callback(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `provider_id` but received ''"):

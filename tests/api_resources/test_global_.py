@@ -8,12 +8,12 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
-    GlobalExitResponse,
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     GlobalGetHealthResponse,
     GlobalGetVersionResponse,
     GlobalDisposeInstanceResponse,
+    GlobalUpgradeOpencodeResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -22,13 +22,13 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestGlobal:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_dispose_instance(self, client: OpencodeSDK) -> None:
         global_ = client.global_.dispose_instance()
         assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_dispose_instance(self, client: OpencodeSDK) -> None:
         response = client.global_.with_raw_response.dispose_instance()
@@ -38,7 +38,7 @@ class TestGlobal:
         global_ = response.parse()
         assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_dispose_instance(self, client: OpencodeSDK) -> None:
         with client.global_.with_streaming_response.dispose_instance() as response:
@@ -50,41 +50,68 @@ class TestGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_exit(self, client: OpencodeSDK) -> None:
-        global_ = client.global_.exit()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+    def test_method_exit_server(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.exit_server()
+        assert global_ is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_exit(self, client: OpencodeSDK) -> None:
-        response = client.global_.with_raw_response.exit()
+    def test_raw_response_exit_server(self, client: OpencodeSDK) -> None:
+        response = client.global_.with_raw_response.exit_server()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         global_ = response.parse()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_exit(self, client: OpencodeSDK) -> None:
-        with client.global_.with_streaming_response.exit() as response:
+    def test_streaming_response_exit_server(self, client: OpencodeSDK) -> None:
+        with client.global_.with_streaming_response.exit_server() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             global_ = response.parse()
-            assert_matches_type(GlobalExitResponse, global_, path=["response"])
+            assert global_ is None
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_get_events(self, client: OpencodeSDK) -> None:
+        global__stream = client.global_.get_events()
+        global__stream.response.close()
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_get_events(self, client: OpencodeSDK) -> None:
+        response = client.global_.with_raw_response.get_events()
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = response.parse()
+        stream.close()
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_get_events(self, client: OpencodeSDK) -> None:
+        with client.global_.with_streaming_response.get_events() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = response.parse()
+            stream.close()
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_health(self, client: OpencodeSDK) -> None:
         global_ = client.global_.get_health()
         assert_matches_type(GlobalGetHealthResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_health(self, client: OpencodeSDK) -> None:
         response = client.global_.with_raw_response.get_health()
@@ -94,7 +121,7 @@ class TestGlobal:
         global_ = response.parse()
         assert_matches_type(GlobalGetHealthResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_health(self, client: OpencodeSDK) -> None:
         with client.global_.with_streaming_response.get_health() as response:
@@ -106,13 +133,13 @@ class TestGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_get_version(self, client: OpencodeSDK) -> None:
         global_ = client.global_.get_version()
         assert_matches_type(GlobalGetVersionResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_get_version(self, client: OpencodeSDK) -> None:
         response = client.global_.with_raw_response.get_version()
@@ -122,7 +149,7 @@ class TestGlobal:
         global_ = response.parse()
         assert_matches_type(GlobalGetVersionResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_get_version(self, client: OpencodeSDK) -> None:
         with client.global_.with_streaming_response.get_version() as response:
@@ -134,30 +161,39 @@ class TestGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_events(self, client: OpencodeSDK) -> None:
-        global__stream = client.global_.retrieve_events()
-        global__stream.response.close()
+    def test_method_upgrade_opencode(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.upgrade_opencode()
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve_events(self, client: OpencodeSDK) -> None:
-        response = client.global_.with_raw_response.retrieve_events()
+    def test_method_upgrade_opencode_with_all_params(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.upgrade_opencode(
+            target="target",
+        )
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_upgrade_opencode(self, client: OpencodeSDK) -> None:
+        response = client.global_.with_raw_response.upgrade_opencode()
+
+        assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = response.parse()
-        stream.close()
+        global_ = response.parse()
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve_events(self, client: OpencodeSDK) -> None:
-        with client.global_.with_streaming_response.retrieve_events() as response:
+    def test_streaming_response_upgrade_opencode(self, client: OpencodeSDK) -> None:
+        with client.global_.with_streaming_response.upgrade_opencode() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            stream = response.parse()
-            stream.close()
+            global_ = response.parse()
+            assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -167,13 +203,13 @@ class TestAsyncGlobal:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_dispose_instance(self, async_client: AsyncOpencodeSDK) -> None:
         global_ = await async_client.global_.dispose_instance()
         assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_dispose_instance(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.global_.with_raw_response.dispose_instance()
@@ -183,7 +219,7 @@ class TestAsyncGlobal:
         global_ = await response.parse()
         assert_matches_type(GlobalDisposeInstanceResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_dispose_instance(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.global_.with_streaming_response.dispose_instance() as response:
@@ -195,41 +231,68 @@ class TestAsyncGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_exit(self, async_client: AsyncOpencodeSDK) -> None:
-        global_ = await async_client.global_.exit()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+    async def test_method_exit_server(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.exit_server()
+        assert global_ is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_exit(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.global_.with_raw_response.exit()
+    async def test_raw_response_exit_server(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.with_raw_response.exit_server()
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         global_ = await response.parse()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_exit(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.global_.with_streaming_response.exit() as response:
+    async def test_streaming_response_exit_server(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.with_streaming_response.exit_server() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             global_ = await response.parse()
-            assert_matches_type(GlobalExitResponse, global_, path=["response"])
+            assert global_ is None
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_get_events(self, async_client: AsyncOpencodeSDK) -> None:
+        global__stream = await async_client.global_.get_events()
+        await global__stream.response.aclose()
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_get_events(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.with_raw_response.get_events()
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = await response.parse()
+        await stream.close()
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_get_events(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.with_streaming_response.get_events() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = await response.parse()
+            await stream.close()
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_health(self, async_client: AsyncOpencodeSDK) -> None:
         global_ = await async_client.global_.get_health()
         assert_matches_type(GlobalGetHealthResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_health(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.global_.with_raw_response.get_health()
@@ -239,7 +302,7 @@ class TestAsyncGlobal:
         global_ = await response.parse()
         assert_matches_type(GlobalGetHealthResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_health(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.global_.with_streaming_response.get_health() as response:
@@ -251,13 +314,13 @@ class TestAsyncGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_get_version(self, async_client: AsyncOpencodeSDK) -> None:
         global_ = await async_client.global_.get_version()
         assert_matches_type(GlobalGetVersionResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_get_version(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.global_.with_raw_response.get_version()
@@ -267,7 +330,7 @@ class TestAsyncGlobal:
         global_ = await response.parse()
         assert_matches_type(GlobalGetVersionResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_get_version(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.global_.with_streaming_response.get_version() as response:
@@ -279,29 +342,38 @@ class TestAsyncGlobal:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
-        global__stream = await async_client.global_.retrieve_events()
-        await global__stream.response.aclose()
+    async def test_method_upgrade_opencode(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.upgrade_opencode()
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.global_.with_raw_response.retrieve_events()
+    async def test_method_upgrade_opencode_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.upgrade_opencode(
+            target="target",
+        )
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_upgrade_opencode(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.with_raw_response.upgrade_opencode()
+
+        assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        stream = await response.parse()
-        await stream.close()
+        global_ = await response.parse()
+        assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
-    @pytest.mark.skip(reason="Prism doesn't support text/event-stream responses")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve_events(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.global_.with_streaming_response.retrieve_events() as response:
+    async def test_streaming_response_upgrade_opencode(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.with_streaming_response.upgrade_opencode() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            stream = await response.parse()
-            await stream.close()
+            global_ = await response.parse()
+            assert_matches_type(GlobalUpgradeOpencodeResponse, global_, path=["response"])
 
         assert cast(Any, response.is_closed) is True

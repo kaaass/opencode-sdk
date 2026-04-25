@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import InstanceDisposeResponse
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import InstanceDisposeResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -17,21 +17,22 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestInstance:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_dispose(self, client: OpencodeSDK) -> None:
         instance = client.instance.dispose()
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_dispose_with_all_params(self, client: OpencodeSDK) -> None:
         instance = client.instance.dispose(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_dispose(self, client: OpencodeSDK) -> None:
         response = client.instance.with_raw_response.dispose()
@@ -41,7 +42,7 @@ class TestInstance:
         instance = response.parse()
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_dispose(self, client: OpencodeSDK) -> None:
         with client.instance.with_streaming_response.dispose() as response:
@@ -59,21 +60,22 @@ class TestAsyncInstance:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_dispose(self, async_client: AsyncOpencodeSDK) -> None:
         instance = await async_client.instance.dispose()
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_dispose_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         instance = await async_client.instance.dispose(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_dispose(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.instance.with_raw_response.dispose()
@@ -83,7 +85,7 @@ class TestAsyncInstance:
         instance = await response.parse()
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_dispose(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.instance.with_streaming_response.dispose() as response:

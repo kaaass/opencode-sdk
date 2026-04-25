@@ -4,8 +4,8 @@ from typing import Sequence
 
 import pytest
 
-from opencode_sdk._types import FileTypes
-from opencode_sdk._utils import extract_files
+from ai4pa_opencode_sdk._types import FileTypes
+from ai4pa_opencode_sdk._utils import extract_files
 
 
 def test_removes_files_from_input() -> None:
@@ -33,6 +33,15 @@ def test_multiple_files() -> None:
         ("documents[][file]", b"My second file"),
     ]
     assert query == {"documents": [{}, {}]}
+
+
+def test_top_level_file_array() -> None:
+    query = {"files": [b"file one", b"file two"], "title": "hello"}
+    assert extract_files(query, paths=[["files", "<array>"]]) == [
+        ("files[]", b"file one"),
+        ("files[]", b"file two"),
+    ]
+    assert query == {"title": "hello"}
 
 
 @pytest.mark.parametrize(

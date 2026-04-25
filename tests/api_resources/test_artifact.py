@@ -10,9 +10,9 @@ import pytest
 from respx import MockRouter
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import ArtifactDeleteResponse
-from opencode_sdk._response import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import ArtifactDeleteResponse
+from ai4pa_opencode_sdk._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
@@ -25,7 +25,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestArtifact:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: OpencodeSDK) -> None:
         artifact = client.artifact.delete(
@@ -34,17 +34,18 @@ class TestArtifact:
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_with_all_params(self, client: OpencodeSDK) -> None:
         artifact = client.artifact.delete(
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: OpencodeSDK) -> None:
         response = client.artifact.with_raw_response.delete(
@@ -57,7 +58,7 @@ class TestArtifact:
         artifact = response.parse()
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: OpencodeSDK) -> None:
         with client.artifact.with_streaming_response.delete(
@@ -72,7 +73,7 @@ class TestArtifact:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `artifact_id` but received ''"):
@@ -102,6 +103,7 @@ class TestArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert artifact.is_closed
         assert artifact.json() == {"foo": "bar"}
@@ -155,7 +157,7 @@ class TestAsyncArtifact:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpencodeSDK) -> None:
         artifact = await async_client.artifact.delete(
@@ -164,17 +166,18 @@ class TestAsyncArtifact:
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         artifact = await async_client.artifact.delete(
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.artifact.with_raw_response.delete(
@@ -187,7 +190,7 @@ class TestAsyncArtifact:
         artifact = await response.parse()
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.artifact.with_streaming_response.delete(
@@ -202,7 +205,7 @@ class TestAsyncArtifact:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `artifact_id` but received ''"):
@@ -234,6 +237,7 @@ class TestAsyncArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert artifact.is_closed
         assert await artifact.json() == {"foo": "bar"}

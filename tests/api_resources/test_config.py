@@ -8,11 +8,11 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
-    Config,
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     ConfigListProvidersResponse,
 )
+from ai4pa_opencode_sdk.types.global_ import Config
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -20,21 +20,22 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestConfig:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve(self, client: OpencodeSDK) -> None:
         config = client.config.retrieve()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         config = client.config.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
         response = client.config.with_raw_response.retrieve()
@@ -44,7 +45,7 @@ class TestConfig:
         config = response.parse()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
         with client.config.with_streaming_response.retrieve() as response:
@@ -56,21 +57,22 @@ class TestConfig:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update(self, client: OpencodeSDK) -> None:
         config = client.config.update()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_update_with_all_params(self, client: OpencodeSDK) -> None:
         config = client.config.update(
             directory="directory",
+            workspace="workspace",
             schema="$schema",
             agent={
                 "build": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -78,25 +80,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -104,9 +88,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "compaction": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -114,25 +99,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -140,9 +107,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "explore": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -150,25 +118,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -176,9 +126,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "general": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -186,25 +137,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -212,9 +145,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "plan": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -222,25 +156,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -248,9 +164,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "summary": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -258,25 +175,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -284,9 +183,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "title": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -294,25 +194,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -320,11 +202,12 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
             },
             artifact_allowed_paths=["string"],
             autoshare=True,
-            autoupdate=True,
+            autoupdate="notify",
             command={
                 "foo": {
                     "template": "template",
@@ -337,6 +220,7 @@ class TestConfig:
             compaction={
                 "auto": True,
                 "prune": True,
+                "reserved": 0,
             },
             custom_provider_npm_whitelist=["string"],
             default_agent="default_agent",
@@ -345,121 +229,14 @@ class TestConfig:
             enterprise={"url": "url"},
             experimental={
                 "batch_tool": True,
-                "chat_max_retries": 0,
                 "continue_loop_on_deny": True,
                 "disable_paste_summary": True,
-                "hook": {
-                    "file_edited": {
-                        "foo": [
-                            {
-                                "command": ["string"],
-                                "environment": {"foo": "string"},
-                            }
-                        ]
-                    },
-                    "session_completed": [
-                        {
-                            "command": ["string"],
-                            "environment": {"foo": "string"},
-                        }
-                    ],
-                },
                 "mcp_timeout": 1,
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
             formatter=False,
             instructions=["string"],
-            keybinds={
-                "agent_cycle": "agent_cycle",
-                "agent_cycle_reverse": "agent_cycle_reverse",
-                "agent_list": "agent_list",
-                "app_exit": "app_exit",
-                "artifacts_list": "artifacts_list",
-                "command_list": "command_list",
-                "editor_open": "editor_open",
-                "history_next": "history_next",
-                "history_previous": "history_previous",
-                "input_backspace": "input_backspace",
-                "input_buffer_end": "input_buffer_end",
-                "input_buffer_home": "input_buffer_home",
-                "input_clear": "input_clear",
-                "input_delete": "input_delete",
-                "input_delete_line": "input_delete_line",
-                "input_delete_to_line_end": "input_delete_to_line_end",
-                "input_delete_to_line_start": "input_delete_to_line_start",
-                "input_delete_word_backward": "input_delete_word_backward",
-                "input_delete_word_forward": "input_delete_word_forward",
-                "input_line_end": "input_line_end",
-                "input_line_home": "input_line_home",
-                "input_move_down": "input_move_down",
-                "input_move_left": "input_move_left",
-                "input_move_right": "input_move_right",
-                "input_move_up": "input_move_up",
-                "input_newline": "input_newline",
-                "input_paste": "input_paste",
-                "input_redo": "input_redo",
-                "input_select_buffer_end": "input_select_buffer_end",
-                "input_select_buffer_home": "input_select_buffer_home",
-                "input_select_down": "input_select_down",
-                "input_select_left": "input_select_left",
-                "input_select_line_end": "input_select_line_end",
-                "input_select_line_home": "input_select_line_home",
-                "input_select_right": "input_select_right",
-                "input_select_up": "input_select_up",
-                "input_select_visual_line_end": "input_select_visual_line_end",
-                "input_select_visual_line_home": "input_select_visual_line_home",
-                "input_select_word_backward": "input_select_word_backward",
-                "input_select_word_forward": "input_select_word_forward",
-                "input_submit": "input_submit",
-                "input_undo": "input_undo",
-                "input_visual_line_end": "input_visual_line_end",
-                "input_visual_line_home": "input_visual_line_home",
-                "input_word_backward": "input_word_backward",
-                "input_word_forward": "input_word_forward",
-                "leader": "leader",
-                "messages_copy": "messages_copy",
-                "messages_first": "messages_first",
-                "messages_half_page_down": "messages_half_page_down",
-                "messages_half_page_up": "messages_half_page_up",
-                "messages_last": "messages_last",
-                "messages_last_user": "messages_last_user",
-                "messages_next": "messages_next",
-                "messages_page_down": "messages_page_down",
-                "messages_page_up": "messages_page_up",
-                "messages_previous": "messages_previous",
-                "messages_redo": "messages_redo",
-                "messages_toggle_conceal": "messages_toggle_conceal",
-                "messages_undo": "messages_undo",
-                "model_cycle_favorite": "model_cycle_favorite",
-                "model_cycle_favorite_reverse": "model_cycle_favorite_reverse",
-                "model_cycle_recent": "model_cycle_recent",
-                "model_cycle_recent_reverse": "model_cycle_recent_reverse",
-                "model_list": "model_list",
-                "scrollbar_toggle": "scrollbar_toggle",
-                "session_child_cycle": "session_child_cycle",
-                "session_child_cycle_reverse": "session_child_cycle_reverse",
-                "session_compact": "session_compact",
-                "session_export": "session_export",
-                "session_fork": "session_fork",
-                "session_interrupt": "session_interrupt",
-                "session_list": "session_list",
-                "session_new": "session_new",
-                "session_parent": "session_parent",
-                "session_rename": "session_rename",
-                "session_share": "session_share",
-                "session_timeline": "session_timeline",
-                "session_unshare": "session_unshare",
-                "sidebar_toggle": "sidebar_toggle",
-                "status_view": "status_view",
-                "terminal_suspend": "terminal_suspend",
-                "terminal_title_toggle": "terminal_title_toggle",
-                "theme_list": "theme_list",
-                "tips_toggle": "tips_toggle",
-                "tool_details": "tool_details",
-                "username_toggle": "username_toggle",
-                "variant_cycle": "variant_cycle",
-            },
             layout="auto",
             log_level="DEBUG",
             lsp=False,
@@ -474,7 +251,7 @@ class TestConfig:
             },
             mode={
                 "build": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -482,25 +259,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -508,9 +267,10 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "plan": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -518,25 +278,7 @@ class TestConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -544,28 +286,11 @@ class TestConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
             },
             model="model",
-            permission={
-                "_original_keys": ["string"],
-                "bash": "ask",
-                "codesearch": "ask",
-                "doom_loop": "ask",
-                "edit": "ask",
-                "external_directory": "ask",
-                "glob": "ask",
-                "grep": "ask",
-                "list": "ask",
-                "lsp": "ask",
-                "question": "ask",
-                "read": "ask",
-                "task": "ask",
-                "todoread": "ask",
-                "todowrite": "ask",
-                "webfetch": "ask",
-                "websearch": "ask",
-            },
+            permission="ask",
             plugin=["string"],
             provider={
                 "foo": {
@@ -596,6 +321,7 @@ class TestConfig:
                             "limit": {
                                 "context": 0,
                                 "output": 0,
+                                "input": 0,
                             },
                             "modalities": {
                                 "input": ["text"],
@@ -603,7 +329,10 @@ class TestConfig:
                             },
                             "name": "name",
                             "options": {"foo": "bar"},
-                            "provider": {"npm": "npm"},
+                            "provider": {
+                                "api": "api",
+                                "npm": "npm",
+                            },
                             "reasoning": True,
                             "release_date": "release_date",
                             "status": "alpha",
@@ -617,9 +346,10 @@ class TestConfig:
                     "options": {
                         "api_key": "apiKey",
                         "base_url": "baseURL",
+                        "chunk_timeout": 1,
                         "enterprise_url": "enterpriseUrl",
                         "set_cache_key": True,
-                        "timeout": 1,
+                        "timeout": False,
                     },
                     "whitelist": ["string"],
                 }
@@ -628,24 +358,23 @@ class TestConfig:
                 "cors": ["string"],
                 "hostname": "hostname",
                 "mdns": True,
+                "mdns_domain": "mdnsDomain",
                 "port": 1,
             },
             share="manual",
+            skills={
+                "paths": ["string"],
+                "urls": ["string"],
+            },
             small_model="small_model",
             snapshot=True,
-            theme="theme",
             tools={"foo": True},
-            tui={
-                "diff_style": "auto",
-                "scroll_acceleration": {"enabled": True},
-                "scroll_speed": 0.001,
-            },
             username="username",
             watcher={"ignore": ["string"]},
         )
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_update(self, client: OpencodeSDK) -> None:
         response = client.config.with_raw_response.update()
@@ -655,7 +384,7 @@ class TestConfig:
         config = response.parse()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_update(self, client: OpencodeSDK) -> None:
         with client.config.with_streaming_response.update() as response:
@@ -667,21 +396,22 @@ class TestConfig:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_providers(self, client: OpencodeSDK) -> None:
         config = client.config.list_providers()
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_list_providers_with_all_params(self, client: OpencodeSDK) -> None:
         config = client.config.list_providers(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_list_providers(self, client: OpencodeSDK) -> None:
         response = client.config.with_raw_response.list_providers()
@@ -691,7 +421,7 @@ class TestConfig:
         config = response.parse()
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_list_providers(self, client: OpencodeSDK) -> None:
         with client.config.with_streaming_response.list_providers() as response:
@@ -709,21 +439,22 @@ class TestAsyncConfig:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.retrieve()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.config.with_raw_response.retrieve()
@@ -733,7 +464,7 @@ class TestAsyncConfig:
         config = await response.parse()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.config.with_streaming_response.retrieve() as response:
@@ -745,21 +476,22 @@ class TestAsyncConfig:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.update()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_update_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.update(
             directory="directory",
+            workspace="workspace",
             schema="$schema",
             agent={
                 "build": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -767,25 +499,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -793,9 +507,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "compaction": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -803,25 +518,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -829,9 +526,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "explore": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -839,25 +537,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -865,9 +545,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "general": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -875,25 +556,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -901,9 +564,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "plan": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -911,25 +575,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -937,9 +583,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "summary": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -947,25 +594,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -973,9 +602,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "title": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -983,25 +613,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -1009,11 +621,12 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
             },
             artifact_allowed_paths=["string"],
             autoshare=True,
-            autoupdate=True,
+            autoupdate="notify",
             command={
                 "foo": {
                     "template": "template",
@@ -1026,6 +639,7 @@ class TestAsyncConfig:
             compaction={
                 "auto": True,
                 "prune": True,
+                "reserved": 0,
             },
             custom_provider_npm_whitelist=["string"],
             default_agent="default_agent",
@@ -1034,121 +648,14 @@ class TestAsyncConfig:
             enterprise={"url": "url"},
             experimental={
                 "batch_tool": True,
-                "chat_max_retries": 0,
                 "continue_loop_on_deny": True,
                 "disable_paste_summary": True,
-                "hook": {
-                    "file_edited": {
-                        "foo": [
-                            {
-                                "command": ["string"],
-                                "environment": {"foo": "string"},
-                            }
-                        ]
-                    },
-                    "session_completed": [
-                        {
-                            "command": ["string"],
-                            "environment": {"foo": "string"},
-                        }
-                    ],
-                },
                 "mcp_timeout": 1,
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
             formatter=False,
             instructions=["string"],
-            keybinds={
-                "agent_cycle": "agent_cycle",
-                "agent_cycle_reverse": "agent_cycle_reverse",
-                "agent_list": "agent_list",
-                "app_exit": "app_exit",
-                "artifacts_list": "artifacts_list",
-                "command_list": "command_list",
-                "editor_open": "editor_open",
-                "history_next": "history_next",
-                "history_previous": "history_previous",
-                "input_backspace": "input_backspace",
-                "input_buffer_end": "input_buffer_end",
-                "input_buffer_home": "input_buffer_home",
-                "input_clear": "input_clear",
-                "input_delete": "input_delete",
-                "input_delete_line": "input_delete_line",
-                "input_delete_to_line_end": "input_delete_to_line_end",
-                "input_delete_to_line_start": "input_delete_to_line_start",
-                "input_delete_word_backward": "input_delete_word_backward",
-                "input_delete_word_forward": "input_delete_word_forward",
-                "input_line_end": "input_line_end",
-                "input_line_home": "input_line_home",
-                "input_move_down": "input_move_down",
-                "input_move_left": "input_move_left",
-                "input_move_right": "input_move_right",
-                "input_move_up": "input_move_up",
-                "input_newline": "input_newline",
-                "input_paste": "input_paste",
-                "input_redo": "input_redo",
-                "input_select_buffer_end": "input_select_buffer_end",
-                "input_select_buffer_home": "input_select_buffer_home",
-                "input_select_down": "input_select_down",
-                "input_select_left": "input_select_left",
-                "input_select_line_end": "input_select_line_end",
-                "input_select_line_home": "input_select_line_home",
-                "input_select_right": "input_select_right",
-                "input_select_up": "input_select_up",
-                "input_select_visual_line_end": "input_select_visual_line_end",
-                "input_select_visual_line_home": "input_select_visual_line_home",
-                "input_select_word_backward": "input_select_word_backward",
-                "input_select_word_forward": "input_select_word_forward",
-                "input_submit": "input_submit",
-                "input_undo": "input_undo",
-                "input_visual_line_end": "input_visual_line_end",
-                "input_visual_line_home": "input_visual_line_home",
-                "input_word_backward": "input_word_backward",
-                "input_word_forward": "input_word_forward",
-                "leader": "leader",
-                "messages_copy": "messages_copy",
-                "messages_first": "messages_first",
-                "messages_half_page_down": "messages_half_page_down",
-                "messages_half_page_up": "messages_half_page_up",
-                "messages_last": "messages_last",
-                "messages_last_user": "messages_last_user",
-                "messages_next": "messages_next",
-                "messages_page_down": "messages_page_down",
-                "messages_page_up": "messages_page_up",
-                "messages_previous": "messages_previous",
-                "messages_redo": "messages_redo",
-                "messages_toggle_conceal": "messages_toggle_conceal",
-                "messages_undo": "messages_undo",
-                "model_cycle_favorite": "model_cycle_favorite",
-                "model_cycle_favorite_reverse": "model_cycle_favorite_reverse",
-                "model_cycle_recent": "model_cycle_recent",
-                "model_cycle_recent_reverse": "model_cycle_recent_reverse",
-                "model_list": "model_list",
-                "scrollbar_toggle": "scrollbar_toggle",
-                "session_child_cycle": "session_child_cycle",
-                "session_child_cycle_reverse": "session_child_cycle_reverse",
-                "session_compact": "session_compact",
-                "session_export": "session_export",
-                "session_fork": "session_fork",
-                "session_interrupt": "session_interrupt",
-                "session_list": "session_list",
-                "session_new": "session_new",
-                "session_parent": "session_parent",
-                "session_rename": "session_rename",
-                "session_share": "session_share",
-                "session_timeline": "session_timeline",
-                "session_unshare": "session_unshare",
-                "sidebar_toggle": "sidebar_toggle",
-                "status_view": "status_view",
-                "terminal_suspend": "terminal_suspend",
-                "terminal_title_toggle": "terminal_title_toggle",
-                "theme_list": "theme_list",
-                "tips_toggle": "tips_toggle",
-                "tool_details": "tool_details",
-                "username_toggle": "username_toggle",
-                "variant_cycle": "variant_cycle",
-            },
             layout="auto",
             log_level="DEBUG",
             lsp=False,
@@ -1163,7 +670,7 @@ class TestAsyncConfig:
             },
             mode={
                 "build": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -1171,25 +678,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -1197,9 +686,10 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
                 "plan": {
-                    "color": "#E1CB97",
+                    "color": "primary",
                     "description": "description",
                     "disable": True,
                     "hidden": True,
@@ -1207,25 +697,7 @@ class TestAsyncConfig:
                     "mode": "subagent",
                     "model": "model",
                     "options": {"foo": "bar"},
-                    "permission": {
-                        "_original_keys": ["string"],
-                        "bash": "ask",
-                        "codesearch": "ask",
-                        "doom_loop": "ask",
-                        "edit": "ask",
-                        "external_directory": "ask",
-                        "glob": "ask",
-                        "grep": "ask",
-                        "list": "ask",
-                        "lsp": "ask",
-                        "question": "ask",
-                        "read": "ask",
-                        "task": "ask",
-                        "todoread": "ask",
-                        "todowrite": "ask",
-                        "webfetch": "ask",
-                        "websearch": "ask",
-                    },
+                    "permission": "ask",
                     "prompt": "prompt",
                     "skills": ["string"],
                     "steps": 1,
@@ -1233,28 +705,11 @@ class TestAsyncConfig:
                     "temperature": 0,
                     "tools": {"foo": True},
                     "top_p": 0,
+                    "variant": "variant",
                 },
             },
             model="model",
-            permission={
-                "_original_keys": ["string"],
-                "bash": "ask",
-                "codesearch": "ask",
-                "doom_loop": "ask",
-                "edit": "ask",
-                "external_directory": "ask",
-                "glob": "ask",
-                "grep": "ask",
-                "list": "ask",
-                "lsp": "ask",
-                "question": "ask",
-                "read": "ask",
-                "task": "ask",
-                "todoread": "ask",
-                "todowrite": "ask",
-                "webfetch": "ask",
-                "websearch": "ask",
-            },
+            permission="ask",
             plugin=["string"],
             provider={
                 "foo": {
@@ -1285,6 +740,7 @@ class TestAsyncConfig:
                             "limit": {
                                 "context": 0,
                                 "output": 0,
+                                "input": 0,
                             },
                             "modalities": {
                                 "input": ["text"],
@@ -1292,7 +748,10 @@ class TestAsyncConfig:
                             },
                             "name": "name",
                             "options": {"foo": "bar"},
-                            "provider": {"npm": "npm"},
+                            "provider": {
+                                "api": "api",
+                                "npm": "npm",
+                            },
                             "reasoning": True,
                             "release_date": "release_date",
                             "status": "alpha",
@@ -1306,9 +765,10 @@ class TestAsyncConfig:
                     "options": {
                         "api_key": "apiKey",
                         "base_url": "baseURL",
+                        "chunk_timeout": 1,
                         "enterprise_url": "enterpriseUrl",
                         "set_cache_key": True,
-                        "timeout": 1,
+                        "timeout": False,
                     },
                     "whitelist": ["string"],
                 }
@@ -1317,24 +777,23 @@ class TestAsyncConfig:
                 "cors": ["string"],
                 "hostname": "hostname",
                 "mdns": True,
+                "mdns_domain": "mdnsDomain",
                 "port": 1,
             },
             share="manual",
+            skills={
+                "paths": ["string"],
+                "urls": ["string"],
+            },
             small_model="small_model",
             snapshot=True,
-            theme="theme",
             tools={"foo": True},
-            tui={
-                "diff_style": "auto",
-                "scroll_acceleration": {"enabled": True},
-                "scroll_speed": 0.001,
-            },
             username="username",
             watcher={"ignore": ["string"]},
         )
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_update(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.config.with_raw_response.update()
@@ -1344,7 +803,7 @@ class TestAsyncConfig:
         config = await response.parse()
         assert_matches_type(Config, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_update(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.config.with_streaming_response.update() as response:
@@ -1356,21 +815,22 @@ class TestAsyncConfig:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_providers(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.list_providers()
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_list_providers_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         config = await async_client.config.list_providers(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_list_providers(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.config.with_raw_response.list_providers()
@@ -1380,7 +840,7 @@ class TestAsyncConfig:
         config = await response.parse()
         assert_matches_type(ConfigListProvidersResponse, config, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_list_providers(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.config.with_streaming_response.list_providers() as response:

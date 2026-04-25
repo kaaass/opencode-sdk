@@ -8,8 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types.session import Session
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types.session import Session
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestShare:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create(self, client: OpencodeSDK) -> None:
         share = client.session.share.create(
@@ -25,16 +25,17 @@ class TestShare:
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         share = client.session.share.create(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_create(self, client: OpencodeSDK) -> None:
         response = client.session.share.with_raw_response.create(
@@ -46,7 +47,7 @@ class TestShare:
         share = response.parse()
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_create(self, client: OpencodeSDK) -> None:
         with client.session.share.with_streaming_response.create(
@@ -60,7 +61,7 @@ class TestShare:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_create(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -68,7 +69,7 @@ class TestShare:
                 session_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete(self, client: OpencodeSDK) -> None:
         share = client.session.share.delete(
@@ -76,16 +77,17 @@ class TestShare:
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_method_delete_with_all_params(self, client: OpencodeSDK) -> None:
         share = client.session.share.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_raw_response_delete(self, client: OpencodeSDK) -> None:
         response = client.session.share.with_raw_response.delete(
@@ -97,7 +99,7 @@ class TestShare:
         share = response.parse()
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_streaming_response_delete(self, client: OpencodeSDK) -> None:
         with client.session.share.with_streaming_response.delete(
@@ -111,7 +113,7 @@ class TestShare:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     def test_path_params_delete(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -125,7 +127,7 @@ class TestAsyncShare:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.create(
@@ -133,16 +135,17 @@ class TestAsyncShare:
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.create(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.share.with_raw_response.create(
@@ -154,7 +157,7 @@ class TestAsyncShare:
         share = await response.parse()
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_create(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.share.with_streaming_response.create(
@@ -168,7 +171,7 @@ class TestAsyncShare:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_create(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
@@ -176,7 +179,7 @@ class TestAsyncShare:
                 session_id="",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.delete(
@@ -184,16 +187,17 @@ class TestAsyncShare:
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         share = await async_client.session.share.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.share.with_raw_response.delete(
@@ -205,7 +209,7 @@ class TestAsyncShare:
         share = await response.parse()
         assert_matches_type(Session, share, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.share.with_streaming_response.delete(
@@ -219,7 +223,7 @@ class TestAsyncShare:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
     async def test_path_params_delete(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):

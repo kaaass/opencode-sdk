@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import pytest
 
-from opencode_sdk._utils import required_args
+from ai4pa_opencode_sdk._utils import required_args
 
 
 def test_too_many_positional_params() -> None:

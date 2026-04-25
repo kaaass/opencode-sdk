@@ -1,5 +1,55 @@
 # Changelog
 
+## 0.15.0 (2026-04-25)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/kaaass/opencode-sdk/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** bump to api 1.0.0 ([5045406](https://github.com/kaaass/opencode-sdk/commit/50454067cb05ec128e94e631f7cb3fd16c32daec))
+* **api:** manual updates ([ccade69](https://github.com/kaaass/opencode-sdk/commit/ccade69509a4098f39d4c67af0cbb38752da96b8))
+* **api:** manual updates ([7dd823b](https://github.com/kaaass/opencode-sdk/commit/7dd823b9eb5ab37c5c6e433ab3e1e443259f7ae9))
+* **api:** manual updates ([477d11a](https://github.com/kaaass/opencode-sdk/commit/477d11a46e108ed8ecefed6383aee8a45ed3578b))
+* **internal:** implement indices array format for query and form serialization ([bfdec21](https://github.com/kaaass/opencode-sdk/commit/bfdec2118979c5b885a13caf8565b2e708fa6ca3))
+
+
+### Bug Fixes
+
+* break circular import between shared.agent_config and global_.config ([6493d6a](https://github.com/kaaass/opencode-sdk/commit/6493d6ae8247f66574b464bd504a2b277d976828))
+* **client:** preserve hardcoded query params when merging with user params ([dd9e1f1](https://github.com/kaaass/opencode-sdk/commit/dd9e1f17355b2f41c8af665845f4e8209d490a81))
+* **deps:** bump minimum typing-extensions version ([f042cd3](https://github.com/kaaass/opencode-sdk/commit/f042cd35830012f90fa02ceeb6685d5d604b2151))
+* ensure file data are only sent as 1 parameter ([50393e7](https://github.com/kaaass/opencode-sdk/commit/50393e7ef3c03056ff6b8156632ec34be85aaa6c))
+* **examples:** migrate imports to renamed ai4pa_opencode_sdk package ([10c797c](https://github.com/kaaass/opencode-sdk/commit/10c797c5ea10fe4ee8225bad605170a7daeec0f9))
+* **pydantic:** do not pass `by_alias` unless set ([247d93c](https://github.com/kaaass/opencode-sdk/commit/247d93c89876ff34864fef1b75579396fa85ebba))
+* resolve lint errors blocking import and type checks ([712795e](https://github.com/kaaass/opencode-sdk/commit/712795eca71c739fd44a2ce9199e5393e4dd827a))
+* sanitize endpoint path params ([085a631](https://github.com/kaaass/opencode-sdk/commit/085a6316713e19ab7c809e9ce59e94264faa694b))
+
+
+### Chores
+
+* **ci:** skip lint on metadata-only changes ([62c3321](https://github.com/kaaass/opencode-sdk/commit/62c33213773362644326abd6f5f5ea2a006fad4c))
+* **ci:** skip uploading artifacts on stainless-internal branches ([c7bd25c](https://github.com/kaaass/opencode-sdk/commit/c7bd25c1090378c3a153e2f8c438a92bf46e7aa8))
+* **internal:** add request options to SSE classes ([f2112ca](https://github.com/kaaass/opencode-sdk/commit/f2112cae8151f290c8b9713bcd88850216fe47c9))
+* **internal:** make `test_proxy_environment_variables` more resilient ([f2ab602](https://github.com/kaaass/opencode-sdk/commit/f2ab60212008d2217eb1251ac04d903d216f6dd6))
+* **internal:** make `test_proxy_environment_variables` more resilient to env ([6afec94](https://github.com/kaaass/opencode-sdk/commit/6afec948814d0515e8ec4d409246001c5a62c63e))
+* **internal:** remove mock server code ([2292d6a](https://github.com/kaaass/opencode-sdk/commit/2292d6a0ee39b5269ace95e035fa5e717484cf98))
+* **internal:** tweak CI branches ([3fd5481](https://github.com/kaaass/opencode-sdk/commit/3fd5481f72f4bb6eae956e7a3c639d8d9bf2fd24))
+* **internal:** update gitignore ([f763b1b](https://github.com/kaaass/opencode-sdk/commit/f763b1ba38caf7ac05e479a448277dadc6440af2))
+* **test:** update skip reason message ([1fc3871](https://github.com/kaaass/opencode-sdk/commit/1fc38715a9bedf39f8c90b44cf7103133a961d65))
+* update mock server docs ([c6b9085](https://github.com/kaaass/opencode-sdk/commit/c6b9085245980e8679b2ef301be895d33c00fc12))
+* update placeholder string ([7663692](https://github.com/kaaass/opencode-sdk/commit/766369290eca47050773790b81046fbab4aa1ce9))
+* update SDK settings ([77a3f6e](https://github.com/kaaass/opencode-sdk/commit/77a3f6e8a3a31ef6806d5311f9683d1db29ee321))
+
+
+### Documentation
+
+* improve examples ([45428ca](https://github.com/kaaass/opencode-sdk/commit/45428ca07f73c5666e9958e035d5c52bff4bb7bc))
+
+
+### Refactors
+
+* **types:** use `extra_items` from PEP 728 ([65eb397](https://github.com/kaaass/opencode-sdk/commit/65eb3974b33b12d192eadebaa6f0c7e6b97828bd))
+
 ## 0.14.0 (2026-02-13)
 
 Full Changelog: [v0.13.0...v0.14.0](https://github.com/kaaass/opencode-sdk/compare/v0.13.0...v0.14.0)

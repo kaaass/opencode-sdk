@@ -61,6 +61,6 @@
   ],
   "release-type": "python",
   "extra-files": [
-    "src/opencode_sdk/_version.py"
+    "src/ai4pa_opencode_sdk/_version.py"
   ]
 }

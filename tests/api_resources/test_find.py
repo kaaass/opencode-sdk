@@ -8,11 +8,11 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
-    FindRetrieveResponse,
-    FindRetrieveFileResponse,
-    FindRetrieveSymbolResponse,
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
+    FindSearchResponse,
+    FindSearchFilesResponse,
+    FindSearchSymbolsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -21,135 +21,138 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestFind:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve(
+    def test_method_search(self, client: OpencodeSDK) -> None:
+        find = client.find.search(
             pattern="pattern",
         )
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve(
+    def test_method_search_with_all_params(self, client: OpencodeSDK) -> None:
+        find = client.find.search(
             pattern="pattern",
             directory="directory",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
-        response = client.find.with_raw_response.retrieve(
+    def test_raw_response_search(self, client: OpencodeSDK) -> None:
+        response = client.find.with_raw_response.search(
             pattern="pattern",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = response.parse()
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
-        with client.find.with_streaming_response.retrieve(
+    def test_streaming_response_search(self, client: OpencodeSDK) -> None:
+        with client.find.with_streaming_response.search(
             pattern="pattern",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = response.parse()
-            assert_matches_type(FindRetrieveResponse, find, path=["response"])
+            assert_matches_type(FindSearchResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_file(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve_file(
+    def test_method_search_files(self, client: OpencodeSDK) -> None:
+        find = client.find.search_files(
             query="query",
         )
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_file_with_all_params(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve_file(
+    def test_method_search_files_with_all_params(self, client: OpencodeSDK) -> None:
+        find = client.find.search_files(
             query="query",
             directory="directory",
             dirs="true",
             limit=1,
             type="file",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve_file(self, client: OpencodeSDK) -> None:
-        response = client.find.with_raw_response.retrieve_file(
+    def test_raw_response_search_files(self, client: OpencodeSDK) -> None:
+        response = client.find.with_raw_response.search_files(
             query="query",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = response.parse()
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve_file(self, client: OpencodeSDK) -> None:
-        with client.find.with_streaming_response.retrieve_file(
+    def test_streaming_response_search_files(self, client: OpencodeSDK) -> None:
+        with client.find.with_streaming_response.search_files(
             query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = response.parse()
-            assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+            assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_symbol(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve_symbol(
+    def test_method_search_symbols(self, client: OpencodeSDK) -> None:
+        find = client.find.search_symbols(
             query="query",
         )
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_retrieve_symbol_with_all_params(self, client: OpencodeSDK) -> None:
-        find = client.find.retrieve_symbol(
+    def test_method_search_symbols_with_all_params(self, client: OpencodeSDK) -> None:
+        find = client.find.search_symbols(
             query="query",
             directory="directory",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_retrieve_symbol(self, client: OpencodeSDK) -> None:
-        response = client.find.with_raw_response.retrieve_symbol(
+    def test_raw_response_search_symbols(self, client: OpencodeSDK) -> None:
+        response = client.find.with_raw_response.search_symbols(
             query="query",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = response.parse()
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_retrieve_symbol(self, client: OpencodeSDK) -> None:
-        with client.find.with_streaming_response.retrieve_symbol(
+    def test_streaming_response_search_symbols(self, client: OpencodeSDK) -> None:
+        with client.find.with_streaming_response.search_symbols(
             query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = response.parse()
-            assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+            assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -159,134 +162,137 @@ class TestAsyncFind:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve(
+    async def test_method_search(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search(
             pattern="pattern",
         )
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve(
+    async def test_method_search_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search(
             pattern="pattern",
             directory="directory",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.find.with_raw_response.retrieve(
+    async def test_raw_response_search(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.find.with_raw_response.search(
             pattern="pattern",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = await response.parse()
-        assert_matches_type(FindRetrieveResponse, find, path=["response"])
+        assert_matches_type(FindSearchResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.find.with_streaming_response.retrieve(
+    async def test_streaming_response_search(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.find.with_streaming_response.search(
             pattern="pattern",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = await response.parse()
-            assert_matches_type(FindRetrieveResponse, find, path=["response"])
+            assert_matches_type(FindSearchResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve_file(
+    async def test_method_search_files(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search_files(
             query="query",
         )
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_file_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve_file(
+    async def test_method_search_files_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search_files(
             query="query",
             directory="directory",
             dirs="true",
             limit=1,
             type="file",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.find.with_raw_response.retrieve_file(
+    async def test_raw_response_search_files(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.find.with_raw_response.search_files(
             query="query",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = await response.parse()
-        assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+        assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve_file(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.find.with_streaming_response.retrieve_file(
+    async def test_streaming_response_search_files(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.find.with_streaming_response.search_files(
             query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = await response.parse()
-            assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
+            assert_matches_type(FindSearchFilesResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve_symbol(
+    async def test_method_search_symbols(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search_symbols(
             query="query",
         )
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_retrieve_symbol_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        find = await async_client.find.retrieve_symbol(
+    async def test_method_search_symbols_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        find = await async_client.find.search_symbols(
             query="query",
             directory="directory",
+            workspace="workspace",
         )
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.find.with_raw_response.retrieve_symbol(
+    async def test_raw_response_search_symbols(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.find.with_raw_response.search_symbols(
             query="query",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         find = await response.parse()
-        assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+        assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_retrieve_symbol(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.find.with_streaming_response.retrieve_symbol(
+    async def test_streaming_response_search_symbols(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.find.with_streaming_response.search_symbols(
             query="query",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             find = await response.parse()
-            assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
+            assert_matches_type(FindSearchSymbolsResponse, find, path=["response"])
 
         assert cast(Any, response.is_closed) is True
