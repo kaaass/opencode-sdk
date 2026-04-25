@@ -2,24 +2,12 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
-from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
+from typing import Union
+from typing_extensions import TypeAlias
 
-from ..._utils import PropertyInfo
+from .output_format_text_param import OutputFormatTextParam
+from .output_format_json_schema_param import OutputFormatJsonSchemaParam
 
-__all__ = ["OutputFormatParam", "OutputFormatText", "OutputFormatJsonSchema"]
+__all__ = ["OutputFormatParam"]
 
-
-class OutputFormatText(TypedDict, total=False):
-    type: Required[Literal["text"]]
-
-
-class OutputFormatJsonSchema(TypedDict, total=False):
-    schema: Required[Dict[str, object]]
-
-    type: Required[Literal["json_schema"]]
-
-    retry_count: Annotated[int, PropertyInfo(alias="retryCount")]
-
-
-OutputFormatParam: TypeAlias = Union[OutputFormatText, OutputFormatJsonSchema]
+OutputFormatParam: TypeAlias = Union[OutputFormatTextParam, OutputFormatJsonSchemaParam]

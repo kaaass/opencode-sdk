@@ -6,6 +6,14 @@ from .pty import Pty as Pty
 from .todo import Todo as Todo
 from .agent import Agent as Agent
 from .range import Range as Range
+from .shared import (
+    AgentConfig as AgentConfig,
+    ServerConfig as ServerConfig,
+    McpLocalConfig as McpLocalConfig,
+    McpOAuthConfig as McpOAuthConfig,
+    ProviderConfig as ProviderConfig,
+    McpRemoteConfig as McpRemoteConfig,
+)
 from .project import Project as Project
 from .session import Session as Session
 from .artifact import Artifact as Artifact

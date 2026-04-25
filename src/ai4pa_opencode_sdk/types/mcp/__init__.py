@@ -3,9 +3,14 @@
 from __future__ import annotations
 
 from .mcp_status import McpStatus as McpStatus
+from .mcp_status_failed import McpStatusFailed as McpStatusFailed
+from .mcp_status_disabled import McpStatusDisabled as McpStatusDisabled
+from .mcp_status_connected import McpStatusConnected as McpStatusConnected
+from .mcp_status_needs_auth import McpStatusNeedsAuth as McpStatusNeedsAuth
 from .auth_start_oauth_params import AuthStartOAuthParams as AuthStartOAuthParams
 from .auth_remove_oauth_params import AuthRemoveOAuthParams as AuthRemoveOAuthParams
 from .auth_start_oauth_response import AuthStartOAuthResponse as AuthStartOAuthResponse
 from .auth_complete_oauth_params import AuthCompleteOAuthParams as AuthCompleteOAuthParams
 from .auth_remove_oauth_response import AuthRemoveOAuthResponse as AuthRemoveOAuthResponse
 from .auth_authenticate_oauth_params import AuthAuthenticateOAuthParams as AuthAuthenticateOAuthParams
+from .mcp_status_needs_client_registration import McpStatusNeedsClientRegistration as McpStatusNeedsClientRegistration
