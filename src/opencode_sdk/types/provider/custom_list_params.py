@@ -9,3 +9,5 @@ __all__ = ["CustomListParams"]
 
 class CustomListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

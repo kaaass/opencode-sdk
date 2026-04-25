@@ -16,6 +16,10 @@ class SessionRunShellCommandParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
+    message_id: Annotated[str, PropertyInfo(alias="messageID")]
+
     model: Model
 
 

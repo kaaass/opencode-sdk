@@ -50,6 +50,7 @@ class FindResource(SyncAPIResource):
         *,
         pattern: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -80,6 +81,7 @@ class FindResource(SyncAPIResource):
                     {
                         "pattern": pattern,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     find_retrieve_params.FindRetrieveParams,
                 ),
@@ -95,6 +97,7 @@ class FindResource(SyncAPIResource):
         dirs: Literal["true", "false"] | Omit = omit,
         limit: int | Omit = omit,
         type: Literal["file", "directory"] | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -128,6 +131,7 @@ class FindResource(SyncAPIResource):
                         "dirs": dirs,
                         "limit": limit,
                         "type": type,
+                        "workspace": workspace,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),
@@ -140,6 +144,7 @@ class FindResource(SyncAPIResource):
         *,
         query: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,6 +175,7 @@ class FindResource(SyncAPIResource):
                     {
                         "query": query,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     find_retrieve_symbol_params.FindRetrieveSymbolParams,
                 ),
@@ -203,6 +209,7 @@ class AsyncFindResource(AsyncAPIResource):
         *,
         pattern: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -233,6 +240,7 @@ class AsyncFindResource(AsyncAPIResource):
                     {
                         "pattern": pattern,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     find_retrieve_params.FindRetrieveParams,
                 ),
@@ -248,6 +256,7 @@ class AsyncFindResource(AsyncAPIResource):
         dirs: Literal["true", "false"] | Omit = omit,
         limit: int | Omit = omit,
         type: Literal["file", "directory"] | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -281,6 +290,7 @@ class AsyncFindResource(AsyncAPIResource):
                         "dirs": dirs,
                         "limit": limit,
                         "type": type,
+                        "workspace": workspace,
                     },
                     find_retrieve_file_params.FindRetrieveFileParams,
                 ),
@@ -293,6 +303,7 @@ class AsyncFindResource(AsyncAPIResource):
         *,
         query: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -323,6 +334,7 @@ class AsyncFindResource(AsyncAPIResource):
                     {
                         "query": query,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     find_retrieve_symbol_params.FindRetrieveSymbolParams,
                 ),

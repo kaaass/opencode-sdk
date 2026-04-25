@@ -9,3 +9,5 @@ __all__ = ["McpConnectParams"]
 
 class McpConnectParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

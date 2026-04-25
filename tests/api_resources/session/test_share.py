@@ -31,6 +31,7 @@ class TestShare:
         share = client.session.share.create(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -82,6 +83,7 @@ class TestShare:
         share = client.session.share.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -139,6 +141,7 @@ class TestAsyncShare:
         share = await async_client.session.share.create(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 
@@ -190,6 +193,7 @@ class TestAsyncShare:
         share = await async_client.session.share.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, share, path=["response"])
 

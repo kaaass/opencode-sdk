@@ -5,10 +5,10 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
-__all__ = ["SessionGetDiffResponse", "SessionGetDiffResponseItem"]
+__all__ = ["VcRetrieveDiffResponse", "VcRetrieveDiffResponseItem"]
 
 
-class SessionGetDiffResponseItem(BaseModel):
+class VcRetrieveDiffResponseItem(BaseModel):
     additions: float
 
     deletions: float
@@ -20,4 +20,4 @@ class SessionGetDiffResponseItem(BaseModel):
     status: Optional[Literal["added", "deleted", "modified"]] = None
 
 
-SessionGetDiffResponse: TypeAlias = List[SessionGetDiffResponseItem]
+VcRetrieveDiffResponse: TypeAlias = List[VcRetrieveDiffResponseItem]

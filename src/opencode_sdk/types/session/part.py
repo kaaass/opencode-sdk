@@ -12,7 +12,8 @@ __all__ = [
     "Part",
     "TextPart",
     "TextPartTime",
-    "UnionMember1",
+    "SubtaskPart",
+    "SubtaskPartModel",
     "ReasoningPart",
     "ReasoningPartTime",
     "ToolPart",
@@ -66,7 +67,13 @@ class TextPart(BaseModel):
     time: Optional[TextPartTime] = None
 
 
-class UnionMember1(BaseModel):
+class SubtaskPartModel(BaseModel):
+    api_model_id: str = FieldInfo(alias="modelID")
+
+    provider_id: str = FieldInfo(alias="providerID")
+
+
+class SubtaskPart(BaseModel):
     id: str
 
     agent: str
@@ -82,6 +89,8 @@ class UnionMember1(BaseModel):
     type: Literal["subtask"]
 
     command: Optional[str] = None
+
+    model: Optional[SubtaskPartModel] = None
 
 
 class ReasoningPartTime(BaseModel):
@@ -225,6 +234,8 @@ class StepFinishPartTokens(BaseModel):
 
     reasoning: float
 
+    total: Optional[float] = None
+
 
 class StepFinishPart(BaseModel):
     id: str
@@ -343,10 +354,12 @@ class CompactionPart(BaseModel):
 
     type: Literal["compaction"]
 
+    overflow: Optional[bool] = None
+
 
 Part: TypeAlias = Union[
     TextPart,
-    UnionMember1,
+    SubtaskPart,
     ReasoningPart,
     FilePart,
     ToolPart,

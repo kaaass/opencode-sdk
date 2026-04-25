@@ -31,6 +31,7 @@ class TestWorktree:
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.create(
             directory="directory",
+            workspace="workspace",
             name="name",
             start_command="startCommand",
         )
@@ -69,6 +70,7 @@ class TestWorktree:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         worktree = client.experimental.worktree.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 
@@ -111,6 +113,7 @@ class TestAsyncWorktree:
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.create(
             directory="directory",
+            workspace="workspace",
             name="name",
             start_command="startCommand",
         )
@@ -149,6 +152,7 @@ class TestAsyncWorktree:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         worktree = await async_client.experimental.worktree.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(WorktreeListResponse, worktree, path=["response"])
 

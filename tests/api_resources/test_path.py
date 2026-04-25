@@ -28,6 +28,7 @@ class TestPath:
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         path = client.path.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PathRetrieveResponse, path, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncPath:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         path = await async_client.path.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PathRetrieveResponse, path, path=["response"])
 

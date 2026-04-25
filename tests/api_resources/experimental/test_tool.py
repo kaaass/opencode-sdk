@@ -31,6 +31,7 @@ class TestTool:
     def test_method_list_ids_with_all_params(self, client: OpencodeSDK) -> None:
         tool = client.experimental.tool.list_ids(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ToolListIDsResponse, tool, path=["response"])
 
@@ -72,6 +73,7 @@ class TestTool:
             model="model",
             provider="provider",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ToolListToolsResponse, tool, path=["response"])
 
@@ -120,6 +122,7 @@ class TestAsyncTool:
     async def test_method_list_ids_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tool = await async_client.experimental.tool.list_ids(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ToolListIDsResponse, tool, path=["response"])
 
@@ -161,6 +164,7 @@ class TestAsyncTool:
             model="model",
             provider="provider",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ToolListToolsResponse, tool, path=["response"])
 

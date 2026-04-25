@@ -35,6 +35,7 @@ class TestFind:
         find = client.find.retrieve(
             pattern="pattern",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
@@ -81,6 +82,7 @@ class TestFind:
             dirs="true",
             limit=1,
             type="file",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
@@ -124,6 +126,7 @@ class TestFind:
         find = client.find.retrieve_symbol(
             query="query",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 
@@ -173,6 +176,7 @@ class TestAsyncFind:
         find = await async_client.find.retrieve(
             pattern="pattern",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveResponse, find, path=["response"])
 
@@ -219,6 +223,7 @@ class TestAsyncFind:
             dirs="true",
             limit=1,
             type="file",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveFileResponse, find, path=["response"])
 
@@ -262,6 +267,7 @@ class TestAsyncFind:
         find = await async_client.find.retrieve_symbol(
             query="query",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FindRetrieveSymbolResponse, find, path=["response"])
 

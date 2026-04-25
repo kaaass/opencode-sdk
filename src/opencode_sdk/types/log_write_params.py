@@ -20,5 +20,7 @@ class LogWriteParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     extra: Dict[str, object]
     """Additional metadata for the log entry"""

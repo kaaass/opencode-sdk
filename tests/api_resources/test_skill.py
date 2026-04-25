@@ -28,6 +28,7 @@ class TestSkill:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         skill = client.skill.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SkillListResponse, skill, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncSkill:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         skill = await async_client.skill.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SkillListResponse, skill, path=["response"])
 

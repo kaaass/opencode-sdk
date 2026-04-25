@@ -9,3 +9,5 @@ __all__ = ["AuthRemoveParams"]
 
 class AuthRemoveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

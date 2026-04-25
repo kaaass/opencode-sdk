@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+from typing_extensions import Literal
+
 import httpx
 
-from ..types import vc_retrieve_params
+from ..types import vc_retrieve_params, vc_retrieve_diff_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -17,6 +19,7 @@ from .._response import (
 )
 from .._base_client import make_request_options
 from ..types.vc_retrieve_response import VcRetrieveResponse
+from ..types.vc_retrieve_diff_response import VcRetrieveDiffResponse
 
 __all__ = ["VcsResource", "AsyncVcsResource"]
 
@@ -45,6 +48,7 @@ class VcsResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -72,9 +76,60 @@ class VcsResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, vc_retrieve_params.VcRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    vc_retrieve_params.VcRetrieveParams,
+                ),
             ),
             cast_to=VcRetrieveResponse,
+        )
+
+    def retrieve_diff(
+        self,
+        *,
+        mode: Literal["git", "branch"],
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VcRetrieveDiffResponse:
+        """
+        Retrieve the current git diff for the working tree or against the default
+        branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/vcs/diff",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "mode": mode,
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    vc_retrieve_diff_params.VcRetrieveDiffParams,
+                ),
+            ),
+            cast_to=VcRetrieveDiffResponse,
         )
 
 
@@ -102,6 +157,7 @@ class AsyncVcsResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,9 +185,60 @@ class AsyncVcsResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, vc_retrieve_params.VcRetrieveParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    vc_retrieve_params.VcRetrieveParams,
+                ),
             ),
             cast_to=VcRetrieveResponse,
+        )
+
+    async def retrieve_diff(
+        self,
+        *,
+        mode: Literal["git", "branch"],
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> VcRetrieveDiffResponse:
+        """
+        Retrieve the current git diff for the working tree or against the default
+        branch.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/vcs/diff",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "mode": mode,
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    vc_retrieve_diff_params.VcRetrieveDiffParams,
+                ),
+            ),
+            cast_to=VcRetrieveDiffResponse,
         )
 
 
@@ -142,6 +249,9 @@ class VcsResourceWithRawResponse:
         self.retrieve = to_raw_response_wrapper(
             vcs.retrieve,
         )
+        self.retrieve_diff = to_raw_response_wrapper(
+            vcs.retrieve_diff,
+        )
 
 
 class AsyncVcsResourceWithRawResponse:
@@ -150,6 +260,9 @@ class AsyncVcsResourceWithRawResponse:
 
         self.retrieve = async_to_raw_response_wrapper(
             vcs.retrieve,
+        )
+        self.retrieve_diff = async_to_raw_response_wrapper(
+            vcs.retrieve_diff,
         )
 
 
@@ -160,6 +273,9 @@ class VcsResourceWithStreamingResponse:
         self.retrieve = to_streamed_response_wrapper(
             vcs.retrieve,
         )
+        self.retrieve_diff = to_streamed_response_wrapper(
+            vcs.retrieve_diff,
+        )
 
 
 class AsyncVcsResourceWithStreamingResponse:
@@ -168,4 +284,7 @@ class AsyncVcsResourceWithStreamingResponse:
 
         self.retrieve = async_to_streamed_response_wrapper(
             vcs.retrieve,
+        )
+        self.retrieve_diff = async_to_streamed_response_wrapper(
+            vcs.retrieve_diff,
         )

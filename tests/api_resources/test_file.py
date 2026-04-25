@@ -35,6 +35,7 @@ class TestFile:
         file = client.file.list(
             path="path",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
@@ -75,6 +76,7 @@ class TestFile:
     def test_method_get_status_with_all_params(self, client: OpencodeSDK) -> None:
         file = client.file.get_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileGetStatusResponse, file, path=["response"])
 
@@ -114,6 +116,7 @@ class TestFile:
         file = client.file.read(
             path="path",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileReadResponse, file, path=["response"])
 
@@ -163,6 +166,7 @@ class TestAsyncFile:
         file = await async_client.file.list(
             path="path",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileListResponse, file, path=["response"])
 
@@ -203,6 +207,7 @@ class TestAsyncFile:
     async def test_method_get_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         file = await async_client.file.get_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileGetStatusResponse, file, path=["response"])
 
@@ -242,6 +247,7 @@ class TestAsyncFile:
         file = await async_client.file.read(
             path="path",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FileReadResponse, file, path=["response"])
 

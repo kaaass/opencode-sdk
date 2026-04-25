@@ -25,31 +25,37 @@ __all__ = [
     "EventProjectUpdated",
     "EventServerInstanceDisposed",
     "EventServerInstanceDisposedProperties",
+    "EventServerConnected",
+    "EventServerConnectedProperties",
+    "EventServerConnectedPropertiesVersion",
+    "EventServerConnectedPropertiesVersionUpstream",
+    "EventGlobalDisposed",
+    "EventFileEdited",
+    "EventFileEditedProperties",
+    "EventFileWatcherUpdated",
+    "EventFileWatcherUpdatedProperties",
     "EventLspClientDiagnostics",
     "EventLspClientDiagnosticsProperties",
     "EventLspUpdated",
-    "EventMessageUpdated",
-    "EventMessageUpdatedProperties",
-    "EventMessageRemoved",
-    "EventMessageRemovedProperties",
-    "EventMessagePartUpdated",
-    "EventMessagePartUpdatedProperties",
-    "EventMessagePartRemoved",
-    "EventMessagePartRemovedProperties",
+    "EventMessagePartDelta",
+    "EventMessagePartDeltaProperties",
     "EventPermissionAsked",
     "EventPermissionAskedProperties",
     "EventPermissionAskedPropertiesTool",
     "EventPermissionReplied",
     "EventPermissionRepliedProperties",
-    "EventSessionStatus",
-    "EventSessionStatusProperties",
-    "EventSessionStatusPropertiesStatus",
-    "EventSessionStatusPropertiesStatusType",
-    "EventSessionStatusPropertiesStatusUnionMember1",
-    "EventSessionStatusPropertiesStatusUnionMember3",
-    "EventSessionStatusPropertiesStatusUnionMember3PendingCall",
-    "EventSessionIdle",
-    "EventSessionIdleProperties",
+    "EventSessionDiff",
+    "EventSessionDiffProperties",
+    "EventSessionDiffPropertiesDiff",
+    "EventSessionError",
+    "EventSessionErrorProperties",
+    "EventSessionErrorPropertiesError",
+    "EventSessionErrorPropertiesErrorStructuredOutputError",
+    "EventSessionErrorPropertiesErrorStructuredOutputErrorData",
+    "EventSessionErrorPropertiesErrorContextOverflowError",
+    "EventSessionErrorPropertiesErrorContextOverflowErrorData",
+    "EventSessionErrorPropertiesErrorAPIError",
+    "EventSessionErrorPropertiesErrorAPIErrorData",
     "EventQuestionAsked",
     "EventQuestionAskedProperties",
     "EventQuestionAskedPropertiesQuestion",
@@ -59,12 +65,19 @@ __all__ = [
     "EventQuestionRepliedProperties",
     "EventQuestionRejected",
     "EventQuestionRejectedProperties",
-    "EventSessionCompacted",
-    "EventSessionCompactedProperties",
-    "EventFileEdited",
-    "EventFileEditedProperties",
     "EventTodoUpdated",
     "EventTodoUpdatedProperties",
+    "EventSessionStatus",
+    "EventSessionStatusProperties",
+    "EventSessionStatusPropertiesStatus",
+    "EventSessionStatusPropertiesStatusType",
+    "EventSessionStatusPropertiesStatusUnionMember1",
+    "EventSessionStatusPropertiesStatusUnionMember3",
+    "EventSessionStatusPropertiesStatusUnionMember3PendingCall",
+    "EventSessionIdle",
+    "EventSessionIdleProperties",
+    "EventSessionCompacted",
+    "EventSessionCompactedProperties",
     "EventArtifactCreated",
     "EventArtifactCreatedProperties",
     "EventArtifactCreatedPropertiesInfo",
@@ -81,26 +94,16 @@ __all__ = [
     "EventTuiSessionSelectProperties",
     "EventMcpToolsChanged",
     "EventMcpToolsChangedProperties",
+    "EventMcpBrowserOpenFailed",
+    "EventMcpBrowserOpenFailedProperties",
     "EventCommandExecuted",
     "EventCommandExecutedProperties",
-    "EventSessionCreated",
-    "EventSessionCreatedProperties",
-    "EventSessionUpdated",
-    "EventSessionUpdatedProperties",
-    "EventSessionDeleted",
-    "EventSessionDeletedProperties",
-    "EventSessionDiff",
-    "EventSessionDiffProperties",
-    "EventSessionDiffPropertiesDiff",
-    "EventSessionError",
-    "EventSessionErrorProperties",
-    "EventSessionErrorPropertiesError",
-    "EventSessionErrorPropertiesErrorAPIError",
-    "EventSessionErrorPropertiesErrorAPIErrorData",
-    "EventFileWatcherUpdated",
-    "EventFileWatcherUpdatedProperties",
     "EventVcsBranchUpdated",
     "EventVcsBranchUpdatedProperties",
+    "EventWorktreeReady",
+    "EventWorktreeReadyProperties",
+    "EventWorktreeFailed",
+    "EventWorktreeFailedProperties",
     "EventPtyCreated",
     "EventPtyCreatedProperties",
     "EventPtyCreatedPropertiesInfo",
@@ -111,11 +114,26 @@ __all__ = [
     "EventPtyExitedProperties",
     "EventPtyDeleted",
     "EventPtyDeletedProperties",
-    "EventServerConnected",
-    "EventServerConnectedProperties",
-    "EventServerConnectedPropertiesVersion",
-    "EventServerConnectedPropertiesVersionUpstream",
-    "EventGlobalDisposed",
+    "EventWorkspaceReady",
+    "EventWorkspaceReadyProperties",
+    "EventWorkspaceFailed",
+    "EventWorkspaceFailedProperties",
+    "EventWorkspaceStatus",
+    "EventWorkspaceStatusProperties",
+    "EventMessageUpdated",
+    "EventMessageUpdatedProperties",
+    "EventMessageRemoved",
+    "EventMessageRemovedProperties",
+    "EventMessagePartUpdated",
+    "EventMessagePartUpdatedProperties",
+    "EventMessagePartRemoved",
+    "EventMessagePartRemovedProperties",
+    "EventSessionCreated",
+    "EventSessionCreatedProperties",
+    "EventSessionUpdated",
+    "EventSessionUpdatedProperties",
+    "EventSessionDeleted",
+    "EventSessionDeletedProperties",
 ]
 
 
@@ -155,6 +173,60 @@ class EventServerInstanceDisposed(BaseModel):
     type: Literal["server.instance.disposed"]
 
 
+class EventServerConnectedPropertiesVersionUpstream(BaseModel):
+    commit: str
+
+    version: str
+
+
+class EventServerConnectedPropertiesVersion(BaseModel):
+    api: str
+
+    channel: str
+
+    upstream: EventServerConnectedPropertiesVersionUpstream
+
+    version: str
+
+
+class EventServerConnectedProperties(BaseModel):
+    version: EventServerConnectedPropertiesVersion
+
+
+class EventServerConnected(BaseModel):
+    properties: EventServerConnectedProperties
+
+    type: Literal["server.connected"]
+
+
+class EventGlobalDisposed(BaseModel):
+    properties: object
+
+    type: Literal["global.disposed"]
+
+
+class EventFileEditedProperties(BaseModel):
+    file: str
+
+
+class EventFileEdited(BaseModel):
+    properties: EventFileEditedProperties
+
+    type: Literal["file.edited"]
+
+
+class EventFileWatcherUpdatedProperties(BaseModel):
+    event: Literal["add", "change", "unlink"]
+
+    file: str
+
+
+class EventFileWatcherUpdated(BaseModel):
+    properties: EventFileWatcherUpdatedProperties
+
+    type: Literal["file.watcher.updated"]
+
+
 class EventLspClientDiagnosticsProperties(BaseModel):
     path: str
 
@@ -173,41 +245,11 @@ class EventLspUpdated(BaseModel):
     type: Literal["lsp.updated"]
 
 
-class EventMessageUpdatedProperties(BaseModel):
-    info: Message
+class EventMessagePartDeltaProperties(BaseModel):
+    delta: str
 
+    field: str
 
-class EventMessageUpdated(BaseModel):
-    properties: EventMessageUpdatedProperties
-
-    type: Literal["message.updated"]
-
-
-class EventMessageRemovedProperties(BaseModel):
-    message_id: str = FieldInfo(alias="messageID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class EventMessageRemoved(BaseModel):
-    properties: EventMessageRemovedProperties
-
-    type: Literal["message.removed"]
-
-
-class EventMessagePartUpdatedProperties(BaseModel):
-    part: Part
-
-    delta: Optional[str] = None
-
-
-class EventMessagePartUpdated(BaseModel):
-    properties: EventMessagePartUpdatedProperties
-
-    type: Literal["message.part.updated"]
-
-
-class EventMessagePartRemovedProperties(BaseModel):
     message_id: str = FieldInfo(alias="messageID")
 
     part_id: str = FieldInfo(alias="partID")
@@ -215,10 +257,10 @@ class EventMessagePartRemovedProperties(BaseModel):
     session_id: str = FieldInfo(alias="sessionID")
 
 
-class EventMessagePartRemoved(BaseModel):
-    properties: EventMessagePartRemovedProperties
+class EventMessagePartDelta(BaseModel):
+    properties: EventMessagePartDeltaProperties
 
-    type: Literal["message.part.removed"]
+    type: Literal["message.part.delta"]
 
 
 class EventPermissionAskedPropertiesTool(BaseModel):
@@ -263,62 +305,95 @@ class EventPermissionReplied(BaseModel):
     type: Literal["permission.replied"]
 
 
-class EventSessionStatusPropertiesStatusType(BaseModel):
-    type: Literal["idle"]
+class EventSessionDiffPropertiesDiff(BaseModel):
+    additions: float
+
+    deletions: float
+
+    file: str
+
+    patch: str
+
+    status: Optional[Literal["added", "deleted", "modified"]] = None
 
 
-class EventSessionStatusPropertiesStatusUnionMember1(BaseModel):
-    attempt: float
+class EventSessionDiffProperties(BaseModel):
+    diff: List[EventSessionDiffPropertiesDiff]
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionDiff(BaseModel):
+    properties: EventSessionDiffProperties
+
+    type: Literal["session.diff"]
+
+
+class EventSessionErrorPropertiesErrorStructuredOutputErrorData(BaseModel):
+    message: str
+
+    retries: float
+
+
+class EventSessionErrorPropertiesErrorStructuredOutputError(BaseModel):
+    data: EventSessionErrorPropertiesErrorStructuredOutputErrorData
+
+    name: Literal["StructuredOutputError"]
+
+
+class EventSessionErrorPropertiesErrorContextOverflowErrorData(BaseModel):
+    message: str
+
+    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
+
+
+class EventSessionErrorPropertiesErrorContextOverflowError(BaseModel):
+    data: EventSessionErrorPropertiesErrorContextOverflowErrorData
+
+    name: Literal["ContextOverflowError"]
+
+
+class EventSessionErrorPropertiesErrorAPIErrorData(BaseModel):
+    is_retryable: bool = FieldInfo(alias="isRetryable")
 
     message: str
 
-    next: float
+    metadata: Optional[Dict[str, str]] = None
 
-    type: Literal["retry"]
+    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
 
+    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
 
-class EventSessionStatusPropertiesStatusUnionMember3PendingCall(BaseModel):
-    call_id: str = FieldInfo(alias="callID")
-
-    input: Dict[str, object]
-
-    tool: str
+    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
 
 
-class EventSessionStatusPropertiesStatusUnionMember3(BaseModel):
-    pending_calls: List[EventSessionStatusPropertiesStatusUnionMember3PendingCall] = FieldInfo(alias="pendingCalls")
+class EventSessionErrorPropertiesErrorAPIError(BaseModel):
+    data: EventSessionErrorPropertiesErrorAPIErrorData
 
-    type: Literal["wait-tool-result"]
+    name: Literal["APIError"]
 
 
-EventSessionStatusPropertiesStatus: TypeAlias = Union[
-    EventSessionStatusPropertiesStatusType,
-    EventSessionStatusPropertiesStatusUnionMember1,
-    EventSessionStatusPropertiesStatusType,
-    EventSessionStatusPropertiesStatusUnionMember3,
+EventSessionErrorPropertiesError: TypeAlias = Union[
+    ProviderAuthError,
+    UnknownError,
+    MessageOutputLengthError,
+    MessageAbortedError,
+    EventSessionErrorPropertiesErrorStructuredOutputError,
+    EventSessionErrorPropertiesErrorContextOverflowError,
+    EventSessionErrorPropertiesErrorAPIError,
 ]
 
 
-class EventSessionStatusProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
+class EventSessionErrorProperties(BaseModel):
+    error: Optional[EventSessionErrorPropertiesError] = None
 
-    status: EventSessionStatusPropertiesStatus
-
-
-class EventSessionStatus(BaseModel):
-    properties: EventSessionStatusProperties
-
-    type: Literal["session.status"]
+    session_id: Optional[str] = FieldInfo(alias="sessionID", default=None)
 
 
-class EventSessionIdleProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
+class EventSessionError(BaseModel):
+    properties: EventSessionErrorProperties
 
-
-class EventSessionIdle(BaseModel):
-    properties: EventSessionIdleProperties
-
-    type: Literal["session.idle"]
+    type: Literal["session.error"]
 
 
 class EventQuestionAskedPropertiesQuestionOption(BaseModel):
@@ -331,7 +406,7 @@ class EventQuestionAskedPropertiesQuestionOption(BaseModel):
 
 class EventQuestionAskedPropertiesQuestion(BaseModel):
     header: str
-    """Very short label (max 12 chars)"""
+    """Very short label (max 30 chars)"""
 
     options: List[EventQuestionAskedPropertiesQuestionOption]
     """Available choices"""
@@ -395,26 +470,6 @@ class EventQuestionRejected(BaseModel):
     type: Literal["question.rejected"]
 
 
-class EventSessionCompactedProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class EventSessionCompacted(BaseModel):
-    properties: EventSessionCompactedProperties
-
-    type: Literal["session.compacted"]
-
-
-class EventFileEditedProperties(BaseModel):
-    file: str
-
-
-class EventFileEdited(BaseModel):
-    properties: EventFileEditedProperties
-
-    type: Literal["file.edited"]
-
-
 class EventTodoUpdatedProperties(BaseModel):
     session_id: str = FieldInfo(alias="sessionID")
 
@@ -425,6 +480,74 @@ class EventTodoUpdated(BaseModel):
     properties: EventTodoUpdatedProperties
 
     type: Literal["todo.updated"]
+
+
+class EventSessionStatusPropertiesStatusType(BaseModel):
+    type: Literal["idle"]
+
+
+class EventSessionStatusPropertiesStatusUnionMember1(BaseModel):
+    attempt: float
+
+    message: str
+
+    next: float
+
+    type: Literal["retry"]
+
+
+class EventSessionStatusPropertiesStatusUnionMember3PendingCall(BaseModel):
+    call_id: str = FieldInfo(alias="callID")
+
+    input: Dict[str, object]
+
+    tool: str
+
+
+class EventSessionStatusPropertiesStatusUnionMember3(BaseModel):
+    pending_calls: List[EventSessionStatusPropertiesStatusUnionMember3PendingCall] = FieldInfo(alias="pendingCalls")
+
+    type: Literal["wait-tool-result"]
+
+
+EventSessionStatusPropertiesStatus: TypeAlias = Union[
+    EventSessionStatusPropertiesStatusType,
+    EventSessionStatusPropertiesStatusUnionMember1,
+    EventSessionStatusPropertiesStatusType,
+    EventSessionStatusPropertiesStatusUnionMember3,
+]
+
+
+class EventSessionStatusProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+    status: EventSessionStatusPropertiesStatus
+
+
+class EventSessionStatus(BaseModel):
+    properties: EventSessionStatusProperties
+
+    type: Literal["session.status"]
+
+
+class EventSessionIdleProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionIdle(BaseModel):
+    properties: EventSessionIdleProperties
+
+    type: Literal["session.idle"]
+
+
+class EventSessionCompactedProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionCompacted(BaseModel):
+    properties: EventSessionCompactedProperties
+
+    type: Literal["session.compacted"]
 
 
 class EventArtifactCreatedPropertiesInfoTime(BaseModel):
@@ -491,6 +614,8 @@ class EventTuiCommandExecuteProperties(BaseModel):
             "session.compact",
             "session.page.up",
             "session.page.down",
+            "session.line.up",
+            "session.line.down",
             "session.half.page.up",
             "session.half.page.down",
             "session.first",
@@ -547,6 +672,18 @@ class EventMcpToolsChanged(BaseModel):
     type: Literal["mcp.tools.changed"]
 
 
+class EventMcpBrowserOpenFailedProperties(BaseModel):
+    mcp_name: str = FieldInfo(alias="mcpName")
+
+    url: str
+
+
+class EventMcpBrowserOpenFailed(BaseModel):
+    properties: EventMcpBrowserOpenFailedProperties
+
+    type: Literal["mcp.browser.open.failed"]
+
+
 class EventCommandExecutedProperties(BaseModel):
     arguments: str
 
@@ -563,113 +700,6 @@ class EventCommandExecuted(BaseModel):
     type: Literal["command.executed"]
 
 
-class EventSessionCreatedProperties(BaseModel):
-    info: Session
-
-
-class EventSessionCreated(BaseModel):
-    properties: EventSessionCreatedProperties
-
-    type: Literal["session.created"]
-
-
-class EventSessionUpdatedProperties(BaseModel):
-    info: Session
-
-
-class EventSessionUpdated(BaseModel):
-    properties: EventSessionUpdatedProperties
-
-    type: Literal["session.updated"]
-
-
-class EventSessionDeletedProperties(BaseModel):
-    info: Session
-
-
-class EventSessionDeleted(BaseModel):
-    properties: EventSessionDeletedProperties
-
-    type: Literal["session.deleted"]
-
-
-class EventSessionDiffPropertiesDiff(BaseModel):
-    additions: float
-
-    after: str
-
-    before: str
-
-    deletions: float
-
-    file: str
-
-
-class EventSessionDiffProperties(BaseModel):
-    diff: List[EventSessionDiffPropertiesDiff]
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class EventSessionDiff(BaseModel):
-    properties: EventSessionDiffProperties
-
-    type: Literal["session.diff"]
-
-
-class EventSessionErrorPropertiesErrorAPIErrorData(BaseModel):
-    is_retryable: bool = FieldInfo(alias="isRetryable")
-
-    message: str
-
-    metadata: Optional[Dict[str, str]] = None
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
-
-    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
-
-
-class EventSessionErrorPropertiesErrorAPIError(BaseModel):
-    data: EventSessionErrorPropertiesErrorAPIErrorData
-
-    name: Literal["APIError"]
-
-
-EventSessionErrorPropertiesError: TypeAlias = Union[
-    ProviderAuthError,
-    UnknownError,
-    MessageOutputLengthError,
-    MessageAbortedError,
-    EventSessionErrorPropertiesErrorAPIError,
-]
-
-
-class EventSessionErrorProperties(BaseModel):
-    error: Optional[EventSessionErrorPropertiesError] = None
-
-    session_id: Optional[str] = FieldInfo(alias="sessionID", default=None)
-
-
-class EventSessionError(BaseModel):
-    properties: EventSessionErrorProperties
-
-    type: Literal["session.error"]
-
-
-class EventFileWatcherUpdatedProperties(BaseModel):
-    event: Literal["add", "change", "unlink"]
-
-    file: str
-
-
-class EventFileWatcherUpdated(BaseModel):
-    properties: EventFileWatcherUpdatedProperties
-
-    type: Literal["file.watcher.updated"]
-
-
 class EventVcsBranchUpdatedProperties(BaseModel):
     branch: Optional[str] = None
 
@@ -678,6 +708,28 @@ class EventVcsBranchUpdated(BaseModel):
     properties: EventVcsBranchUpdatedProperties
 
     type: Literal["vcs.branch.updated"]
+
+
+class EventWorktreeReadyProperties(BaseModel):
+    branch: str
+
+    name: str
+
+
+class EventWorktreeReady(BaseModel):
+    properties: EventWorktreeReadyProperties
+
+    type: Literal["worktree.ready"]
+
+
+class EventWorktreeFailedProperties(BaseModel):
+    message: str
+
+
+class EventWorktreeFailed(BaseModel):
+    properties: EventWorktreeFailedProperties
+
+    type: Literal["worktree.failed"]
 
 
 class EventPtyCreatedPropertiesInfo(BaseModel):
@@ -754,36 +806,126 @@ class EventPtyDeleted(BaseModel):
     type: Literal["pty.deleted"]
 
 
-class EventServerConnectedPropertiesVersionUpstream(BaseModel):
-    commit: str
-
-    version: str
+class EventWorkspaceReadyProperties(BaseModel):
+    name: str
 
 
-class EventServerConnectedPropertiesVersion(BaseModel):
-    api: str
+class EventWorkspaceReady(BaseModel):
+    properties: EventWorkspaceReadyProperties
 
-    channel: str
-
-    upstream: EventServerConnectedPropertiesVersionUpstream
-
-    version: str
+    type: Literal["workspace.ready"]
 
 
-class EventServerConnectedProperties(BaseModel):
-    version: EventServerConnectedPropertiesVersion
+class EventWorkspaceFailedProperties(BaseModel):
+    message: str
 
 
-class EventServerConnected(BaseModel):
-    properties: EventServerConnectedProperties
+class EventWorkspaceFailed(BaseModel):
+    properties: EventWorkspaceFailedProperties
 
-    type: Literal["server.connected"]
+    type: Literal["workspace.failed"]
 
 
-class EventGlobalDisposed(BaseModel):
-    properties: object
+class EventWorkspaceStatusProperties(BaseModel):
+    status: Literal["connected", "connecting", "disconnected", "error"]
 
-    type: Literal["global.disposed"]
+    workspace_id: str = FieldInfo(alias="workspaceID")
+
+    error: Optional[str] = None
+
+
+class EventWorkspaceStatus(BaseModel):
+    properties: EventWorkspaceStatusProperties
+
+    type: Literal["workspace.status"]
+
+
+class EventMessageUpdatedProperties(BaseModel):
+    info: Message
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventMessageUpdated(BaseModel):
+    properties: EventMessageUpdatedProperties
+
+    type: Literal["message.updated"]
+
+
+class EventMessageRemovedProperties(BaseModel):
+    message_id: str = FieldInfo(alias="messageID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventMessageRemoved(BaseModel):
+    properties: EventMessageRemovedProperties
+
+    type: Literal["message.removed"]
+
+
+class EventMessagePartUpdatedProperties(BaseModel):
+    part: Part
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+    time: float
+
+
+class EventMessagePartUpdated(BaseModel):
+    properties: EventMessagePartUpdatedProperties
+
+    type: Literal["message.part.updated"]
+
+
+class EventMessagePartRemovedProperties(BaseModel):
+    message_id: str = FieldInfo(alias="messageID")
+
+    part_id: str = FieldInfo(alias="partID")
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventMessagePartRemoved(BaseModel):
+    properties: EventMessagePartRemovedProperties
+
+    type: Literal["message.part.removed"]
+
+
+class EventSessionCreatedProperties(BaseModel):
+    info: Session
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionCreated(BaseModel):
+    properties: EventSessionCreatedProperties
+
+    type: Literal["session.created"]
+
+
+class EventSessionUpdatedProperties(BaseModel):
+    info: Session
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionUpdated(BaseModel):
+    properties: EventSessionUpdatedProperties
+
+    type: Literal["session.updated"]
+
+
+class EventSessionDeletedProperties(BaseModel):
+    info: Session
+
+    session_id: str = FieldInfo(alias="sessionID")
+
+
+class EventSessionDeleted(BaseModel):
+    properties: EventSessionDeletedProperties
+
+    type: Literal["session.deleted"]
 
 
 EventListResponse: TypeAlias = Union[
@@ -791,22 +933,24 @@ EventListResponse: TypeAlias = Union[
     EventInstallationUpdateAvailable,
     EventProjectUpdated,
     EventServerInstanceDisposed,
+    EventServerConnected,
+    EventGlobalDisposed,
+    EventFileEdited,
+    EventFileWatcherUpdated,
     EventLspClientDiagnostics,
     EventLspUpdated,
-    EventMessageUpdated,
-    EventMessageRemoved,
-    EventMessagePartUpdated,
-    EventMessagePartRemoved,
+    EventMessagePartDelta,
     EventPermissionAsked,
     EventPermissionReplied,
-    EventSessionStatus,
-    EventSessionIdle,
+    EventSessionDiff,
+    EventSessionError,
     EventQuestionAsked,
     EventQuestionReplied,
     EventQuestionRejected,
-    EventSessionCompacted,
-    EventFileEdited,
     EventTodoUpdated,
+    EventSessionStatus,
+    EventSessionIdle,
+    EventSessionCompacted,
     EventArtifactCreated,
     EventArtifactDeleted,
     EventTuiPromptAppend,
@@ -814,18 +958,23 @@ EventListResponse: TypeAlias = Union[
     EventTuiToastShow,
     EventTuiSessionSelect,
     EventMcpToolsChanged,
+    EventMcpBrowserOpenFailed,
     EventCommandExecuted,
-    EventSessionCreated,
-    EventSessionUpdated,
-    EventSessionDeleted,
-    EventSessionDiff,
-    EventSessionError,
-    EventFileWatcherUpdated,
     EventVcsBranchUpdated,
+    EventWorktreeReady,
+    EventWorktreeFailed,
     EventPtyCreated,
     EventPtyUpdated,
     EventPtyExited,
     EventPtyDeleted,
-    EventServerConnected,
-    EventGlobalDisposed,
+    EventWorkspaceReady,
+    EventWorkspaceFailed,
+    EventWorkspaceStatus,
+    EventMessageUpdated,
+    EventMessageRemoved,
+    EventMessagePartUpdated,
+    EventMessagePartRemoved,
+    EventSessionCreated,
+    EventSessionUpdated,
+    EventSessionDeleted,
 ]

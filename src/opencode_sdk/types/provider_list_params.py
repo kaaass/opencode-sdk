@@ -9,3 +9,5 @@ __all__ = ["ProviderListParams"]
 
 class ProviderListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

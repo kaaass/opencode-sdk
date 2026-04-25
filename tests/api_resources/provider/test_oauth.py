@@ -36,6 +36,8 @@ class TestOAuth:
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
+            inputs={"foo": "string"},
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
@@ -92,6 +94,7 @@ class TestOAuth:
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
             code="code",
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])
@@ -155,6 +158,8 @@ class TestAsyncOAuth:
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
+            inputs={"foo": "string"},
         )
         assert_matches_type(OAuthAuthorizeResponse, oauth, path=["response"])
 
@@ -211,6 +216,7 @@ class TestAsyncOAuth:
             provider_id="providerID",
             method=0,
             directory="directory",
+            workspace="workspace",
             code="code",
         )
         assert_matches_type(OAuthHandleCallbackResponse, oauth, path=["response"])

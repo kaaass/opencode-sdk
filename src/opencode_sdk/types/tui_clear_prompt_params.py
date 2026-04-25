@@ -9,3 +9,5 @@ __all__ = ["TuiClearPromptParams"]
 
 class TuiClearPromptParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

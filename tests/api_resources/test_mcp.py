@@ -11,7 +11,6 @@ from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 from opencode_sdk.types import (
     McpCreateResponse,
-    McpReloadResponse,
     McpConnectResponse,
     McpRetrieveResponse,
     McpDisconnectResponse,
@@ -48,6 +47,7 @@ class TestMcp:
             },
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpCreateResponse, mcp, path=["response"])
 
@@ -96,6 +96,7 @@ class TestMcp:
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         mcp = client.mcp.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
@@ -135,6 +136,7 @@ class TestMcp:
         mcp = client.mcp.connect(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpConnectResponse, mcp, path=["response"])
 
@@ -186,6 +188,7 @@ class TestMcp:
         mcp = client.mcp.disconnect(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpDisconnectResponse, mcp, path=["response"])
 
@@ -223,42 +226,6 @@ class TestMcp:
                 name="",
             )
 
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_reload(self, client: OpencodeSDK) -> None:
-        mcp = client.mcp.reload()
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_reload_with_all_params(self, client: OpencodeSDK) -> None:
-        mcp = client.mcp.reload(
-            directory="directory",
-        )
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_reload(self, client: OpencodeSDK) -> None:
-        response = client.mcp.with_raw_response.reload()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        mcp = response.parse()
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_reload(self, client: OpencodeSDK) -> None:
-        with client.mcp.with_streaming_response.reload() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            mcp = response.parse()
-            assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
 
 class TestAsyncMcp:
     parametrize = pytest.mark.parametrize(
@@ -290,6 +257,7 @@ class TestAsyncMcp:
             },
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpCreateResponse, mcp, path=["response"])
 
@@ -338,6 +306,7 @@ class TestAsyncMcp:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         mcp = await async_client.mcp.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpRetrieveResponse, mcp, path=["response"])
 
@@ -377,6 +346,7 @@ class TestAsyncMcp:
         mcp = await async_client.mcp.connect(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpConnectResponse, mcp, path=["response"])
 
@@ -428,6 +398,7 @@ class TestAsyncMcp:
         mcp = await async_client.mcp.disconnect(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(McpDisconnectResponse, mcp, path=["response"])
 
@@ -464,39 +435,3 @@ class TestAsyncMcp:
             await async_client.mcp.with_raw_response.disconnect(
                 name="",
             )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_reload(self, async_client: AsyncOpencodeSDK) -> None:
-        mcp = await async_client.mcp.reload()
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_reload_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        mcp = await async_client.mcp.reload(
-            directory="directory",
-        )
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_reload(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.mcp.with_raw_response.reload()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        mcp = await response.parse()
-        assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_reload(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.mcp.with_streaming_response.reload() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            mcp = await response.parse()
-            assert_matches_type(McpReloadResponse, mcp, path=["response"])
-
-        assert cast(Any, response.is_closed) is True

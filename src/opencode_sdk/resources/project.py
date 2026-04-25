@@ -47,6 +47,8 @@ class ProjectResource(SyncAPIResource):
         project_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        commands: project_update_params.Commands | Omit = omit,
         icon: project_update_params.Icon | Omit = omit,
         name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -57,7 +59,7 @@ class ProjectResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Update project properties such as name, icon and color.
+        Update project properties such as name, icon, and commands.
 
         Args:
           extra_headers: Send extra headers
@@ -74,6 +76,7 @@ class ProjectResource(SyncAPIResource):
             path_template("/project/{project_id}", project_id=project_id),
             body=maybe_transform(
                 {
+                    "commands": commands,
                     "icon": icon,
                     "name": name,
                 },
@@ -84,7 +87,13 @@ class ProjectResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, project_update_params.ProjectUpdateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_update_params.ProjectUpdateParams,
+                ),
             ),
             cast_to=Project,
         )
@@ -93,6 +102,7 @@ class ProjectResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -119,7 +129,13 @@ class ProjectResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, project_list_params.ProjectListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_list_params.ProjectListParams,
+                ),
             ),
             cast_to=ProjectListResponse,
         )
@@ -128,6 +144,7 @@ class ProjectResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -155,7 +172,11 @@ class ProjectResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, project_retrieve_current_params.ProjectRetrieveCurrentParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_retrieve_current_params.ProjectRetrieveCurrentParams,
                 ),
             ),
             cast_to=Project,
@@ -187,6 +208,8 @@ class AsyncProjectResource(AsyncAPIResource):
         project_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        commands: project_update_params.Commands | Omit = omit,
         icon: project_update_params.Icon | Omit = omit,
         name: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -197,7 +220,7 @@ class AsyncProjectResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Project:
         """
-        Update project properties such as name, icon and color.
+        Update project properties such as name, icon, and commands.
 
         Args:
           extra_headers: Send extra headers
@@ -214,6 +237,7 @@ class AsyncProjectResource(AsyncAPIResource):
             path_template("/project/{project_id}", project_id=project_id),
             body=await async_maybe_transform(
                 {
+                    "commands": commands,
                     "icon": icon,
                     "name": name,
                 },
@@ -224,7 +248,13 @@ class AsyncProjectResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, project_update_params.ProjectUpdateParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_update_params.ProjectUpdateParams,
+                ),
             ),
             cast_to=Project,
         )
@@ -233,6 +263,7 @@ class AsyncProjectResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -259,7 +290,13 @@ class AsyncProjectResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, project_list_params.ProjectListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_list_params.ProjectListParams,
+                ),
             ),
             cast_to=ProjectListResponse,
         )
@@ -268,6 +305,7 @@ class AsyncProjectResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,7 +333,11 @@ class AsyncProjectResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, project_retrieve_current_params.ProjectRetrieveCurrentParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    project_retrieve_current_params.ProjectRetrieveCurrentParams,
                 ),
             ),
             cast_to=Project,

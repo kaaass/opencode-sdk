@@ -9,3 +9,5 @@ __all__ = ["ConfigRetrieveParams"]
 
 class ConfigRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

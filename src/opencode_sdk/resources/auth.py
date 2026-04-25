@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from typing import Dict
 from typing_extensions import Literal, overload
 
 import httpx
@@ -52,7 +53,6 @@ class AuthResource(SyncAPIResource):
         expires: float,
         refresh: str,
         type: Literal["oauth"],
-        directory: str | Omit = omit,
         account_id: str | Omit = omit,
         enterprise_url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -83,7 +83,7 @@ class AuthResource(SyncAPIResource):
         *,
         key: str,
         type: Literal["api"],
-        directory: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -113,7 +113,6 @@ class AuthResource(SyncAPIResource):
         token: str,
         key: str,
         type: Literal["wellknown"],
-        directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,10 +143,10 @@ class AuthResource(SyncAPIResource):
         expires: float | Omit = omit,
         refresh: str | Omit = omit,
         type: Literal["oauth"] | Literal["api"] | Literal["wellknown"],
-        directory: str | Omit = omit,
         account_id: str | Omit = omit,
         enterprise_url: str | Omit = omit,
         key: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         token: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -169,16 +168,13 @@ class AuthResource(SyncAPIResource):
                     "account_id": account_id,
                     "enterprise_url": enterprise_url,
                     "key": key,
+                    "metadata": metadata,
                     "token": token,
                 },
                 auth_set_credentials_params.AuthSetCredentialsParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform({"directory": directory}, auth_set_credentials_params.AuthSetCredentialsParams),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AuthSetCredentialsResponse,
         )
@@ -213,7 +209,6 @@ class AsyncAuthResource(AsyncAPIResource):
         expires: float,
         refresh: str,
         type: Literal["oauth"],
-        directory: str | Omit = omit,
         account_id: str | Omit = omit,
         enterprise_url: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -244,7 +239,7 @@ class AsyncAuthResource(AsyncAPIResource):
         *,
         key: str,
         type: Literal["api"],
-        directory: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -274,7 +269,6 @@ class AsyncAuthResource(AsyncAPIResource):
         token: str,
         key: str,
         type: Literal["wellknown"],
-        directory: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -305,10 +299,10 @@ class AsyncAuthResource(AsyncAPIResource):
         expires: float | Omit = omit,
         refresh: str | Omit = omit,
         type: Literal["oauth"] | Literal["api"] | Literal["wellknown"],
-        directory: str | Omit = omit,
         account_id: str | Omit = omit,
         enterprise_url: str | Omit = omit,
         key: str | Omit = omit,
+        metadata: Dict[str, str] | Omit = omit,
         token: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -330,18 +324,13 @@ class AsyncAuthResource(AsyncAPIResource):
                     "account_id": account_id,
                     "enterprise_url": enterprise_url,
                     "key": key,
+                    "metadata": metadata,
                     "token": token,
                 },
                 auth_set_credentials_params.AuthSetCredentialsParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {"directory": directory}, auth_set_credentials_params.AuthSetCredentialsParams
-                ),
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=AuthSetCredentialsResponse,
         )

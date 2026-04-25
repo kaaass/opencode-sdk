@@ -9,3 +9,5 @@ __all__ = ["InstanceDisposeParams"]
 
 class InstanceDisposeParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

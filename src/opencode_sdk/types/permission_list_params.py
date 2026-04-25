@@ -9,3 +9,5 @@ __all__ = ["PermissionListParams"]
 
 class PermissionListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

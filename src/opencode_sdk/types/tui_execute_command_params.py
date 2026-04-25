@@ -11,3 +11,5 @@ class TuiExecuteCommandParams(TypedDict, total=False):
     command: Required[str]
 
     directory: str
+
+    workspace: str

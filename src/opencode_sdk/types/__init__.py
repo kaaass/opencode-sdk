@@ -17,7 +17,6 @@ from .agent_list_params import AgentListParams as AgentListParams
 from .assistant_message import AssistantMessage as AssistantMessage
 from .event_list_params import EventListParams as EventListParams
 from .mcp_create_params import McpCreateParams as McpCreateParams
-from .mcp_reload_params import McpReloadParams as McpReloadParams
 from .pty_create_params import PtyCreateParams as PtyCreateParams
 from .pty_delete_params import PtyDeleteParams as PtyDeleteParams
 from .pty_list_response import PtyListResponse as PtyListResponse
@@ -34,7 +33,6 @@ from .agent_list_response import AgentListResponse as AgentListResponse
 from .command_list_params import CommandListParams as CommandListParams
 from .event_list_response import EventListResponse as EventListResponse
 from .mcp_create_response import McpCreateResponse as McpCreateResponse
-from .mcp_reload_response import McpReloadResponse as McpReloadResponse
 from .mcp_retrieve_params import McpRetrieveParams as McpRetrieveParams
 from .project_list_params import ProjectListParams as ProjectListParams
 from .provider_auth_error import ProviderAuthError as ProviderAuthError
@@ -47,7 +45,6 @@ from .session_list_params import SessionListParams as SessionListParams
 from .skill_list_response import SkillListResponse as SkillListResponse
 from .config_update_params import ConfigUpdateParams as ConfigUpdateParams
 from .find_retrieve_params import FindRetrieveParams as FindRetrieveParams
-from .global_exit_response import GlobalExitResponse as GlobalExitResponse
 from .mcp_connect_response import McpConnectResponse as McpConnectResponse
 from .path_retrieve_params import PathRetrieveParams as PathRetrieveParams
 from .provider_list_params import ProviderListParams as ProviderListParams
@@ -92,6 +89,7 @@ from .session_get_todo_params import SessionGetTodoParams as SessionGetTodoParam
 from .session_retrieve_params import SessionRetrieveParams as SessionRetrieveParams
 from .tui_clear_prompt_params import TuiClearPromptParams as TuiClearPromptParams
 from .tui_show_toast_response import TuiShowToastResponse as TuiShowToastResponse
+from .vc_retrieve_diff_params import VcRetrieveDiffParams as VcRetrieveDiffParams
 from .artifact_delete_response import ArtifactDeleteResponse as ArtifactDeleteResponse
 from .artifact_download_params import ArtifactDownloadParams as ArtifactDownloadParams
 from .client_skill_list_params import ClientSkillListParams as ClientSkillListParams
@@ -118,6 +116,7 @@ from .session_get_todo_response import SessionGetTodoResponse as SessionGetTodoR
 from .session_initialize_params import SessionInitializeParams as SessionInitializeParams
 from .tui_clear_prompt_response import TuiClearPromptResponse as TuiClearPromptResponse
 from .tui_select_session_params import TuiSelectSessionParams as TuiSelectSessionParams
+from .vc_retrieve_diff_response import VcRetrieveDiffResponse as VcRetrieveDiffResponse
 from .client_skill_delete_params import ClientSkillDeleteParams as ClientSkillDeleteParams
 from .client_skill_list_response import ClientSkillListResponse as ClientSkillListResponse
 from .client_skill_upload_params import ClientSkillUploadParams as ClientSkillUploadParams
@@ -169,6 +168,7 @@ from .session_run_shell_command_params import SessionRunShellCommandParams as Se
 from .experimental_get_resources_params import ExperimentalGetResourcesParams as ExperimentalGetResourcesParams
 from .session_send_async_message_params import SessionSendAsyncMessageParams as SessionSendAsyncMessageParams
 from .provider_get_auth_methods_response import ProviderGetAuthMethodsResponse as ProviderGetAuthMethodsResponse
+from .session_run_shell_command_response import SessionRunShellCommandResponse as SessionRunShellCommandResponse
 from .session_submit_tool_results_params import SessionSubmitToolResultsParams as SessionSubmitToolResultsParams
 from .experimental_get_resources_response import ExperimentalGetResourcesResponse as ExperimentalGetResourcesResponse
 from .session_respond_to_permission_params import SessionRespondToPermissionParams as SessionRespondToPermissionParams

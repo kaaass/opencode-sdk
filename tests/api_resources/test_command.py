@@ -28,6 +28,7 @@ class TestCommand:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         command = client.command.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CommandListResponse, command, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncCommand:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         command = await async_client.command.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CommandListResponse, command, path=["response"])
 

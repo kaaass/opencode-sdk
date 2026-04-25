@@ -9,3 +9,5 @@ __all__ = ["CustomDeleteParams"]
 
 class CustomDeleteParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

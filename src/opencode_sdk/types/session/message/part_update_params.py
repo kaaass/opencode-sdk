@@ -14,7 +14,8 @@ __all__ = [
     "PartUpdateParams",
     "TextPart",
     "TextPartTime",
-    "Variant1",
+    "SubtaskPart",
+    "SubtaskPartModel",
     "ReasoningPart",
     "ReasoningPartTime",
     "FilePart",
@@ -60,6 +61,8 @@ class TextPart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     ignored: bool
 
     metadata: Dict[str, object]
@@ -75,7 +78,7 @@ class TextPartTime(TypedDict, total=False):
     end: float
 
 
-class Variant1(TypedDict, total=False):
+class SubtaskPart(TypedDict, total=False):
     path_session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
 
     path_message_id: Required[Annotated[str, PropertyInfo(alias="messageID")]]
@@ -96,7 +99,17 @@ class Variant1(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     command: str
+
+    model: SubtaskPartModel
+
+
+class SubtaskPartModel(TypedDict, total=False):
+    model_id: Required[Annotated[str, PropertyInfo(alias="modelID")]]
+
+    provider_id: Required[Annotated[str, PropertyInfo(alias="providerID")]]
 
 
 class ReasoningPart(TypedDict, total=False):
@@ -117,6 +130,8 @@ class ReasoningPart(TypedDict, total=False):
     type: Required[Literal["reasoning"]]
 
     directory: str
+
+    workspace: str
 
     metadata: Dict[str, object]
 
@@ -146,6 +161,8 @@ class FilePart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     filename: str
 
     source: FilePartSourceParam
@@ -171,6 +188,8 @@ class ToolPart(TypedDict, total=False):
     type: Required[Literal["tool"]]
 
     directory: str
+
+    workspace: str
 
     metadata: Dict[str, object]
 
@@ -264,6 +283,8 @@ class StepStartPart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     snapshot: str
 
 
@@ -288,6 +309,8 @@ class StepFinishPart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     snapshot: str
 
 
@@ -306,6 +329,8 @@ class StepFinishPartTokens(TypedDict, total=False):
 
     reasoning: Required[float]
 
+    total: float
+
 
 class SnapshotPart(TypedDict, total=False):
     path_session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
@@ -323,6 +348,8 @@ class SnapshotPart(TypedDict, total=False):
     type: Required[Literal["snapshot"]]
 
     directory: str
+
+    workspace: str
 
 
 class PatchPart(TypedDict, total=False):
@@ -344,6 +371,8 @@ class PatchPart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
 
 class AgentPart(TypedDict, total=False):
     path_session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
@@ -361,6 +390,8 @@ class AgentPart(TypedDict, total=False):
     type: Required[Literal["agent"]]
 
     directory: str
+
+    workspace: str
 
     source: AgentPartSource
 
@@ -393,6 +424,8 @@ class RetryPart(TypedDict, total=False):
     type: Required[Literal["retry"]]
 
     directory: str
+
+    workspace: str
 
 
 class RetryPartErrorData(TypedDict, total=False):
@@ -436,10 +469,14 @@ class CompactionPart(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
+    overflow: bool
+
 
 PartUpdateParams: TypeAlias = Union[
     TextPart,
-    Variant1,
+    SubtaskPart,
     ReasoningPart,
     FilePart,
     ToolPart,

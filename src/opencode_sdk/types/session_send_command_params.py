@@ -18,6 +18,8 @@ class SessionSendCommandParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     agent: str
 
     message_id: Annotated[str, PropertyInfo(alias="messageID")]

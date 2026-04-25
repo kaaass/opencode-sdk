@@ -9,3 +9,5 @@ __all__ = ["AgentDeleteParams"]
 
 class AgentDeleteParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

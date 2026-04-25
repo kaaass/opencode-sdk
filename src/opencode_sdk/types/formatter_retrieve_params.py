@@ -9,3 +9,5 @@ __all__ = ["FormatterRetrieveParams"]
 
 class FormatterRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -5,7 +5,7 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["Project", "Time", "Icon"]
+__all__ = ["Project", "Time", "Commands", "Icon"]
 
 
 class Time(BaseModel):
@@ -16,8 +16,15 @@ class Time(BaseModel):
     initialized: Optional[float] = None
 
 
+class Commands(BaseModel):
+    start: Optional[str] = None
+    """Startup script to run when creating a new workspace (worktree)"""
+
+
 class Icon(BaseModel):
     color: Optional[str] = None
+
+    override: Optional[str] = None
 
     url: Optional[str] = None
 
@@ -30,6 +37,8 @@ class Project(BaseModel):
     time: Time
 
     worktree: str
+
+    commands: Optional[Commands] = None
 
     icon: Optional[Icon] = None
 

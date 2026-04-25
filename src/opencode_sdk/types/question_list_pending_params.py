@@ -9,3 +9,5 @@ __all__ = ["QuestionListPendingParams"]
 
 class QuestionListPendingParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

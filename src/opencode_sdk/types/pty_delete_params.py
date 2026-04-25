@@ -9,3 +9,5 @@ __all__ = ["PtyDeleteParams"]
 
 class PtyDeleteParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

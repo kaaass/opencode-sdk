@@ -12,3 +12,5 @@ class AuthCompleteParams(TypedDict, total=False):
     """Authorization code from OAuth callback"""
 
     directory: str
+
+    workspace: str

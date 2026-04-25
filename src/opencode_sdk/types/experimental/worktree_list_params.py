@@ -9,3 +9,5 @@ __all__ = ["WorktreeListParams"]
 
 class WorktreeListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Dict
+
 import httpx
 
 from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
@@ -48,6 +50,8 @@ class OAuthResource(SyncAPIResource):
         *,
         method: float,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        inputs: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -62,6 +66,8 @@ class OAuthResource(SyncAPIResource):
         Args:
           method: Auth method index
 
+          inputs: Prompt inputs
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -74,13 +80,25 @@ class OAuthResource(SyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return self._post(
             path_template("/provider/{provider_id}/oauth/authorize", provider_id=provider_id),
-            body=maybe_transform({"method": method}, oauth_authorize_params.OAuthAuthorizeParams),
+            body=maybe_transform(
+                {
+                    "method": method,
+                    "inputs": inputs,
+                },
+                oauth_authorize_params.OAuthAuthorizeParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, oauth_authorize_params.OAuthAuthorizeParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    oauth_authorize_params.OAuthAuthorizeParams,
+                ),
             ),
             cast_to=OAuthAuthorizeResponse,
         )
@@ -91,6 +109,7 @@ class OAuthResource(SyncAPIResource):
         *,
         method: float,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         code: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -131,7 +150,13 @@ class OAuthResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, oauth_handle_callback_params.OAuthHandleCallbackParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    oauth_handle_callback_params.OAuthHandleCallbackParams,
+                ),
             ),
             cast_to=OAuthHandleCallbackResponse,
         )
@@ -163,6 +188,8 @@ class AsyncOAuthResource(AsyncAPIResource):
         *,
         method: float,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        inputs: Dict[str, str] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -177,6 +204,8 @@ class AsyncOAuthResource(AsyncAPIResource):
         Args:
           method: Auth method index
 
+          inputs: Prompt inputs
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -189,14 +218,24 @@ class AsyncOAuthResource(AsyncAPIResource):
             raise ValueError(f"Expected a non-empty value for `provider_id` but received {provider_id!r}")
         return await self._post(
             path_template("/provider/{provider_id}/oauth/authorize", provider_id=provider_id),
-            body=await async_maybe_transform({"method": method}, oauth_authorize_params.OAuthAuthorizeParams),
+            body=await async_maybe_transform(
+                {
+                    "method": method,
+                    "inputs": inputs,
+                },
+                oauth_authorize_params.OAuthAuthorizeParams,
+            ),
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, oauth_authorize_params.OAuthAuthorizeParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    oauth_authorize_params.OAuthAuthorizeParams,
                 ),
             ),
             cast_to=OAuthAuthorizeResponse,
@@ -208,6 +247,7 @@ class AsyncOAuthResource(AsyncAPIResource):
         *,
         method: float,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         code: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -249,7 +289,11 @@ class AsyncOAuthResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, oauth_handle_callback_params.OAuthHandleCallbackParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    oauth_handle_callback_params.OAuthHandleCallbackParams,
                 ),
             ),
             cast_to=OAuthHandleCallbackResponse,

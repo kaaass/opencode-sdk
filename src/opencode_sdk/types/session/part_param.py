@@ -13,7 +13,8 @@ __all__ = [
     "PartParam",
     "TextPart",
     "TextPartTime",
-    "UnionMember1",
+    "SubtaskPart",
+    "SubtaskPartModel",
     "ReasoningPart",
     "ReasoningPartTime",
     "ToolPart",
@@ -67,7 +68,13 @@ class TextPart(TypedDict, total=False):
     time: TextPartTime
 
 
-class UnionMember1(TypedDict, total=False):
+class SubtaskPartModel(TypedDict, total=False):
+    model_id: Required[Annotated[str, PropertyInfo(alias="modelID")]]
+
+    provider_id: Required[Annotated[str, PropertyInfo(alias="providerID")]]
+
+
+class SubtaskPart(TypedDict, total=False):
     id: Required[str]
 
     agent: Required[str]
@@ -83,6 +90,8 @@ class UnionMember1(TypedDict, total=False):
     type: Required[Literal["subtask"]]
 
     command: str
+
+    model: SubtaskPartModel
 
 
 class ReasoningPartTime(TypedDict, total=False):
@@ -226,6 +235,8 @@ class StepFinishPartTokens(TypedDict, total=False):
 
     reasoning: Required[float]
 
+    total: float
+
 
 class StepFinishPart(TypedDict, total=False):
     id: Required[str]
@@ -344,10 +355,12 @@ class CompactionPart(TypedDict, total=False):
 
     type: Required[Literal["compaction"]]
 
+    overflow: bool
+
 
 PartParam: TypeAlias = Union[
     TextPart,
-    UnionMember1,
+    SubtaskPart,
     ReasoningPart,
     FilePartParam,
     ToolPart,

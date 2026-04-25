@@ -9,3 +9,5 @@ __all__ = ["PtyRetrieveParams"]
 
 class PtyRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

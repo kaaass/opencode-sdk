@@ -59,6 +59,7 @@ class PartResource(SyncAPIResource):
         text: str,
         type: Literal["text"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         ignored: bool | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         synthetic: bool | Omit = omit,
@@ -99,7 +100,9 @@ class PartResource(SyncAPIResource):
         body_session_id: str,
         type: Literal["subtask"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         command: str | Omit = omit,
+        model: part_update_params.SubtaskPartModel | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -135,6 +138,7 @@ class PartResource(SyncAPIResource):
         time: part_update_params.ReasoningPartTime,
         type: Literal["reasoning"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -171,6 +175,7 @@ class PartResource(SyncAPIResource):
         type: Literal["file"],
         url: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         filename: str | Omit = omit,
         source: FilePartSourceParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -209,6 +214,7 @@ class PartResource(SyncAPIResource):
         tool: str,
         type: Literal["tool"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -243,6 +249,7 @@ class PartResource(SyncAPIResource):
         body_session_id: str,
         type: Literal["step-start"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         snapshot: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -280,6 +287,7 @@ class PartResource(SyncAPIResource):
         tokens: part_update_params.StepFinishPartTokens,
         type: Literal["step-finish"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         snapshot: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -315,6 +323,7 @@ class PartResource(SyncAPIResource):
         snapshot: str,
         type: Literal["snapshot"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -350,6 +359,7 @@ class PartResource(SyncAPIResource):
         body_session_id: str,
         type: Literal["patch"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -384,6 +394,7 @@ class PartResource(SyncAPIResource):
         body_session_id: str,
         type: Literal["agent"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         source: part_update_params.AgentPartSource | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -421,6 +432,7 @@ class PartResource(SyncAPIResource):
         time: part_update_params.RetryPartTime,
         type: Literal["retry"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -455,6 +467,8 @@ class PartResource(SyncAPIResource):
         body_session_id: str,
         type: Literal["compaction"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -551,6 +565,7 @@ class PartResource(SyncAPIResource):
         | Literal["retry"]
         | Literal["compaction"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         ignored: bool | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         synthetic: bool | Omit = omit,
@@ -562,6 +577,7 @@ class PartResource(SyncAPIResource):
         description: str | Omit = omit,
         prompt: str | Omit = omit,
         command: str | Omit = omit,
+        model: part_update_params.SubtaskPartModel | Omit = omit,
         mime: str | Omit = omit,
         url: str | Omit = omit,
         filename: str | Omit = omit,
@@ -579,6 +595,7 @@ class PartResource(SyncAPIResource):
         attempt: float | Omit = omit,
         error: part_update_params.RetryPartError | Omit = omit,
         auto: bool | Omit = omit,
+        overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -616,6 +633,7 @@ class PartResource(SyncAPIResource):
                         "description": description,
                         "prompt": prompt,
                         "command": command,
+                        "model": model,
                         "mime": mime,
                         "url": url,
                         "filename": filename,
@@ -633,6 +651,7 @@ class PartResource(SyncAPIResource):
                         "attempt": attempt,
                         "error": error,
                         "auto": auto,
+                        "overflow": overflow,
                     },
                     part_update_params.PartUpdateParams,
                 ),
@@ -641,7 +660,13 @@ class PartResource(SyncAPIResource):
                     extra_query=extra_query,
                     extra_body=extra_body,
                     timeout=timeout,
-                    query=maybe_transform({"directory": directory}, part_update_params.PartUpdateParams),
+                    query=maybe_transform(
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        part_update_params.PartUpdateParams,
+                    ),
                 ),
                 cast_to=cast(Any, Part),  # Union types cannot be passed in as arguments in the type system
             ),
@@ -654,6 +679,7 @@ class PartResource(SyncAPIResource):
         session_id: str,
         message_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -691,7 +717,13 @@ class PartResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, part_delete_params.PartDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    part_delete_params.PartDeleteParams,
+                ),
             ),
             cast_to=PartDeleteResponse,
         )
@@ -730,6 +762,7 @@ class AsyncPartResource(AsyncAPIResource):
         text: str,
         type: Literal["text"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         ignored: bool | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         synthetic: bool | Omit = omit,
@@ -770,7 +803,9 @@ class AsyncPartResource(AsyncAPIResource):
         body_session_id: str,
         type: Literal["subtask"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         command: str | Omit = omit,
+        model: part_update_params.SubtaskPartModel | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -806,6 +841,7 @@ class AsyncPartResource(AsyncAPIResource):
         time: part_update_params.ReasoningPartTime,
         type: Literal["reasoning"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -842,6 +878,7 @@ class AsyncPartResource(AsyncAPIResource):
         type: Literal["file"],
         url: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         filename: str | Omit = omit,
         source: FilePartSourceParam | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -880,6 +917,7 @@ class AsyncPartResource(AsyncAPIResource):
         tool: str,
         type: Literal["tool"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -914,6 +952,7 @@ class AsyncPartResource(AsyncAPIResource):
         body_session_id: str,
         type: Literal["step-start"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         snapshot: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -951,6 +990,7 @@ class AsyncPartResource(AsyncAPIResource):
         tokens: part_update_params.StepFinishPartTokens,
         type: Literal["step-finish"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         snapshot: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -986,6 +1026,7 @@ class AsyncPartResource(AsyncAPIResource):
         snapshot: str,
         type: Literal["snapshot"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1021,6 +1062,7 @@ class AsyncPartResource(AsyncAPIResource):
         body_session_id: str,
         type: Literal["patch"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1055,6 +1097,7 @@ class AsyncPartResource(AsyncAPIResource):
         body_session_id: str,
         type: Literal["agent"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         source: part_update_params.AgentPartSource | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -1092,6 +1135,7 @@ class AsyncPartResource(AsyncAPIResource):
         time: part_update_params.RetryPartTime,
         type: Literal["retry"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1126,6 +1170,8 @@ class AsyncPartResource(AsyncAPIResource):
         body_session_id: str,
         type: Literal["compaction"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1222,6 +1268,7 @@ class AsyncPartResource(AsyncAPIResource):
         | Literal["retry"]
         | Literal["compaction"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         ignored: bool | Omit = omit,
         metadata: Dict[str, object] | Omit = omit,
         synthetic: bool | Omit = omit,
@@ -1233,6 +1280,7 @@ class AsyncPartResource(AsyncAPIResource):
         description: str | Omit = omit,
         prompt: str | Omit = omit,
         command: str | Omit = omit,
+        model: part_update_params.SubtaskPartModel | Omit = omit,
         mime: str | Omit = omit,
         url: str | Omit = omit,
         filename: str | Omit = omit,
@@ -1250,6 +1298,7 @@ class AsyncPartResource(AsyncAPIResource):
         attempt: float | Omit = omit,
         error: part_update_params.RetryPartError | Omit = omit,
         auto: bool | Omit = omit,
+        overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1287,6 +1336,7 @@ class AsyncPartResource(AsyncAPIResource):
                         "description": description,
                         "prompt": prompt,
                         "command": command,
+                        "model": model,
                         "mime": mime,
                         "url": url,
                         "filename": filename,
@@ -1304,6 +1354,7 @@ class AsyncPartResource(AsyncAPIResource):
                         "attempt": attempt,
                         "error": error,
                         "auto": auto,
+                        "overflow": overflow,
                     },
                     part_update_params.PartUpdateParams,
                 ),
@@ -1312,7 +1363,13 @@ class AsyncPartResource(AsyncAPIResource):
                     extra_query=extra_query,
                     extra_body=extra_body,
                     timeout=timeout,
-                    query=await async_maybe_transform({"directory": directory}, part_update_params.PartUpdateParams),
+                    query=await async_maybe_transform(
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        part_update_params.PartUpdateParams,
+                    ),
                 ),
                 cast_to=cast(Any, Part),  # Union types cannot be passed in as arguments in the type system
             ),
@@ -1325,6 +1382,7 @@ class AsyncPartResource(AsyncAPIResource):
         session_id: str,
         message_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1362,7 +1420,13 @@ class AsyncPartResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, part_delete_params.PartDeleteParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    part_delete_params.PartDeleteParams,
+                ),
             ),
             cast_to=PartDeleteResponse,
         )

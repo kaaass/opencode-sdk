@@ -28,6 +28,7 @@ class TestFormatter:
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         formatter = client.formatter.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FormatterRetrieveResponse, formatter, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncFormatter:
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         formatter = await async_client.formatter.retrieve(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(FormatterRetrieveResponse, formatter, path=["response"])
 

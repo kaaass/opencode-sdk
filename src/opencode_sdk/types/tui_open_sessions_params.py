@@ -9,3 +9,5 @@ __all__ = ["TuiOpenSessionsParams"]
 
 class TuiOpenSessionsParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

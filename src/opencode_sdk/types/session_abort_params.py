@@ -9,3 +9,5 @@ __all__ = ["SessionAbortParams"]
 
 class SessionAbortParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -9,3 +9,5 @@ __all__ = ["TuiOpenModelsParams"]
 
 class TuiOpenModelsParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -11,7 +11,20 @@ from .provider_auth_error import ProviderAuthError
 from .message_aborted_error import MessageAbortedError
 from .message_output_length_error import MessageOutputLengthError
 
-__all__ = ["AssistantMessage", "Path", "Time", "Tokens", "TokensCache", "Error", "ErrorAPIError", "ErrorAPIErrorData"]
+__all__ = [
+    "AssistantMessage",
+    "Path",
+    "Time",
+    "Tokens",
+    "TokensCache",
+    "Error",
+    "ErrorStructuredOutputError",
+    "ErrorStructuredOutputErrorData",
+    "ErrorContextOverflowError",
+    "ErrorContextOverflowErrorData",
+    "ErrorAPIError",
+    "ErrorAPIErrorData",
+]
 
 
 class Path(BaseModel):
@@ -41,6 +54,32 @@ class Tokens(BaseModel):
 
     reasoning: float
 
+    total: Optional[float] = None
+
+
+class ErrorStructuredOutputErrorData(BaseModel):
+    message: str
+
+    retries: float
+
+
+class ErrorStructuredOutputError(BaseModel):
+    data: ErrorStructuredOutputErrorData
+
+    name: Literal["StructuredOutputError"]
+
+
+class ErrorContextOverflowErrorData(BaseModel):
+    message: str
+
+    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
+
+
+class ErrorContextOverflowError(BaseModel):
+    data: ErrorContextOverflowErrorData
+
+    name: Literal["ContextOverflowError"]
+
 
 class ErrorAPIErrorData(BaseModel):
     is_retryable: bool = FieldInfo(alias="isRetryable")
@@ -62,7 +101,15 @@ class ErrorAPIError(BaseModel):
     name: Literal["APIError"]
 
 
-Error: TypeAlias = Union[ProviderAuthError, UnknownError, MessageOutputLengthError, MessageAbortedError, ErrorAPIError]
+Error: TypeAlias = Union[
+    ProviderAuthError,
+    UnknownError,
+    MessageOutputLengthError,
+    MessageAbortedError,
+    ErrorStructuredOutputError,
+    ErrorContextOverflowError,
+    ErrorAPIError,
+]
 
 
 class AssistantMessage(BaseModel):
@@ -94,4 +141,8 @@ class AssistantMessage(BaseModel):
 
     finish: Optional[str] = None
 
+    structured: Optional[object] = None
+
     summary: Optional[bool] = None
+
+    variant: Optional[str] = None

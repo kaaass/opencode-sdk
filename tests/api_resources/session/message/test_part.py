@@ -22,11 +22,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_1(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -37,15 +37,16 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_1(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
             directory="directory",
+            workspace="workspace",
             ignored=True,
             metadata={"foo": "bar"},
             synthetic=True,
@@ -60,11 +61,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_1(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -79,11 +80,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_1(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -101,11 +102,11 @@ class TestPart:
     def test_path_params_update_overload_1(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -113,11 +114,11 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -127,9 +128,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -139,13 +140,13 @@ class TestPart:
     @parametrize
     def test_method_update_overload_2(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -156,18 +157,23 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_2(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
             directory="directory",
+            workspace="workspace",
             command="command",
+            model={
+                "model_id": "modelID",
+                "provider_id": "providerID",
+            },
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -175,13 +181,13 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_2(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -196,13 +202,13 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_2(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -220,13 +226,13 @@ class TestPart:
     def test_path_params_update_overload_2(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -234,13 +240,13 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -250,11 +256,11 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -264,11 +270,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_3(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -280,11 +286,11 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={
@@ -293,6 +299,7 @@ class TestPart:
             },
             type="reasoning",
             directory="directory",
+            workspace="workspace",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Part, part, path=["response"])
@@ -301,11 +308,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_3(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -321,11 +328,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_3(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -344,11 +351,11 @@ class TestPart:
     def test_path_params_update_overload_3(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -357,11 +364,11 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -372,9 +379,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -385,11 +392,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_4(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -401,16 +408,17 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_4(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
             url="url",
             directory="directory",
+            workspace="workspace",
             filename="filename",
             source={
                 "path": "path",
@@ -428,11 +436,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_4(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -448,11 +456,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_4(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -471,11 +479,11 @@ class TestPart:
     def test_path_params_update_overload_4(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -484,11 +492,11 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -499,9 +507,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -512,12 +520,12 @@ class TestPart:
     @parametrize
     def test_method_update_overload_5(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -533,12 +541,12 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_5(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -548,6 +556,7 @@ class TestPart:
             tool="tool",
             type="tool",
             directory="directory",
+            workspace="workspace",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Part, part, path=["response"])
@@ -556,12 +565,12 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_5(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -581,12 +590,12 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_5(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -609,12 +618,12 @@ class TestPart:
     def test_path_params_update_overload_5(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -627,12 +636,12 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -647,10 +656,10 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -665,11 +674,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_6(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         )
@@ -679,14 +688,15 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_6(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
             directory="directory",
+            workspace="workspace",
             snapshot="snapshot",
         )
         assert_matches_type(Part, part, path=["response"])
@@ -695,11 +705,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_6(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         )
@@ -713,11 +723,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_6(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         ) as response:
@@ -734,22 +744,22 @@ class TestPart:
     def test_path_params_update_overload_6(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
@@ -758,9 +768,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
@@ -769,12 +779,12 @@ class TestPart:
     @parametrize
     def test_method_update_overload_7(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -794,12 +804,12 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_7(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -810,9 +820,11 @@ class TestPart:
                 "input": 0,
                 "output": 0,
                 "reasoning": 0,
+                "total": 0,
             },
             type="step-finish",
             directory="directory",
+            workspace="workspace",
             snapshot="snapshot",
         )
         assert_matches_type(Part, part, path=["response"])
@@ -821,12 +833,12 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_7(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -850,12 +862,12 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_7(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -882,12 +894,12 @@ class TestPart:
     def test_path_params_update_overload_7(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -904,12 +916,12 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -928,10 +940,10 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -950,11 +962,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_8(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -965,15 +977,16 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_8(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -981,11 +994,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_8(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -1000,11 +1013,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_8(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -1022,11 +1035,11 @@ class TestPart:
     def test_path_params_update_overload_8(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -1034,11 +1047,11 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -1048,9 +1061,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -1060,13 +1073,13 @@ class TestPart:
     @parametrize
     def test_method_update_overload_9(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         )
@@ -1076,16 +1089,17 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_9(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -1093,13 +1107,13 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_9(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         )
@@ -1113,13 +1127,13 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_9(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         ) as response:
@@ -1136,26 +1150,26 @@ class TestPart:
     def test_path_params_update_overload_9(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
@@ -1164,11 +1178,11 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
@@ -1177,11 +1191,11 @@ class TestPart:
     @parametrize
     def test_method_update_overload_10(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -1192,15 +1206,16 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_10(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
             directory="directory",
+            workspace="workspace",
             source={
                 "end": -9007199254740991,
                 "start": -9007199254740991,
@@ -1213,11 +1228,11 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_10(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -1232,11 +1247,11 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_10(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -1254,11 +1269,11 @@ class TestPart:
     def test_path_params_update_overload_10(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -1266,11 +1281,11 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -1280,9 +1295,9 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -1292,10 +1307,10 @@ class TestPart:
     @parametrize
     def test_method_update_overload_11(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -1304,7 +1319,7 @@ class TestPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -1315,10 +1330,10 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_11(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -1331,11 +1346,12 @@ class TestPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -1343,10 +1359,10 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_11(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -1355,7 +1371,7 @@ class TestPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -1370,10 +1386,10 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_11(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -1382,7 +1398,7 @@ class TestPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -1400,10 +1416,10 @@ class TestPart:
     def test_path_params_update_overload_11(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -1412,7 +1428,7 @@ class TestPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -1420,10 +1436,10 @@ class TestPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -1432,7 +1448,7 @@ class TestPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -1442,8 +1458,8 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -1452,7 +1468,7 @@ class TestPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -1462,12 +1478,12 @@ class TestPart:
     @parametrize
     def test_method_update_overload_12(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         )
@@ -1477,15 +1493,17 @@ class TestPart:
     @parametrize
     def test_method_update_with_all_params_overload_12(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
             directory="directory",
+            workspace="workspace",
+            overflow=True,
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -1493,12 +1511,12 @@ class TestPart:
     @parametrize
     def test_raw_response_update_overload_12(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         )
@@ -1512,12 +1530,12 @@ class TestPart:
     @parametrize
     def test_streaming_response_update_overload_12(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         ) as response:
@@ -1534,24 +1552,24 @@ class TestPart:
     def test_path_params_update_overload_12(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
@@ -1560,10 +1578,10 @@ class TestPart:
             client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
@@ -1572,9 +1590,9 @@ class TestPart:
     @parametrize
     def test_method_delete(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         )
         assert_matches_type(PartDeleteResponse, part, path=["response"])
 
@@ -1582,10 +1600,11 @@ class TestPart:
     @parametrize
     def test_method_delete_with_all_params(self, client: OpencodeSDK) -> None:
         part = client.session.message.part.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PartDeleteResponse, part, path=["response"])
 
@@ -1593,9 +1612,9 @@ class TestPart:
     @parametrize
     def test_raw_response_delete(self, client: OpencodeSDK) -> None:
         response = client.session.message.part.with_raw_response.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         )
 
         assert response.is_closed is True
@@ -1607,9 +1626,9 @@ class TestPart:
     @parametrize
     def test_streaming_response_delete(self, client: OpencodeSDK) -> None:
         with client.session.message.part.with_streaming_response.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1624,14 +1643,14 @@ class TestPart:
     def test_path_params_delete(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.message.part.with_raw_response.delete(
-                part_id="partID",
+                part_id="prtJ!",
                 session_id="",
-                message_id="messageID",
+                message_id="msgJ!",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             client.session.message.part.with_raw_response.delete(
-                part_id="partID",
+                part_id="prtJ!",
                 session_id="sessionID",
                 message_id="",
             )
@@ -1640,7 +1659,7 @@ class TestPart:
             client.session.message.part.with_raw_response.delete(
                 part_id="",
                 session_id="sessionID",
-                message_id="messageID",
+                message_id="msgJ!",
             )
 
 
@@ -1653,11 +1672,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -1668,15 +1687,16 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
             directory="directory",
+            workspace="workspace",
             ignored=True,
             metadata={"foo": "bar"},
             synthetic=True,
@@ -1691,11 +1711,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -1710,11 +1730,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             type="text",
@@ -1732,11 +1752,11 @@ class TestAsyncPart:
     async def test_path_params_update_overload_1(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -1744,11 +1764,11 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -1758,9 +1778,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 type="text",
@@ -1770,13 +1790,13 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -1787,18 +1807,23 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
             directory="directory",
+            workspace="workspace",
             command="command",
+            model={
+                "model_id": "modelID",
+                "provider_id": "providerID",
+            },
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -1806,13 +1831,13 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -1827,13 +1852,13 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             agent="agent",
             description="description",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             prompt="prompt",
             body_session_id="sessionID",
             type="subtask",
@@ -1851,13 +1876,13 @@ class TestAsyncPart:
     async def test_path_params_update_overload_2(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -1865,13 +1890,13 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -1881,11 +1906,11 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 agent="agent",
                 description="description",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 prompt="prompt",
                 body_session_id="sessionID",
                 type="subtask",
@@ -1895,11 +1920,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -1911,11 +1936,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={
@@ -1924,6 +1949,7 @@ class TestAsyncPart:
             },
             type="reasoning",
             directory="directory",
+            workspace="workspace",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Part, part, path=["response"])
@@ -1932,11 +1958,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -1952,11 +1978,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             text="text",
             time={"start": 0},
@@ -1975,11 +2001,11 @@ class TestAsyncPart:
     async def test_path_params_update_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -1988,11 +2014,11 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -2003,9 +2029,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 text="text",
                 time={"start": 0},
@@ -2016,11 +2042,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -2032,16 +2058,17 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
             url="url",
             directory="directory",
+            workspace="workspace",
             filename="filename",
             source={
                 "path": "path",
@@ -2059,11 +2086,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -2079,11 +2106,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             mime="mime",
             body_session_id="sessionID",
             type="file",
@@ -2102,11 +2129,11 @@ class TestAsyncPart:
     async def test_path_params_update_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -2115,11 +2142,11 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -2130,9 +2157,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 mime="mime",
                 body_session_id="sessionID",
                 type="file",
@@ -2143,12 +2170,12 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_5(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -2164,12 +2191,12 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_5(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -2179,6 +2206,7 @@ class TestAsyncPart:
             tool="tool",
             type="tool",
             directory="directory",
+            workspace="workspace",
             metadata={"foo": "bar"},
         )
         assert_matches_type(Part, part, path=["response"])
@@ -2187,12 +2215,12 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_5(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -2212,12 +2240,12 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_5(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             call_id="callID",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             state={
                 "input": {"foo": "bar"},
@@ -2240,12 +2268,12 @@ class TestAsyncPart:
     async def test_path_params_update_overload_5(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -2258,12 +2286,12 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -2278,10 +2306,10 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 call_id="callID",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 state={
                     "input": {"foo": "bar"},
@@ -2296,11 +2324,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_6(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         )
@@ -2310,14 +2338,15 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_6(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
             directory="directory",
+            workspace="workspace",
             snapshot="snapshot",
         )
         assert_matches_type(Part, part, path=["response"])
@@ -2326,11 +2355,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_6(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         )
@@ -2344,11 +2373,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_6(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="step-start",
         ) as response:
@@ -2365,22 +2394,22 @@ class TestAsyncPart:
     async def test_path_params_update_overload_6(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
@@ -2389,9 +2418,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="step-start",
             )
@@ -2400,12 +2429,12 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_7(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -2425,12 +2454,12 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_7(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -2441,9 +2470,11 @@ class TestAsyncPart:
                 "input": 0,
                 "output": 0,
                 "reasoning": 0,
+                "total": 0,
             },
             type="step-finish",
             directory="directory",
+            workspace="workspace",
             snapshot="snapshot",
         )
         assert_matches_type(Part, part, path=["response"])
@@ -2452,12 +2483,12 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_7(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -2481,12 +2512,12 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_7(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             cost=0,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             reason="reason",
             body_session_id="sessionID",
             tokens={
@@ -2513,12 +2544,12 @@ class TestAsyncPart:
     async def test_path_params_update_overload_7(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -2535,12 +2566,12 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -2559,10 +2590,10 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 cost=0,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 reason="reason",
                 body_session_id="sessionID",
                 tokens={
@@ -2581,11 +2612,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_8(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -2596,15 +2627,16 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_8(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -2612,11 +2644,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_8(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -2631,11 +2663,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_8(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             snapshot="snapshot",
             type="snapshot",
@@ -2653,11 +2685,11 @@ class TestAsyncPart:
     async def test_path_params_update_overload_8(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -2665,11 +2697,11 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -2679,9 +2711,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 snapshot="snapshot",
                 type="snapshot",
@@ -2691,13 +2723,13 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_9(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         )
@@ -2707,16 +2739,17 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_9(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -2724,13 +2757,13 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_9(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         )
@@ -2744,13 +2777,13 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_9(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             files=["string"],
             hash="hash",
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="patch",
         ) as response:
@@ -2767,26 +2800,26 @@ class TestAsyncPart:
     async def test_path_params_update_overload_9(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
@@ -2795,11 +2828,11 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 files=["string"],
                 hash="hash",
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="patch",
             )
@@ -2808,11 +2841,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_10(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -2823,15 +2856,16 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_10(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
             directory="directory",
+            workspace="workspace",
             source={
                 "end": -9007199254740991,
                 "start": -9007199254740991,
@@ -2844,11 +2878,11 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_10(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -2863,11 +2897,11 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_10(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
-            body_message_id="messageID",
+            path_message_id="msgJ!",
+            id="prtJ!",
+            body_message_id="msgJ!",
             name="name",
             body_session_id="sessionID",
             type="agent",
@@ -2885,11 +2919,11 @@ class TestAsyncPart:
     async def test_path_params_update_overload_10(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -2897,11 +2931,11 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
-                body_message_id="messageID",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -2911,9 +2945,9 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
-                body_message_id="messageID",
+                path_message_id="msgJ!",
+                id="prtJ!",
+                body_message_id="msgJ!",
                 name="name",
                 body_session_id="sessionID",
                 type="agent",
@@ -2923,10 +2957,10 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_11(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -2935,7 +2969,7 @@ class TestAsyncPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -2946,10 +2980,10 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_11(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -2962,11 +2996,12 @@ class TestAsyncPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -2974,10 +3009,10 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_11(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -2986,7 +3021,7 @@ class TestAsyncPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -3001,10 +3036,10 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_11(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             attempt=0,
             error={
                 "data": {
@@ -3013,7 +3048,7 @@ class TestAsyncPart:
                 },
                 "name": "APIError",
             },
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             time={"created": 0},
             type="retry",
@@ -3031,10 +3066,10 @@ class TestAsyncPart:
     async def test_path_params_update_overload_11(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -3043,7 +3078,7 @@ class TestAsyncPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -3051,10 +3086,10 @@ class TestAsyncPart:
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -3063,7 +3098,7 @@ class TestAsyncPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -3073,8 +3108,8 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 attempt=0,
                 error={
                     "data": {
@@ -3083,7 +3118,7 @@ class TestAsyncPart:
                     },
                     "name": "APIError",
                 },
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 time={"created": 0},
                 type="retry",
@@ -3093,12 +3128,12 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_overload_12(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         )
@@ -3108,15 +3143,17 @@ class TestAsyncPart:
     @parametrize
     async def test_method_update_with_all_params_overload_12(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
             directory="directory",
+            workspace="workspace",
+            overflow=True,
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -3124,12 +3161,12 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_update_overload_12(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         )
@@ -3143,12 +3180,12 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_update_overload_12(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.update(
-            part_id="partID",
+            part_id="prtJ!",
             path_session_id="sessionID",
-            path_message_id="messageID",
-            id="id",
+            path_message_id="msgJ!",
+            id="prtJ!",
             auto=True,
-            body_message_id="messageID",
+            body_message_id="msgJ!",
             body_session_id="sessionID",
             type="compaction",
         ) as response:
@@ -3165,24 +3202,24 @@ class TestAsyncPart:
     async def test_path_params_update_overload_12(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `path_message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.update(
-                part_id="partID",
+                part_id="prtJ!",
                 path_session_id="sessionID",
                 path_message_id="",
-                id="id",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
@@ -3191,10 +3228,10 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.update(
                 part_id="",
                 path_session_id="sessionID",
-                path_message_id="messageID",
-                id="id",
+                path_message_id="msgJ!",
+                id="prtJ!",
                 auto=True,
-                body_message_id="messageID",
+                body_message_id="msgJ!",
                 body_session_id="sessionID",
                 type="compaction",
             )
@@ -3203,9 +3240,9 @@ class TestAsyncPart:
     @parametrize
     async def test_method_delete(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         )
         assert_matches_type(PartDeleteResponse, part, path=["response"])
 
@@ -3213,10 +3250,11 @@ class TestAsyncPart:
     @parametrize
     async def test_method_delete_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         part = await async_client.session.message.part.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PartDeleteResponse, part, path=["response"])
 
@@ -3224,9 +3262,9 @@ class TestAsyncPart:
     @parametrize
     async def test_raw_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.part.with_raw_response.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         )
 
         assert response.is_closed is True
@@ -3238,9 +3276,9 @@ class TestAsyncPart:
     @parametrize
     async def test_streaming_response_delete(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.part.with_streaming_response.delete(
-            part_id="partID",
+            part_id="prtJ!",
             session_id="sessionID",
-            message_id="messageID",
+            message_id="msgJ!",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -3255,14 +3293,14 @@ class TestAsyncPart:
     async def test_path_params_delete(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.message.part.with_raw_response.delete(
-                part_id="partID",
+                part_id="prtJ!",
                 session_id="",
-                message_id="messageID",
+                message_id="msgJ!",
             )
 
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `message_id` but received ''"):
             await async_client.session.message.part.with_raw_response.delete(
-                part_id="partID",
+                part_id="prtJ!",
                 session_id="sessionID",
                 message_id="",
             )
@@ -3271,5 +3309,5 @@ class TestAsyncPart:
             await async_client.session.message.part.with_raw_response.delete(
                 part_id="",
                 session_id="sessionID",
-                message_id="messageID",
+                message_id="msgJ!",
             )

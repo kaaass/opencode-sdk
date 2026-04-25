@@ -10,6 +10,8 @@ __all__ = ["PtyUpdateParams", "Size"]
 class PtyUpdateParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     size: Size
 
     title: str

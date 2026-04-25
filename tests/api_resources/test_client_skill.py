@@ -32,6 +32,7 @@ class TestClientSkill:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         client_skill = client.client_skill.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillListResponse, client_skill, path=["response"])
 
@@ -71,6 +72,7 @@ class TestClientSkill:
         client_skill = client.client_skill.delete(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillDeleteResponse, client_skill, path=["response"])
 
@@ -122,6 +124,7 @@ class TestClientSkill:
         client_skill = client.client_skill.upload(
             file=b"Example data",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 
@@ -168,6 +171,7 @@ class TestAsyncClientSkill:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_skill = await async_client.client_skill.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillListResponse, client_skill, path=["response"])
 
@@ -207,6 +211,7 @@ class TestAsyncClientSkill:
         client_skill = await async_client.client_skill.delete(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillDeleteResponse, client_skill, path=["response"])
 
@@ -258,6 +263,7 @@ class TestAsyncClientSkill:
         client_skill = await async_client.client_skill.upload(
             file=b"Example data",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientSkillUploadResponse, client_skill, path=["response"])
 

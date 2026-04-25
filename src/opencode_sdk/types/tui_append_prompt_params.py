@@ -11,3 +11,5 @@ class TuiAppendPromptParams(TypedDict, total=False):
     text: Required[str]
 
     directory: str
+
+    workspace: str

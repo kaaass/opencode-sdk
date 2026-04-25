@@ -9,3 +9,5 @@ __all__ = ["ConfigListProvidersParams"]
 
 class ConfigListProvidersParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

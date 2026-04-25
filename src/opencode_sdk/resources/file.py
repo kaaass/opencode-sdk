@@ -48,6 +48,7 @@ class FileResource(SyncAPIResource):
         *,
         path: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -78,6 +79,7 @@ class FileResource(SyncAPIResource):
                     {
                         "path": path,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     file_list_params.FileListParams,
                 ),
@@ -89,6 +91,7 @@ class FileResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,7 +118,13 @@ class FileResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, file_get_status_params.FileGetStatusParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    file_get_status_params.FileGetStatusParams,
+                ),
             ),
             cast_to=FileGetStatusResponse,
         )
@@ -125,6 +134,7 @@ class FileResource(SyncAPIResource):
         *,
         path: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -155,6 +165,7 @@ class FileResource(SyncAPIResource):
                     {
                         "path": path,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     file_read_params.FileReadParams,
                 ),
@@ -188,6 +199,7 @@ class AsyncFileResource(AsyncAPIResource):
         *,
         path: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,6 +230,7 @@ class AsyncFileResource(AsyncAPIResource):
                     {
                         "path": path,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     file_list_params.FileListParams,
                 ),
@@ -229,6 +242,7 @@ class AsyncFileResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -255,7 +269,13 @@ class AsyncFileResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, file_get_status_params.FileGetStatusParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    file_get_status_params.FileGetStatusParams,
+                ),
             ),
             cast_to=FileGetStatusResponse,
         )
@@ -265,6 +285,7 @@ class AsyncFileResource(AsyncAPIResource):
         *,
         path: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,6 +316,7 @@ class AsyncFileResource(AsyncAPIResource):
                     {
                         "path": path,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     file_read_params.FileReadParams,
                 ),

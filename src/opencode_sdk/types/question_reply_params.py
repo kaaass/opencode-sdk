@@ -15,3 +15,5 @@ class QuestionReplyParams(TypedDict, total=False):
     """User answers in order of questions (each answer is an array of selected labels)"""
 
     directory: str
+
+    workspace: str

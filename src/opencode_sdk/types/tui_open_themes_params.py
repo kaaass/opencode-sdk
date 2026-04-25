@@ -9,3 +9,5 @@ __all__ = ["TuiOpenThemesParams"]
 
 class TuiOpenThemesParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

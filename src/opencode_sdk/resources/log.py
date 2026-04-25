@@ -51,6 +51,7 @@ class LogResource(SyncAPIResource):
         message: str,
         service: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         extra: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -95,7 +96,13 @@ class LogResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, log_write_params.LogWriteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    log_write_params.LogWriteParams,
+                ),
             ),
             cast_to=LogWriteResponse,
         )
@@ -128,6 +135,7 @@ class AsyncLogResource(AsyncAPIResource):
         message: str,
         service: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         extra: Dict[str, object] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -172,7 +180,13 @@ class AsyncLogResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, log_write_params.LogWriteParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    log_write_params.LogWriteParams,
+                ),
             ),
             cast_to=LogWriteResponse,
         )

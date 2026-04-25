@@ -41,6 +41,7 @@ class TestArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
@@ -102,6 +103,7 @@ class TestArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert artifact.is_closed
         assert artifact.json() == {"foo": "bar"}
@@ -171,6 +173,7 @@ class TestAsyncArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ArtifactDeleteResponse, artifact, path=["response"])
 
@@ -234,6 +237,7 @@ class TestAsyncArtifact:
             artifact_id="artifactID",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert artifact.is_closed
         assert await artifact.json() == {"foo": "bar"}

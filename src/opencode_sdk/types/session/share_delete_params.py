@@ -9,3 +9,5 @@ __all__ = ["ShareDeleteParams"]
 
 class ShareDeleteParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

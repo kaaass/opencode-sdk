@@ -14,3 +14,5 @@ class ClientSkillUploadParams(TypedDict, total=False):
     """Skill package file (tar.gz format)"""
 
     directory: str
+
+    workspace: str

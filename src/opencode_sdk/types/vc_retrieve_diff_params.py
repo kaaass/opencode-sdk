@@ -4,14 +4,12 @@ from __future__ import annotations
 
 from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["PermissionReplyParams"]
+__all__ = ["VcRetrieveDiffParams"]
 
 
-class PermissionReplyParams(TypedDict, total=False):
-    reply: Required[Literal["once", "always", "reject"]]
+class VcRetrieveDiffParams(TypedDict, total=False):
+    mode: Required[Literal["git", "branch"]]
 
     directory: str
 
     workspace: str
-
-    message: str

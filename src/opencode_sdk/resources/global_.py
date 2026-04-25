@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from .._types import Body, Query, Headers, NotGiven, not_given
+from .._types import Body, Query, Headers, NoneType, NotGiven, not_given
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -15,7 +15,6 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
-from ..types.global_exit_response import GlobalExitResponse
 from ..types.global_get_health_response import GlobalGetHealthResponse
 from ..types.global_get_version_response import GlobalGetVersionResponse
 from ..types.global_retrieve_events_response import GlobalRetrieveEventsResponse
@@ -72,14 +71,15 @@ class GlobalResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GlobalExitResponse:
-        """Gracefully shutdown the OpenCode server. Docker will restart it automatically."""
+    ) -> None:
+        """Exit server"""
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return self._post(
             "/global/exit",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GlobalExitResponse,
+            cast_to=NoneType,
         )
 
     def get_health(
@@ -111,7 +111,7 @@ class GlobalResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GlobalGetVersionResponse:
-        """Get detailed version information including local, API, and upstream versions."""
+        """Get version info"""
         return self._get(
             "/global/version",
             options=make_request_options(
@@ -191,14 +191,15 @@ class AsyncGlobalResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> GlobalExitResponse:
-        """Gracefully shutdown the OpenCode server. Docker will restart it automatically."""
+    ) -> None:
+        """Exit server"""
+        extra_headers = {"Accept": "*/*", **(extra_headers or {})}
         return await self._post(
             "/global/exit",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=GlobalExitResponse,
+            cast_to=NoneType,
         )
 
     async def get_health(
@@ -230,7 +231,7 @@ class AsyncGlobalResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GlobalGetVersionResponse:
-        """Get detailed version information including local, API, and upstream versions."""
+        """Get version info"""
         return await self._get(
             "/global/version",
             options=make_request_options(

@@ -2,17 +2,30 @@
 
 from __future__ import annotations
 
-from typing_extensions import TypedDict
+from typing import Iterable
+from typing_extensions import Literal, Required, TypedDict
 
-__all__ = ["SessionUpdateParams", "Time"]
+__all__ = ["SessionUpdateParams", "Permission", "Time"]
 
 
 class SessionUpdateParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
+    permission: Iterable[Permission]
+
     time: Time
 
     title: str
+
+
+class Permission(TypedDict, total=False):
+    action: Required[Literal["allow", "deny", "ask"]]
+
+    pattern: Required[str]
+
+    permission: Required[str]
 
 
 class Time(TypedDict, total=False):

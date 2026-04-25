@@ -10,7 +10,6 @@ import pytest
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 from opencode_sdk.types import (
-    AssistantMessage,
     SessionListResponse,
     SessionAbortResponse,
     SessionDeleteResponse,
@@ -23,6 +22,7 @@ from opencode_sdk.types import (
     SessionSendCommandResponse,
     SessionListArtifactsResponse,
     SessionRetrieveStatusResponse,
+    SessionRunShellCommandResponse,
     SessionSubmitToolResultsResponse,
     SessionRespondToPermissionResponse,
 )
@@ -47,6 +47,9 @@ class TestSession:
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         session = client.session.create(
             directory="directory",
+            workspace="workspace",
+            extra_info={"foo": "string"},
+            managed_by="tui",
             parent_id="sesJ!",
             permission=[
                 {
@@ -56,6 +59,7 @@ class TestSession:
                 }
             ],
             title="title",
+            workspace_id="wrkJ!",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -95,6 +99,7 @@ class TestSession:
         session = client.session.retrieve(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -146,6 +151,14 @@ class TestSession:
         session = client.session.update(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
             time={"archived": 0},
             title="title",
         )
@@ -197,8 +210,10 @@ class TestSession:
         session = client.session.list(
             directory="directory",
             limit=0,
+            roots=True,
             search="search",
             start=0,
+            workspace="workspace",
         )
         assert_matches_type(SessionListResponse, session, path=["response"])
 
@@ -238,6 +253,7 @@ class TestSession:
         session = client.session.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionDeleteResponse, session, path=["response"])
 
@@ -289,6 +305,7 @@ class TestSession:
         session = client.session.abort(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionAbortResponse, session, path=["response"])
 
@@ -340,6 +357,7 @@ class TestSession:
         session = client.session.fork(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
             message_id="msgJ!",
         )
         assert_matches_type(Session, session, path=["response"])
@@ -392,6 +410,7 @@ class TestSession:
         session = client.session.get_children(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetChildrenResponse, session, path=["response"])
 
@@ -444,6 +463,7 @@ class TestSession:
             session_id="sessionID",
             directory="directory",
             message_id="msgJ!",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetDiffResponse, session, path=["response"])
 
@@ -492,6 +512,7 @@ class TestSession:
     def test_method_get_status_with_all_params(self, client: OpencodeSDK) -> None:
         session = client.session.get_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetStatusResponse, session, path=["response"])
 
@@ -531,6 +552,7 @@ class TestSession:
         session = client.session.get_todo(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetTodoResponse, session, path=["response"])
 
@@ -588,6 +610,7 @@ class TestSession:
             model_id="modelID",
             provider_id="providerID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionInitializeResponse, session, path=["response"])
 
@@ -648,6 +671,7 @@ class TestSession:
         session = client.session.list_artifacts(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionListArtifactsResponse, session, path=["response"])
 
@@ -706,6 +730,7 @@ class TestSession:
                 session_id="sessionID",
                 response="once",
                 directory="directory",
+                workspace="workspace",
             )
 
         assert_matches_type(SessionRespondToPermissionResponse, session, path=["response"])
@@ -774,6 +799,7 @@ class TestSession:
         session = client.session.restore_reverted_messages(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -825,6 +851,7 @@ class TestSession:
         session = client.session.retrieve_status(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
 
@@ -878,6 +905,7 @@ class TestSession:
             session_id="sessionID",
             message_id="msgJ!",
             directory="directory",
+            workspace="workspace",
             part_id="prtJ!",
         )
         assert_matches_type(Session, session, path=["response"])
@@ -927,7 +955,7 @@ class TestSession:
             agent="agent",
             command="command",
         )
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -937,12 +965,14 @@ class TestSession:
             agent="agent",
             command="command",
             directory="directory",
+            workspace="workspace",
+            message_id="msgJ!",
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
         )
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -956,7 +986,7 @@ class TestSession:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -970,7 +1000,7 @@ class TestSession:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(AssistantMessage, session, path=["response"])
+            assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -1007,7 +1037,7 @@ class TestSession:
                 {
                     "text": "text",
                     "type": "text",
-                    "id": "id",
+                    "id": "prtJ!",
                     "ignored": True,
                     "metadata": {"foo": "bar"},
                     "synthetic": True,
@@ -1018,7 +1048,9 @@ class TestSession:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             agent="agent",
+            format={"type": "text"},
             message_id="msgJ!",
             model={
                 "model_id": "modelID",
@@ -1101,6 +1133,7 @@ class TestSession:
             arguments="arguments",
             command="command",
             directory="directory",
+            workspace="workspace",
             agent="agent",
             message_id="msgJ!",
             model="model",
@@ -1109,7 +1142,7 @@ class TestSession:
                     "mime": "mime",
                     "type": "file",
                     "url": "url",
-                    "id": "id",
+                    "id": "prtJ!",
                     "filename": "filename",
                     "source": {
                         "path": "path",
@@ -1191,8 +1224,8 @@ class TestSession:
                     "output": "output",
                     "attachments": [
                         {
-                            "id": "id",
-                            "message_id": "messageID",
+                            "id": "prtJ!",
+                            "message_id": "msgJ!",
                             "mime": "mime",
                             "session_id": "sessionID",
                             "type": "file",
@@ -1214,6 +1247,7 @@ class TestSession:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             async_=True,
             continue_loop=True,
         )
@@ -1289,6 +1323,7 @@ class TestSession:
             model_id="modelID",
             provider_id="providerID",
             directory="directory",
+            workspace="workspace",
             auto=True,
         )
         assert_matches_type(SessionSummarizeResponse, session, path=["response"])
@@ -1350,6 +1385,9 @@ class TestAsyncSession:
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         session = await async_client.session.create(
             directory="directory",
+            workspace="workspace",
+            extra_info={"foo": "string"},
+            managed_by="tui",
             parent_id="sesJ!",
             permission=[
                 {
@@ -1359,6 +1397,7 @@ class TestAsyncSession:
                 }
             ],
             title="title",
+            workspace_id="wrkJ!",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -1398,6 +1437,7 @@ class TestAsyncSession:
         session = await async_client.session.retrieve(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -1449,6 +1489,14 @@ class TestAsyncSession:
         session = await async_client.session.update(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
             time={"archived": 0},
             title="title",
         )
@@ -1500,8 +1548,10 @@ class TestAsyncSession:
         session = await async_client.session.list(
             directory="directory",
             limit=0,
+            roots=True,
             search="search",
             start=0,
+            workspace="workspace",
         )
         assert_matches_type(SessionListResponse, session, path=["response"])
 
@@ -1541,6 +1591,7 @@ class TestAsyncSession:
         session = await async_client.session.delete(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionDeleteResponse, session, path=["response"])
 
@@ -1592,6 +1643,7 @@ class TestAsyncSession:
         session = await async_client.session.abort(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionAbortResponse, session, path=["response"])
 
@@ -1643,6 +1695,7 @@ class TestAsyncSession:
         session = await async_client.session.fork(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
             message_id="msgJ!",
         )
         assert_matches_type(Session, session, path=["response"])
@@ -1695,6 +1748,7 @@ class TestAsyncSession:
         session = await async_client.session.get_children(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetChildrenResponse, session, path=["response"])
 
@@ -1747,6 +1801,7 @@ class TestAsyncSession:
             session_id="sessionID",
             directory="directory",
             message_id="msgJ!",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetDiffResponse, session, path=["response"])
 
@@ -1795,6 +1850,7 @@ class TestAsyncSession:
     async def test_method_get_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         session = await async_client.session.get_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetStatusResponse, session, path=["response"])
 
@@ -1834,6 +1890,7 @@ class TestAsyncSession:
         session = await async_client.session.get_todo(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionGetTodoResponse, session, path=["response"])
 
@@ -1891,6 +1948,7 @@ class TestAsyncSession:
             model_id="modelID",
             provider_id="providerID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionInitializeResponse, session, path=["response"])
 
@@ -1951,6 +2009,7 @@ class TestAsyncSession:
         session = await async_client.session.list_artifacts(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionListArtifactsResponse, session, path=["response"])
 
@@ -2009,6 +2068,7 @@ class TestAsyncSession:
                 session_id="sessionID",
                 response="once",
                 directory="directory",
+                workspace="workspace",
             )
 
         assert_matches_type(SessionRespondToPermissionResponse, session, path=["response"])
@@ -2077,6 +2137,7 @@ class TestAsyncSession:
         session = await async_client.session.restore_reverted_messages(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Session, session, path=["response"])
 
@@ -2128,6 +2189,7 @@ class TestAsyncSession:
         session = await async_client.session.retrieve_status(
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(SessionRetrieveStatusResponse, session, path=["response"])
 
@@ -2181,6 +2243,7 @@ class TestAsyncSession:
             session_id="sessionID",
             message_id="msgJ!",
             directory="directory",
+            workspace="workspace",
             part_id="prtJ!",
         )
         assert_matches_type(Session, session, path=["response"])
@@ -2230,7 +2293,7 @@ class TestAsyncSession:
             agent="agent",
             command="command",
         )
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -2240,12 +2303,14 @@ class TestAsyncSession:
             agent="agent",
             command="command",
             directory="directory",
+            workspace="workspace",
+            message_id="msgJ!",
             model={
                 "model_id": "modelID",
                 "provider_id": "providerID",
             },
         )
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -2259,7 +2324,7 @@ class TestAsyncSession:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(AssistantMessage, session, path=["response"])
+        assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -2273,7 +2338,7 @@ class TestAsyncSession:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(AssistantMessage, session, path=["response"])
+            assert_matches_type(SessionRunShellCommandResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -2310,7 +2375,7 @@ class TestAsyncSession:
                 {
                     "text": "text",
                     "type": "text",
-                    "id": "id",
+                    "id": "prtJ!",
                     "ignored": True,
                     "metadata": {"foo": "bar"},
                     "synthetic": True,
@@ -2321,7 +2386,9 @@ class TestAsyncSession:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             agent="agent",
+            format={"type": "text"},
             message_id="msgJ!",
             model={
                 "model_id": "modelID",
@@ -2404,6 +2471,7 @@ class TestAsyncSession:
             arguments="arguments",
             command="command",
             directory="directory",
+            workspace="workspace",
             agent="agent",
             message_id="msgJ!",
             model="model",
@@ -2412,7 +2480,7 @@ class TestAsyncSession:
                     "mime": "mime",
                     "type": "file",
                     "url": "url",
-                    "id": "id",
+                    "id": "prtJ!",
                     "filename": "filename",
                     "source": {
                         "path": "path",
@@ -2494,8 +2562,8 @@ class TestAsyncSession:
                     "output": "output",
                     "attachments": [
                         {
-                            "id": "id",
-                            "message_id": "messageID",
+                            "id": "prtJ!",
+                            "message_id": "msgJ!",
                             "mime": "mime",
                             "session_id": "sessionID",
                             "type": "file",
@@ -2517,6 +2585,7 @@ class TestAsyncSession:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             async_=True,
             continue_loop=True,
         )
@@ -2592,6 +2661,7 @@ class TestAsyncSession:
             model_id="modelID",
             provider_id="providerID",
             directory="directory",
+            workspace="workspace",
             auto=True,
         )
         assert_matches_type(SessionSummarizeResponse, session, path=["response"])

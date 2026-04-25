@@ -15,3 +15,5 @@ class PartDeleteParams(TypedDict, total=False):
     message_id: Required[Annotated[str, PropertyInfo(alias="messageID")]]
 
     directory: str
+
+    workspace: str

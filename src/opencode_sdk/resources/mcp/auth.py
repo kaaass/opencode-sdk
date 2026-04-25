@@ -51,6 +51,7 @@ class AuthResource(SyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -81,7 +82,13 @@ class AuthResource(SyncAPIResource):
                     extra_query=extra_query,
                     extra_body=extra_body,
                     timeout=timeout,
-                    query=maybe_transform({"directory": directory}, auth_authenticate_params.AuthAuthenticateParams),
+                    query=maybe_transform(
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        auth_authenticate_params.AuthAuthenticateParams,
+                    ),
                 ),
                 cast_to=cast(
                     Any, AuthAuthenticateResponse
@@ -95,6 +102,7 @@ class AuthResource(SyncAPIResource):
         *,
         code: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -129,7 +137,13 @@ class AuthResource(SyncAPIResource):
                     extra_query=extra_query,
                     extra_body=extra_body,
                     timeout=timeout,
-                    query=maybe_transform({"directory": directory}, auth_complete_params.AuthCompleteParams),
+                    query=maybe_transform(
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        auth_complete_params.AuthCompleteParams,
+                    ),
                 ),
                 cast_to=cast(
                     Any, AuthCompleteResponse
@@ -142,6 +156,7 @@ class AuthResource(SyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -170,7 +185,13 @@ class AuthResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, auth_remove_params.AuthRemoveParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    auth_remove_params.AuthRemoveParams,
+                ),
             ),
             cast_to=AuthRemoveResponse,
         )
@@ -180,6 +201,7 @@ class AuthResource(SyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -208,7 +230,13 @@ class AuthResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, auth_start_params.AuthStartParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    auth_start_params.AuthStartParams,
+                ),
             ),
             cast_to=AuthStartResponse,
         )
@@ -239,6 +267,7 @@ class AsyncAuthResource(AsyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -270,7 +299,11 @@ class AsyncAuthResource(AsyncAPIResource):
                     extra_body=extra_body,
                     timeout=timeout,
                     query=await async_maybe_transform(
-                        {"directory": directory}, auth_authenticate_params.AuthAuthenticateParams
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        auth_authenticate_params.AuthAuthenticateParams,
                     ),
                 ),
                 cast_to=cast(
@@ -285,6 +318,7 @@ class AsyncAuthResource(AsyncAPIResource):
         *,
         code: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -320,7 +354,11 @@ class AsyncAuthResource(AsyncAPIResource):
                     extra_body=extra_body,
                     timeout=timeout,
                     query=await async_maybe_transform(
-                        {"directory": directory}, auth_complete_params.AuthCompleteParams
+                        {
+                            "directory": directory,
+                            "workspace": workspace,
+                        },
+                        auth_complete_params.AuthCompleteParams,
                     ),
                 ),
                 cast_to=cast(
@@ -334,6 +372,7 @@ class AsyncAuthResource(AsyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -362,7 +401,13 @@ class AsyncAuthResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, auth_remove_params.AuthRemoveParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    auth_remove_params.AuthRemoveParams,
+                ),
             ),
             cast_to=AuthRemoveResponse,
         )
@@ -372,6 +417,7 @@ class AsyncAuthResource(AsyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -400,7 +446,13 @@ class AsyncAuthResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, auth_start_params.AuthStartParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    auth_start_params.AuthStartParams,
+                ),
             ),
             cast_to=AuthStartResponse,
         )

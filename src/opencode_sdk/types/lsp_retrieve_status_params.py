@@ -9,3 +9,5 @@ __all__ = ["LspRetrieveStatusParams"]
 
 class LspRetrieveStatusParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

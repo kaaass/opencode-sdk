@@ -13,3 +13,5 @@ class ToolListToolsParams(TypedDict, total=False):
     provider: Required[str]
 
     directory: str
+
+    workspace: str

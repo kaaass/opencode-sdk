@@ -9,3 +9,5 @@ __all__ = ["CommandListParams"]
 
 class CommandListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

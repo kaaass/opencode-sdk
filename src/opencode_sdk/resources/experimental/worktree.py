@@ -46,6 +46,7 @@ class WorktreeResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         name: str | Omit = omit,
         start_command: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -56,9 +57,12 @@ class WorktreeResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorktreeCreateResponse:
         """
-        Create a new git worktree for the current project.
+        Create a new git worktree for the current project and run any configured startup
+        scripts.
 
         Args:
+          start_command: Additional startup script to run after the project's start command
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -81,7 +85,13 @@ class WorktreeResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, worktree_create_params.WorktreeCreateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    worktree_create_params.WorktreeCreateParams,
+                ),
             ),
             cast_to=WorktreeCreateResponse,
         )
@@ -90,6 +100,7 @@ class WorktreeResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,7 +127,13 @@ class WorktreeResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, worktree_list_params.WorktreeListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    worktree_list_params.WorktreeListParams,
+                ),
             ),
             cast_to=WorktreeListResponse,
         )
@@ -146,6 +163,7 @@ class AsyncWorktreeResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         name: str | Omit = omit,
         start_command: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -156,9 +174,12 @@ class AsyncWorktreeResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> WorktreeCreateResponse:
         """
-        Create a new git worktree for the current project.
+        Create a new git worktree for the current project and run any configured startup
+        scripts.
 
         Args:
+          start_command: Additional startup script to run after the project's start command
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -182,7 +203,11 @@ class AsyncWorktreeResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, worktree_create_params.WorktreeCreateParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    worktree_create_params.WorktreeCreateParams,
                 ),
             ),
             cast_to=WorktreeCreateResponse,
@@ -192,6 +217,7 @@ class AsyncWorktreeResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,7 +244,13 @@ class AsyncWorktreeResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, worktree_list_params.WorktreeListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    worktree_list_params.WorktreeListParams,
+                ),
             ),
             cast_to=WorktreeListResponse,
         )

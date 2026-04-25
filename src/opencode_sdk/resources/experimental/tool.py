@@ -46,6 +46,7 @@ class ToolResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -73,7 +74,13 @@ class ToolResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, tool_list_ids_params.ToolListIDsParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    tool_list_ids_params.ToolListIDsParams,
+                ),
             ),
             cast_to=ToolListIDsResponse,
         )
@@ -84,6 +91,7 @@ class ToolResource(SyncAPIResource):
         model: str,
         provider: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -116,6 +124,7 @@ class ToolResource(SyncAPIResource):
                         "model": model,
                         "provider": provider,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     tool_list_tools_params.ToolListToolsParams,
                 ),
@@ -148,6 +157,7 @@ class AsyncToolResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -175,7 +185,13 @@ class AsyncToolResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, tool_list_ids_params.ToolListIDsParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    tool_list_ids_params.ToolListIDsParams,
+                ),
             ),
             cast_to=ToolListIDsResponse,
         )
@@ -186,6 +202,7 @@ class AsyncToolResource(AsyncAPIResource):
         model: str,
         provider: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -218,6 +235,7 @@ class AsyncToolResource(AsyncAPIResource):
                         "model": model,
                         "provider": provider,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     tool_list_tools_params.ToolListToolsParams,
                 ),

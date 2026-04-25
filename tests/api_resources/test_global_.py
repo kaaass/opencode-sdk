@@ -9,12 +9,7 @@ import pytest
 
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
-    GlobalExitResponse,
-    GlobalGetHealthResponse,
-    GlobalGetVersionResponse,
-    GlobalDisposeInstanceResponse,
-)
+from opencode_sdk.types import GlobalGetHealthResponse, GlobalGetVersionResponse, GlobalDisposeInstanceResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -54,7 +49,7 @@ class TestGlobal:
     @parametrize
     def test_method_exit(self, client: OpencodeSDK) -> None:
         global_ = client.global_.exit()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -64,7 +59,7 @@ class TestGlobal:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         global_ = response.parse()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -74,7 +69,7 @@ class TestGlobal:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             global_ = response.parse()
-            assert_matches_type(GlobalExitResponse, global_, path=["response"])
+            assert global_ is None
 
         assert cast(Any, response.is_closed) is True
 
@@ -199,7 +194,7 @@ class TestAsyncGlobal:
     @parametrize
     async def test_method_exit(self, async_client: AsyncOpencodeSDK) -> None:
         global_ = await async_client.global_.exit()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -209,7 +204,7 @@ class TestAsyncGlobal:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         global_ = await response.parse()
-        assert_matches_type(GlobalExitResponse, global_, path=["response"])
+        assert global_ is None
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -219,7 +214,7 @@ class TestAsyncGlobal:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             global_ = await response.parse()
-            assert_matches_type(GlobalExitResponse, global_, path=["response"])
+            assert global_ is None
 
         assert cast(Any, response.is_closed) is True
 

@@ -6,9 +6,6 @@ __all__ = ["Todo"]
 
 
 class Todo(BaseModel):
-    id: str
-    """Unique identifier for the todo item"""
-
     content: str
     """Brief description of the task"""
 

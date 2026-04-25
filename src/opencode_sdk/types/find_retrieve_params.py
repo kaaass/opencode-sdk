@@ -11,3 +11,5 @@ class FindRetrieveParams(TypedDict, total=False):
     pattern: Required[str]
 
     directory: str
+
+    workspace: str

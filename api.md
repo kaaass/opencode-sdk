@@ -100,6 +100,7 @@ from opencode_sdk.types import (
     SessionListArtifactsResponse,
     SessionRespondToPermissionResponse,
     SessionRetrieveStatusResponse,
+    SessionRunShellCommandResponse,
     SessionSendCommandResponse,
     SessionSubmitToolResultsResponse,
     SessionSummarizeResponse,
@@ -125,7 +126,7 @@ Methods:
 - <code title="post /session/{sessionID}/unrevert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">restore_reverted_messages</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_restore_reverted_messages_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
 - <code title="get /session/{sessionID}/status">client.session.<a href="./src/opencode_sdk/resources/session/session.py">retrieve_status</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_retrieve_status_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_retrieve_status_response.py">SessionRetrieveStatusResponse</a></code>
 - <code title="post /session/{sessionID}/revert">client.session.<a href="./src/opencode_sdk/resources/session/session.py">revert_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_revert_message_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session/session.py">Session</a></code>
-- <code title="post /session/{sessionID}/shell">client.session.<a href="./src/opencode_sdk/resources/session/session.py">run_shell_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_run_shell_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/assistant_message.py">AssistantMessage</a></code>
+- <code title="post /session/{sessionID}/shell">client.session.<a href="./src/opencode_sdk/resources/session/session.py">run_shell_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_run_shell_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_run_shell_command_response.py">SessionRunShellCommandResponse</a></code>
 - <code title="post /session/{sessionID}/prompt_async">client.session.<a href="./src/opencode_sdk/resources/session/session.py">send_async_message</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_send_async_message_params.py">params</a>) -> None</code>
 - <code title="post /session/{sessionID}/command">client.session.<a href="./src/opencode_sdk/resources/session/session.py">send_command</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_send_command_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_send_command_response.py">SessionSendCommandResponse</a></code>
 - <code title="post /session/{sessionID}/tool-results">client.session.<a href="./src/opencode_sdk/resources/session/session.py">submit_tool_results</a>(session_id, \*\*<a href="src/opencode_sdk/types/session_submit_tool_results_params.py">params</a>) -> <a href="./src/opencode_sdk/types/session_submit_tool_results_response.py">SessionSubmitToolResultsResponse</a></code>
@@ -255,7 +256,6 @@ from opencode_sdk.types import (
     McpRetrieveResponse,
     McpConnectResponse,
     McpDisconnectResponse,
-    McpReloadResponse,
 )
 ```
 
@@ -265,7 +265,6 @@ Methods:
 - <code title="get /mcp">client.mcp.<a href="./src/opencode_sdk/resources/mcp/mcp.py">retrieve</a>(\*\*<a href="src/opencode_sdk/types/mcp_retrieve_params.py">params</a>) -> <a href="./src/opencode_sdk/types/mcp_retrieve_response.py">McpRetrieveResponse</a></code>
 - <code title="post /mcp/{name}/connect">client.mcp.<a href="./src/opencode_sdk/resources/mcp/mcp.py">connect</a>(name, \*\*<a href="src/opencode_sdk/types/mcp_connect_params.py">params</a>) -> <a href="./src/opencode_sdk/types/mcp_connect_response.py">McpConnectResponse</a></code>
 - <code title="post /mcp/{name}/disconnect">client.mcp.<a href="./src/opencode_sdk/resources/mcp/mcp.py">disconnect</a>(name, \*\*<a href="src/opencode_sdk/types/mcp_disconnect_params.py">params</a>) -> <a href="./src/opencode_sdk/types/mcp_disconnect_response.py">McpDisconnectResponse</a></code>
-- <code title="post /mcp/reload">client.mcp.<a href="./src/opencode_sdk/resources/mcp/mcp.py">reload</a>(\*\*<a href="src/opencode_sdk/types/mcp_reload_params.py">params</a>) -> <a href="./src/opencode_sdk/types/mcp_reload_response.py">McpReloadResponse</a></code>
 
 ## Auth
 
@@ -365,7 +364,6 @@ Types:
 ```python
 from opencode_sdk.types import (
     GlobalDisposeInstanceResponse,
-    GlobalExitResponse,
     GlobalGetHealthResponse,
     GlobalGetVersionResponse,
     GlobalRetrieveEventsResponse,
@@ -375,7 +373,7 @@ from opencode_sdk.types import (
 Methods:
 
 - <code title="post /global/dispose">client.global*.<a href="./src/opencode_sdk/resources/global*.py">dispose_instance</a>() -> <a href="./src/opencode_sdk/types/global_dispose_instance_response.py">GlobalDisposeInstanceResponse</a></code>
-- <code title="post /global/exit">client.global*.<a href="./src/opencode_sdk/resources/global*.py">exit</a>() -> <a href="./src/opencode_sdk/types/global_exit_response.py">GlobalExitResponse</a></code>
+- <code title="post /global/exit">client.global*.<a href="./src/opencode_sdk/resources/global*.py">exit</a>() -> None</code>
 - <code title="get /global/health">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_health</a>() -> <a href="./src/opencode_sdk/types/global_get_health_response.py">GlobalGetHealthResponse</a></code>
 - <code title="get /global/version">client.global*.<a href="./src/opencode_sdk/resources/global*.py">get_version</a>() -> <a href="./src/opencode_sdk/types/global_get_version_response.py">GlobalGetVersionResponse</a></code>
 - <code title="get /global/event">client.global*.<a href="./src/opencode_sdk/resources/global*.py">retrieve_events</a>() -> <a href="./src/opencode_sdk/types/global_retrieve_events_response.py">GlobalRetrieveEventsResponse</a></code>
@@ -421,12 +419,13 @@ Methods:
 Types:
 
 ```python
-from opencode_sdk.types import VcRetrieveResponse
+from opencode_sdk.types import VcRetrieveResponse, VcRetrieveDiffResponse
 ```
 
 Methods:
 
 - <code title="get /vcs">client.vcs.<a href="./src/opencode_sdk/resources/vcs.py">retrieve</a>(\*\*<a href="src/opencode_sdk/types/vc_retrieve_params.py">params</a>) -> <a href="./src/opencode_sdk/types/vc_retrieve_response.py">VcRetrieveResponse</a></code>
+- <code title="get /vcs/diff">client.vcs.<a href="./src/opencode_sdk/resources/vcs.py">retrieve_diff</a>(\*\*<a href="src/opencode_sdk/types/vc_retrieve_diff_params.py">params</a>) -> <a href="./src/opencode_sdk/types/vc_retrieve_diff_response.py">VcRetrieveDiffResponse</a></code>
 
 # Provider
 

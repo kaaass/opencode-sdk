@@ -13,6 +13,9 @@ __all__ = [
     "UserMessage",
     "UserMessageModel",
     "UserMessageTime",
+    "UserMessageFormat",
+    "UserMessageFormatOutputFormatText",
+    "UserMessageFormatOutputFormatJsonSchema",
     "UserMessageSummary",
     "UserMessageSummaryDiff",
 ]
@@ -23,21 +26,38 @@ class UserMessageModel(BaseModel):
 
     provider_id: str = FieldInfo(alias="providerID")
 
+    variant: Optional[str] = None
+
 
 class UserMessageTime(BaseModel):
     created: float
 
 
+class UserMessageFormatOutputFormatText(BaseModel):
+    type: Literal["text"]
+
+
+class UserMessageFormatOutputFormatJsonSchema(BaseModel):
+    schema_: Dict[str, object] = FieldInfo(alias="schema")
+
+    type: Literal["json_schema"]
+
+    retry_count: Optional[int] = FieldInfo(alias="retryCount", default=None)
+
+
+UserMessageFormat: TypeAlias = Union[UserMessageFormatOutputFormatText, UserMessageFormatOutputFormatJsonSchema]
+
+
 class UserMessageSummaryDiff(BaseModel):
     additions: float
-
-    after: str
-
-    before: str
 
     deletions: float
 
     file: str
+
+    patch: str
+
+    status: Optional[Literal["added", "deleted", "modified"]] = None
 
 
 class UserMessageSummary(BaseModel):
@@ -61,13 +81,13 @@ class UserMessage(BaseModel):
 
     time: UserMessageTime
 
+    format: Optional[UserMessageFormat] = None
+
     summary: Optional[UserMessageSummary] = None
 
     system: Optional[str] = None
 
     tools: Optional[Dict[str, bool]] = None
-
-    variant: Optional[str] = None
 
 
 Message: TypeAlias = Union[UserMessage, AssistantMessage]

@@ -9,3 +9,5 @@ __all__ = ["ShareCreateParams"]
 
 class ShareCreateParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

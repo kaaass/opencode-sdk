@@ -46,6 +46,7 @@ class ShareResource(SyncAPIResource):
         session_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,7 +75,13 @@ class ShareResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, share_create_params.ShareCreateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    share_create_params.ShareCreateParams,
+                ),
             ),
             cast_to=Session,
         )
@@ -84,6 +91,7 @@ class ShareResource(SyncAPIResource):
         session_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -112,7 +120,13 @@ class ShareResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, share_delete_params.ShareDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    share_delete_params.ShareDeleteParams,
+                ),
             ),
             cast_to=Session,
         )
@@ -143,6 +157,7 @@ class AsyncShareResource(AsyncAPIResource):
         session_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -171,7 +186,13 @@ class AsyncShareResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, share_create_params.ShareCreateParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    share_create_params.ShareCreateParams,
+                ),
             ),
             cast_to=Session,
         )
@@ -181,6 +202,7 @@ class AsyncShareResource(AsyncAPIResource):
         session_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -209,7 +231,13 @@ class AsyncShareResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, share_delete_params.ShareDeleteParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    share_delete_params.ShareDeleteParams,
+                ),
             ),
             cast_to=Session,
         )

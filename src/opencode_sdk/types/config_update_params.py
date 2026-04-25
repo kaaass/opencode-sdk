@@ -39,11 +39,7 @@ __all__ = [
     "Compaction",
     "Enterprise",
     "Experimental",
-    "ExperimentalHook",
-    "ExperimentalHookFileEdited",
-    "ExperimentalHookSessionCompleted",
     "FormatterUnionMember1FormatterUnionMember1Item",
-    "Keybinds",
     "LspUnionMember1LspUnionMember1Item",
     "LspUnionMember1LspUnionMember1ItemDisabled",
     "LspUnionMember1LspUnionMember1ItemUnionMember1",
@@ -77,8 +73,7 @@ __all__ = [
     "ProviderModelsVariants",
     "ProviderOptions",
     "Server",
-    "Tui",
-    "TuiScrollAcceleration",
+    "Skills",
     "Watcher",
 ]
 
@@ -86,11 +81,13 @@ __all__ = [
 class ConfigUpdateParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     schema: Annotated[str, PropertyInfo(alias="$schema")]
     """JSON schema reference for configuration validation"""
 
     agent: Agent
-    """Agent configuration, see https://opencode.ai/docs/agent"""
+    """Agent configuration, see https://opencode.ai/docs/agents"""
 
     artifact_allowed_paths: SequenceNotStr[str]
     """
@@ -144,9 +141,6 @@ class ConfigUpdateParams(TypedDict, total=False):
     instructions: SequenceNotStr[str]
     """Additional instruction files or patterns to include"""
 
-    keybinds: Keybinds
-    """Custom keybind configurations"""
-
     layout: Literal["auto", "stretch"]
     """@deprecated Always uses stretch layout."""
 
@@ -166,7 +160,7 @@ class ConfigUpdateParams(TypedDict, total=False):
 
     permission: Permission
 
-    plugin: SequenceNotStr[str]
+    plugin: SequenceNotStr[Union[str, Iterable[object]]]
 
     provider: Dict[str, Provider]
     """Custom provider configurations and model overrides"""
@@ -180,6 +174,9 @@ class ConfigUpdateParams(TypedDict, total=False):
     enables automatic sharing, 'disabled' disables all sharing
     """
 
+    skills: Skills
+    """Additional skill folder paths"""
+
     small_model: str
     """
     Small model to use for tasks like title generation in the format of
@@ -187,14 +184,13 @@ class ConfigUpdateParams(TypedDict, total=False):
     """
 
     snapshot: bool
+    """Enable or disable snapshot tracking.
 
-    theme: str
-    """Theme name to use for the interface"""
+    When false, filesystem snapshots are not recorded and undoing or reverting will
+    not undo/redo file changes. Defaults to true.
+    """
 
     tools: Dict[str, bool]
-
-    tui: Tui
-    """TUI specific settings"""
 
     username: str
     """Custom username to display in conversations instead of system username"""
@@ -231,9 +227,9 @@ class AgentBuildPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -246,8 +242,8 @@ AgentBuildPermission: TypeAlias = Union[AgentBuildPermissionUnionMember0, Litera
 
 
 class AgentBuild(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -289,6 +285,12 @@ class AgentBuild(TypedDict, total=False, extra_items=object):  # type: ignore[ca
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentCompactionPermissionUnionMember0(
     TypedDict,
@@ -319,9 +321,9 @@ class AgentCompactionPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -334,8 +336,8 @@ AgentCompactionPermission: TypeAlias = Union[AgentCompactionPermissionUnionMembe
 
 
 class AgentCompaction(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -377,6 +379,12 @@ class AgentCompaction(TypedDict, total=False, extra_items=object):  # type: igno
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentExplorePermissionUnionMember0(
     TypedDict,
@@ -407,9 +415,9 @@ class AgentExplorePermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -422,8 +430,8 @@ AgentExplorePermission: TypeAlias = Union[AgentExplorePermissionUnionMember0, Li
 
 
 class AgentExplore(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -465,6 +473,12 @@ class AgentExplore(TypedDict, total=False, extra_items=object):  # type: ignore[
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentGeneralPermissionUnionMember0(
     TypedDict,
@@ -495,9 +509,9 @@ class AgentGeneralPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -510,8 +524,8 @@ AgentGeneralPermission: TypeAlias = Union[AgentGeneralPermissionUnionMember0, Li
 
 
 class AgentGeneral(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -553,6 +567,12 @@ class AgentGeneral(TypedDict, total=False, extra_items=object):  # type: ignore[
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentPlanPermissionUnionMember0(
     TypedDict,
@@ -583,9 +603,9 @@ class AgentPlanPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -598,8 +618,8 @@ AgentPlanPermission: TypeAlias = Union[AgentPlanPermissionUnionMember0, Literal[
 
 
 class AgentPlan(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -641,6 +661,12 @@ class AgentPlan(TypedDict, total=False, extra_items=object):  # type: ignore[cal
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentSummaryPermissionUnionMember0(
     TypedDict,
@@ -671,9 +697,9 @@ class AgentSummaryPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -686,8 +712,8 @@ AgentSummaryPermission: TypeAlias = Union[AgentSummaryPermissionUnionMember0, Li
 
 
 class AgentSummary(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -729,6 +755,12 @@ class AgentSummary(TypedDict, total=False, extra_items=object):  # type: ignore[
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentTitlePermissionUnionMember0(
     TypedDict,
@@ -759,9 +791,9 @@ class AgentTitlePermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -774,8 +806,8 @@ AgentTitlePermission: TypeAlias = Union[AgentTitlePermissionUnionMember0, Litera
 
 
 class AgentTitle(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -817,6 +849,12 @@ class AgentTitle(TypedDict, total=False, extra_items=object):  # type: ignore[ca
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class AgentAgentItemPermissionUnionMember0(
     TypedDict,
@@ -847,9 +885,9 @@ class AgentAgentItemPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -862,8 +900,8 @@ AgentAgentItemPermission: TypeAlias = Union[AgentAgentItemPermissionUnionMember0
 
 
 class AgentAgentItem(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -905,9 +943,15 @@ class AgentAgentItem(TypedDict, total=False, extra_items=object):  # type: ignor
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class Agent(TypedDict, total=False, extra_items=AgentAgentItem):  # type: ignore[call-arg]
-    """Agent configuration, see https://opencode.ai/docs/agent"""
+    """Agent configuration, see https://opencode.ai/docs/agents"""
 
     build: AgentBuild
 
@@ -943,43 +987,26 @@ class Compaction(TypedDict, total=False):
     prune: bool
     """Enable pruning of old tool outputs (default: true)"""
 
+    reserved: int
+    """Token buffer for compaction.
+
+    Leaves enough window to avoid overflow during compaction.
+    """
+
 
 class Enterprise(TypedDict, total=False):
     url: str
     """Enterprise URL"""
 
 
-class ExperimentalHookFileEdited(TypedDict, total=False):
-    command: Required[SequenceNotStr[str]]
-
-    environment: Dict[str, str]
-
-
-class ExperimentalHookSessionCompleted(TypedDict, total=False):
-    command: Required[SequenceNotStr[str]]
-
-    environment: Dict[str, str]
-
-
-class ExperimentalHook(TypedDict, total=False):
-    file_edited: Dict[str, Iterable[ExperimentalHookFileEdited]]
-
-    session_completed: Iterable[ExperimentalHookSessionCompleted]
-
-
 class Experimental(TypedDict, total=False):
     batch_tool: bool
     """Enable the batch tool"""
-
-    chat_max_retries: Annotated[float, PropertyInfo(alias="chatMaxRetries")]
-    """Number of retries for chat completions on failure"""
 
     continue_loop_on_deny: bool
     """Continue the agent loop when a tool call is denied"""
 
     disable_paste_summary: bool
-
-    hook: ExperimentalHook
 
     mcp_timeout: int
     """Timeout in milliseconds for model context protocol (MCP) requests"""
@@ -1002,274 +1029,6 @@ class FormatterUnionMember1FormatterUnionMember1Item(TypedDict, total=False):
     environment: Dict[str, str]
 
     extensions: SequenceNotStr[str]
-
-
-class Keybinds(TypedDict, total=False):
-    """Custom keybind configurations"""
-
-    agent_cycle: str
-    """Next agent"""
-
-    agent_cycle_reverse: str
-    """Previous agent"""
-
-    agent_list: str
-    """List agents"""
-
-    app_exit: str
-    """Exit the application"""
-
-    artifacts_list: str
-    """View artifacts"""
-
-    command_list: str
-    """List available commands"""
-
-    editor_open: str
-    """Open external editor"""
-
-    history_next: str
-    """Next history item"""
-
-    history_previous: str
-    """Previous history item"""
-
-    input_backspace: str
-    """Backspace in input"""
-
-    input_buffer_end: str
-    """Move to end of buffer in input"""
-
-    input_buffer_home: str
-    """Move to start of buffer in input"""
-
-    input_clear: str
-    """Clear input field"""
-
-    input_delete: str
-    """Delete character in input"""
-
-    input_delete_line: str
-    """Delete line in input"""
-
-    input_delete_to_line_end: str
-    """Delete to end of line in input"""
-
-    input_delete_to_line_start: str
-    """Delete to start of line in input"""
-
-    input_delete_word_backward: str
-    """Delete word backward in input"""
-
-    input_delete_word_forward: str
-    """Delete word forward in input"""
-
-    input_line_end: str
-    """Move to end of line in input"""
-
-    input_line_home: str
-    """Move to start of line in input"""
-
-    input_move_down: str
-    """Move cursor down in input"""
-
-    input_move_left: str
-    """Move cursor left in input"""
-
-    input_move_right: str
-    """Move cursor right in input"""
-
-    input_move_up: str
-    """Move cursor up in input"""
-
-    input_newline: str
-    """Insert newline in input"""
-
-    input_paste: str
-    """Paste from clipboard"""
-
-    input_redo: str
-    """Redo in input"""
-
-    input_select_buffer_end: str
-    """Select to end of buffer in input"""
-
-    input_select_buffer_home: str
-    """Select to start of buffer in input"""
-
-    input_select_down: str
-    """Select down in input"""
-
-    input_select_left: str
-    """Select left in input"""
-
-    input_select_line_end: str
-    """Select to end of line in input"""
-
-    input_select_line_home: str
-    """Select to start of line in input"""
-
-    input_select_right: str
-    """Select right in input"""
-
-    input_select_up: str
-    """Select up in input"""
-
-    input_select_visual_line_end: str
-    """Select to end of visual line in input"""
-
-    input_select_visual_line_home: str
-    """Select to start of visual line in input"""
-
-    input_select_word_backward: str
-    """Select word backward in input"""
-
-    input_select_word_forward: str
-    """Select word forward in input"""
-
-    input_submit: str
-    """Submit input"""
-
-    input_undo: str
-    """Undo in input"""
-
-    input_visual_line_end: str
-    """Move to end of visual line in input"""
-
-    input_visual_line_home: str
-    """Move to start of visual line in input"""
-
-    input_word_backward: str
-    """Move word backward in input"""
-
-    input_word_forward: str
-    """Move word forward in input"""
-
-    leader: str
-    """Leader key for keybind combinations"""
-
-    messages_copy: str
-    """Copy message"""
-
-    messages_first: str
-    """Navigate to first message"""
-
-    messages_half_page_down: str
-    """Scroll messages down by half page"""
-
-    messages_half_page_up: str
-    """Scroll messages up by half page"""
-
-    messages_last: str
-    """Navigate to last message"""
-
-    messages_last_user: str
-    """Navigate to last user message"""
-
-    messages_next: str
-    """Navigate to next message"""
-
-    messages_page_down: str
-    """Scroll messages down by one page"""
-
-    messages_page_up: str
-    """Scroll messages up by one page"""
-
-    messages_previous: str
-    """Navigate to previous message"""
-
-    messages_redo: str
-    """Redo message"""
-
-    messages_toggle_conceal: str
-    """Toggle code block concealment in messages"""
-
-    messages_undo: str
-    """Undo message"""
-
-    model_cycle_favorite: str
-    """Next favorite model"""
-
-    model_cycle_favorite_reverse: str
-    """Previous favorite model"""
-
-    model_cycle_recent: str
-    """Next recently used model"""
-
-    model_cycle_recent_reverse: str
-    """Previous recently used model"""
-
-    model_list: str
-    """List available models"""
-
-    scrollbar_toggle: str
-    """Toggle session scrollbar"""
-
-    session_child_cycle: str
-    """Next child session"""
-
-    session_child_cycle_reverse: str
-    """Previous child session"""
-
-    session_compact: str
-    """Compact the session"""
-
-    session_export: str
-    """Export session to editor"""
-
-    session_fork: str
-    """Fork session from message"""
-
-    session_interrupt: str
-    """Interrupt current session"""
-
-    session_list: str
-    """List all sessions"""
-
-    session_new: str
-    """Create a new session"""
-
-    session_parent: str
-    """Go to parent session"""
-
-    session_rename: str
-    """Rename session"""
-
-    session_share: str
-    """Share current session"""
-
-    session_timeline: str
-    """Show session timeline"""
-
-    session_unshare: str
-    """Unshare current session"""
-
-    sidebar_toggle: str
-    """Toggle sidebar"""
-
-    status_view: str
-    """View status"""
-
-    terminal_suspend: str
-    """Suspend terminal"""
-
-    terminal_title_toggle: str
-    """Toggle terminal title"""
-
-    theme_list: str
-    """List available themes"""
-
-    tips_toggle: str
-    """Toggle tips on home screen"""
-
-    tool_details: str
-    """Toggle tool details visibility"""
-
-    username_toggle: str
-    """Toggle username visibility"""
-
-    variant_cycle: str
-    """Cycle model variants"""
 
 
 class LspUnionMember1LspUnionMember1ItemDisabled(TypedDict, total=False):
@@ -1307,7 +1066,7 @@ class McpMcpLocalConfig(TypedDict, total=False):
     """Environment variables to set when running the MCP server"""
 
     timeout: int
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """
@@ -1322,6 +1081,9 @@ class McpMcpRemoteConfigOAuthMcpOAuthConfig(TypedDict, total=False):
 
     client_secret: Annotated[str, PropertyInfo(alias="clientSecret")]
     """OAuth client secret (if required by the authorization server)"""
+
+    redirect_uri: Annotated[str, PropertyInfo(alias="redirectUri")]
+    """OAuth redirect URI (default: http://127.0.0.1:19876/mcp/oauth/callback)."""
 
     scope: str
     """OAuth scopes to request during authorization"""
@@ -1350,7 +1112,7 @@ class McpMcpRemoteConfig(TypedDict, total=False):
     """
 
     timeout: int
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """
@@ -1392,9 +1154,9 @@ class ModeBuildPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -1407,8 +1169,8 @@ ModeBuildPermission: TypeAlias = Union[ModeBuildPermissionUnionMember0, Literal[
 
 
 class ModeBuild(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -1450,6 +1212,12 @@ class ModeBuild(TypedDict, total=False, extra_items=object):  # type: ignore[cal
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class ModePlanPermissionUnionMember0(
     TypedDict,
@@ -1480,9 +1248,9 @@ class ModePlanPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -1495,8 +1263,8 @@ ModePlanPermission: TypeAlias = Union[ModePlanPermissionUnionMember0, Literal["a
 
 
 class ModePlan(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -1538,6 +1306,12 @@ class ModePlan(TypedDict, total=False, extra_items=object):  # type: ignore[call
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class ModeModeItemPermissionUnionMember0(
     TypedDict,
@@ -1568,9 +1342,9 @@ class ModeModeItemPermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -1583,8 +1357,8 @@ ModeModeItemPermission: TypeAlias = Union[ModeModeItemPermissionUnionMember0, Li
 
 
 class ModeModeItem(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
-    color: str
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: str
     """Description of when to use the agent"""
@@ -1626,6 +1400,12 @@ class ModeModeItem(TypedDict, total=False, extra_items=object):  # type: ignore[
 
     top_p: float
 
+    variant: str
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
 
 class Mode(TypedDict, total=False, extra_items=ModeModeItem):  # type: ignore[call-arg]
     """@deprecated Use `agent` field instead."""
@@ -1664,9 +1444,9 @@ class PermissionUnionMember0(
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
-    todoread: Literal["ask", "allow", "deny"]
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]]]
 
     todowrite: Literal["ask", "allow", "deny"]
 
@@ -1712,6 +1492,8 @@ class ProviderModelsLimit(TypedDict, total=False):
 
     output: Required[float]
 
+    input: float
+
 
 class ProviderModelsModalities(TypedDict, total=False):
     input: Required[List[Literal["text", "audio", "image", "video", "pdf"]]]
@@ -1720,7 +1502,9 @@ class ProviderModelsModalities(TypedDict, total=False):
 
 
 class ProviderModelsProvider(TypedDict, total=False):
-    npm: Required[str]
+    api: str
+
+    npm: str
 
 
 class ProviderModelsVariants(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
@@ -1772,6 +1556,12 @@ class ProviderOptions(TypedDict, total=False, extra_items=object):  # type: igno
 
     base_url: Annotated[str, PropertyInfo(alias="baseURL")]
 
+    chunk_timeout: Annotated[int, PropertyInfo(alias="chunkTimeout")]
+    """Timeout in milliseconds between streamed SSE chunks for this provider.
+
+    If no chunk arrives within this window, the request is aborted.
+    """
+
     enterprise_url: Annotated[str, PropertyInfo(alias="enterpriseUrl")]
     """GitHub Enterprise URL for copilot authentication"""
 
@@ -1817,31 +1607,21 @@ class Server(TypedDict, total=False):
     mdns: bool
     """Enable mDNS service discovery"""
 
+    mdns_domain: Annotated[str, PropertyInfo(alias="mdnsDomain")]
+    """Custom domain name for mDNS service (default: opencode.local)"""
+
     port: int
     """Port to listen on"""
 
 
-class TuiScrollAcceleration(TypedDict, total=False):
-    """Scroll acceleration settings"""
+class Skills(TypedDict, total=False):
+    """Additional skill folder paths"""
 
-    enabled: Required[bool]
-    """Enable scroll acceleration"""
+    paths: SequenceNotStr[str]
+    """Additional paths to skill folders"""
 
-
-class Tui(TypedDict, total=False):
-    """TUI specific settings"""
-
-    diff_style: Literal["auto", "stacked"]
-    """
-    Control diff rendering style: 'auto' adapts to terminal width, 'stacked' always
-    shows single column
-    """
-
-    scroll_acceleration: TuiScrollAcceleration
-    """Scroll acceleration settings"""
-
-    scroll_speed: float
-    """TUI scroll speed"""
+    urls: SequenceNotStr[str]
+    """URLs to fetch skills from (e.g., https://example.com/.well-known/skills/)"""
 
 
 class Watcher(TypedDict, total=False):

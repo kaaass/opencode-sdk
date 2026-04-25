@@ -17,6 +17,10 @@ __all__ = [
     "PartAgentPartInput",
     "PartAgentPartInputSource",
     "PartSubtaskPartInput",
+    "PartSubtaskPartInputModel",
+    "Format",
+    "FormatOutputFormatText",
+    "FormatOutputFormatJsonSchema",
     "Model",
 ]
 
@@ -26,7 +30,11 @@ class MessageSendParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     agent: str
+
+    format: Format
 
     message_id: Annotated[str, PropertyInfo(alias="messageID")]
 
@@ -99,6 +107,12 @@ class PartAgentPartInput(TypedDict, total=False):
     source: PartAgentPartInputSource
 
 
+class PartSubtaskPartInputModel(TypedDict, total=False):
+    model_id: Required[Annotated[str, PropertyInfo(alias="modelID")]]
+
+    provider_id: Required[Annotated[str, PropertyInfo(alias="providerID")]]
+
+
 class PartSubtaskPartInput(TypedDict, total=False):
     agent: Required[str]
 
@@ -112,8 +126,25 @@ class PartSubtaskPartInput(TypedDict, total=False):
 
     command: str
 
+    model: PartSubtaskPartInputModel
+
 
 Part: TypeAlias = Union[PartTextPartInput, PartFilePartInput, PartAgentPartInput, PartSubtaskPartInput]
+
+
+class FormatOutputFormatText(TypedDict, total=False):
+    type: Required[Literal["text"]]
+
+
+class FormatOutputFormatJsonSchema(TypedDict, total=False):
+    schema: Required[Dict[str, object]]
+
+    type: Required[Literal["json_schema"]]
+
+    retry_count: Annotated[int, PropertyInfo(alias="retryCount")]
+
+
+Format: TypeAlias = Union[FormatOutputFormatText, FormatOutputFormatJsonSchema]
 
 
 class Model(TypedDict, total=False):

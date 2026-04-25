@@ -13,5 +13,7 @@ class OAuthHandleCallbackParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     code: str
     """OAuth authorization code"""

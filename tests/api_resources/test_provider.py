@@ -31,6 +31,7 @@ class TestProvider:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         provider = client.provider.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
@@ -67,6 +68,7 @@ class TestProvider:
     def test_method_get_auth_methods_with_all_params(self, client: OpencodeSDK) -> None:
         provider = client.provider.get_auth_methods(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 
@@ -109,6 +111,7 @@ class TestAsyncProvider:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProviderListResponse, provider, path=["response"])
 
@@ -145,6 +148,7 @@ class TestAsyncProvider:
     async def test_method_get_auth_methods_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         provider = await async_client.provider.get_auth_methods(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProviderGetAuthMethodsResponse, provider, path=["response"])
 

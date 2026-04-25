@@ -140,9 +140,9 @@ client = OpencodeSDK()
 
 project = client.project.update(
     project_id="projectID",
-    icon={},
+    commands={},
 )
-print(project.icon)
+print(project.commands)
 ```
 
 ## File uploads

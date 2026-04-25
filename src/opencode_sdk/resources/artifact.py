@@ -55,6 +55,7 @@ class ArtifactResource(SyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -86,7 +87,13 @@ class ArtifactResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, artifact_delete_params.ArtifactDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    artifact_delete_params.ArtifactDeleteParams,
+                ),
             ),
             cast_to=ArtifactDeleteResponse,
         )
@@ -97,6 +104,7 @@ class ArtifactResource(SyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -132,6 +140,7 @@ class ArtifactResource(SyncAPIResource):
                     {
                         "session_id": session_id,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     artifact_download_params.ArtifactDownloadParams,
                 ),
@@ -166,6 +175,7 @@ class AsyncArtifactResource(AsyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -198,7 +208,11 @@ class AsyncArtifactResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, artifact_delete_params.ArtifactDeleteParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    artifact_delete_params.ArtifactDeleteParams,
                 ),
             ),
             cast_to=ArtifactDeleteResponse,
@@ -210,6 +224,7 @@ class AsyncArtifactResource(AsyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -245,6 +260,7 @@ class AsyncArtifactResource(AsyncAPIResource):
                     {
                         "session_id": session_id,
                         "directory": directory,
+                        "workspace": workspace,
                     },
                     artifact_download_params.ArtifactDownloadParams,
                 ),

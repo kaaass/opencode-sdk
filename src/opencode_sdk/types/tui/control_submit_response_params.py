@@ -10,4 +10,6 @@ __all__ = ["ControlSubmitResponseParams"]
 class ControlSubmitResponseParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     body: object

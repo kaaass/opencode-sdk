@@ -38,7 +38,6 @@ class TestAuth:
             expires=0,
             refresh="refresh",
             type="oauth",
-            directory="directory",
             account_id="accountId",
             enterprise_url="enterpriseUrl",
         )
@@ -107,7 +106,7 @@ class TestAuth:
             provider_id="providerID",
             key="key",
             type="api",
-            directory="directory",
+            metadata={"foo": "string"},
         )
         assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
@@ -159,18 +158,6 @@ class TestAuth:
             token="token",
             key="key",
             type="wellknown",
-        )
-        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_set_credentials_with_all_params_overload_3(self, client: OpencodeSDK) -> None:
-        auth = client.auth.set_credentials(
-            provider_id="providerID",
-            token="token",
-            key="key",
-            type="wellknown",
-            directory="directory",
         )
         assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
@@ -244,7 +231,6 @@ class TestAsyncAuth:
             expires=0,
             refresh="refresh",
             type="oauth",
-            directory="directory",
             account_id="accountId",
             enterprise_url="enterpriseUrl",
         )
@@ -313,7 +299,7 @@ class TestAsyncAuth:
             provider_id="providerID",
             key="key",
             type="api",
-            directory="directory",
+            metadata={"foo": "string"},
         )
         assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
@@ -365,18 +351,6 @@ class TestAsyncAuth:
             token="token",
             key="key",
             type="wellknown",
-        )
-        assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_set_credentials_with_all_params_overload_3(self, async_client: AsyncOpencodeSDK) -> None:
-        auth = await async_client.auth.set_credentials(
-            provider_id="providerID",
-            token="token",
-            key="key",
-            type="wellknown",
-            directory="directory",
         )
         assert_matches_type(AuthSetCredentialsResponse, auth, path=["response"])
 
