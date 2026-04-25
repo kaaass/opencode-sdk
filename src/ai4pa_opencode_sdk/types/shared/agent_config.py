@@ -1,12 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Dict, List, Union, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
-from ..global_.permission_config import PermissionConfig
 
 __all__ = ["AgentConfig"]
 
@@ -72,3 +73,9 @@ class AgentConfig(BaseModel):
         def __getattr__(self, attr: str) -> object: ...
     else:
         __pydantic_extra__: Dict[str, object]
+
+
+# Deferred import to break the circular dependency with ..global_.config, which
+# transitively imports AgentConfig. The PermissionConfig field on AgentConfig is
+# resolved lazily via the `from __future__ import annotations` string form.
+from ..global_.permission_config import PermissionConfig as PermissionConfig  # noqa: E402
