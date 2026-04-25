@@ -1,4 +1,4 @@
-from opencode_sdk import IDGenerator
+from ai4pa_opencode_sdk import IDGenerator
 
 if __name__ == '__main__':
     gen = IDGenerator()

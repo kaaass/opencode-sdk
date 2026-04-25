@@ -16,10 +16,10 @@ import sys
 import asyncio
 from typing import Any, Optional
 
-from opencode_sdk import AsyncOpencodeSDK, omit, id_ascending
-from opencode_sdk.types.session import message_send_params
-from opencode_sdk.types.event_list_response import EventListResponse
-from opencode_sdk.types.session.text_part_input_param import TextPartInputParam
+from ai4pa_opencode_sdk import AsyncOpencodeSDK, omit, id_ascending
+from ai4pa_opencode_sdk.types.session import message_send_params
+from ai4pa_opencode_sdk.types.event_list_response import EventListResponse
+from ai4pa_opencode_sdk.types.session.text_part_input_param import TextPartInputParam
 
 try:
     from rich.panel import Panel  # type: ignore[import-not-found]
