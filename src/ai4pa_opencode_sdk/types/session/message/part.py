@@ -8,6 +8,10 @@ from pydantic import Field as FieldInfo
 from ...._models import BaseModel
 from ...api_error import APIError
 from ...file_part import FilePart
+from .tool_state_error import ToolStateError
+from .tool_state_pending import ToolStatePending
+from .tool_state_running import ToolStateRunning
+from .tool_state_completed import ToolStateCompleted
 
 __all__ = [
     "Part",
@@ -19,13 +23,6 @@ __all__ = [
     "ReasoningPartTime",
     "ToolPart",
     "ToolPartState",
-    "ToolPartStateToolStatePending",
-    "ToolPartStateToolStateRunning",
-    "ToolPartStateToolStateRunningTime",
-    "ToolPartStateToolStateCompleted",
-    "ToolPartStateToolStateCompletedTime",
-    "ToolPartStateToolStateError",
-    "ToolPartStateToolStateErrorTime",
     "StepStartPart",
     "StepFinishPart",
     "StepFinishPartTokens",
@@ -114,78 +111,7 @@ class ReasoningPart(BaseModel):
     metadata: Optional[Dict[str, object]] = None
 
 
-class ToolPartStateToolStatePending(BaseModel):
-    input: Dict[str, object]
-
-    raw: str
-
-    status: Literal["pending"]
-
-
-class ToolPartStateToolStateRunningTime(BaseModel):
-    start: float
-
-
-class ToolPartStateToolStateRunning(BaseModel):
-    input: Dict[str, object]
-
-    status: Literal["running"]
-
-    time: ToolPartStateToolStateRunningTime
-
-    metadata: Optional[Dict[str, object]] = None
-
-    title: Optional[str] = None
-
-
-class ToolPartStateToolStateCompletedTime(BaseModel):
-    end: float
-
-    start: float
-
-    compacted: Optional[float] = None
-
-
-class ToolPartStateToolStateCompleted(BaseModel):
-    input: Dict[str, object]
-
-    metadata: Dict[str, object]
-
-    output: str
-
-    status: Literal["completed"]
-
-    time: ToolPartStateToolStateCompletedTime
-
-    title: str
-
-    attachments: Optional[List[FilePart]] = None
-
-
-class ToolPartStateToolStateErrorTime(BaseModel):
-    end: float
-
-    start: float
-
-
-class ToolPartStateToolStateError(BaseModel):
-    error: str
-
-    input: Dict[str, object]
-
-    status: Literal["error"]
-
-    time: ToolPartStateToolStateErrorTime
-
-    metadata: Optional[Dict[str, object]] = None
-
-
-ToolPartState: TypeAlias = Union[
-    ToolPartStateToolStatePending,
-    ToolPartStateToolStateRunning,
-    ToolPartStateToolStateCompleted,
-    ToolPartStateToolStateError,
-]
+ToolPartState: TypeAlias = Union[ToolStatePending, ToolStateRunning, ToolStateCompleted, ToolStateError]
 
 
 class ToolPart(BaseModel):

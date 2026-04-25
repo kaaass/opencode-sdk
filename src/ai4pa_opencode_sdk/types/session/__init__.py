@@ -5,6 +5,7 @@ from __future__ import annotations
 from .message import Message as Message
 from .session import Session as Session
 from .output_format import OutputFormat as OutputFormat
+from .output_format_text import OutputFormatText as OutputFormatText
 from .status_list_params import StatusListParams as StatusListParams
 from .message_list_params import MessageListParams as MessageListParams
 from .message_send_params import MessageSendParams as MessageSendParams
@@ -22,5 +23,8 @@ from .agent_part_input_param import AgentPartInputParam as AgentPartInputParam
 from .status_retrieve_params import StatusRetrieveParams as StatusRetrieveParams
 from .message_delete_response import MessageDeleteResponse as MessageDeleteResponse
 from .message_retrieve_params import MessageRetrieveParams as MessageRetrieveParams
+from .output_format_text_param import OutputFormatTextParam as OutputFormatTextParam
 from .subtask_part_input_param import SubtaskPartInputParam as SubtaskPartInputParam
 from .message_retrieve_response import MessageRetrieveResponse as MessageRetrieveResponse
+from .output_format_json_schema import OutputFormatJsonSchema as OutputFormatJsonSchema
+from .output_format_json_schema_param import OutputFormatJsonSchemaParam as OutputFormatJsonSchemaParam

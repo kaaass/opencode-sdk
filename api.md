@@ -1,3 +1,16 @@
+# Shared Types
+
+```python
+from ai4pa_opencode_sdk.types import (
+    AgentConfig,
+    McpLocalConfig,
+    McpOAuthConfig,
+    McpRemoteConfig,
+    ProviderConfig,
+    ServerConfig,
+)
+```
+
 # Global
 
 Types:
@@ -294,6 +307,8 @@ from ai4pa_opencode_sdk.types.session import (
     FilePartInput,
     Message,
     OutputFormat,
+    OutputFormatJsonSchema,
+    OutputFormatText,
     SubtaskPartInput,
     TextPartInput,
     MessageRetrieveResponse,
@@ -315,7 +330,14 @@ Methods:
 Types:
 
 ```python
-from ai4pa_opencode_sdk.types.session.message import Part, PartDeleteResponse
+from ai4pa_opencode_sdk.types.session.message import (
+    Part,
+    ToolStateCompleted,
+    ToolStateError,
+    ToolStatePending,
+    ToolStateRunning,
+    PartDeleteResponse,
+)
 ```
 
 Methods:
@@ -519,7 +541,16 @@ Methods:
 Types:
 
 ```python
-from ai4pa_opencode_sdk.types.mcp import McpStatus, AuthRemoveOAuthResponse, AuthStartOAuthResponse
+from ai4pa_opencode_sdk.types.mcp import (
+    McpStatus,
+    McpStatusConnected,
+    McpStatusDisabled,
+    McpStatusFailed,
+    McpStatusNeedsAuth,
+    McpStatusNeedsClientRegistration,
+    AuthRemoveOAuthResponse,
+    AuthStartOAuthResponse,
+)
 ```
 
 Methods:

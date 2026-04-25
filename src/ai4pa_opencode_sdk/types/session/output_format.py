@@ -1,25 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, Union, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import Union
+from typing_extensions import TypeAlias
 
-from pydantic import Field as FieldInfo
+from .output_format_text import OutputFormatText
+from .output_format_json_schema import OutputFormatJsonSchema
 
-from ..._models import BaseModel
-
-__all__ = ["OutputFormat", "OutputFormatText", "OutputFormatJsonSchema"]
-
-
-class OutputFormatText(BaseModel):
-    type: Literal["text"]
-
-
-class OutputFormatJsonSchema(BaseModel):
-    schema_: Dict[str, object] = FieldInfo(alias="schema")
-
-    type: Literal["json_schema"]
-
-    retry_count: Optional[int] = FieldInfo(alias="retryCount", default=None)
-
+__all__ = ["OutputFormat"]
 
 OutputFormat: TypeAlias = Union[OutputFormatText, OutputFormatJsonSchema]

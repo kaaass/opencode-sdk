@@ -20,6 +20,8 @@ from ..._response import (
 from ..._base_client import make_request_options
 from ...types.global_ import config_update_config_params
 from ...types.global_.config import Config
+from ...types.shared_params.server_config import ServerConfig
+from ...types.shared_params.provider_config import ProviderConfig
 from ...types.global_.permission_config_param import PermissionConfigParam
 
 __all__ = ["ConfigResource", "AsyncConfigResource"]
@@ -94,8 +96,8 @@ class ConfigResource(SyncAPIResource):
         model: str | Omit = omit,
         permission: PermissionConfigParam | Omit = omit,
         plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
-        provider: Dict[str, config_update_config_params.Provider] | Omit = omit,
-        server: config_update_config_params.Server | Omit = omit,
+        provider: Dict[str, ProviderConfig] | Omit = omit,
+        server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         skills: config_update_config_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
@@ -292,8 +294,8 @@ class AsyncConfigResource(AsyncAPIResource):
         model: str | Omit = omit,
         permission: PermissionConfigParam | Omit = omit,
         plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
-        provider: Dict[str, config_update_config_params.Provider] | Omit = omit,
-        server: config_update_config_params.Server | Omit = omit,
+        provider: Dict[str, ProviderConfig] | Omit = omit,
+        server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
         skills: config_update_config_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
