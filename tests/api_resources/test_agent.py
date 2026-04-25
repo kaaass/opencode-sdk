@@ -8,11 +8,11 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     AgentListResponse,
+    AgentCreateResponse,
     AgentDeleteResponse,
-    AgentCreateOrUpdateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -20,6 +20,101 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
 class TestAgent:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create(self, client: OpencodeSDK) -> None:
+        agent = client.agent.create(
+            mode="subagent",
+            name="name",
+            options={"foo": "bar"},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
+        )
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
+        agent = client.agent.create(
+            mode="subagent",
+            name="name",
+            options={"foo": "bar"},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
+            directory="directory",
+            workspace="workspace",
+            color="color",
+            description="description",
+            hidden=True,
+            model={
+                "model_id": "modelID",
+                "provider_id": "providerID",
+            },
+            native=True,
+            prompt="prompt",
+            skills=["string"],
+            steps=1,
+            sub_agents=["string"],
+            temperature=0,
+            top_p=0,
+            variant="variant",
+        )
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_create(self, client: OpencodeSDK) -> None:
+        response = client.agent.with_raw_response.create(
+            mode="subagent",
+            name="name",
+            options={"foo": "bar"},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        agent = response.parse()
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_create(self, client: OpencodeSDK) -> None:
+        with client.agent.with_streaming_response.create(
+            mode="subagent",
+            name="name",
+            options={"foo": "bar"},
+            permission=[
+                {
+                    "action": "allow",
+                    "pattern": "pattern",
+                    "permission": "permission",
+                }
+            ],
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            agent = response.parse()
+            assert_matches_type(AgentCreateResponse, agent, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -110,10 +205,16 @@ class TestAgent:
                 name="",
             )
 
+
+class TestAsyncAgent:
+    parametrize = pytest.mark.parametrize(
+        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
+    )
+
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_or_update(self, client: OpencodeSDK) -> None:
-        agent = client.agent.create_or_update(
+    async def test_method_create(self, async_client: AsyncOpencodeSDK) -> None:
+        agent = await async_client.agent.create(
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -125,12 +226,12 @@ class TestAgent:
                 }
             ],
         )
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_create_or_update_with_all_params(self, client: OpencodeSDK) -> None:
-        agent = client.agent.create_or_update(
+    async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        agent = await async_client.agent.create(
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -159,12 +260,12 @@ class TestAgent:
             top_p=0,
             variant="variant",
         )
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_create_or_update(self, client: OpencodeSDK) -> None:
-        response = client.agent.with_raw_response.create_or_update(
+    async def test_raw_response_create(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.agent.with_raw_response.create(
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -179,13 +280,13 @@ class TestAgent:
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = response.parse()
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
+        agent = await response.parse()
+        assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_create_or_update(self, client: OpencodeSDK) -> None:
-        with client.agent.with_streaming_response.create_or_update(
+    async def test_streaming_response_create(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.agent.with_streaming_response.create(
             mode="subagent",
             name="name",
             options={"foo": "bar"},
@@ -200,16 +301,10 @@ class TestAgent:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
-            agent = response.parse()
-            assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
+            agent = await response.parse()
+            assert_matches_type(AgentCreateResponse, agent, path=["response"])
 
         assert cast(Any, response.is_closed) is True
-
-
-class TestAsyncAgent:
-    parametrize = pytest.mark.parametrize(
-        "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
-    )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -299,98 +394,3 @@ class TestAsyncAgent:
             await async_client.agent.with_raw_response.delete(
                 name="",
             )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
-        agent = await async_client.agent.create_or_update(
-            mode="subagent",
-            name="name",
-            options={"foo": "bar"},
-            permission=[
-                {
-                    "action": "allow",
-                    "pattern": "pattern",
-                    "permission": "permission",
-                }
-            ],
-        )
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_create_or_update_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        agent = await async_client.agent.create_or_update(
-            mode="subagent",
-            name="name",
-            options={"foo": "bar"},
-            permission=[
-                {
-                    "action": "allow",
-                    "pattern": "pattern",
-                    "permission": "permission",
-                }
-            ],
-            directory="directory",
-            workspace="workspace",
-            color="color",
-            description="description",
-            hidden=True,
-            model={
-                "model_id": "modelID",
-                "provider_id": "providerID",
-            },
-            native=True,
-            prompt="prompt",
-            skills=["string"],
-            steps=1,
-            sub_agents=["string"],
-            temperature=0,
-            top_p=0,
-            variant="variant",
-        )
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.agent.with_raw_response.create_or_update(
-            mode="subagent",
-            name="name",
-            options={"foo": "bar"},
-            permission=[
-                {
-                    "action": "allow",
-                    "pattern": "pattern",
-                    "permission": "permission",
-                }
-            ],
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        agent = await response.parse()
-        assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_create_or_update(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.agent.with_streaming_response.create_or_update(
-            mode="subagent",
-            name="name",
-            options={"foo": "bar"},
-            permission=[
-                {
-                    "action": "allow",
-                    "pattern": "pattern",
-                    "permission": "permission",
-                }
-            ],
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            agent = await response.parse()
-            assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
-
-        assert cast(Any, response.is_closed) is True

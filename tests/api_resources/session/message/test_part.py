@@ -8,9 +8,8 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types.session import Part
-from opencode_sdk.types.session.message import PartDeleteResponse
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types.session.message import Part, PartDeleteResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 

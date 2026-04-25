@@ -10,15 +10,15 @@ import httpx
 import pytest
 from pytest_asyncio import is_async_test
 
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK, DefaultAioHttpClient
-from opencode_sdk._utils import is_dict
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK, DefaultAioHttpClient
+from ai4pa_opencode_sdk._utils import is_dict
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest  # pyright: ignore[reportPrivateImportUsage]
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("opencode_sdk").setLevel(logging.DEBUG)
+logging.getLogger("ai4pa_opencode_sdk").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests

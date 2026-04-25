@@ -1,7 +1,7 @@
 # Opencode SDK Python API library
 
 <!-- prettier-ignore -->
-[![PyPI version](https://img.shields.io/pypi/v/ai4pa-opencode-sdk.svg?label=pypi%20(stable))](https://pypi.org/project/ai4pa-opencode-sdk/)
+[![PyPI version](https://img.shields.io/pypi/v/ai4pa_opencode_sdk.svg?label=pypi%20(stable))](https://pypi.org/project/ai4pa_opencode_sdk/)
 
 The Opencode SDK Python library provides convenient access to the Opencode SDK REST API from any Python 3.9+
 application. The library includes type definitions for all request params and response fields,
@@ -16,9 +16,12 @@ The full API of this library can be found in [api.md](api.md).
 ## Installation
 
 ```sh
-# install from PyPI
-pip install ai4pa-opencode-sdk
+# install from this staging repo
+pip install git+ssh://git@github.com/stainless-sdks/opencode-sdk-python.git
 ```
+
+> [!NOTE]
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install ai4pa_opencode_sdk`
 
 ## Usage
 
@@ -26,13 +29,14 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK(
     api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
 )
 
-projects = client.project.list()
+response = client.global_.get_health()
+print(response.healthy)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -47,7 +51,7 @@ Simply import `AsyncOpencodeSDK` instead of `OpencodeSDK` and use `await` with e
 ```python
 import os
 import asyncio
-from opencode_sdk import AsyncOpencodeSDK
+from ai4pa_opencode_sdk import AsyncOpencodeSDK
 
 client = AsyncOpencodeSDK(
     api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
@@ -55,7 +59,8 @@ client = AsyncOpencodeSDK(
 
 
 async def main() -> None:
-    projects = await client.project.list()
+    response = await client.global_.get_health()
+    print(response.healthy)
 
 
 asyncio.run(main())
@@ -70,8 +75,8 @@ By default, the async client uses `httpx` for HTTP requests. However, for improv
 You can enable this by installing `aiohttp`:
 
 ```sh
-# install from PyPI
-pip install ai4pa-opencode-sdk[aiohttp]
+# install from this staging repo
+pip install 'ai4pa_opencode_sdk[aiohttp] @ git+ssh://git@github.com/stainless-sdks/opencode-sdk-python.git'
 ```
 
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
@@ -79,8 +84,8 @@ Then you can enable it by instantiating the client with `http_client=DefaultAioH
 ```python
 import os
 import asyncio
-from opencode_sdk import DefaultAioHttpClient
-from opencode_sdk import AsyncOpencodeSDK
+from ai4pa_opencode_sdk import DefaultAioHttpClient
+from ai4pa_opencode_sdk import AsyncOpencodeSDK
 
 
 async def main() -> None:
@@ -88,36 +93,11 @@ async def main() -> None:
         api_key=os.environ.get("OPENCODE_SDK_API_KEY"),  # This is the default and can be omitted
         http_client=DefaultAioHttpClient(),
     ) as client:
-        projects = await client.project.list()
+        response = await client.global_.get_health()
+        print(response.healthy)
 
 
 asyncio.run(main())
-```
-
-## Streaming responses
-
-We provide support for streaming responses using Server Side Events (SSE).
-
-```python
-from opencode_sdk import OpencodeSDK
-
-client = OpencodeSDK()
-
-stream = client.event.list()
-for event in stream:
-    print(event)
-```
-
-The async client uses the exact same interface.
-
-```python
-from opencode_sdk import AsyncOpencodeSDK
-
-client = AsyncOpencodeSDK()
-
-stream = await client.event.list()
-async for event in stream:
-    print(event)
 ```
 
 ## Using types
@@ -134,15 +114,14 @@ Typed requests and responses provide autocomplete and documentation within your 
 Nested parameters are dictionaries, typed using `TypedDict`, for example:
 
 ```python
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
 
-project = client.project.update(
-    project_id="projectID",
-    commands={},
+config = client.global_.config.update_config(
+    agent={},
 )
-print(project.commands)
+print(config.agent)
 ```
 
 ## File uploads
@@ -151,7 +130,7 @@ Request parameters that correspond to file uploads can be passed as `bytes`, or 
 
 ```python
 from pathlib import Path
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
 
@@ -164,27 +143,27 @@ The async client uses the exact same interface. If you pass a [`PathLike`](https
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `opencode_sdk.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `ai4pa_opencode_sdk.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `opencode_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `ai4pa_opencode_sdk.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `opencode_sdk.APIError`.
+All errors inherit from `ai4pa_opencode_sdk.APIError`.
 
 ```python
-import opencode_sdk
-from opencode_sdk import OpencodeSDK
+import ai4pa_opencode_sdk
+from ai4pa_opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
 
 try:
-    client.project.list()
-except opencode_sdk.APIConnectionError as e:
+    client.global_.get_health()
+except ai4pa_opencode_sdk.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except opencode_sdk.RateLimitError as e:
+except ai4pa_opencode_sdk.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except opencode_sdk.APIStatusError as e:
+except ai4pa_opencode_sdk.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -212,7 +191,7 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 # Configure the default for all requests:
 client = OpencodeSDK(
@@ -221,7 +200,7 @@ client = OpencodeSDK(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).project.list()
+client.with_options(max_retries=5).global_.get_health()
 ```
 
 ### Timeouts
@@ -230,7 +209,7 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 # Configure the default for all requests:
 client = OpencodeSDK(
@@ -244,7 +223,7 @@ client = OpencodeSDK(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).project.list()
+client.with_options(timeout=5.0).global_.get_health()
 ```
 
 On timeout, an `APITimeoutError` is thrown.
@@ -282,19 +261,19 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 client = OpencodeSDK()
-response = client.project.with_raw_response.list()
+response = client.global_.with_raw_response.get_health()
 print(response.headers.get('X-My-Header'))
 
-project = response.parse()  # get the object that `project.list()` would have returned
-print(project)
+global_ = response.parse()  # get the object that `global_.get_health()` would have returned
+print(global_.healthy)
 ```
 
-These methods return an [`APIResponse`](https://github.com/kaaass/opencode-sdk/tree/main/src/opencode_sdk/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/opencode-sdk-python/tree/main/src/ai4pa_opencode_sdk/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/kaaass/opencode-sdk/tree/main/src/opencode_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/opencode-sdk-python/tree/main/src/ai4pa_opencode_sdk/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -303,7 +282,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.project.with_streaming_response.list() as response:
+with client.global_.with_streaming_response.get_health() as response:
     print(response.headers.get("X-My-Header"))
 
     for line in response.iter_lines():
@@ -356,7 +335,7 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from opencode_sdk import OpencodeSDK, DefaultHttpxClient
+from ai4pa_opencode_sdk import OpencodeSDK, DefaultHttpxClient
 
 client = OpencodeSDK(
     # Or use the `OPENCODE_SDK_BASE_URL` env var
@@ -379,7 +358,7 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from opencode_sdk import OpencodeSDK
+from ai4pa_opencode_sdk import OpencodeSDK
 
 with OpencodeSDK() as client:
   # make requests here
@@ -398,7 +377,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/kaaass/opencode-sdk/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/opencode-sdk-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -407,8 +386,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import opencode_sdk
-print(opencode_sdk.__version__)
+import ai4pa_opencode_sdk
+print(ai4pa_opencode_sdk.__version__)
 ```
 
 ## Requirements

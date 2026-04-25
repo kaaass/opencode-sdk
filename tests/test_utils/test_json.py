@@ -5,8 +5,8 @@ from typing import Union
 
 import pydantic
 
-from opencode_sdk import _compat
-from opencode_sdk._utils._json import openapi_dumps
+from ai4pa_opencode_sdk import _compat
+from ai4pa_opencode_sdk._utils._json import openapi_dumps
 
 
 class TestOpenapiDumps:

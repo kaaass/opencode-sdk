@@ -8,25 +8,23 @@ from typing import Any, cast
 import pytest
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import (
-    SessionStatus,
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import (
     SessionListResponse,
     SessionAbortResponse,
     SessionDeleteResponse,
-    SessionGetDiffResponse,
-    SessionGetTodoResponse,
-    SessionGetStatusResponse,
+    SessionGetTodosResponse,
     SessionSummarizeResponse,
     SessionInitializeResponse,
     SessionGetChildrenResponse,
     SessionSendCommandResponse,
     SessionListArtifactsResponse,
+    SessionGetMessageDiffResponse,
     SessionRunShellCommandResponse,
     SessionSubmitToolResultsResponse,
     SessionRespondToPermissionResponse,
 )
-from opencode_sdk.types.session import Session
+from ai4pa_opencode_sdk.types.session import Session
 
 # pyright: reportDeprecated=false
 
@@ -450,143 +448,106 @@ class TestSession:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_diff(self, client: OpencodeSDK) -> None:
-        session = client.session.get_diff(
+    def test_method_get_message_diff(self, client: OpencodeSDK) -> None:
+        session = client.session.get_message_diff(
             session_id="sessionID",
         )
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_diff_with_all_params(self, client: OpencodeSDK) -> None:
-        session = client.session.get_diff(
+    def test_method_get_message_diff_with_all_params(self, client: OpencodeSDK) -> None:
+        session = client.session.get_message_diff(
             session_id="sessionID",
             directory="directory",
             message_id="msgJ!",
             workspace="workspace",
         )
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get_diff(self, client: OpencodeSDK) -> None:
-        response = client.session.with_raw_response.get_diff(
+    def test_raw_response_get_message_diff(self, client: OpencodeSDK) -> None:
+        response = client.session.with_raw_response.get_message_diff(
             session_id="sessionID",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get_diff(self, client: OpencodeSDK) -> None:
-        with client.session.with_streaming_response.get_diff(
+    def test_streaming_response_get_message_diff(self, client: OpencodeSDK) -> None:
+        with client.session.with_streaming_response.get_message_diff(
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+            assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_get_diff(self, client: OpencodeSDK) -> None:
+    def test_path_params_get_message_diff(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.session.with_raw_response.get_diff(
+            client.session.with_raw_response.get_message_diff(
                 session_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_status(self, client: OpencodeSDK) -> None:
-        session = client.session.get_status()
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_status_with_all_params(self, client: OpencodeSDK) -> None:
-        session = client.session.get_status(
-            directory="directory",
-            workspace="workspace",
-        )
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_get_status(self, client: OpencodeSDK) -> None:
-        response = client.session.with_raw_response.get_status()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = response.parse()
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_get_status(self, client: OpencodeSDK) -> None:
-        with client.session.with_streaming_response.get_status() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = response.parse()
-            assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_get_todo(self, client: OpencodeSDK) -> None:
-        session = client.session.get_todo(
+    def test_method_get_todos(self, client: OpencodeSDK) -> None:
+        session = client.session.get_todos(
             session_id="sessionID",
         )
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_method_get_todo_with_all_params(self, client: OpencodeSDK) -> None:
-        session = client.session.get_todo(
+    def test_method_get_todos_with_all_params(self, client: OpencodeSDK) -> None:
+        session = client.session.get_todos(
             session_id="sessionID",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_raw_response_get_todo(self, client: OpencodeSDK) -> None:
-        response = client.session.with_raw_response.get_todo(
+    def test_raw_response_get_todos(self, client: OpencodeSDK) -> None:
+        response = client.session.with_raw_response.get_todos(
             session_id="sessionID",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = response.parse()
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_streaming_response_get_todo(self, client: OpencodeSDK) -> None:
-        with client.session.with_streaming_response.get_todo(
+    def test_streaming_response_get_todos(self, client: OpencodeSDK) -> None:
+        with client.session.with_streaming_response.get_todos(
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = response.parse()
-            assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+            assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    def test_path_params_get_todo(self, client: OpencodeSDK) -> None:
+    def test_path_params_get_todos(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.session.with_raw_response.get_todo(
+            client.session.with_raw_response.get_todos(
                 session_id="",
             )
 
@@ -834,58 +795,6 @@ class TestSession:
     def test_path_params_restore_reverted_messages(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.with_raw_response.restore_reverted_messages(
-                session_id="",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_status(self, client: OpencodeSDK) -> None:
-        session = client.session.retrieve_status(
-            session_id="sessionID",
-        )
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_method_retrieve_status_with_all_params(self, client: OpencodeSDK) -> None:
-        session = client.session.retrieve_status(
-            session_id="sessionID",
-            directory="directory",
-            workspace="workspace",
-        )
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_raw_response_retrieve_status(self, client: OpencodeSDK) -> None:
-        response = client.session.with_raw_response.retrieve_status(
-            session_id="sessionID",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = response.parse()
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_streaming_response_retrieve_status(self, client: OpencodeSDK) -> None:
-        with client.session.with_streaming_response.retrieve_status(
-            session_id="sessionID",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = response.parse()
-            assert_matches_type(SessionStatus, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    def test_path_params_retrieve_status(self, client: OpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            client.session.with_raw_response.retrieve_status(
                 session_id="",
             )
 
@@ -1788,143 +1697,106 @@ class TestAsyncSession:
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_diff(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_diff(
+    async def test_method_get_message_diff(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.get_message_diff(
             session_id="sessionID",
         )
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_diff_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_diff(
+    async def test_method_get_message_diff_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.get_message_diff(
             session_id="sessionID",
             directory="directory",
             message_id="msgJ!",
             workspace="workspace",
         )
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get_diff(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.session.with_raw_response.get_diff(
+    async def test_raw_response_get_message_diff(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.session.with_raw_response.get_message_diff(
             session_id="sessionID",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+        assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get_diff(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.session.with_streaming_response.get_diff(
+    async def test_streaming_response_get_message_diff(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.session.with_streaming_response.get_message_diff(
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(SessionGetDiffResponse, session, path=["response"])
+            assert_matches_type(SessionGetMessageDiffResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_get_diff(self, async_client: AsyncOpencodeSDK) -> None:
+    async def test_path_params_get_message_diff(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.session.with_raw_response.get_diff(
+            await async_client.session.with_raw_response.get_message_diff(
                 session_id="",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_status(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_status()
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_status(
-            directory="directory",
-            workspace="workspace",
-        )
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_get_status(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.session.with_raw_response.get_status()
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = await response.parse()
-        assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_get_status(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.session.with_streaming_response.get_status() as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = await response.parse()
-            assert_matches_type(SessionGetStatusResponse, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_get_todo(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_todo(
+    async def test_method_get_todos(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.get_todos(
             session_id="sessionID",
         )
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_method_get_todo_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.get_todo(
+    async def test_method_get_todos_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        session = await async_client.session.get_todos(
             session_id="sessionID",
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_raw_response_get_todo(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.session.with_raw_response.get_todo(
+    async def test_raw_response_get_todos(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.session.with_raw_response.get_todos(
             session_id="sessionID",
         )
 
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         session = await response.parse()
-        assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+        assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_streaming_response_get_todo(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.session.with_streaming_response.get_todo(
+    async def test_streaming_response_get_todos(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.session.with_streaming_response.get_todos(
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             session = await response.parse()
-            assert_matches_type(SessionGetTodoResponse, session, path=["response"])
+            assert_matches_type(SessionGetTodosResponse, session, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
-    async def test_path_params_get_todo(self, async_client: AsyncOpencodeSDK) -> None:
+    async def test_path_params_get_todos(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.session.with_raw_response.get_todo(
+            await async_client.session.with_raw_response.get_todos(
                 session_id="",
             )
 
@@ -2172,58 +2044,6 @@ class TestAsyncSession:
     async def test_path_params_restore_reverted_messages(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.with_raw_response.restore_reverted_messages(
-                session_id="",
-            )
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.retrieve_status(
-            session_id="sessionID",
-        )
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_method_retrieve_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
-        session = await async_client.session.retrieve_status(
-            session_id="sessionID",
-            directory="directory",
-            workspace="workspace",
-        )
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_raw_response_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
-        response = await async_client.session.with_raw_response.retrieve_status(
-            session_id="sessionID",
-        )
-
-        assert response.is_closed is True
-        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-        session = await response.parse()
-        assert_matches_type(SessionStatus, session, path=["response"])
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_streaming_response_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
-        async with async_client.session.with_streaming_response.retrieve_status(
-            session_id="sessionID",
-        ) as response:
-            assert not response.is_closed
-            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
-
-            session = await response.parse()
-            assert_matches_type(SessionStatus, session, path=["response"])
-
-        assert cast(Any, response.is_closed) is True
-
-    @pytest.mark.skip(reason="Mock server tests are disabled")
-    @parametrize
-    async def test_path_params_retrieve_status(self, async_client: AsyncOpencodeSDK) -> None:
-        with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
-            await async_client.session.with_raw_response.retrieve_status(
                 session_id="",
             )
 

@@ -10,9 +10,9 @@ import pytest
 from respx import MockRouter
 
 from tests.utils import assert_matches_type
-from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import ArtifactDeleteResponse
-from opencode_sdk._response import (
+from ai4pa_opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
+from ai4pa_opencode_sdk.types import ArtifactDeleteResponse
+from ai4pa_opencode_sdk._response import (
     BinaryAPIResponse,
     AsyncBinaryAPIResponse,
     StreamedBinaryAPIResponse,
