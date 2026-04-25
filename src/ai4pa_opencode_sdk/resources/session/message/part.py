@@ -34,7 +34,7 @@ class PartResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/opencode-sdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
         return PartResourceWithRawResponse(self)
 
@@ -43,7 +43,7 @@ class PartResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/opencode-sdk-python#with_streaming_response
+        For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
         return PartResourceWithStreamingResponse(self)
 
@@ -737,7 +737,7 @@ class AsyncPartResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/opencode-sdk-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
         return AsyncPartResourceWithRawResponse(self)
 
@@ -746,7 +746,7 @@ class AsyncPartResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/opencode-sdk-python#with_streaming_response
+        For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
         return AsyncPartResourceWithStreamingResponse(self)
 
