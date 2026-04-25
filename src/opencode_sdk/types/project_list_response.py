@@ -3,7 +3,7 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .project import Project
+from .project.project import Project
 
 __all__ = ["ProjectListResponse"]
 

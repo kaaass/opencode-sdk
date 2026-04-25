@@ -8,6 +8,14 @@ from .tool import (
     ToolResourceWithStreamingResponse,
     AsyncToolResourceWithStreamingResponse,
 )
+from .console import (
+    ConsoleResource,
+    AsyncConsoleResource,
+    ConsoleResourceWithRawResponse,
+    AsyncConsoleResourceWithRawResponse,
+    ConsoleResourceWithStreamingResponse,
+    AsyncConsoleResourceWithStreamingResponse,
+)
 from .worktree import (
     WorktreeResource,
     AsyncWorktreeResource,
@@ -15,6 +23,14 @@ from .worktree import (
     AsyncWorktreeResourceWithRawResponse,
     WorktreeResourceWithStreamingResponse,
     AsyncWorktreeResourceWithStreamingResponse,
+)
+from .workspace import (
+    WorkspaceResource,
+    AsyncWorkspaceResource,
+    WorkspaceResourceWithRawResponse,
+    AsyncWorkspaceResourceWithRawResponse,
+    WorkspaceResourceWithStreamingResponse,
+    AsyncWorkspaceResourceWithStreamingResponse,
 )
 from .experimental import (
     ExperimentalResource,
@@ -38,6 +54,18 @@ __all__ = [
     "AsyncWorktreeResourceWithRawResponse",
     "WorktreeResourceWithStreamingResponse",
     "AsyncWorktreeResourceWithStreamingResponse",
+    "ConsoleResource",
+    "AsyncConsoleResource",
+    "ConsoleResourceWithRawResponse",
+    "AsyncConsoleResourceWithRawResponse",
+    "ConsoleResourceWithStreamingResponse",
+    "AsyncConsoleResourceWithStreamingResponse",
+    "WorkspaceResource",
+    "AsyncWorkspaceResource",
+    "WorkspaceResourceWithRawResponse",
+    "AsyncWorkspaceResourceWithRawResponse",
+    "WorkspaceResourceWithStreamingResponse",
+    "AsyncWorkspaceResourceWithStreamingResponse",
     "ExperimentalResource",
     "AsyncExperimentalResource",
     "ExperimentalResourceWithRawResponse",

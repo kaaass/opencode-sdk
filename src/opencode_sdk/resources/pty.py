@@ -24,13 +24,11 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
+from ..types.pty import Pty
 from .._base_client import make_request_options
 from ..types.pty_list_response import PtyListResponse
-from ..types.pty_create_response import PtyCreateResponse
 from ..types.pty_delete_response import PtyDeleteResponse
-from ..types.pty_update_response import PtyUpdateResponse
 from ..types.pty_connect_response import PtyConnectResponse
-from ..types.pty_retrieve_response import PtyRetrieveResponse
 
 __all__ = ["PtyResource", "AsyncPtyResource"]
 
@@ -71,7 +69,7 @@ class PtyResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyCreateResponse:
+    ) -> Pty:
         """
         Create a new pseudo-terminal (PTY) session for running shell commands and
         processes.
@@ -110,7 +108,7 @@ class PtyResource(SyncAPIResource):
                     pty_create_params.PtyCreateParams,
                 ),
             ),
-            cast_to=PtyCreateResponse,
+            cast_to=Pty,
         )
 
     def retrieve(
@@ -125,7 +123,7 @@ class PtyResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyRetrieveResponse:
+    ) -> Pty:
         """
         Retrieve detailed information about a specific pseudo-terminal (PTY) session.
 
@@ -155,7 +153,7 @@ class PtyResource(SyncAPIResource):
                     pty_retrieve_params.PtyRetrieveParams,
                 ),
             ),
-            cast_to=PtyRetrieveResponse,
+            cast_to=Pty,
         )
 
     def update(
@@ -172,7 +170,7 @@ class PtyResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyUpdateResponse:
+    ) -> Pty:
         """
         Update properties of an existing pseudo-terminal (PTY) session.
 
@@ -209,7 +207,7 @@ class PtyResource(SyncAPIResource):
                     pty_update_params.PtyUpdateParams,
                 ),
             ),
-            cast_to=PtyUpdateResponse,
+            cast_to=Pty,
         )
 
     def list(
@@ -382,7 +380,7 @@ class AsyncPtyResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyCreateResponse:
+    ) -> Pty:
         """
         Create a new pseudo-terminal (PTY) session for running shell commands and
         processes.
@@ -421,7 +419,7 @@ class AsyncPtyResource(AsyncAPIResource):
                     pty_create_params.PtyCreateParams,
                 ),
             ),
-            cast_to=PtyCreateResponse,
+            cast_to=Pty,
         )
 
     async def retrieve(
@@ -436,7 +434,7 @@ class AsyncPtyResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyRetrieveResponse:
+    ) -> Pty:
         """
         Retrieve detailed information about a specific pseudo-terminal (PTY) session.
 
@@ -466,7 +464,7 @@ class AsyncPtyResource(AsyncAPIResource):
                     pty_retrieve_params.PtyRetrieveParams,
                 ),
             ),
-            cast_to=PtyRetrieveResponse,
+            cast_to=Pty,
         )
 
     async def update(
@@ -483,7 +481,7 @@ class AsyncPtyResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> PtyUpdateResponse:
+    ) -> Pty:
         """
         Update properties of an existing pseudo-terminal (PTY) session.
 
@@ -520,7 +518,7 @@ class AsyncPtyResource(AsyncAPIResource):
                     pty_update_params.PtyUpdateParams,
                 ),
             ),
-            cast_to=PtyUpdateResponse,
+            cast_to=Pty,
         )
 
     async def list(

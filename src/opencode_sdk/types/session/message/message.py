@@ -6,19 +6,11 @@ from typing_extensions import Literal, TypeAlias
 from pydantic import Field as FieldInfo
 
 from ...._models import BaseModel
+from ..output_format import OutputFormat
 from ...assistant_message import AssistantMessage
+from ...snapshot_file_diff import SnapshotFileDiff
 
-__all__ = [
-    "Message",
-    "UserMessage",
-    "UserMessageModel",
-    "UserMessageTime",
-    "UserMessageFormat",
-    "UserMessageFormatOutputFormatText",
-    "UserMessageFormatOutputFormatJsonSchema",
-    "UserMessageSummary",
-    "UserMessageSummaryDiff",
-]
+__all__ = ["Message", "UserMessage", "UserMessageModel", "UserMessageTime", "UserMessageSummary"]
 
 
 class UserMessageModel(BaseModel):
@@ -33,35 +25,8 @@ class UserMessageTime(BaseModel):
     created: float
 
 
-class UserMessageFormatOutputFormatText(BaseModel):
-    type: Literal["text"]
-
-
-class UserMessageFormatOutputFormatJsonSchema(BaseModel):
-    schema_: Dict[str, object] = FieldInfo(alias="schema")
-
-    type: Literal["json_schema"]
-
-    retry_count: Optional[int] = FieldInfo(alias="retryCount", default=None)
-
-
-UserMessageFormat: TypeAlias = Union[UserMessageFormatOutputFormatText, UserMessageFormatOutputFormatJsonSchema]
-
-
-class UserMessageSummaryDiff(BaseModel):
-    additions: float
-
-    deletions: float
-
-    file: str
-
-    patch: str
-
-    status: Optional[Literal["added", "deleted", "modified"]] = None
-
-
 class UserMessageSummary(BaseModel):
-    diffs: List[UserMessageSummaryDiff]
+    diffs: List[SnapshotFileDiff]
 
     body: Optional[str] = None
 
@@ -81,7 +46,7 @@ class UserMessage(BaseModel):
 
     time: UserMessageTime
 
-    format: Optional[UserMessageFormat] = None
+    format: Optional[OutputFormat] = None
 
     summary: Optional[UserMessageSummary] = None
 

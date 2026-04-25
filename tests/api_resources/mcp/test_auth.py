@@ -10,10 +10,9 @@ import pytest
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 from opencode_sdk.types.mcp import (
+    McpStatus,
     AuthStartResponse,
     AuthRemoveResponse,
-    AuthCompleteResponse,
-    AuthAuthenticateResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -28,7 +27,7 @@ class TestAuth:
         auth = client.mcp.auth.authenticate(
             name="name",
         )
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -38,7 +37,7 @@ class TestAuth:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -50,7 +49,7 @@ class TestAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = response.parse()
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -62,7 +61,7 @@ class TestAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = response.parse()
-            assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+            assert_matches_type(McpStatus, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -81,7 +80,7 @@ class TestAuth:
             name="name",
             code="code",
         )
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -92,7 +91,7 @@ class TestAuth:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -105,7 +104,7 @@ class TestAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = response.parse()
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -118,7 +117,7 @@ class TestAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = response.parse()
-            assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+            assert_matches_type(McpStatus, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -247,7 +246,7 @@ class TestAsyncAuth:
         auth = await async_client.mcp.auth.authenticate(
             name="name",
         )
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -257,7 +256,7 @@ class TestAsyncAuth:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -269,7 +268,7 @@ class TestAsyncAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = await response.parse()
-        assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -281,7 +280,7 @@ class TestAsyncAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = await response.parse()
-            assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
+            assert_matches_type(McpStatus, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 
@@ -300,7 +299,7 @@ class TestAsyncAuth:
             name="name",
             code="code",
         )
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -311,7 +310,7 @@ class TestAsyncAuth:
             directory="directory",
             workspace="workspace",
         )
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -324,7 +323,7 @@ class TestAsyncAuth:
         assert response.is_closed is True
         assert response.http_request.headers.get("X-Stainless-Lang") == "python"
         auth = await response.parse()
-        assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+        assert_matches_type(McpStatus, auth, path=["response"])
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
     @parametrize
@@ -337,7 +336,7 @@ class TestAsyncAuth:
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
 
             auth = await response.parse()
-            assert_matches_type(AuthCompleteResponse, auth, path=["response"])
+            assert_matches_type(McpStatus, auth, path=["response"])
 
         assert cast(Any, response.is_closed) is True
 

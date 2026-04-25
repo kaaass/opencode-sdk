@@ -3,9 +3,11 @@
 from __future__ import annotations
 
 from typing import Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import TypedDict
 
-__all__ = ["SessionUpdateParams", "Permission", "Time"]
+from .permission_rule_param import PermissionRuleParam
+
+__all__ = ["SessionUpdateParams", "Time"]
 
 
 class SessionUpdateParams(TypedDict, total=False):
@@ -13,19 +15,11 @@ class SessionUpdateParams(TypedDict, total=False):
 
     workspace: str
 
-    permission: Iterable[Permission]
+    permission: Iterable[PermissionRuleParam]
 
     time: Time
 
     title: str
-
-
-class Permission(TypedDict, total=False):
-    action: Required[Literal["allow", "deny", "ask"]]
-
-    pattern: Required[str]
-
-    permission: Required[str]
 
 
 class Time(TypedDict, total=False):

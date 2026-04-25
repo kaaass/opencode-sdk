@@ -18,10 +18,9 @@ from ..._response import (
 )
 from ...types.mcp import auth_start_params, auth_remove_params, auth_complete_params, auth_authenticate_params
 from ..._base_client import make_request_options
+from ...types.mcp.mcp_status import McpStatus
 from ...types.mcp.auth_start_response import AuthStartResponse
 from ...types.mcp.auth_remove_response import AuthRemoveResponse
-from ...types.mcp.auth_complete_response import AuthCompleteResponse
-from ...types.mcp.auth_authenticate_response import AuthAuthenticateResponse
 
 __all__ = ["AuthResource", "AsyncAuthResource"]
 
@@ -58,7 +57,7 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthAuthenticateResponse:
+    ) -> McpStatus:
         """
         Start OAuth flow and wait for callback (opens browser)
 
@@ -74,7 +73,7 @@ class AuthResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return cast(
-            AuthAuthenticateResponse,
+            McpStatus,
             self._post(
                 path_template("/mcp/{name}/auth/authenticate", name=name),
                 options=make_request_options(
@@ -90,9 +89,7 @@ class AuthResource(SyncAPIResource):
                         auth_authenticate_params.AuthAuthenticateParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, AuthAuthenticateResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, McpStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
@@ -109,7 +106,7 @@ class AuthResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthCompleteResponse:
+    ) -> McpStatus:
         """
         Complete OAuth authentication for a Model Context Protocol (MCP) server using
         the authorization code.
@@ -128,7 +125,7 @@ class AuthResource(SyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return cast(
-            AuthCompleteResponse,
+            McpStatus,
             self._post(
                 path_template("/mcp/{name}/auth/callback", name=name),
                 body=maybe_transform({"code": code}, auth_complete_params.AuthCompleteParams),
@@ -145,9 +142,7 @@ class AuthResource(SyncAPIResource):
                         auth_complete_params.AuthCompleteParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, AuthCompleteResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, McpStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
@@ -274,7 +269,7 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthAuthenticateResponse:
+    ) -> McpStatus:
         """
         Start OAuth flow and wait for callback (opens browser)
 
@@ -290,7 +285,7 @@ class AsyncAuthResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return cast(
-            AuthAuthenticateResponse,
+            McpStatus,
             await self._post(
                 path_template("/mcp/{name}/auth/authenticate", name=name),
                 options=make_request_options(
@@ -306,9 +301,7 @@ class AsyncAuthResource(AsyncAPIResource):
                         auth_authenticate_params.AuthAuthenticateParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, AuthAuthenticateResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, McpStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
@@ -325,7 +318,7 @@ class AsyncAuthResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AuthCompleteResponse:
+    ) -> McpStatus:
         """
         Complete OAuth authentication for a Model Context Protocol (MCP) server using
         the authorization code.
@@ -344,7 +337,7 @@ class AsyncAuthResource(AsyncAPIResource):
         if not name:
             raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
         return cast(
-            AuthCompleteResponse,
+            McpStatus,
             await self._post(
                 path_template("/mcp/{name}/auth/callback", name=name),
                 body=await async_maybe_transform({"code": code}, auth_complete_params.AuthCompleteParams),
@@ -361,9 +354,7 @@ class AsyncAuthResource(AsyncAPIResource):
                         auth_complete_params.AuthCompleteParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, AuthCompleteResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, McpStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 

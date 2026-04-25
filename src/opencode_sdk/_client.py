@@ -74,9 +74,7 @@ if TYPE_CHECKING:
     from .resources.skill import SkillResource, AsyncSkillResource
     from .resources.config import ConfigResource, AsyncConfigResource
     from .resources.command import CommandResource, AsyncCommandResource
-    from .resources.global_ import GlobalResource, AsyncGlobalResource
     from .resources.mcp.mcp import McpResource, AsyncMcpResource
-    from .resources.project import ProjectResource, AsyncProjectResource
     from .resources.tui.tui import TuiResource, AsyncTuiResource
     from .resources.artifact import ArtifactResource, AsyncArtifactResource
     from .resources.instance import InstanceResource, AsyncInstanceResource
@@ -85,6 +83,8 @@ if TYPE_CHECKING:
     from .resources.permission import PermissionResource, AsyncPermissionResource
     from .resources.client_tool import ClientToolResource, AsyncClientToolResource
     from .resources.client_skill import ClientSkillResource, AsyncClientSkillResource
+    from .resources.global_.global_ import GlobalResource, AsyncGlobalResource
+    from .resources.project.project import ProjectResource, AsyncProjectResource
     from .resources.session.session import SessionResource, AsyncSessionResource
     from .resources.provider.provider import ProviderResource, AsyncProviderResource
     from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource

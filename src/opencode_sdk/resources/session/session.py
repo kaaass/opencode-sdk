@@ -59,19 +59,21 @@ from .message.message import (
     MessageResourceWithStreamingResponse,
     AsyncMessageResourceWithStreamingResponse,
 )
+from ...types.session_status import SessionStatus
 from ...types.session.session import Session
+from ...types.permission_rule_param import PermissionRuleParam
 from ...types.session_list_response import SessionListResponse
 from ...types.session_abort_response import SessionAbortResponse
 from ...types.session_delete_response import SessionDeleteResponse
 from ...types.session_get_diff_response import SessionGetDiffResponse
 from ...types.session_get_todo_response import SessionGetTodoResponse
 from ...types.session_summarize_response import SessionSummarizeResponse
+from ...types.session.output_format_param import OutputFormatParam
 from ...types.session_get_status_response import SessionGetStatusResponse
 from ...types.session_initialize_response import SessionInitializeResponse
 from ...types.session_get_children_response import SessionGetChildrenResponse
 from ...types.session_send_command_response import SessionSendCommandResponse
 from ...types.session_list_artifacts_response import SessionListArtifactsResponse
-from ...types.session_retrieve_status_response import SessionRetrieveStatusResponse
 from ...types.session_run_shell_command_response import SessionRunShellCommandResponse
 from ...types.session_submit_tool_results_response import SessionSubmitToolResultsResponse
 from ...types.session_respond_to_permission_response import SessionRespondToPermissionResponse
@@ -115,7 +117,7 @@ class SessionResource(SyncAPIResource):
         extra_info: Dict[str, str] | Omit = omit,
         managed_by: Literal["tui", "tui-debugger", "sdk", "cc-companion"] | Omit = omit,
         parent_id: str | Omit = omit,
-        permission: Iterable[session_create_params.Permission] | Omit = omit,
+        permission: Iterable[PermissionRuleParam] | Omit = omit,
         title: str | Omit = omit,
         workspace_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -218,7 +220,7 @@ class SessionResource(SyncAPIResource):
         *,
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
-        permission: Iterable[session_update_params.Permission] | Omit = omit,
+        permission: Iterable[PermissionRuleParam] | Omit = omit,
         time: session_update_params.Time | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -862,7 +864,7 @@ class SessionResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionRetrieveStatusResponse:
+    ) -> SessionStatus:
         """
         Retrieve the current status of a specific session (idle, busy, retry, or
         wait-tool-result).
@@ -879,7 +881,7 @@ class SessionResource(SyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return cast(
-            SessionRetrieveStatusResponse,
+            SessionStatus,
             self._get(
                 path_template("/session/{session_id}/status", session_id=session_id),
                 options=make_request_options(
@@ -895,9 +897,7 @@ class SessionResource(SyncAPIResource):
                         session_retrieve_status_params.SessionRetrieveStatusParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, SessionRetrieveStatusResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, SessionStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
@@ -1022,7 +1022,7 @@ class SessionResource(SyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         agent: str | Omit = omit,
-        format: session_send_async_message_params.Format | Omit = omit,
+        format: OutputFormatParam | Omit = omit,
         message_id: str | Omit = omit,
         model: session_send_async_message_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,
@@ -1302,7 +1302,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_info: Dict[str, str] | Omit = omit,
         managed_by: Literal["tui", "tui-debugger", "sdk", "cc-companion"] | Omit = omit,
         parent_id: str | Omit = omit,
-        permission: Iterable[session_create_params.Permission] | Omit = omit,
+        permission: Iterable[PermissionRuleParam] | Omit = omit,
         title: str | Omit = omit,
         workspace_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1405,7 +1405,7 @@ class AsyncSessionResource(AsyncAPIResource):
         *,
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
-        permission: Iterable[session_update_params.Permission] | Omit = omit,
+        permission: Iterable[PermissionRuleParam] | Omit = omit,
         time: session_update_params.Time | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -2049,7 +2049,7 @@ class AsyncSessionResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> SessionRetrieveStatusResponse:
+    ) -> SessionStatus:
         """
         Retrieve the current status of a specific session (idle, busy, retry, or
         wait-tool-result).
@@ -2066,7 +2066,7 @@ class AsyncSessionResource(AsyncAPIResource):
         if not session_id:
             raise ValueError(f"Expected a non-empty value for `session_id` but received {session_id!r}")
         return cast(
-            SessionRetrieveStatusResponse,
+            SessionStatus,
             await self._get(
                 path_template("/session/{session_id}/status", session_id=session_id),
                 options=make_request_options(
@@ -2082,9 +2082,7 @@ class AsyncSessionResource(AsyncAPIResource):
                         session_retrieve_status_params.SessionRetrieveStatusParams,
                     ),
                 ),
-                cast_to=cast(
-                    Any, SessionRetrieveStatusResponse
-                ),  # Union types cannot be passed in as arguments in the type system
+                cast_to=cast(Any, SessionStatus),  # Union types cannot be passed in as arguments in the type system
             ),
         )
 
@@ -2209,7 +2207,7 @@ class AsyncSessionResource(AsyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         agent: str | Omit = omit,
-        format: session_send_async_message_params.Format | Omit = omit,
+        format: OutputFormatParam | Omit = omit,
         message_id: str | Omit = omit,
         model: session_send_async_message_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,

@@ -19,6 +19,7 @@ from ...._response import (
 )
 from ...._base_client import make_request_options
 from ....types.session.part import Part
+from ....types.api_error_param import APIErrorParam
 from ....types.session.message import part_delete_params, part_update_params
 from ....types.session.file_part_source_param import FilePartSourceParam
 from ....types.session.message.part_delete_response import PartDeleteResponse
@@ -426,7 +427,7 @@ class PartResource(SyncAPIResource):
         path_message_id: str,
         id: str,
         attempt: float,
-        error: part_update_params.RetryPartError,
+        error: APIErrorParam,
         body_message_id: str,
         body_session_id: str,
         time: part_update_params.RetryPartTime,
@@ -593,7 +594,7 @@ class PartResource(SyncAPIResource):
         hash: str | Omit = omit,
         name: str | Omit = omit,
         attempt: float | Omit = omit,
-        error: part_update_params.RetryPartError | Omit = omit,
+        error: APIErrorParam | Omit = omit,
         auto: bool | Omit = omit,
         overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -1129,7 +1130,7 @@ class AsyncPartResource(AsyncAPIResource):
         path_message_id: str,
         id: str,
         attempt: float,
-        error: part_update_params.RetryPartError,
+        error: APIErrorParam,
         body_message_id: str,
         body_session_id: str,
         time: part_update_params.RetryPartTime,
@@ -1296,7 +1297,7 @@ class AsyncPartResource(AsyncAPIResource):
         hash: str | Omit = omit,
         name: str | Omit = omit,
         attempt: float | Omit = omit,
-        error: part_update_params.RetryPartError | Omit = omit,
+        error: APIErrorParam | Omit = omit,
         auto: bool | Omit = omit,
         overflow: bool | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.

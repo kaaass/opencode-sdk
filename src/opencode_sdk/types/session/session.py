@@ -6,8 +6,10 @@ from typing_extensions import Literal
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
+from ..permission_rule import PermissionRule
+from ..snapshot_file_diff import SnapshotFileDiff
 
-__all__ = ["Session", "Time", "Metadata", "Permission", "Revert", "Share", "Summary", "SummaryDiff"]
+__all__ = ["Session", "Time", "Metadata", "Revert", "Share", "Summary"]
 
 
 class Time(BaseModel):
@@ -28,14 +30,6 @@ class Metadata(BaseModel):
     )
 
 
-class Permission(BaseModel):
-    action: Literal["allow", "deny", "ask"]
-
-    pattern: str
-
-    permission: str
-
-
 class Revert(BaseModel):
     message_id: str = FieldInfo(alias="messageID")
 
@@ -50,18 +44,6 @@ class Share(BaseModel):
     url: str
 
 
-class SummaryDiff(BaseModel):
-    additions: float
-
-    deletions: float
-
-    file: str
-
-    patch: str
-
-    status: Optional[Literal["added", "deleted", "modified"]] = None
-
-
 class Summary(BaseModel):
     additions: float
 
@@ -69,7 +51,7 @@ class Summary(BaseModel):
 
     files: float
 
-    diffs: Optional[List[SummaryDiff]] = None
+    diffs: Optional[List[SnapshotFileDiff]] = None
 
 
 class Session(BaseModel):
@@ -91,7 +73,7 @@ class Session(BaseModel):
 
     parent_id: Optional[str] = FieldInfo(alias="parentID", default=None)
 
-    permission: Optional[List[Permission]] = None
+    permission: Optional[List[PermissionRule]] = None
 
     revert: Optional[Revert] = None
 

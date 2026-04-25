@@ -1,27 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List
-from typing_extensions import Literal, TypeAlias
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
+from .pty import Pty
 
-__all__ = ["PtyListResponse", "PtyListResponseItem"]
+__all__ = ["PtyListResponse"]
 
-
-class PtyListResponseItem(BaseModel):
-    id: str
-
-    args: List[str]
-
-    command: str
-
-    cwd: str
-
-    pid: float
-
-    status: Literal["running", "exited"]
-
-    title: str
-
-
-PtyListResponse: TypeAlias = List[PtyListResponseItem]
+PtyListResponse: TypeAlias = List[Pty]

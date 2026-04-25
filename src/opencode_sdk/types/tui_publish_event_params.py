@@ -9,19 +9,19 @@ from .._utils import PropertyInfo
 
 __all__ = [
     "TuiPublishEventParams",
-    "EventTuiPromptAppend",
-    "EventTuiPromptAppendProperties",
-    "EventTuiCommandExecute",
-    "EventTuiCommandExecuteProperties",
-    "EventTuiToastShow",
-    "EventTuiToastShowProperties",
-    "EventTuiSessionSelect",
-    "EventTuiSessionSelectProperties",
+    "EventPromptAppend",
+    "EventPromptAppendProperties",
+    "EventCommandExecute",
+    "EventCommandExecuteProperties",
+    "EventToastShow",
+    "EventToastShowProperties",
+    "EventSessionSelect",
+    "EventSessionSelectProperties",
 ]
 
 
-class EventTuiPromptAppend(TypedDict, total=False):
-    properties: Required[EventTuiPromptAppendProperties]
+class EventPromptAppend(TypedDict, total=False):
+    properties: Required[EventPromptAppendProperties]
 
     type: Required[Literal["tui.prompt.append"]]
 
@@ -30,12 +30,12 @@ class EventTuiPromptAppend(TypedDict, total=False):
     workspace: str
 
 
-class EventTuiPromptAppendProperties(TypedDict, total=False):
+class EventPromptAppendProperties(TypedDict, total=False):
     text: Required[str]
 
 
-class EventTuiCommandExecute(TypedDict, total=False):
-    properties: Required[EventTuiCommandExecuteProperties]
+class EventCommandExecute(TypedDict, total=False):
+    properties: Required[EventCommandExecuteProperties]
 
     type: Required[Literal["tui.command.execute"]]
 
@@ -44,7 +44,7 @@ class EventTuiCommandExecute(TypedDict, total=False):
     workspace: str
 
 
-class EventTuiCommandExecuteProperties(TypedDict, total=False):
+class EventCommandExecuteProperties(TypedDict, total=False):
     command: Required[
         Union[
             Literal[
@@ -70,8 +70,8 @@ class EventTuiCommandExecuteProperties(TypedDict, total=False):
     ]
 
 
-class EventTuiToastShow(TypedDict, total=False):
-    properties: Required[EventTuiToastShowProperties]
+class EventToastShow(TypedDict, total=False):
+    properties: Required[EventToastShowProperties]
 
     type: Required[Literal["tui.toast.show"]]
 
@@ -80,7 +80,7 @@ class EventTuiToastShow(TypedDict, total=False):
     workspace: str
 
 
-class EventTuiToastShowProperties(TypedDict, total=False):
+class EventToastShowProperties(TypedDict, total=False):
     message: Required[str]
 
     variant: Required[Literal["info", "success", "warning", "error"]]
@@ -91,8 +91,8 @@ class EventTuiToastShowProperties(TypedDict, total=False):
     title: str
 
 
-class EventTuiSessionSelect(TypedDict, total=False):
-    properties: Required[EventTuiSessionSelectProperties]
+class EventSessionSelect(TypedDict, total=False):
+    properties: Required[EventSessionSelectProperties]
 
     type: Required[Literal["tui.session.select"]]
 
@@ -101,11 +101,9 @@ class EventTuiSessionSelect(TypedDict, total=False):
     workspace: str
 
 
-class EventTuiSessionSelectProperties(TypedDict, total=False):
+class EventSessionSelectProperties(TypedDict, total=False):
     session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
     """Session ID to navigate to"""
 
 
-TuiPublishEventParams: TypeAlias = Union[
-    EventTuiPromptAppend, EventTuiCommandExecute, EventTuiToastShow, EventTuiSessionSelect
-]
+TuiPublishEventParams: TypeAlias = Union[EventPromptAppend, EventCommandExecute, EventToastShow, EventSessionSelect]

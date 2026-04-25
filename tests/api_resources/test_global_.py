@@ -9,7 +9,12 @@ import pytest
 
 from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
-from opencode_sdk.types import GlobalGetHealthResponse, GlobalGetVersionResponse, GlobalDisposeInstanceResponse
+from opencode_sdk.types import (
+    GlobalUpgradeResponse,
+    GlobalGetHealthResponse,
+    GlobalGetVersionResponse,
+    GlobalDisposeInstanceResponse,
+)
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -156,6 +161,42 @@ class TestGlobal:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_upgrade(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.upgrade()
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_upgrade_with_all_params(self, client: OpencodeSDK) -> None:
+        global_ = client.global_.upgrade(
+            target="target",
+        )
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_upgrade(self, client: OpencodeSDK) -> None:
+        response = client.global_.with_raw_response.upgrade()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        global_ = response.parse()
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_upgrade(self, client: OpencodeSDK) -> None:
+        with client.global_.with_streaming_response.upgrade() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            global_ = response.parse()
+            assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncGlobal:
     parametrize = pytest.mark.parametrize(
@@ -298,5 +339,41 @@ class TestAsyncGlobal:
 
             stream = await response.parse()
             await stream.close()
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_upgrade(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.upgrade()
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_upgrade_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        global_ = await async_client.global_.upgrade(
+            target="target",
+        )
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_upgrade(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.global_.with_raw_response.upgrade()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        global_ = await response.parse()
+        assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_upgrade(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.global_.with_streaming_response.upgrade() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            global_ = await response.parse()
+            assert_matches_type(GlobalUpgradeResponse, global_, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -11,7 +11,9 @@ from tests.utils import assert_matches_type
 from opencode_sdk import OpencodeSDK, AsyncOpencodeSDK
 from opencode_sdk.types.experimental import (
     WorktreeListResponse,
+    WorktreeResetResponse,
     WorktreeCreateResponse,
+    WorktreeRemoveResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -96,6 +98,94 @@ class TestWorktree:
 
         assert cast(Any, response.is_closed) is True
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_remove(self, client: OpencodeSDK) -> None:
+        worktree = client.experimental.worktree.remove(
+            body_directory="directory",
+        )
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_remove_with_all_params(self, client: OpencodeSDK) -> None:
+        worktree = client.experimental.worktree.remove(
+            body_directory="directory",
+            query_directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_remove(self, client: OpencodeSDK) -> None:
+        response = client.experimental.worktree.with_raw_response.remove(
+            body_directory="directory",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        worktree = response.parse()
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_remove(self, client: OpencodeSDK) -> None:
+        with client.experimental.worktree.with_streaming_response.remove(
+            body_directory="directory",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            worktree = response.parse()
+            assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_reset(self, client: OpencodeSDK) -> None:
+        worktree = client.experimental.worktree.reset(
+            body_directory="directory",
+        )
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_reset_with_all_params(self, client: OpencodeSDK) -> None:
+        worktree = client.experimental.worktree.reset(
+            body_directory="directory",
+            query_directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_reset(self, client: OpencodeSDK) -> None:
+        response = client.experimental.worktree.with_raw_response.reset(
+            body_directory="directory",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        worktree = response.parse()
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_reset(self, client: OpencodeSDK) -> None:
+        with client.experimental.worktree.with_streaming_response.reset(
+            body_directory="directory",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            worktree = response.parse()
+            assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncWorktree:
     parametrize = pytest.mark.parametrize(
@@ -175,5 +265,93 @@ class TestAsyncWorktree:
 
             worktree = await response.parse()
             assert_matches_type(WorktreeListResponse, worktree, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_remove(self, async_client: AsyncOpencodeSDK) -> None:
+        worktree = await async_client.experimental.worktree.remove(
+            body_directory="directory",
+        )
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_remove_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        worktree = await async_client.experimental.worktree.remove(
+            body_directory="directory",
+            query_directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_remove(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.experimental.worktree.with_raw_response.remove(
+            body_directory="directory",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        worktree = await response.parse()
+        assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_remove(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.experimental.worktree.with_streaming_response.remove(
+            body_directory="directory",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            worktree = await response.parse()
+            assert_matches_type(WorktreeRemoveResponse, worktree, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_reset(self, async_client: AsyncOpencodeSDK) -> None:
+        worktree = await async_client.experimental.worktree.reset(
+            body_directory="directory",
+        )
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_reset_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        worktree = await async_client.experimental.worktree.reset(
+            body_directory="directory",
+            query_directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_reset(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.experimental.worktree.with_raw_response.reset(
+            body_directory="directory",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        worktree = await response.parse()
+        assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_reset(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.experimental.worktree.with_streaming_response.reset(
+            body_directory="directory",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            worktree = await response.parse()
+            assert_matches_type(WorktreeResetResponse, worktree, path=["response"])
 
         assert cast(Any, response.is_closed) is True

@@ -1,23 +1,10 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
-from typing_extensions import Literal, TypeAlias
+from typing import List
+from typing_extensions import TypeAlias
 
-from .._models import BaseModel
+from .snapshot_file_diff import SnapshotFileDiff
 
-__all__ = ["SessionGetDiffResponse", "SessionGetDiffResponseItem"]
+__all__ = ["SessionGetDiffResponse"]
 
-
-class SessionGetDiffResponseItem(BaseModel):
-    additions: float
-
-    deletions: float
-
-    file: str
-
-    patch: str
-
-    status: Optional[Literal["added", "deleted", "modified"]] = None
-
-
-SessionGetDiffResponse: TypeAlias = List[SessionGetDiffResponseItem]
+SessionGetDiffResponse: TypeAlias = List[SnapshotFileDiff]

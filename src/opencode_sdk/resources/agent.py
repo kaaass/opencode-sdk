@@ -21,6 +21,7 @@ from .._response import (
 from .._base_client import make_request_options
 from ..types.agent_list_response import AgentListResponse
 from ..types.agent_delete_response import AgentDeleteResponse
+from ..types.permission_rule_param import PermissionRuleParam
 from ..types.agent_create_or_update_response import AgentCreateOrUpdateResponse
 
 __all__ = ["AgentResource", "AsyncAgentResource"]
@@ -139,7 +140,7 @@ class AgentResource(SyncAPIResource):
         mode: Literal["subagent", "primary", "all"],
         name: str,
         options: Dict[str, object],
-        permission: Iterable[agent_create_or_update_params.Permission],
+        permission: Iterable[PermissionRuleParam],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         color: str | Omit = omit,
@@ -326,7 +327,7 @@ class AsyncAgentResource(AsyncAPIResource):
         mode: Literal["subagent", "primary", "all"],
         name: str,
         options: Dict[str, object],
-        permission: Iterable[agent_create_or_update_params.Permission],
+        permission: Iterable[PermissionRuleParam],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         color: str | Omit = omit,

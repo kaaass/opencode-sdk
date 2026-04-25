@@ -5,136 +5,64 @@ from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
 
-from .todo import Todo
-from .project import Project
 from .._models import BaseModel
+from .pty_exited import PtyExited
+from .file_edited import FileEdited
+from .lsp_updated import LspUpdated
+from .pty_created import PtyCreated
+from .pty_deleted import PtyDeleted
+from .pty_updated import PtyUpdated
 from .session.part import Part
-from .unknown_error import UnknownError
+from .session_diff import SessionDiff
+from .session_idle import SessionIdle
+from .todo_updated import TodoUpdated
+from .session_error import SessionError
+from .question_asked import QuestionAsked
+from .worktree_ready import WorktreeReady
+from .global_disposed import GlobalDisposed
+from .message_removed import MessageRemoved
+from .message_updated import MessageUpdated
+from .permission_rule import PermissionRule
+from .project_updated import ProjectUpdated
 from .session.session import Session
-from .provider_auth_error import ProviderAuthError
-from .message_aborted_error import MessageAbortedError
+from .session_created import SessionCreated
+from .session_deleted import SessionDeleted
+from .session_updated import SessionUpdated
+from .workspace_ready import WorkspaceReady
+from .worktree_failed import WorktreeFailed
+from .artifact_created import ArtifactCreated
+from .artifact_deleted import ArtifactDeleted
+from .command_executed import CommandExecuted
+from .event_toast_show import EventToastShow
+from .permission_asked import PermissionAsked
+from .question_replied import QuestionReplied
+from .server_connected import ServerConnected
+from .workspace_failed import WorkspaceFailed
+from .workspace_status import WorkspaceStatus
+from .mcp_tools_changed import McpToolsChanged
+from .question_rejected import QuestionRejected
+from .session_compacted import SessionCompacted
+from .message_part_delta import MessagePartDelta
+from .permission_replied import PermissionReplied
+from .snapshot_file_diff import SnapshotFileDiff
+from .vcs_branch_updated import VcsBranchUpdated
+from .event_prompt_append import EventPromptAppend
+from .event_session_select import EventSessionSelect
+from .file_watcher_updated import FileWatcherUpdated
+from .installation_updated import InstallationUpdated
+from .message_part_removed import MessagePartRemoved
+from .message_part_updated import MessagePartUpdated
+from .session_event_status import SessionEventStatus
+from .event_command_execute import EventCommandExecute
+from .lsp_client_diagnostics import LspClientDiagnostics
+from .mcp_browser_open_failed import McpBrowserOpenFailed
 from .session.message.message import Message
-from .message_output_length_error import MessageOutputLengthError
+from .server_instance_disposed import ServerInstanceDisposed
+from .installation_update_available import InstallationUpdateAvailable
 
 __all__ = [
     "GlobalRetrieveEventsResponse",
     "Payload",
-    "PayloadEventInstallationUpdated",
-    "PayloadEventInstallationUpdatedProperties",
-    "PayloadEventInstallationUpdateAvailable",
-    "PayloadEventInstallationUpdateAvailableProperties",
-    "PayloadEventProjectUpdated",
-    "PayloadEventServerInstanceDisposed",
-    "PayloadEventServerInstanceDisposedProperties",
-    "PayloadEventServerConnected",
-    "PayloadEventServerConnectedProperties",
-    "PayloadEventServerConnectedPropertiesVersion",
-    "PayloadEventServerConnectedPropertiesVersionUpstream",
-    "PayloadEventGlobalDisposed",
-    "PayloadEventFileEdited",
-    "PayloadEventFileEditedProperties",
-    "PayloadEventFileWatcherUpdated",
-    "PayloadEventFileWatcherUpdatedProperties",
-    "PayloadEventLspClientDiagnostics",
-    "PayloadEventLspClientDiagnosticsProperties",
-    "PayloadEventLspUpdated",
-    "PayloadEventMessagePartDelta",
-    "PayloadEventMessagePartDeltaProperties",
-    "PayloadEventPermissionAsked",
-    "PayloadEventPermissionAskedProperties",
-    "PayloadEventPermissionAskedPropertiesTool",
-    "PayloadEventPermissionReplied",
-    "PayloadEventPermissionRepliedProperties",
-    "PayloadEventSessionDiff",
-    "PayloadEventSessionDiffProperties",
-    "PayloadEventSessionDiffPropertiesDiff",
-    "PayloadEventSessionError",
-    "PayloadEventSessionErrorProperties",
-    "PayloadEventSessionErrorPropertiesError",
-    "PayloadEventSessionErrorPropertiesErrorStructuredOutputError",
-    "PayloadEventSessionErrorPropertiesErrorStructuredOutputErrorData",
-    "PayloadEventSessionErrorPropertiesErrorContextOverflowError",
-    "PayloadEventSessionErrorPropertiesErrorContextOverflowErrorData",
-    "PayloadEventSessionErrorPropertiesErrorAPIError",
-    "PayloadEventSessionErrorPropertiesErrorAPIErrorData",
-    "PayloadEventQuestionAsked",
-    "PayloadEventQuestionAskedProperties",
-    "PayloadEventQuestionAskedPropertiesQuestion",
-    "PayloadEventQuestionAskedPropertiesQuestionOption",
-    "PayloadEventQuestionAskedPropertiesTool",
-    "PayloadEventQuestionReplied",
-    "PayloadEventQuestionRepliedProperties",
-    "PayloadEventQuestionRejected",
-    "PayloadEventQuestionRejectedProperties",
-    "PayloadEventTodoUpdated",
-    "PayloadEventTodoUpdatedProperties",
-    "PayloadEventSessionStatus",
-    "PayloadEventSessionStatusProperties",
-    "PayloadEventSessionStatusPropertiesStatus",
-    "PayloadEventSessionStatusPropertiesStatusType",
-    "PayloadEventSessionStatusPropertiesStatusUnionMember1",
-    "PayloadEventSessionStatusPropertiesStatusUnionMember3",
-    "PayloadEventSessionStatusPropertiesStatusUnionMember3PendingCall",
-    "PayloadEventSessionIdle",
-    "PayloadEventSessionIdleProperties",
-    "PayloadEventSessionCompacted",
-    "PayloadEventSessionCompactedProperties",
-    "PayloadEventArtifactCreated",
-    "PayloadEventArtifactCreatedProperties",
-    "PayloadEventArtifactCreatedPropertiesInfo",
-    "PayloadEventArtifactCreatedPropertiesInfoTime",
-    "PayloadEventArtifactDeleted",
-    "PayloadEventArtifactDeletedProperties",
-    "PayloadEventTuiPromptAppend",
-    "PayloadEventTuiPromptAppendProperties",
-    "PayloadEventTuiCommandExecute",
-    "PayloadEventTuiCommandExecuteProperties",
-    "PayloadEventTuiToastShow",
-    "PayloadEventTuiToastShowProperties",
-    "PayloadEventTuiSessionSelect",
-    "PayloadEventTuiSessionSelectProperties",
-    "PayloadEventMcpToolsChanged",
-    "PayloadEventMcpToolsChangedProperties",
-    "PayloadEventMcpBrowserOpenFailed",
-    "PayloadEventMcpBrowserOpenFailedProperties",
-    "PayloadEventCommandExecuted",
-    "PayloadEventCommandExecutedProperties",
-    "PayloadEventVcsBranchUpdated",
-    "PayloadEventVcsBranchUpdatedProperties",
-    "PayloadEventWorktreeReady",
-    "PayloadEventWorktreeReadyProperties",
-    "PayloadEventWorktreeFailed",
-    "PayloadEventWorktreeFailedProperties",
-    "PayloadEventPtyCreated",
-    "PayloadEventPtyCreatedProperties",
-    "PayloadEventPtyCreatedPropertiesInfo",
-    "PayloadEventPtyUpdated",
-    "PayloadEventPtyUpdatedProperties",
-    "PayloadEventPtyUpdatedPropertiesInfo",
-    "PayloadEventPtyExited",
-    "PayloadEventPtyExitedProperties",
-    "PayloadEventPtyDeleted",
-    "PayloadEventPtyDeletedProperties",
-    "PayloadEventWorkspaceReady",
-    "PayloadEventWorkspaceReadyProperties",
-    "PayloadEventWorkspaceFailed",
-    "PayloadEventWorkspaceFailedProperties",
-    "PayloadEventWorkspaceStatus",
-    "PayloadEventWorkspaceStatusProperties",
-    "PayloadEventMessageUpdated",
-    "PayloadEventMessageUpdatedProperties",
-    "PayloadEventMessageRemoved",
-    "PayloadEventMessageRemovedProperties",
-    "PayloadEventMessagePartUpdated",
-    "PayloadEventMessagePartUpdatedProperties",
-    "PayloadEventMessagePartRemoved",
-    "PayloadEventMessagePartRemovedProperties",
-    "PayloadEventSessionCreated",
-    "PayloadEventSessionCreatedProperties",
-    "PayloadEventSessionUpdated",
-    "PayloadEventSessionUpdatedProperties",
-    "PayloadEventSessionDeleted",
-    "PayloadEventSessionDeletedProperties",
     "PayloadSyncEventMessageUpdated",
     "PayloadSyncEventMessageUpdatedData",
     "PayloadSyncEventMessageRemoved",
@@ -149,808 +77,13 @@ __all__ = [
     "PayloadSyncEventSessionUpdatedData",
     "PayloadSyncEventSessionUpdatedDataInfo",
     "PayloadSyncEventSessionUpdatedDataInfoMetadata",
-    "PayloadSyncEventSessionUpdatedDataInfoPermission",
     "PayloadSyncEventSessionUpdatedDataInfoRevert",
     "PayloadSyncEventSessionUpdatedDataInfoSummary",
-    "PayloadSyncEventSessionUpdatedDataInfoSummaryDiff",
     "PayloadSyncEventSessionUpdatedDataInfoShare",
     "PayloadSyncEventSessionUpdatedDataInfoTime",
     "PayloadSyncEventSessionDeleted",
     "PayloadSyncEventSessionDeletedData",
 ]
-
-
-class PayloadEventInstallationUpdatedProperties(BaseModel):
-    version: str
-
-
-class PayloadEventInstallationUpdated(BaseModel):
-    properties: PayloadEventInstallationUpdatedProperties
-
-    type: Literal["installation.updated"]
-
-
-class PayloadEventInstallationUpdateAvailableProperties(BaseModel):
-    version: str
-
-
-class PayloadEventInstallationUpdateAvailable(BaseModel):
-    properties: PayloadEventInstallationUpdateAvailableProperties
-
-    type: Literal["installation.update-available"]
-
-
-class PayloadEventProjectUpdated(BaseModel):
-    properties: Project
-
-    type: Literal["project.updated"]
-
-
-class PayloadEventServerInstanceDisposedProperties(BaseModel):
-    directory: str
-
-
-class PayloadEventServerInstanceDisposed(BaseModel):
-    properties: PayloadEventServerInstanceDisposedProperties
-
-    type: Literal["server.instance.disposed"]
-
-
-class PayloadEventServerConnectedPropertiesVersionUpstream(BaseModel):
-    commit: str
-
-    version: str
-
-
-class PayloadEventServerConnectedPropertiesVersion(BaseModel):
-    api: str
-
-    channel: str
-
-    upstream: PayloadEventServerConnectedPropertiesVersionUpstream
-
-    version: str
-
-
-class PayloadEventServerConnectedProperties(BaseModel):
-    version: PayloadEventServerConnectedPropertiesVersion
-
-
-class PayloadEventServerConnected(BaseModel):
-    properties: PayloadEventServerConnectedProperties
-
-    type: Literal["server.connected"]
-
-
-class PayloadEventGlobalDisposed(BaseModel):
-    properties: object
-
-    type: Literal["global.disposed"]
-
-
-class PayloadEventFileEditedProperties(BaseModel):
-    file: str
-
-
-class PayloadEventFileEdited(BaseModel):
-    properties: PayloadEventFileEditedProperties
-
-    type: Literal["file.edited"]
-
-
-class PayloadEventFileWatcherUpdatedProperties(BaseModel):
-    event: Literal["add", "change", "unlink"]
-
-    file: str
-
-
-class PayloadEventFileWatcherUpdated(BaseModel):
-    properties: PayloadEventFileWatcherUpdatedProperties
-
-    type: Literal["file.watcher.updated"]
-
-
-class PayloadEventLspClientDiagnosticsProperties(BaseModel):
-    path: str
-
-    server_id: str = FieldInfo(alias="serverID")
-
-
-class PayloadEventLspClientDiagnostics(BaseModel):
-    properties: PayloadEventLspClientDiagnosticsProperties
-
-    type: Literal["lsp.client.diagnostics"]
-
-
-class PayloadEventLspUpdated(BaseModel):
-    properties: object
-
-    type: Literal["lsp.updated"]
-
-
-class PayloadEventMessagePartDeltaProperties(BaseModel):
-    delta: str
-
-    field: str
-
-    message_id: str = FieldInfo(alias="messageID")
-
-    part_id: str = FieldInfo(alias="partID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventMessagePartDelta(BaseModel):
-    properties: PayloadEventMessagePartDeltaProperties
-
-    type: Literal["message.part.delta"]
-
-
-class PayloadEventPermissionAskedPropertiesTool(BaseModel):
-    call_id: str = FieldInfo(alias="callID")
-
-    message_id: str = FieldInfo(alias="messageID")
-
-
-class PayloadEventPermissionAskedProperties(BaseModel):
-    id: str
-
-    always: List[str]
-
-    metadata: Dict[str, object]
-
-    patterns: List[str]
-
-    permission: str
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-    tool: Optional[PayloadEventPermissionAskedPropertiesTool] = None
-
-
-class PayloadEventPermissionAsked(BaseModel):
-    properties: PayloadEventPermissionAskedProperties
-
-    type: Literal["permission.asked"]
-
-
-class PayloadEventPermissionRepliedProperties(BaseModel):
-    reply: Literal["once", "always", "reject"]
-
-    request_id: str = FieldInfo(alias="requestID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventPermissionReplied(BaseModel):
-    properties: PayloadEventPermissionRepliedProperties
-
-    type: Literal["permission.replied"]
-
-
-class PayloadEventSessionDiffPropertiesDiff(BaseModel):
-    additions: float
-
-    deletions: float
-
-    file: str
-
-    patch: str
-
-    status: Optional[Literal["added", "deleted", "modified"]] = None
-
-
-class PayloadEventSessionDiffProperties(BaseModel):
-    diff: List[PayloadEventSessionDiffPropertiesDiff]
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionDiff(BaseModel):
-    properties: PayloadEventSessionDiffProperties
-
-    type: Literal["session.diff"]
-
-
-class PayloadEventSessionErrorPropertiesErrorStructuredOutputErrorData(BaseModel):
-    message: str
-
-    retries: float
-
-
-class PayloadEventSessionErrorPropertiesErrorStructuredOutputError(BaseModel):
-    data: PayloadEventSessionErrorPropertiesErrorStructuredOutputErrorData
-
-    name: Literal["StructuredOutputError"]
-
-
-class PayloadEventSessionErrorPropertiesErrorContextOverflowErrorData(BaseModel):
-    message: str
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-
-class PayloadEventSessionErrorPropertiesErrorContextOverflowError(BaseModel):
-    data: PayloadEventSessionErrorPropertiesErrorContextOverflowErrorData
-
-    name: Literal["ContextOverflowError"]
-
-
-class PayloadEventSessionErrorPropertiesErrorAPIErrorData(BaseModel):
-    is_retryable: bool = FieldInfo(alias="isRetryable")
-
-    message: str
-
-    metadata: Optional[Dict[str, str]] = None
-
-    response_body: Optional[str] = FieldInfo(alias="responseBody", default=None)
-
-    response_headers: Optional[Dict[str, str]] = FieldInfo(alias="responseHeaders", default=None)
-
-    status_code: Optional[float] = FieldInfo(alias="statusCode", default=None)
-
-
-class PayloadEventSessionErrorPropertiesErrorAPIError(BaseModel):
-    data: PayloadEventSessionErrorPropertiesErrorAPIErrorData
-
-    name: Literal["APIError"]
-
-
-PayloadEventSessionErrorPropertiesError: TypeAlias = Union[
-    ProviderAuthError,
-    UnknownError,
-    MessageOutputLengthError,
-    MessageAbortedError,
-    PayloadEventSessionErrorPropertiesErrorStructuredOutputError,
-    PayloadEventSessionErrorPropertiesErrorContextOverflowError,
-    PayloadEventSessionErrorPropertiesErrorAPIError,
-]
-
-
-class PayloadEventSessionErrorProperties(BaseModel):
-    error: Optional[PayloadEventSessionErrorPropertiesError] = None
-
-    session_id: Optional[str] = FieldInfo(alias="sessionID", default=None)
-
-
-class PayloadEventSessionError(BaseModel):
-    properties: PayloadEventSessionErrorProperties
-
-    type: Literal["session.error"]
-
-
-class PayloadEventQuestionAskedPropertiesQuestionOption(BaseModel):
-    description: str
-    """Explanation of choice"""
-
-    label: str
-    """Display text (1-5 words, concise)"""
-
-
-class PayloadEventQuestionAskedPropertiesQuestion(BaseModel):
-    header: str
-    """Very short label (max 30 chars)"""
-
-    options: List[PayloadEventQuestionAskedPropertiesQuestionOption]
-    """Available choices"""
-
-    question: str
-    """Complete question"""
-
-    custom: Optional[bool] = None
-    """Allow typing a custom answer (default: true)"""
-
-    multiple: Optional[bool] = None
-    """Allow selecting multiple choices"""
-
-
-class PayloadEventQuestionAskedPropertiesTool(BaseModel):
-    call_id: str = FieldInfo(alias="callID")
-
-    message_id: str = FieldInfo(alias="messageID")
-
-
-class PayloadEventQuestionAskedProperties(BaseModel):
-    id: str
-
-    questions: List[PayloadEventQuestionAskedPropertiesQuestion]
-    """Questions to ask"""
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-    tool: Optional[PayloadEventQuestionAskedPropertiesTool] = None
-
-
-class PayloadEventQuestionAsked(BaseModel):
-    properties: PayloadEventQuestionAskedProperties
-
-    type: Literal["question.asked"]
-
-
-class PayloadEventQuestionRepliedProperties(BaseModel):
-    answers: List[List[str]]
-
-    request_id: str = FieldInfo(alias="requestID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventQuestionReplied(BaseModel):
-    properties: PayloadEventQuestionRepliedProperties
-
-    type: Literal["question.replied"]
-
-
-class PayloadEventQuestionRejectedProperties(BaseModel):
-    request_id: str = FieldInfo(alias="requestID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventQuestionRejected(BaseModel):
-    properties: PayloadEventQuestionRejectedProperties
-
-    type: Literal["question.rejected"]
-
-
-class PayloadEventTodoUpdatedProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-    todos: List[Todo]
-
-
-class PayloadEventTodoUpdated(BaseModel):
-    properties: PayloadEventTodoUpdatedProperties
-
-    type: Literal["todo.updated"]
-
-
-class PayloadEventSessionStatusPropertiesStatusType(BaseModel):
-    type: Literal["idle"]
-
-
-class PayloadEventSessionStatusPropertiesStatusUnionMember1(BaseModel):
-    attempt: float
-
-    message: str
-
-    next: float
-
-    type: Literal["retry"]
-
-
-class PayloadEventSessionStatusPropertiesStatusUnionMember3PendingCall(BaseModel):
-    call_id: str = FieldInfo(alias="callID")
-
-    input: Dict[str, object]
-
-    tool: str
-
-
-class PayloadEventSessionStatusPropertiesStatusUnionMember3(BaseModel):
-    pending_calls: List[PayloadEventSessionStatusPropertiesStatusUnionMember3PendingCall] = FieldInfo(
-        alias="pendingCalls"
-    )
-
-    type: Literal["wait-tool-result"]
-
-
-PayloadEventSessionStatusPropertiesStatus: TypeAlias = Union[
-    PayloadEventSessionStatusPropertiesStatusType,
-    PayloadEventSessionStatusPropertiesStatusUnionMember1,
-    PayloadEventSessionStatusPropertiesStatusType,
-    PayloadEventSessionStatusPropertiesStatusUnionMember3,
-]
-
-
-class PayloadEventSessionStatusProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-    status: PayloadEventSessionStatusPropertiesStatus
-
-
-class PayloadEventSessionStatus(BaseModel):
-    properties: PayloadEventSessionStatusProperties
-
-    type: Literal["session.status"]
-
-
-class PayloadEventSessionIdleProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionIdle(BaseModel):
-    properties: PayloadEventSessionIdleProperties
-
-    type: Literal["session.idle"]
-
-
-class PayloadEventSessionCompactedProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionCompacted(BaseModel):
-    properties: PayloadEventSessionCompactedProperties
-
-    type: Literal["session.compacted"]
-
-
-class PayloadEventArtifactCreatedPropertiesInfoTime(BaseModel):
-    created: float
-
-
-class PayloadEventArtifactCreatedPropertiesInfo(BaseModel):
-    id: str
-
-    filename: str
-
-    hash: str
-
-    mime: str
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-    size: int
-
-    time: PayloadEventArtifactCreatedPropertiesInfoTime
-
-    metadata: Optional[Dict[str, object]] = None
-
-
-class PayloadEventArtifactCreatedProperties(BaseModel):
-    info: PayloadEventArtifactCreatedPropertiesInfo
-
-
-class PayloadEventArtifactCreated(BaseModel):
-    properties: PayloadEventArtifactCreatedProperties
-
-    type: Literal["artifact.created"]
-
-
-class PayloadEventArtifactDeletedProperties(BaseModel):
-    artifact_id: str = FieldInfo(alias="artifactID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventArtifactDeleted(BaseModel):
-    properties: PayloadEventArtifactDeletedProperties
-
-    type: Literal["artifact.deleted"]
-
-
-class PayloadEventTuiPromptAppendProperties(BaseModel):
-    text: str
-
-
-class PayloadEventTuiPromptAppend(BaseModel):
-    properties: PayloadEventTuiPromptAppendProperties
-
-    type: Literal["tui.prompt.append"]
-
-
-class PayloadEventTuiCommandExecuteProperties(BaseModel):
-    command: Union[
-        Literal[
-            "session.list",
-            "session.new",
-            "session.share",
-            "session.interrupt",
-            "session.compact",
-            "session.page.up",
-            "session.page.down",
-            "session.line.up",
-            "session.line.down",
-            "session.half.page.up",
-            "session.half.page.down",
-            "session.first",
-            "session.last",
-            "prompt.clear",
-            "prompt.submit",
-            "agent.cycle",
-        ],
-        str,
-    ]
-
-
-class PayloadEventTuiCommandExecute(BaseModel):
-    properties: PayloadEventTuiCommandExecuteProperties
-
-    type: Literal["tui.command.execute"]
-
-
-class PayloadEventTuiToastShowProperties(BaseModel):
-    message: str
-
-    variant: Literal["info", "success", "warning", "error"]
-
-    duration: Optional[float] = None
-    """Duration in milliseconds"""
-
-    title: Optional[str] = None
-
-
-class PayloadEventTuiToastShow(BaseModel):
-    properties: PayloadEventTuiToastShowProperties
-
-    type: Literal["tui.toast.show"]
-
-
-class PayloadEventTuiSessionSelectProperties(BaseModel):
-    session_id: str = FieldInfo(alias="sessionID")
-    """Session ID to navigate to"""
-
-
-class PayloadEventTuiSessionSelect(BaseModel):
-    properties: PayloadEventTuiSessionSelectProperties
-
-    type: Literal["tui.session.select"]
-
-
-class PayloadEventMcpToolsChangedProperties(BaseModel):
-    server: str
-
-
-class PayloadEventMcpToolsChanged(BaseModel):
-    properties: PayloadEventMcpToolsChangedProperties
-
-    type: Literal["mcp.tools.changed"]
-
-
-class PayloadEventMcpBrowserOpenFailedProperties(BaseModel):
-    mcp_name: str = FieldInfo(alias="mcpName")
-
-    url: str
-
-
-class PayloadEventMcpBrowserOpenFailed(BaseModel):
-    properties: PayloadEventMcpBrowserOpenFailedProperties
-
-    type: Literal["mcp.browser.open.failed"]
-
-
-class PayloadEventCommandExecutedProperties(BaseModel):
-    arguments: str
-
-    message_id: str = FieldInfo(alias="messageID")
-
-    name: str
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventCommandExecuted(BaseModel):
-    properties: PayloadEventCommandExecutedProperties
-
-    type: Literal["command.executed"]
-
-
-class PayloadEventVcsBranchUpdatedProperties(BaseModel):
-    branch: Optional[str] = None
-
-
-class PayloadEventVcsBranchUpdated(BaseModel):
-    properties: PayloadEventVcsBranchUpdatedProperties
-
-    type: Literal["vcs.branch.updated"]
-
-
-class PayloadEventWorktreeReadyProperties(BaseModel):
-    branch: str
-
-    name: str
-
-
-class PayloadEventWorktreeReady(BaseModel):
-    properties: PayloadEventWorktreeReadyProperties
-
-    type: Literal["worktree.ready"]
-
-
-class PayloadEventWorktreeFailedProperties(BaseModel):
-    message: str
-
-
-class PayloadEventWorktreeFailed(BaseModel):
-    properties: PayloadEventWorktreeFailedProperties
-
-    type: Literal["worktree.failed"]
-
-
-class PayloadEventPtyCreatedPropertiesInfo(BaseModel):
-    id: str
-
-    args: List[str]
-
-    command: str
-
-    cwd: str
-
-    pid: float
-
-    status: Literal["running", "exited"]
-
-    title: str
-
-
-class PayloadEventPtyCreatedProperties(BaseModel):
-    info: PayloadEventPtyCreatedPropertiesInfo
-
-
-class PayloadEventPtyCreated(BaseModel):
-    properties: PayloadEventPtyCreatedProperties
-
-    type: Literal["pty.created"]
-
-
-class PayloadEventPtyUpdatedPropertiesInfo(BaseModel):
-    id: str
-
-    args: List[str]
-
-    command: str
-
-    cwd: str
-
-    pid: float
-
-    status: Literal["running", "exited"]
-
-    title: str
-
-
-class PayloadEventPtyUpdatedProperties(BaseModel):
-    info: PayloadEventPtyUpdatedPropertiesInfo
-
-
-class PayloadEventPtyUpdated(BaseModel):
-    properties: PayloadEventPtyUpdatedProperties
-
-    type: Literal["pty.updated"]
-
-
-class PayloadEventPtyExitedProperties(BaseModel):
-    id: str
-
-    exit_code: float = FieldInfo(alias="exitCode")
-
-
-class PayloadEventPtyExited(BaseModel):
-    properties: PayloadEventPtyExitedProperties
-
-    type: Literal["pty.exited"]
-
-
-class PayloadEventPtyDeletedProperties(BaseModel):
-    id: str
-
-
-class PayloadEventPtyDeleted(BaseModel):
-    properties: PayloadEventPtyDeletedProperties
-
-    type: Literal["pty.deleted"]
-
-
-class PayloadEventWorkspaceReadyProperties(BaseModel):
-    name: str
-
-
-class PayloadEventWorkspaceReady(BaseModel):
-    properties: PayloadEventWorkspaceReadyProperties
-
-    type: Literal["workspace.ready"]
-
-
-class PayloadEventWorkspaceFailedProperties(BaseModel):
-    message: str
-
-
-class PayloadEventWorkspaceFailed(BaseModel):
-    properties: PayloadEventWorkspaceFailedProperties
-
-    type: Literal["workspace.failed"]
-
-
-class PayloadEventWorkspaceStatusProperties(BaseModel):
-    status: Literal["connected", "connecting", "disconnected", "error"]
-
-    workspace_id: str = FieldInfo(alias="workspaceID")
-
-    error: Optional[str] = None
-
-
-class PayloadEventWorkspaceStatus(BaseModel):
-    properties: PayloadEventWorkspaceStatusProperties
-
-    type: Literal["workspace.status"]
-
-
-class PayloadEventMessageUpdatedProperties(BaseModel):
-    info: Message
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventMessageUpdated(BaseModel):
-    properties: PayloadEventMessageUpdatedProperties
-
-    type: Literal["message.updated"]
-
-
-class PayloadEventMessageRemovedProperties(BaseModel):
-    message_id: str = FieldInfo(alias="messageID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventMessageRemoved(BaseModel):
-    properties: PayloadEventMessageRemovedProperties
-
-    type: Literal["message.removed"]
-
-
-class PayloadEventMessagePartUpdatedProperties(BaseModel):
-    part: Part
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-    time: float
-
-
-class PayloadEventMessagePartUpdated(BaseModel):
-    properties: PayloadEventMessagePartUpdatedProperties
-
-    type: Literal["message.part.updated"]
-
-
-class PayloadEventMessagePartRemovedProperties(BaseModel):
-    message_id: str = FieldInfo(alias="messageID")
-
-    part_id: str = FieldInfo(alias="partID")
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventMessagePartRemoved(BaseModel):
-    properties: PayloadEventMessagePartRemovedProperties
-
-    type: Literal["message.part.removed"]
-
-
-class PayloadEventSessionCreatedProperties(BaseModel):
-    info: Session
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionCreated(BaseModel):
-    properties: PayloadEventSessionCreatedProperties
-
-    type: Literal["session.created"]
-
-
-class PayloadEventSessionUpdatedProperties(BaseModel):
-    info: Session
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionUpdated(BaseModel):
-    properties: PayloadEventSessionUpdatedProperties
-
-    type: Literal["session.updated"]
-
-
-class PayloadEventSessionDeletedProperties(BaseModel):
-    info: Session
-
-    session_id: str = FieldInfo(alias="sessionID")
-
-
-class PayloadEventSessionDeleted(BaseModel):
-    properties: PayloadEventSessionDeletedProperties
-
-    type: Literal["session.deleted"]
 
 
 class PayloadSyncEventMessageUpdatedData(BaseModel):
@@ -1065,14 +198,6 @@ class PayloadSyncEventSessionUpdatedDataInfoMetadata(BaseModel):
     )
 
 
-class PayloadSyncEventSessionUpdatedDataInfoPermission(BaseModel):
-    action: Literal["allow", "deny", "ask"]
-
-    pattern: str
-
-    permission: str
-
-
 class PayloadSyncEventSessionUpdatedDataInfoRevert(BaseModel):
     message_id: str = FieldInfo(alias="messageID")
 
@@ -1083,18 +208,6 @@ class PayloadSyncEventSessionUpdatedDataInfoRevert(BaseModel):
     snapshot: Optional[str] = None
 
 
-class PayloadSyncEventSessionUpdatedDataInfoSummaryDiff(BaseModel):
-    additions: float
-
-    deletions: float
-
-    file: str
-
-    patch: str
-
-    status: Optional[Literal["added", "deleted", "modified"]] = None
-
-
 class PayloadSyncEventSessionUpdatedDataInfoSummary(BaseModel):
     additions: float
 
@@ -1102,7 +215,7 @@ class PayloadSyncEventSessionUpdatedDataInfoSummary(BaseModel):
 
     files: float
 
-    diffs: Optional[List[PayloadSyncEventSessionUpdatedDataInfoSummaryDiff]] = None
+    diffs: Optional[List[SnapshotFileDiff]] = None
 
 
 class PayloadSyncEventSessionUpdatedDataInfoShare(BaseModel):
@@ -1128,7 +241,7 @@ class PayloadSyncEventSessionUpdatedDataInfo(BaseModel):
 
     parent_id: Optional[str] = FieldInfo(alias="parentID", default=None)
 
-    permission: Optional[List[PayloadSyncEventSessionUpdatedDataInfoPermission]] = None
+    permission: Optional[List[PermissionRule]] = None
 
     project_id: Optional[str] = FieldInfo(alias="projectID", default=None)
 
@@ -1190,54 +303,54 @@ class PayloadSyncEventSessionDeleted(BaseModel):
 
 
 Payload: TypeAlias = Union[
-    PayloadEventInstallationUpdated,
-    PayloadEventInstallationUpdateAvailable,
-    PayloadEventProjectUpdated,
-    PayloadEventServerInstanceDisposed,
-    PayloadEventServerConnected,
-    PayloadEventGlobalDisposed,
-    PayloadEventFileEdited,
-    PayloadEventFileWatcherUpdated,
-    PayloadEventLspClientDiagnostics,
-    PayloadEventLspUpdated,
-    PayloadEventMessagePartDelta,
-    PayloadEventPermissionAsked,
-    PayloadEventPermissionReplied,
-    PayloadEventSessionDiff,
-    PayloadEventSessionError,
-    PayloadEventQuestionAsked,
-    PayloadEventQuestionReplied,
-    PayloadEventQuestionRejected,
-    PayloadEventTodoUpdated,
-    PayloadEventSessionStatus,
-    PayloadEventSessionIdle,
-    PayloadEventSessionCompacted,
-    PayloadEventArtifactCreated,
-    PayloadEventArtifactDeleted,
-    PayloadEventTuiPromptAppend,
-    PayloadEventTuiCommandExecute,
-    PayloadEventTuiToastShow,
-    PayloadEventTuiSessionSelect,
-    PayloadEventMcpToolsChanged,
-    PayloadEventMcpBrowserOpenFailed,
-    PayloadEventCommandExecuted,
-    PayloadEventVcsBranchUpdated,
-    PayloadEventWorktreeReady,
-    PayloadEventWorktreeFailed,
-    PayloadEventPtyCreated,
-    PayloadEventPtyUpdated,
-    PayloadEventPtyExited,
-    PayloadEventPtyDeleted,
-    PayloadEventWorkspaceReady,
-    PayloadEventWorkspaceFailed,
-    PayloadEventWorkspaceStatus,
-    PayloadEventMessageUpdated,
-    PayloadEventMessageRemoved,
-    PayloadEventMessagePartUpdated,
-    PayloadEventMessagePartRemoved,
-    PayloadEventSessionCreated,
-    PayloadEventSessionUpdated,
-    PayloadEventSessionDeleted,
+    InstallationUpdated,
+    InstallationUpdateAvailable,
+    ProjectUpdated,
+    ServerInstanceDisposed,
+    ServerConnected,
+    GlobalDisposed,
+    FileEdited,
+    FileWatcherUpdated,
+    LspClientDiagnostics,
+    LspUpdated,
+    MessagePartDelta,
+    PermissionAsked,
+    PermissionReplied,
+    SessionDiff,
+    SessionError,
+    QuestionAsked,
+    QuestionReplied,
+    QuestionRejected,
+    TodoUpdated,
+    SessionEventStatus,
+    SessionIdle,
+    SessionCompacted,
+    ArtifactCreated,
+    ArtifactDeleted,
+    EventPromptAppend,
+    EventCommandExecute,
+    EventToastShow,
+    EventSessionSelect,
+    McpToolsChanged,
+    McpBrowserOpenFailed,
+    CommandExecuted,
+    VcsBranchUpdated,
+    WorktreeReady,
+    WorktreeFailed,
+    PtyCreated,
+    PtyUpdated,
+    PtyExited,
+    PtyDeleted,
+    WorkspaceReady,
+    WorkspaceFailed,
+    WorkspaceStatus,
+    MessageUpdated,
+    MessageRemoved,
+    MessagePartUpdated,
+    MessagePartRemoved,
+    SessionCreated,
+    SessionUpdated,
+    SessionDeleted,
     PayloadSyncEventMessageUpdated,
     PayloadSyncEventMessageRemoved,
     PayloadSyncEventMessagePartUpdated,
