@@ -52,6 +52,7 @@ class ClientToolResource(SyncAPIResource):
         description: str,
         parameters: Dict[str, object],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -86,7 +87,13 @@ class ClientToolResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_tool_create_params.ClientToolCreateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_create_params.ClientToolCreateParams,
+                ),
             ),
             cast_to=ClientToolCreateResponse,
         )
@@ -95,6 +102,7 @@ class ClientToolResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -121,7 +129,13 @@ class ClientToolResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_tool_list_params.ClientToolListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_list_params.ClientToolListParams,
+                ),
             ),
             cast_to=ClientToolListResponse,
         )
@@ -131,6 +145,7 @@ class ClientToolResource(SyncAPIResource):
         id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -159,7 +174,13 @@ class ClientToolResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_tool_delete_params.ClientToolDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_delete_params.ClientToolDeleteParams,
+                ),
             ),
             cast_to=ClientToolDeleteResponse,
         )
@@ -192,6 +213,7 @@ class AsyncClientToolResource(AsyncAPIResource):
         description: str,
         parameters: Dict[str, object],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -227,7 +249,11 @@ class AsyncClientToolResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_tool_create_params.ClientToolCreateParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_create_params.ClientToolCreateParams,
                 ),
             ),
             cast_to=ClientToolCreateResponse,
@@ -237,6 +263,7 @@ class AsyncClientToolResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -264,7 +291,11 @@ class AsyncClientToolResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_tool_list_params.ClientToolListParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_list_params.ClientToolListParams,
                 ),
             ),
             cast_to=ClientToolListResponse,
@@ -275,6 +306,7 @@ class AsyncClientToolResource(AsyncAPIResource):
         id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -304,7 +336,11 @@ class AsyncClientToolResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_tool_delete_params.ClientToolDeleteParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_tool_delete_params.ClientToolDeleteParams,
                 ),
             ),
             cast_to=ClientToolDeleteResponse,

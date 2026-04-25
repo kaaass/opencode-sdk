@@ -16,4 +16,6 @@ class SessionSummarizeParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     auto: bool

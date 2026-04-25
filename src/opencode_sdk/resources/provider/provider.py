@@ -70,6 +70,7 @@ class ProviderResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -97,7 +98,13 @@ class ProviderResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, provider_list_params.ProviderListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    provider_list_params.ProviderListParams,
+                ),
             ),
             cast_to=ProviderListResponse,
         )
@@ -106,6 +113,7 @@ class ProviderResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -133,7 +141,11 @@ class ProviderResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, provider_get_auth_methods_params.ProviderGetAuthMethodsParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    provider_get_auth_methods_params.ProviderGetAuthMethodsParams,
                 ),
             ),
             cast_to=ProviderGetAuthMethodsResponse,
@@ -172,6 +184,7 @@ class AsyncProviderResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -199,7 +212,13 @@ class AsyncProviderResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, provider_list_params.ProviderListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    provider_list_params.ProviderListParams,
+                ),
             ),
             cast_to=ProviderListResponse,
         )
@@ -208,6 +227,7 @@ class AsyncProviderResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -235,7 +255,11 @@ class AsyncProviderResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, provider_get_auth_methods_params.ProviderGetAuthMethodsParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    provider_get_auth_methods_params.ProviderGetAuthMethodsParams,
                 ),
             ),
             cast_to=ProviderGetAuthMethodsResponse,

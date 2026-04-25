@@ -34,8 +34,11 @@ class TestProject:
         project = client.project.update(
             project_id="projectID",
             directory="directory",
+            workspace="workspace",
+            commands={"start": "start"},
             icon={
                 "color": "color",
+                "override": "override",
                 "url": "url",
             },
             name="name",
@@ -87,6 +90,7 @@ class TestProject:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         project = client.project.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProjectListResponse, project, path=["response"])
 
@@ -123,6 +127,7 @@ class TestProject:
     def test_method_retrieve_current_with_all_params(self, client: OpencodeSDK) -> None:
         project = client.project.retrieve_current(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Project, project, path=["response"])
 
@@ -168,8 +173,11 @@ class TestAsyncProject:
         project = await async_client.project.update(
             project_id="projectID",
             directory="directory",
+            workspace="workspace",
+            commands={"start": "start"},
             icon={
                 "color": "color",
+                "override": "override",
                 "url": "url",
             },
             name="name",
@@ -221,6 +229,7 @@ class TestAsyncProject:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         project = await async_client.project.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ProjectListResponse, project, path=["response"])
 
@@ -257,6 +266,7 @@ class TestAsyncProject:
     async def test_method_retrieve_current_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         project = await async_client.project.retrieve_current(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(Project, project, path=["response"])
 

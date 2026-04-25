@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal
 
 import httpx
@@ -49,6 +49,7 @@ class ConfigResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +76,13 @@ class ConfigResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, config_retrieve_params.ConfigRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_retrieve_params.ConfigRetrieveParams,
+                ),
             ),
             cast_to=Config,
         )
@@ -84,6 +91,7 @@ class ConfigResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
         artifact_allowed_paths: SequenceNotStr[str] | Omit = omit,
@@ -100,7 +108,6 @@ class ConfigResource(SyncAPIResource):
         formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
-        keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
         lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
@@ -108,15 +115,14 @@ class ConfigResource(SyncAPIResource):
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
         permission: config_update_params.Permission | Omit = omit,
-        plugin: SequenceNotStr[str] | Omit = omit,
+        plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
         provider: Dict[str, config_update_params.Provider] | Omit = omit,
         server: config_update_params.Server | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
+        skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
-        theme: str | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
-        tui: config_update_params.Tui | Omit = omit,
         username: str | Omit = omit,
         watcher: config_update_params.Watcher | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -132,7 +138,7 @@ class ConfigResource(SyncAPIResource):
         Args:
           schema: JSON schema reference for configuration validation
 
-          agent: Agent configuration, see https://opencode.ai/docs/agent
+          agent: Agent configuration, see https://opencode.ai/docs/agents
 
           artifact_allowed_paths: 允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
               配。默认允许 /tmp 路径。
@@ -157,8 +163,6 @@ class ConfigResource(SyncAPIResource):
 
           instructions: Additional instruction files or patterns to include
 
-          keybinds: Custom keybind configurations
-
           layout: @deprecated Always uses stretch layout.
 
           log_level: Log level
@@ -176,12 +180,14 @@ class ConfigResource(SyncAPIResource):
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
 
+          skills: Additional skill folder paths
+
           small_model: Small model to use for tasks like title generation in the format of
               provider/model
 
-          theme: Theme name to use for the interface
-
-          tui: TUI specific settings
+          snapshot: Enable or disable snapshot tracking. When false, filesystem snapshots are not
+              recorded and undoing or reverting will not undo/redo file changes. Defaults to
+              true.
 
           username: Custom username to display in conversations instead of system username
 
@@ -212,7 +218,6 @@ class ConfigResource(SyncAPIResource):
                     "experimental": experimental,
                     "formatter": formatter,
                     "instructions": instructions,
-                    "keybinds": keybinds,
                     "layout": layout,
                     "log_level": log_level,
                     "lsp": lsp,
@@ -224,11 +229,10 @@ class ConfigResource(SyncAPIResource):
                     "provider": provider,
                     "server": server,
                     "share": share,
+                    "skills": skills,
                     "small_model": small_model,
                     "snapshot": snapshot,
-                    "theme": theme,
                     "tools": tools,
-                    "tui": tui,
                     "username": username,
                     "watcher": watcher,
                 },
@@ -239,7 +243,13 @@ class ConfigResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, config_update_params.ConfigUpdateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_update_params.ConfigUpdateParams,
+                ),
             ),
             cast_to=Config,
         )
@@ -248,6 +258,7 @@ class ConfigResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -274,7 +285,13 @@ class ConfigResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, config_list_providers_params.ConfigListProvidersParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_list_providers_params.ConfigListProvidersParams,
+                ),
             ),
             cast_to=ConfigListProvidersResponse,
         )
@@ -304,6 +321,7 @@ class AsyncConfigResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -331,7 +349,11 @@ class AsyncConfigResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, config_retrieve_params.ConfigRetrieveParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_retrieve_params.ConfigRetrieveParams,
                 ),
             ),
             cast_to=Config,
@@ -341,6 +363,7 @@ class AsyncConfigResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         schema: str | Omit = omit,
         agent: config_update_params.Agent | Omit = omit,
         artifact_allowed_paths: SequenceNotStr[str] | Omit = omit,
@@ -357,7 +380,6 @@ class AsyncConfigResource(AsyncAPIResource):
         formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
-        keybinds: config_update_params.Keybinds | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
         lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
@@ -365,15 +387,14 @@ class AsyncConfigResource(AsyncAPIResource):
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
         permission: config_update_params.Permission | Omit = omit,
-        plugin: SequenceNotStr[str] | Omit = omit,
+        plugin: SequenceNotStr[Union[str, Iterable[object]]] | Omit = omit,
         provider: Dict[str, config_update_params.Provider] | Omit = omit,
         server: config_update_params.Server | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
+        skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
-        theme: str | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
-        tui: config_update_params.Tui | Omit = omit,
         username: str | Omit = omit,
         watcher: config_update_params.Watcher | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -389,7 +410,7 @@ class AsyncConfigResource(AsyncAPIResource):
         Args:
           schema: JSON schema reference for configuration validation
 
-          agent: Agent configuration, see https://opencode.ai/docs/agent
+          agent: Agent configuration, see https://opencode.ai/docs/agents
 
           artifact_allowed_paths: 允许创建 artifact 的文件路径前缀白名单。路径将被 resolve 为绝对路径后进行前缀匹
               配。默认允许 /tmp 路径。
@@ -414,8 +435,6 @@ class AsyncConfigResource(AsyncAPIResource):
 
           instructions: Additional instruction files or patterns to include
 
-          keybinds: Custom keybind configurations
-
           layout: @deprecated Always uses stretch layout.
 
           log_level: Log level
@@ -433,12 +452,14 @@ class AsyncConfigResource(AsyncAPIResource):
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
 
+          skills: Additional skill folder paths
+
           small_model: Small model to use for tasks like title generation in the format of
               provider/model
 
-          theme: Theme name to use for the interface
-
-          tui: TUI specific settings
+          snapshot: Enable or disable snapshot tracking. When false, filesystem snapshots are not
+              recorded and undoing or reverting will not undo/redo file changes. Defaults to
+              true.
 
           username: Custom username to display in conversations instead of system username
 
@@ -469,7 +490,6 @@ class AsyncConfigResource(AsyncAPIResource):
                     "experimental": experimental,
                     "formatter": formatter,
                     "instructions": instructions,
-                    "keybinds": keybinds,
                     "layout": layout,
                     "log_level": log_level,
                     "lsp": lsp,
@@ -481,11 +501,10 @@ class AsyncConfigResource(AsyncAPIResource):
                     "provider": provider,
                     "server": server,
                     "share": share,
+                    "skills": skills,
                     "small_model": small_model,
                     "snapshot": snapshot,
-                    "theme": theme,
                     "tools": tools,
-                    "tui": tui,
                     "username": username,
                     "watcher": watcher,
                 },
@@ -496,7 +515,13 @@ class AsyncConfigResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, config_update_params.ConfigUpdateParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_update_params.ConfigUpdateParams,
+                ),
             ),
             cast_to=Config,
         )
@@ -505,6 +530,7 @@ class AsyncConfigResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -532,7 +558,11 @@ class AsyncConfigResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, config_list_providers_params.ConfigListProvidersParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    config_list_providers_params.ConfigListProvidersParams,
                 ),
             ),
             cast_to=ConfigListProvidersResponse,

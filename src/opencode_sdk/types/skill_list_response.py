@@ -11,6 +11,8 @@ __all__ = ["SkillListResponse", "SkillListResponseItem"]
 
 
 class SkillListResponseItem(BaseModel):
+    content: str
+
     description: str
 
     location: str

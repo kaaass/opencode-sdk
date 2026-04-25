@@ -26,6 +26,7 @@ class TestEvent:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         event_stream = client.event.list(
             directory="directory",
+            workspace="workspace",
         )
         event_stream.response.close()
 
@@ -67,6 +68,7 @@ class TestAsyncEvent:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         event_stream = await async_client.event.list(
             directory="directory",
+            workspace="workspace",
         )
         await event_stream.response.aclose()
 

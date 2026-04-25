@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Union
+from typing import Dict, Union
 from typing_extensions import Literal, Required, Annotated, TypeAlias, TypedDict
 
 from .._utils import PropertyInfo
@@ -19,8 +19,6 @@ class OAuth(TypedDict, total=False):
 
     type: Required[Literal["oauth"]]
 
-    directory: str
-
     account_id: Annotated[str, PropertyInfo(alias="accountId")]
 
     enterprise_url: Annotated[str, PropertyInfo(alias="enterpriseUrl")]
@@ -31,7 +29,7 @@ class APIAuth(TypedDict, total=False):
 
     type: Required[Literal["api"]]
 
-    directory: str
+    metadata: Dict[str, str]
 
 
 class WellKnownAuth(TypedDict, total=False):
@@ -40,8 +38,6 @@ class WellKnownAuth(TypedDict, total=False):
     key: Required[str]
 
     type: Required[Literal["wellknown"]]
-
-    directory: str
 
 
 AuthSetCredentialsParams: TypeAlias = Union[OAuth, APIAuth, WellKnownAuth]

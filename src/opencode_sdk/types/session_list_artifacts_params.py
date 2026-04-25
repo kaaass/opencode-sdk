@@ -9,3 +9,5 @@ __all__ = ["SessionListArtifactsParams"]
 
 class SessionListArtifactsParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

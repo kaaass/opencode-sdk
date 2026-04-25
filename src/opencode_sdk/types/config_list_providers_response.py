@@ -117,6 +117,8 @@ class ProviderModelsLimit(BaseModel):
 
     output: float
 
+    input: Optional[float] = None
+
 
 class ProviderModels(BaseModel):
     id: str

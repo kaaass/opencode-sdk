@@ -14,4 +14,6 @@ class SessionRevertMessageParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     part_id: Annotated[str, PropertyInfo(alias="partID")]

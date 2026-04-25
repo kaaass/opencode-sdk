@@ -13,3 +13,5 @@ class SessionGetDiffParams(TypedDict, total=False):
     directory: str
 
     message_id: Annotated[str, PropertyInfo(alias="messageID")]
+
+    workspace: str

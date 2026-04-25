@@ -48,6 +48,7 @@ class EventResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +76,13 @@ class EventResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, event_list_params.EventListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    event_list_params.EventListParams,
+                ),
             ),
             cast_to=cast(Any, EventListResponse),  # Union types cannot be passed in as arguments in the type system
             stream=True,
@@ -107,6 +114,7 @@ class AsyncEventResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -134,7 +142,13 @@ class AsyncEventResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, event_list_params.EventListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    event_list_params.EventListParams,
+                ),
             ),
             cast_to=cast(Any, EventListResponse),  # Union types cannot be passed in as arguments in the type system
             stream=True,

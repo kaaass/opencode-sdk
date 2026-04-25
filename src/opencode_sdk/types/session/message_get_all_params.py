@@ -8,6 +8,11 @@ __all__ = ["MessageGetAllParams"]
 
 
 class MessageGetAllParams(TypedDict, total=False):
+    before: str
+
     directory: str
 
-    limit: float
+    limit: int
+    """Maximum number of messages to return"""
+
+    workspace: str

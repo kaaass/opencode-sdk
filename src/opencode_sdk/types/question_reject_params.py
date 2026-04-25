@@ -9,3 +9,5 @@ __all__ = ["QuestionRejectParams"]
 
 class QuestionRejectParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

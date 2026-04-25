@@ -38,11 +38,7 @@ __all__ = [
     "Compaction",
     "Enterprise",
     "Experimental",
-    "ExperimentalHook",
-    "ExperimentalHookFileEdited",
-    "ExperimentalHookSessionCompleted",
     "FormatterUnionMember1FormatterUnionMember1Item",
-    "Keybinds",
     "LspUnionMember1LspUnionMember1Item",
     "LspUnionMember1LspUnionMember1ItemDisabled",
     "LspUnionMember1LspUnionMember1ItemUnionMember1",
@@ -76,8 +72,7 @@ __all__ = [
     "ProviderModelsVariants",
     "ProviderOptions",
     "Server",
-    "Tui",
-    "TuiScrollAcceleration",
+    "Skills",
     "Watcher",
 ]
 
@@ -107,9 +102,9 @@ class AgentBuildPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -140,8 +135,8 @@ AgentBuildPermission: TypeAlias = Union[AgentBuildPermissionUnionMember0, Litera
 
 
 class AgentBuild(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -183,6 +178,12 @@ class AgentBuild(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -221,9 +222,9 @@ class AgentCompactionPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -254,8 +255,8 @@ AgentCompactionPermission: TypeAlias = Union[AgentCompactionPermissionUnionMembe
 
 
 class AgentCompaction(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -297,6 +298,12 @@ class AgentCompaction(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -335,9 +342,9 @@ class AgentExplorePermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -368,8 +375,8 @@ AgentExplorePermission: TypeAlias = Union[AgentExplorePermissionUnionMember0, Li
 
 
 class AgentExplore(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -411,6 +418,12 @@ class AgentExplore(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -449,9 +462,9 @@ class AgentGeneralPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -482,8 +495,8 @@ AgentGeneralPermission: TypeAlias = Union[AgentGeneralPermissionUnionMember0, Li
 
 
 class AgentGeneral(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -525,6 +538,12 @@ class AgentGeneral(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -563,9 +582,9 @@ class AgentPlanPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -596,8 +615,8 @@ AgentPlanPermission: TypeAlias = Union[AgentPlanPermissionUnionMember0, Literal[
 
 
 class AgentPlan(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -639,6 +658,12 @@ class AgentPlan(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -677,9 +702,9 @@ class AgentSummaryPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -710,8 +735,8 @@ AgentSummaryPermission: TypeAlias = Union[AgentSummaryPermissionUnionMember0, Li
 
 
 class AgentSummary(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -753,6 +778,12 @@ class AgentSummary(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -791,9 +822,9 @@ class AgentTitlePermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -824,8 +855,8 @@ AgentTitlePermission: TypeAlias = Union[AgentTitlePermissionUnionMember0, Litera
 
 
 class AgentTitle(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -867,6 +898,12 @@ class AgentTitle(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -905,9 +942,9 @@ class AgentAgentItemPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -938,8 +975,8 @@ AgentAgentItemPermission: TypeAlias = Union[AgentAgentItemPermissionUnionMember0
 
 
 class AgentAgentItem(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -981,6 +1018,12 @@ class AgentAgentItem(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -995,7 +1038,7 @@ class AgentAgentItem(BaseModel):
 
 
 class Agent(BaseModel):
-    """Agent configuration, see https://opencode.ai/docs/agent"""
+    """Agent configuration, see https://opencode.ai/docs/agents"""
 
     build: Optional[AgentBuild] = None
 
@@ -1043,43 +1086,26 @@ class Compaction(BaseModel):
     prune: Optional[bool] = None
     """Enable pruning of old tool outputs (default: true)"""
 
+    reserved: Optional[int] = None
+    """Token buffer for compaction.
+
+    Leaves enough window to avoid overflow during compaction.
+    """
+
 
 class Enterprise(BaseModel):
     url: Optional[str] = None
     """Enterprise URL"""
 
 
-class ExperimentalHookFileEdited(BaseModel):
-    command: List[str]
-
-    environment: Optional[Dict[str, str]] = None
-
-
-class ExperimentalHookSessionCompleted(BaseModel):
-    command: List[str]
-
-    environment: Optional[Dict[str, str]] = None
-
-
-class ExperimentalHook(BaseModel):
-    file_edited: Optional[Dict[str, List[ExperimentalHookFileEdited]]] = None
-
-    session_completed: Optional[List[ExperimentalHookSessionCompleted]] = None
-
-
 class Experimental(BaseModel):
     batch_tool: Optional[bool] = None
     """Enable the batch tool"""
-
-    chat_max_retries: Optional[float] = FieldInfo(alias="chatMaxRetries", default=None)
-    """Number of retries for chat completions on failure"""
 
     continue_loop_on_deny: Optional[bool] = None
     """Continue the agent loop when a tool call is denied"""
 
     disable_paste_summary: Optional[bool] = None
-
-    hook: Optional[ExperimentalHook] = None
 
     mcp_timeout: Optional[int] = None
     """Timeout in milliseconds for model context protocol (MCP) requests"""
@@ -1102,274 +1128,6 @@ class FormatterUnionMember1FormatterUnionMember1Item(BaseModel):
     environment: Optional[Dict[str, str]] = None
 
     extensions: Optional[List[str]] = None
-
-
-class Keybinds(BaseModel):
-    """Custom keybind configurations"""
-
-    agent_cycle: Optional[str] = None
-    """Next agent"""
-
-    agent_cycle_reverse: Optional[str] = None
-    """Previous agent"""
-
-    agent_list: Optional[str] = None
-    """List agents"""
-
-    app_exit: Optional[str] = None
-    """Exit the application"""
-
-    artifacts_list: Optional[str] = None
-    """View artifacts"""
-
-    command_list: Optional[str] = None
-    """List available commands"""
-
-    editor_open: Optional[str] = None
-    """Open external editor"""
-
-    history_next: Optional[str] = None
-    """Next history item"""
-
-    history_previous: Optional[str] = None
-    """Previous history item"""
-
-    input_backspace: Optional[str] = None
-    """Backspace in input"""
-
-    input_buffer_end: Optional[str] = None
-    """Move to end of buffer in input"""
-
-    input_buffer_home: Optional[str] = None
-    """Move to start of buffer in input"""
-
-    input_clear: Optional[str] = None
-    """Clear input field"""
-
-    input_delete: Optional[str] = None
-    """Delete character in input"""
-
-    input_delete_line: Optional[str] = None
-    """Delete line in input"""
-
-    input_delete_to_line_end: Optional[str] = None
-    """Delete to end of line in input"""
-
-    input_delete_to_line_start: Optional[str] = None
-    """Delete to start of line in input"""
-
-    input_delete_word_backward: Optional[str] = None
-    """Delete word backward in input"""
-
-    input_delete_word_forward: Optional[str] = None
-    """Delete word forward in input"""
-
-    input_line_end: Optional[str] = None
-    """Move to end of line in input"""
-
-    input_line_home: Optional[str] = None
-    """Move to start of line in input"""
-
-    input_move_down: Optional[str] = None
-    """Move cursor down in input"""
-
-    input_move_left: Optional[str] = None
-    """Move cursor left in input"""
-
-    input_move_right: Optional[str] = None
-    """Move cursor right in input"""
-
-    input_move_up: Optional[str] = None
-    """Move cursor up in input"""
-
-    input_newline: Optional[str] = None
-    """Insert newline in input"""
-
-    input_paste: Optional[str] = None
-    """Paste from clipboard"""
-
-    input_redo: Optional[str] = None
-    """Redo in input"""
-
-    input_select_buffer_end: Optional[str] = None
-    """Select to end of buffer in input"""
-
-    input_select_buffer_home: Optional[str] = None
-    """Select to start of buffer in input"""
-
-    input_select_down: Optional[str] = None
-    """Select down in input"""
-
-    input_select_left: Optional[str] = None
-    """Select left in input"""
-
-    input_select_line_end: Optional[str] = None
-    """Select to end of line in input"""
-
-    input_select_line_home: Optional[str] = None
-    """Select to start of line in input"""
-
-    input_select_right: Optional[str] = None
-    """Select right in input"""
-
-    input_select_up: Optional[str] = None
-    """Select up in input"""
-
-    input_select_visual_line_end: Optional[str] = None
-    """Select to end of visual line in input"""
-
-    input_select_visual_line_home: Optional[str] = None
-    """Select to start of visual line in input"""
-
-    input_select_word_backward: Optional[str] = None
-    """Select word backward in input"""
-
-    input_select_word_forward: Optional[str] = None
-    """Select word forward in input"""
-
-    input_submit: Optional[str] = None
-    """Submit input"""
-
-    input_undo: Optional[str] = None
-    """Undo in input"""
-
-    input_visual_line_end: Optional[str] = None
-    """Move to end of visual line in input"""
-
-    input_visual_line_home: Optional[str] = None
-    """Move to start of visual line in input"""
-
-    input_word_backward: Optional[str] = None
-    """Move word backward in input"""
-
-    input_word_forward: Optional[str] = None
-    """Move word forward in input"""
-
-    leader: Optional[str] = None
-    """Leader key for keybind combinations"""
-
-    messages_copy: Optional[str] = None
-    """Copy message"""
-
-    messages_first: Optional[str] = None
-    """Navigate to first message"""
-
-    messages_half_page_down: Optional[str] = None
-    """Scroll messages down by half page"""
-
-    messages_half_page_up: Optional[str] = None
-    """Scroll messages up by half page"""
-
-    messages_last: Optional[str] = None
-    """Navigate to last message"""
-
-    messages_last_user: Optional[str] = None
-    """Navigate to last user message"""
-
-    messages_next: Optional[str] = None
-    """Navigate to next message"""
-
-    messages_page_down: Optional[str] = None
-    """Scroll messages down by one page"""
-
-    messages_page_up: Optional[str] = None
-    """Scroll messages up by one page"""
-
-    messages_previous: Optional[str] = None
-    """Navigate to previous message"""
-
-    messages_redo: Optional[str] = None
-    """Redo message"""
-
-    messages_toggle_conceal: Optional[str] = None
-    """Toggle code block concealment in messages"""
-
-    messages_undo: Optional[str] = None
-    """Undo message"""
-
-    api_model_cycle_favorite: Optional[str] = FieldInfo(alias="model_cycle_favorite", default=None)
-    """Next favorite model"""
-
-    api_model_cycle_favorite_reverse: Optional[str] = FieldInfo(alias="model_cycle_favorite_reverse", default=None)
-    """Previous favorite model"""
-
-    api_model_cycle_recent: Optional[str] = FieldInfo(alias="model_cycle_recent", default=None)
-    """Next recently used model"""
-
-    api_model_cycle_recent_reverse: Optional[str] = FieldInfo(alias="model_cycle_recent_reverse", default=None)
-    """Previous recently used model"""
-
-    api_model_list: Optional[str] = FieldInfo(alias="model_list", default=None)
-    """List available models"""
-
-    scrollbar_toggle: Optional[str] = None
-    """Toggle session scrollbar"""
-
-    session_child_cycle: Optional[str] = None
-    """Next child session"""
-
-    session_child_cycle_reverse: Optional[str] = None
-    """Previous child session"""
-
-    session_compact: Optional[str] = None
-    """Compact the session"""
-
-    session_export: Optional[str] = None
-    """Export session to editor"""
-
-    session_fork: Optional[str] = None
-    """Fork session from message"""
-
-    session_interrupt: Optional[str] = None
-    """Interrupt current session"""
-
-    session_list: Optional[str] = None
-    """List all sessions"""
-
-    session_new: Optional[str] = None
-    """Create a new session"""
-
-    session_parent: Optional[str] = None
-    """Go to parent session"""
-
-    session_rename: Optional[str] = None
-    """Rename session"""
-
-    session_share: Optional[str] = None
-    """Share current session"""
-
-    session_timeline: Optional[str] = None
-    """Show session timeline"""
-
-    session_unshare: Optional[str] = None
-    """Unshare current session"""
-
-    sidebar_toggle: Optional[str] = None
-    """Toggle sidebar"""
-
-    status_view: Optional[str] = None
-    """View status"""
-
-    terminal_suspend: Optional[str] = None
-    """Suspend terminal"""
-
-    terminal_title_toggle: Optional[str] = None
-    """Toggle terminal title"""
-
-    theme_list: Optional[str] = None
-    """List available themes"""
-
-    tips_toggle: Optional[str] = None
-    """Toggle tips on home screen"""
-
-    tool_details: Optional[str] = None
-    """Toggle tool details visibility"""
-
-    username_toggle: Optional[str] = None
-    """Toggle username visibility"""
-
-    variant_cycle: Optional[str] = None
-    """Cycle model variants"""
 
 
 class LspUnionMember1LspUnionMember1ItemDisabled(BaseModel):
@@ -1407,7 +1165,7 @@ class McpMcpLocalConfig(BaseModel):
     """Environment variables to set when running the MCP server"""
 
     timeout: Optional[int] = None
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """
@@ -1422,6 +1180,9 @@ class McpMcpRemoteConfigOAuthMcpOAuthConfig(BaseModel):
 
     client_secret: Optional[str] = FieldInfo(alias="clientSecret", default=None)
     """OAuth client secret (if required by the authorization server)"""
+
+    redirect_uri: Optional[str] = FieldInfo(alias="redirectUri", default=None)
+    """OAuth redirect URI (default: http://127.0.0.1:19876/mcp/oauth/callback)."""
 
     scope: Optional[str] = None
     """OAuth scopes to request during authorization"""
@@ -1450,7 +1211,7 @@ class McpMcpRemoteConfig(BaseModel):
     """
 
     timeout: Optional[int] = None
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """
@@ -1488,9 +1249,9 @@ class ModeBuildPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -1521,8 +1282,8 @@ ModeBuildPermission: TypeAlias = Union[ModeBuildPermissionUnionMember0, Literal[
 
 
 class ModeBuild(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -1564,6 +1325,12 @@ class ModeBuild(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -1602,9 +1369,9 @@ class ModePlanPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -1635,8 +1402,8 @@ ModePlanPermission: TypeAlias = Union[ModePlanPermissionUnionMember0, Literal["a
 
 
 class ModePlan(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -1678,6 +1445,12 @@ class ModePlan(BaseModel):
 
     top_p: Optional[float] = None
 
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
+
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
         # value to this field, so for compatibility we avoid doing it at runtime.
@@ -1716,9 +1489,9 @@ class ModeModeItemPermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -1749,8 +1522,8 @@ ModeModeItemPermission: TypeAlias = Union[ModeModeItemPermissionUnionMember0, Li
 
 
 class ModeModeItem(BaseModel):
-    color: Optional[str] = None
-    """Hex color code for the agent (e.g., #FF5733)"""
+    color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"], None] = None
+    """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
     description: Optional[str] = None
     """Description of when to use the agent"""
@@ -1791,6 +1564,12 @@ class ModeModeItem(BaseModel):
     """@deprecated Use 'permission' field instead"""
 
     top_p: Optional[float] = None
+
+    variant: Optional[str] = None
+    """
+    Default model variant for this agent (applies only when using the agent's
+    configured model).
+    """
 
     if TYPE_CHECKING:
         # Some versions of Pydantic <2.8.0 have a bug and don’t allow assigning a
@@ -1850,9 +1629,9 @@ class PermissionUnionMember0(BaseModel):
 
     read: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
+    skill: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
-    todoread: Optional[Literal["ask", "allow", "deny"]] = None
+    task: Union[Literal["ask", "allow", "deny"], Dict[str, Literal["ask", "allow", "deny"]], None] = None
 
     todowrite: Optional[Literal["ask", "allow", "deny"]] = None
 
@@ -1916,6 +1695,8 @@ class ProviderModelsLimit(BaseModel):
 
     output: float
 
+    input: Optional[float] = None
+
 
 class ProviderModelsModalities(BaseModel):
     input: List[Literal["text", "audio", "image", "video", "pdf"]]
@@ -1924,7 +1705,9 @@ class ProviderModelsModalities(BaseModel):
 
 
 class ProviderModelsProvider(BaseModel):
-    npm: str
+    api: Optional[str] = None
+
+    npm: Optional[str] = None
 
 
 class ProviderModelsVariants(BaseModel):
@@ -1988,6 +1771,12 @@ class ProviderOptions(BaseModel):
 
     base_url: Optional[str] = FieldInfo(alias="baseURL", default=None)
 
+    chunk_timeout: Optional[int] = FieldInfo(alias="chunkTimeout", default=None)
+    """Timeout in milliseconds between streamed SSE chunks for this provider.
+
+    If no chunk arrives within this window, the request is aborted.
+    """
+
     enterprise_url: Optional[str] = FieldInfo(alias="enterpriseUrl", default=None)
     """GitHub Enterprise URL for copilot authentication"""
 
@@ -2045,31 +1834,21 @@ class Server(BaseModel):
     mdns: Optional[bool] = None
     """Enable mDNS service discovery"""
 
+    mdns_domain: Optional[str] = FieldInfo(alias="mdnsDomain", default=None)
+    """Custom domain name for mDNS service (default: opencode.local)"""
+
     port: Optional[int] = None
     """Port to listen on"""
 
 
-class TuiScrollAcceleration(BaseModel):
-    """Scroll acceleration settings"""
+class Skills(BaseModel):
+    """Additional skill folder paths"""
 
-    enabled: bool
-    """Enable scroll acceleration"""
+    paths: Optional[List[str]] = None
+    """Additional paths to skill folders"""
 
-
-class Tui(BaseModel):
-    """TUI specific settings"""
-
-    diff_style: Optional[Literal["auto", "stacked"]] = None
-    """
-    Control diff rendering style: 'auto' adapts to terminal width, 'stacked' always
-    shows single column
-    """
-
-    scroll_acceleration: Optional[TuiScrollAcceleration] = None
-    """Scroll acceleration settings"""
-
-    scroll_speed: Optional[float] = None
-    """TUI scroll speed"""
+    urls: Optional[List[str]] = None
+    """URLs to fetch skills from (e.g., https://example.com/.well-known/skills/)"""
 
 
 class Watcher(BaseModel):
@@ -2081,7 +1860,7 @@ class Config(BaseModel):
     """JSON schema reference for configuration validation"""
 
     agent: Optional[Agent] = None
-    """Agent configuration, see https://opencode.ai/docs/agent"""
+    """Agent configuration, see https://opencode.ai/docs/agents"""
 
     artifact_allowed_paths: Optional[List[str]] = None
     """
@@ -2135,9 +1914,6 @@ class Config(BaseModel):
     instructions: Optional[List[str]] = None
     """Additional instruction files or patterns to include"""
 
-    keybinds: Optional[Keybinds] = None
-    """Custom keybind configurations"""
-
     layout: Optional[Literal["auto", "stretch"]] = None
     """@deprecated Always uses stretch layout."""
 
@@ -2157,7 +1933,7 @@ class Config(BaseModel):
 
     permission: Optional[Permission] = None
 
-    plugin: Optional[List[str]] = None
+    plugin: Optional[List[Union[str, List[object]]]] = None
 
     provider: Optional[Dict[str, Provider]] = None
     """Custom provider configurations and model overrides"""
@@ -2171,6 +1947,9 @@ class Config(BaseModel):
     enables automatic sharing, 'disabled' disables all sharing
     """
 
+    skills: Optional[Skills] = None
+    """Additional skill folder paths"""
+
     small_model: Optional[str] = None
     """
     Small model to use for tasks like title generation in the format of
@@ -2178,14 +1957,13 @@ class Config(BaseModel):
     """
 
     snapshot: Optional[bool] = None
+    """Enable or disable snapshot tracking.
 
-    theme: Optional[str] = None
-    """Theme name to use for the interface"""
+    When false, filesystem snapshots are not recorded and undoing or reverting will
+    not undo/redo file changes. Defaults to true.
+    """
 
     tools: Optional[Dict[str, bool]] = None
-
-    tui: Optional[Tui] = None
-    """TUI specific settings"""
 
     username: Optional[str] = None
     """Custom username to display in conversations instead of system username"""

@@ -9,3 +9,5 @@ __all__ = ["ProviderGetAuthMethodsParams"]
 
 class ProviderGetAuthMethodsParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

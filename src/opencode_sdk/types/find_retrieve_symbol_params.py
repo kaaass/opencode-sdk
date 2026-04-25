@@ -11,3 +11,5 @@ class FindRetrieveSymbolParams(TypedDict, total=False):
     query: Required[str]
 
     directory: str
+
+    workspace: str

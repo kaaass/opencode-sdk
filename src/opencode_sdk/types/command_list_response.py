@@ -1,7 +1,7 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import List, Optional
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 
@@ -19,9 +19,9 @@ class CommandListResponseItem(BaseModel):
 
     description: Optional[str] = None
 
-    mcp: Optional[bool] = None
-
     model: Optional[str] = None
+
+    source: Optional[Literal["command", "mcp", "skill"]] = None
 
     subtask: Optional[bool] = None
 

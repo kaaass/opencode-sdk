@@ -9,3 +9,5 @@ __all__ = ["McpRetrieveParams"]
 
 class McpRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

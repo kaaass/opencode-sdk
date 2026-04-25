@@ -9,3 +9,5 @@ __all__ = ["ControlGetNextRequestParams"]
 
 class ControlGetNextRequestParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -32,6 +32,7 @@ class TestQuestion:
     def test_method_list_pending_with_all_params(self, client: OpencodeSDK) -> None:
         question = client.question.list_pending(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionListPendingResponse, question, path=["response"])
 
@@ -61,7 +62,7 @@ class TestQuestion:
     @parametrize
     def test_method_reject(self, client: OpencodeSDK) -> None:
         question = client.question.reject(
-            request_id="requestID",
+            request_id="queJ!",
         )
         assert_matches_type(QuestionRejectResponse, question, path=["response"])
 
@@ -69,8 +70,9 @@ class TestQuestion:
     @parametrize
     def test_method_reject_with_all_params(self, client: OpencodeSDK) -> None:
         question = client.question.reject(
-            request_id="requestID",
+            request_id="queJ!",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionRejectResponse, question, path=["response"])
 
@@ -78,7 +80,7 @@ class TestQuestion:
     @parametrize
     def test_raw_response_reject(self, client: OpencodeSDK) -> None:
         response = client.question.with_raw_response.reject(
-            request_id="requestID",
+            request_id="queJ!",
         )
 
         assert response.is_closed is True
@@ -90,7 +92,7 @@ class TestQuestion:
     @parametrize
     def test_streaming_response_reject(self, client: OpencodeSDK) -> None:
         with client.question.with_streaming_response.reject(
-            request_id="requestID",
+            request_id="queJ!",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -112,7 +114,7 @@ class TestQuestion:
     @parametrize
     def test_method_reply(self, client: OpencodeSDK) -> None:
         question = client.question.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         )
         assert_matches_type(QuestionReplyResponse, question, path=["response"])
@@ -121,9 +123,10 @@ class TestQuestion:
     @parametrize
     def test_method_reply_with_all_params(self, client: OpencodeSDK) -> None:
         question = client.question.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionReplyResponse, question, path=["response"])
 
@@ -131,7 +134,7 @@ class TestQuestion:
     @parametrize
     def test_raw_response_reply(self, client: OpencodeSDK) -> None:
         response = client.question.with_raw_response.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         )
 
@@ -144,7 +147,7 @@ class TestQuestion:
     @parametrize
     def test_streaming_response_reply(self, client: OpencodeSDK) -> None:
         with client.question.with_streaming_response.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         ) as response:
             assert not response.is_closed
@@ -181,6 +184,7 @@ class TestAsyncQuestion:
     async def test_method_list_pending_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         question = await async_client.question.list_pending(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionListPendingResponse, question, path=["response"])
 
@@ -210,7 +214,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_method_reject(self, async_client: AsyncOpencodeSDK) -> None:
         question = await async_client.question.reject(
-            request_id="requestID",
+            request_id="queJ!",
         )
         assert_matches_type(QuestionRejectResponse, question, path=["response"])
 
@@ -218,8 +222,9 @@ class TestAsyncQuestion:
     @parametrize
     async def test_method_reject_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         question = await async_client.question.reject(
-            request_id="requestID",
+            request_id="queJ!",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionRejectResponse, question, path=["response"])
 
@@ -227,7 +232,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_raw_response_reject(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.question.with_raw_response.reject(
-            request_id="requestID",
+            request_id="queJ!",
         )
 
         assert response.is_closed is True
@@ -239,7 +244,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_streaming_response_reject(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.question.with_streaming_response.reject(
-            request_id="requestID",
+            request_id="queJ!",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -261,7 +266,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_method_reply(self, async_client: AsyncOpencodeSDK) -> None:
         question = await async_client.question.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         )
         assert_matches_type(QuestionReplyResponse, question, path=["response"])
@@ -270,9 +275,10 @@ class TestAsyncQuestion:
     @parametrize
     async def test_method_reply_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         question = await async_client.question.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(QuestionReplyResponse, question, path=["response"])
 
@@ -280,7 +286,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_raw_response_reply(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.question.with_raw_response.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         )
 
@@ -293,7 +299,7 @@ class TestAsyncQuestion:
     @parametrize
     async def test_streaming_response_reply(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.question.with_streaming_response.reply(
-            request_id="requestID",
+            request_id="queJ!",
             answers=[["string"]],
         ) as response:
             assert not response.is_closed

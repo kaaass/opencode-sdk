@@ -28,6 +28,7 @@ class TestExperimental:
     def test_method_get_resources_with_all_params(self, client: OpencodeSDK) -> None:
         experimental = client.experimental.get_resources(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncExperimental:
     async def test_method_get_resources_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         experimental = await async_client.experimental.get_resources(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ExperimentalGetResourcesResponse, experimental, path=["response"])
 

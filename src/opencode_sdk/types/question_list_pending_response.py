@@ -26,7 +26,7 @@ class QuestionListPendingResponseItemQuestionOption(BaseModel):
 
 class QuestionListPendingResponseItemQuestion(BaseModel):
     header: str
-    """Very short label (max 12 chars)"""
+    """Very short label (max 30 chars)"""
 
     options: List[QuestionListPendingResponseItemQuestionOption]
     """Available choices"""

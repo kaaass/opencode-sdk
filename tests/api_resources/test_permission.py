@@ -31,6 +31,7 @@ class TestPermission:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         permission = client.permission.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PermissionListResponse, permission, path=["response"])
 
@@ -60,7 +61,7 @@ class TestPermission:
     @parametrize
     def test_method_reply(self, client: OpencodeSDK) -> None:
         permission = client.permission.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         )
         assert_matches_type(PermissionReplyResponse, permission, path=["response"])
@@ -69,9 +70,10 @@ class TestPermission:
     @parametrize
     def test_method_reply_with_all_params(self, client: OpencodeSDK) -> None:
         permission = client.permission.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
             directory="directory",
+            workspace="workspace",
             message="message",
         )
         assert_matches_type(PermissionReplyResponse, permission, path=["response"])
@@ -80,7 +82,7 @@ class TestPermission:
     @parametrize
     def test_raw_response_reply(self, client: OpencodeSDK) -> None:
         response = client.permission.with_raw_response.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         )
 
@@ -93,7 +95,7 @@ class TestPermission:
     @parametrize
     def test_streaming_response_reply(self, client: OpencodeSDK) -> None:
         with client.permission.with_streaming_response.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         ) as response:
             assert not response.is_closed
@@ -130,6 +132,7 @@ class TestAsyncPermission:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         permission = await async_client.permission.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PermissionListResponse, permission, path=["response"])
 
@@ -159,7 +162,7 @@ class TestAsyncPermission:
     @parametrize
     async def test_method_reply(self, async_client: AsyncOpencodeSDK) -> None:
         permission = await async_client.permission.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         )
         assert_matches_type(PermissionReplyResponse, permission, path=["response"])
@@ -168,9 +171,10 @@ class TestAsyncPermission:
     @parametrize
     async def test_method_reply_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         permission = await async_client.permission.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
             directory="directory",
+            workspace="workspace",
             message="message",
         )
         assert_matches_type(PermissionReplyResponse, permission, path=["response"])
@@ -179,7 +183,7 @@ class TestAsyncPermission:
     @parametrize
     async def test_raw_response_reply(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.permission.with_raw_response.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         )
 
@@ -192,7 +196,7 @@ class TestAsyncPermission:
     @parametrize
     async def test_streaming_response_reply(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.permission.with_streaming_response.reply(
-            request_id="requestID",
+            request_id="perJ!",
             reply="once",
         ) as response:
             assert not response.is_closed

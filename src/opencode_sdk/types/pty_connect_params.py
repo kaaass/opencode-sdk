@@ -9,3 +9,5 @@ __all__ = ["PtyConnectParams"]
 
 class PtyConnectParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

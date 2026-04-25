@@ -50,6 +50,7 @@ class AgentResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -76,7 +77,13 @@ class AgentResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, agent_list_params.AgentListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )
@@ -86,6 +93,7 @@ class AgentResource(SyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -114,7 +122,13 @@ class AgentResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, agent_delete_params.AgentDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_delete_params.AgentDeleteParams,
+                ),
             ),
             cast_to=AgentDeleteResponse,
         )
@@ -127,6 +141,7 @@ class AgentResource(SyncAPIResource):
         options: Dict[str, object],
         permission: Iterable[agent_create_or_update_params.Permission],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         color: str | Omit = omit,
         description: str | Omit = omit,
         hidden: bool | Omit = omit,
@@ -138,6 +153,7 @@ class AgentResource(SyncAPIResource):
         sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -176,6 +192,7 @@ class AgentResource(SyncAPIResource):
                     "sub_agents": sub_agents,
                     "temperature": temperature,
                     "top_p": top_p,
+                    "variant": variant,
                 },
                 agent_create_or_update_params.AgentCreateOrUpdateParams,
             ),
@@ -185,7 +202,11 @@ class AgentResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, agent_create_or_update_params.AgentCreateOrUpdateParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_create_or_update_params.AgentCreateOrUpdateParams,
                 ),
             ),
             cast_to=AgentCreateOrUpdateResponse,
@@ -216,6 +237,7 @@ class AsyncAgentResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -242,7 +264,13 @@ class AsyncAgentResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, agent_list_params.AgentListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_list_params.AgentListParams,
+                ),
             ),
             cast_to=AgentListResponse,
         )
@@ -252,6 +280,7 @@ class AsyncAgentResource(AsyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -280,7 +309,13 @@ class AsyncAgentResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, agent_delete_params.AgentDeleteParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_delete_params.AgentDeleteParams,
+                ),
             ),
             cast_to=AgentDeleteResponse,
         )
@@ -293,6 +328,7 @@ class AsyncAgentResource(AsyncAPIResource):
         options: Dict[str, object],
         permission: Iterable[agent_create_or_update_params.Permission],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         color: str | Omit = omit,
         description: str | Omit = omit,
         hidden: bool | Omit = omit,
@@ -304,6 +340,7 @@ class AsyncAgentResource(AsyncAPIResource):
         sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
         temperature: float | Omit = omit,
         top_p: float | Omit = omit,
+        variant: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -342,6 +379,7 @@ class AsyncAgentResource(AsyncAPIResource):
                     "sub_agents": sub_agents,
                     "temperature": temperature,
                     "top_p": top_p,
+                    "variant": variant,
                 },
                 agent_create_or_update_params.AgentCreateOrUpdateParams,
             ),
@@ -351,7 +389,11 @@ class AsyncAgentResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, agent_create_or_update_params.AgentCreateOrUpdateParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    agent_create_or_update_params.AgentCreateOrUpdateParams,
                 ),
             ),
             cast_to=AgentCreateOrUpdateResponse,

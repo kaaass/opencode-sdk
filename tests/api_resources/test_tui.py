@@ -43,6 +43,7 @@ class TestTui:
         tui = client.tui.append_prompt(
             text="text",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiAppendPromptResponse, tui, path=["response"])
 
@@ -83,6 +84,7 @@ class TestTui:
     def test_method_clear_prompt_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.clear_prompt(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiClearPromptResponse, tui, path=["response"])
 
@@ -122,6 +124,7 @@ class TestTui:
         tui = client.tui.execute_command(
             command="command",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiExecuteCommandResponse, tui, path=["response"])
 
@@ -162,6 +165,7 @@ class TestTui:
     def test_method_open_help_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.open_help(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenHelpResponse, tui, path=["response"])
 
@@ -198,6 +202,7 @@ class TestTui:
     def test_method_open_models_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.open_models(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenModelsResponse, tui, path=["response"])
 
@@ -234,6 +239,7 @@ class TestTui:
     def test_method_open_sessions_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.open_sessions(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenSessionsResponse, tui, path=["response"])
 
@@ -270,6 +276,7 @@ class TestTui:
     def test_method_open_themes_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.open_themes(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenThemesResponse, tui, path=["response"])
 
@@ -311,6 +318,7 @@ class TestTui:
             properties={"text": "text"},
             type="tui.prompt.append",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -358,6 +366,7 @@ class TestTui:
             properties={"command": "session.list"},
             type="tui.command.execute",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -413,6 +422,7 @@ class TestTui:
             },
             type="tui.toast.show",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -454,7 +464,7 @@ class TestTui:
     @parametrize
     def test_method_publish_event_overload_4(self, client: OpencodeSDK) -> None:
         tui = client.tui.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
@@ -463,9 +473,10 @@ class TestTui:
     @parametrize
     def test_method_publish_event_with_all_params_overload_4(self, client: OpencodeSDK) -> None:
         tui = client.tui.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -473,7 +484,7 @@ class TestTui:
     @parametrize
     def test_raw_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
         response = client.tui.with_raw_response.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
 
@@ -486,7 +497,7 @@ class TestTui:
     @parametrize
     def test_streaming_response_publish_event_overload_4(self, client: OpencodeSDK) -> None:
         with client.tui.with_streaming_response.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         ) as response:
             assert not response.is_closed
@@ -501,7 +512,7 @@ class TestTui:
     @parametrize
     def test_method_select_session(self, client: OpencodeSDK) -> None:
         tui = client.tui.select_session(
-            session_id="ses",
+            session_id="sessionID",
         )
         assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
@@ -509,8 +520,9 @@ class TestTui:
     @parametrize
     def test_method_select_session_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.select_session(
-            session_id="ses",
+            session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
@@ -518,7 +530,7 @@ class TestTui:
     @parametrize
     def test_raw_response_select_session(self, client: OpencodeSDK) -> None:
         response = client.tui.with_raw_response.select_session(
-            session_id="ses",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -530,7 +542,7 @@ class TestTui:
     @parametrize
     def test_streaming_response_select_session(self, client: OpencodeSDK) -> None:
         with client.tui.with_streaming_response.select_session(
-            session_id="ses",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -556,6 +568,7 @@ class TestTui:
             message="message",
             variant="info",
             directory="directory",
+            workspace="workspace",
             duration=0,
             title="title",
         )
@@ -600,6 +613,7 @@ class TestTui:
     def test_method_submit_prompt_with_all_params(self, client: OpencodeSDK) -> None:
         tui = client.tui.submit_prompt(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiSubmitPromptResponse, tui, path=["response"])
 
@@ -645,6 +659,7 @@ class TestAsyncTui:
         tui = await async_client.tui.append_prompt(
             text="text",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiAppendPromptResponse, tui, path=["response"])
 
@@ -685,6 +700,7 @@ class TestAsyncTui:
     async def test_method_clear_prompt_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.clear_prompt(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiClearPromptResponse, tui, path=["response"])
 
@@ -724,6 +740,7 @@ class TestAsyncTui:
         tui = await async_client.tui.execute_command(
             command="command",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiExecuteCommandResponse, tui, path=["response"])
 
@@ -764,6 +781,7 @@ class TestAsyncTui:
     async def test_method_open_help_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.open_help(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenHelpResponse, tui, path=["response"])
 
@@ -800,6 +818,7 @@ class TestAsyncTui:
     async def test_method_open_models_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.open_models(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenModelsResponse, tui, path=["response"])
 
@@ -836,6 +855,7 @@ class TestAsyncTui:
     async def test_method_open_sessions_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.open_sessions(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenSessionsResponse, tui, path=["response"])
 
@@ -872,6 +892,7 @@ class TestAsyncTui:
     async def test_method_open_themes_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.open_themes(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiOpenThemesResponse, tui, path=["response"])
 
@@ -913,6 +934,7 @@ class TestAsyncTui:
             properties={"text": "text"},
             type="tui.prompt.append",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -960,6 +982,7 @@ class TestAsyncTui:
             properties={"command": "session.list"},
             type="tui.command.execute",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -1015,6 +1038,7 @@ class TestAsyncTui:
             },
             type="tui.toast.show",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -1056,7 +1080,7 @@ class TestAsyncTui:
     @parametrize
     async def test_method_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
@@ -1065,9 +1089,10 @@ class TestAsyncTui:
     @parametrize
     async def test_method_publish_event_with_all_params_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiPublishEventResponse, tui, path=["response"])
 
@@ -1075,7 +1100,7 @@ class TestAsyncTui:
     @parametrize
     async def test_raw_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.tui.with_raw_response.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         )
 
@@ -1088,7 +1113,7 @@ class TestAsyncTui:
     @parametrize
     async def test_streaming_response_publish_event_overload_4(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.tui.with_streaming_response.publish_event(
-            properties={"session_id": "ses"},
+            properties={"session_id": "sessionID"},
             type="tui.session.select",
         ) as response:
             assert not response.is_closed
@@ -1103,7 +1128,7 @@ class TestAsyncTui:
     @parametrize
     async def test_method_select_session(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.select_session(
-            session_id="ses",
+            session_id="sessionID",
         )
         assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
@@ -1111,8 +1136,9 @@ class TestAsyncTui:
     @parametrize
     async def test_method_select_session_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.select_session(
-            session_id="ses",
+            session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiSelectSessionResponse, tui, path=["response"])
 
@@ -1120,7 +1146,7 @@ class TestAsyncTui:
     @parametrize
     async def test_raw_response_select_session(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.tui.with_raw_response.select_session(
-            session_id="ses",
+            session_id="sessionID",
         )
 
         assert response.is_closed is True
@@ -1132,7 +1158,7 @@ class TestAsyncTui:
     @parametrize
     async def test_streaming_response_select_session(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.tui.with_streaming_response.select_session(
-            session_id="ses",
+            session_id="sessionID",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -1158,6 +1184,7 @@ class TestAsyncTui:
             message="message",
             variant="info",
             directory="directory",
+            workspace="workspace",
             duration=0,
             title="title",
         )
@@ -1202,6 +1229,7 @@ class TestAsyncTui:
     async def test_method_submit_prompt_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         tui = await async_client.tui.submit_prompt(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(TuiSubmitPromptResponse, tui, path=["response"])
 

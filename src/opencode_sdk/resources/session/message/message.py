@@ -63,6 +63,7 @@ class MessageResource(SyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -93,7 +94,13 @@ class MessageResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, message_retrieve_params.MessageRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_retrieve_params.MessageRetrieveParams,
+                ),
             ),
             cast_to=MessageRetrieveResponse,
         )
@@ -102,8 +109,10 @@ class MessageResource(SyncAPIResource):
         self,
         session_id: str,
         *,
+        before: str | Omit = omit,
         directory: str | Omit = omit,
-        limit: float | Omit = omit,
+        limit: int | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -115,6 +124,8 @@ class MessageResource(SyncAPIResource):
         Retrieve all messages in a session, including user prompts and AI responses.
 
         Args:
+          limit: Maximum number of messages to return
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -134,8 +145,10 @@ class MessageResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
+                        "before": before,
                         "directory": directory,
                         "limit": limit,
+                        "workspace": workspace,
                     },
                     message_get_all_params.MessageGetAllParams,
                 ),
@@ -149,7 +162,9 @@ class MessageResource(SyncAPIResource):
         *,
         parts: Iterable[message_send_params.Part],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         agent: str | Omit = omit,
+        format: message_send_params.Format | Omit = omit,
         message_id: str | Omit = omit,
         model: message_send_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,
@@ -186,6 +201,7 @@ class MessageResource(SyncAPIResource):
                 {
                     "parts": parts,
                     "agent": agent,
+                    "format": format,
                     "message_id": message_id,
                     "model": model,
                     "no_reply": no_reply,
@@ -200,7 +216,13 @@ class MessageResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, message_send_params.MessageSendParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_send_params.MessageSendParams,
+                ),
             ),
             cast_to=MessageSendResponse,
         )
@@ -236,6 +258,7 @@ class AsyncMessageResource(AsyncAPIResource):
         *,
         session_id: str,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -267,7 +290,11 @@ class AsyncMessageResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, message_retrieve_params.MessageRetrieveParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_retrieve_params.MessageRetrieveParams,
                 ),
             ),
             cast_to=MessageRetrieveResponse,
@@ -277,8 +304,10 @@ class AsyncMessageResource(AsyncAPIResource):
         self,
         session_id: str,
         *,
+        before: str | Omit = omit,
         directory: str | Omit = omit,
-        limit: float | Omit = omit,
+        limit: int | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -290,6 +319,8 @@ class AsyncMessageResource(AsyncAPIResource):
         Retrieve all messages in a session, including user prompts and AI responses.
 
         Args:
+          limit: Maximum number of messages to return
+
           extra_headers: Send extra headers
 
           extra_query: Add additional query parameters to the request
@@ -309,8 +340,10 @@ class AsyncMessageResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
+                        "before": before,
                         "directory": directory,
                         "limit": limit,
+                        "workspace": workspace,
                     },
                     message_get_all_params.MessageGetAllParams,
                 ),
@@ -324,7 +357,9 @@ class AsyncMessageResource(AsyncAPIResource):
         *,
         parts: Iterable[message_send_params.Part],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         agent: str | Omit = omit,
+        format: message_send_params.Format | Omit = omit,
         message_id: str | Omit = omit,
         model: message_send_params.Model | Omit = omit,
         no_reply: bool | Omit = omit,
@@ -361,6 +396,7 @@ class AsyncMessageResource(AsyncAPIResource):
                 {
                     "parts": parts,
                     "agent": agent,
+                    "format": format,
                     "message_id": message_id,
                     "model": model,
                     "no_reply": no_reply,
@@ -375,7 +411,13 @@ class AsyncMessageResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, message_send_params.MessageSendParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    message_send_params.MessageSendParams,
+                ),
             ),
             cast_to=MessageSendResponse,
         )

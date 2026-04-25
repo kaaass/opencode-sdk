@@ -15,3 +15,5 @@ class SessionRespondToPermissionParams(TypedDict, total=False):
     response: Required[Literal["once", "always", "reject"]]
 
     directory: str
+
+    workspace: str

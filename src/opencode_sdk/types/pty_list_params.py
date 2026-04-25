@@ -9,3 +9,5 @@ __all__ = ["PtyListParams"]
 
 class PtyListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

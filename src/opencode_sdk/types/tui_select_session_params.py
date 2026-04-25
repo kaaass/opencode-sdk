@@ -14,3 +14,5 @@ class TuiSelectSessionParams(TypedDict, total=False):
     """Session ID to navigate to"""
 
     directory: str
+
+    workspace: str

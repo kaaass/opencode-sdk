@@ -9,3 +9,5 @@ __all__ = ["EventListParams"]
 
 class EventListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

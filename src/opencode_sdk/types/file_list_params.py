@@ -11,3 +11,5 @@ class FileListParams(TypedDict, total=False):
     path: Required[str]
 
     directory: str
+
+    workspace: str

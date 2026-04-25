@@ -14,3 +14,5 @@ class ArtifactDeleteParams(TypedDict, total=False):
     """Session ID"""
 
     directory: str
+
+    workspace: str

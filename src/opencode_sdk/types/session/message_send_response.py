@@ -8,10 +8,10 @@ from .part import Part
 from ..._models import BaseModel
 from ..assistant_message import AssistantMessage
 
-__all__ = ["MessageSendResponse", "PendingRemoteCall"]
+__all__ = ["MessageSendResponse", "PendingClientCall"]
 
 
-class PendingRemoteCall(BaseModel):
+class PendingClientCall(BaseModel):
     call_id: str = FieldInfo(alias="callID")
 
     input: Dict[str, object]
@@ -24,5 +24,5 @@ class MessageSendResponse(BaseModel):
 
     parts: List[Part]
 
-    pending_remote_calls: Optional[List[PendingRemoteCall]] = FieldInfo(alias="pendingRemoteCalls", default=None)
-    """Remote tool calls waiting for external results"""
+    pending_client_calls: Optional[List[PendingClientCall]] = FieldInfo(alias="pendingClientCalls", default=None)
+    """Client tool calls waiting for external results"""

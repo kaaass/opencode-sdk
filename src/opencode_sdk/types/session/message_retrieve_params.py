@@ -13,3 +13,5 @@ class MessageRetrieveParams(TypedDict, total=False):
     session_id: Required[Annotated[str, PropertyInfo(alias="sessionID")]]
 
     directory: str
+
+    workspace: str

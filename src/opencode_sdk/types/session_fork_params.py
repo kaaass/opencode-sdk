@@ -12,4 +12,6 @@ __all__ = ["SessionForkParams"]
 class SessionForkParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     message_id: Annotated[str, PropertyInfo(alias="messageID")]

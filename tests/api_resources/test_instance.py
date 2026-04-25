@@ -28,6 +28,7 @@ class TestInstance:
     def test_method_dispose_with_all_params(self, client: OpencodeSDK) -> None:
         instance = client.instance.dispose(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncInstance:
     async def test_method_dispose_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         instance = await async_client.instance.dispose(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(InstanceDisposeResponse, instance, path=["response"])
 

@@ -7,8 +7,9 @@ from typing import Mapping, cast
 import httpx
 
 from ..types import client_skill_list_params, client_skill_delete_params, client_skill_upload_params
+from .._files import deepcopy_with_paths
 from .._types import Body, Omit, Query, Headers, NotGiven, FileTypes, omit, not_given
-from .._utils import extract_files, path_template, maybe_transform, deepcopy_minimal, async_maybe_transform
+from .._utils import extract_files, path_template, maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -49,6 +50,7 @@ class ClientSkillResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +77,13 @@ class ClientSkillResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_skill_list_params.ClientSkillListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_list_params.ClientSkillListParams,
+                ),
             ),
             cast_to=ClientSkillListResponse,
         )
@@ -85,6 +93,7 @@ class ClientSkillResource(SyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -113,7 +122,13 @@ class ClientSkillResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_skill_delete_params.ClientSkillDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_delete_params.ClientSkillDeleteParams,
+                ),
             ),
             cast_to=ClientSkillDeleteResponse,
         )
@@ -123,6 +138,7 @@ class ClientSkillResource(SyncAPIResource):
         *,
         file: FileTypes,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -144,7 +160,7 @@ class ClientSkillResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -159,7 +175,13 @@ class ClientSkillResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, client_skill_upload_params.ClientSkillUploadParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_upload_params.ClientSkillUploadParams,
+                ),
             ),
             cast_to=ClientSkillUploadResponse,
         )
@@ -189,6 +211,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,7 +239,11 @@ class AsyncClientSkillResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_skill_list_params.ClientSkillListParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_list_params.ClientSkillListParams,
                 ),
             ),
             cast_to=ClientSkillListResponse,
@@ -227,6 +254,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
         name: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -256,7 +284,11 @@ class AsyncClientSkillResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_skill_delete_params.ClientSkillDeleteParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_delete_params.ClientSkillDeleteParams,
                 ),
             ),
             cast_to=ClientSkillDeleteResponse,
@@ -267,6 +299,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
         *,
         file: FileTypes,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -288,7 +321,7 @@ class AsyncClientSkillResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        body = deepcopy_minimal({"file": file})
+        body = deepcopy_with_paths({"file": file}, [["file"]])
         files = extract_files(cast(Mapping[str, object], body), paths=[["file"]])
         # It should be noted that the actual Content-Type header that will be
         # sent to the server will contain a `boundary` parameter, e.g.
@@ -304,7 +337,11 @@ class AsyncClientSkillResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, client_skill_upload_params.ClientSkillUploadParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_skill_upload_params.ClientSkillUploadParams,
                 ),
             ),
             cast_to=ClientSkillUploadResponse,

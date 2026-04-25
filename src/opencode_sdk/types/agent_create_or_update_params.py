@@ -22,6 +22,8 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     color: str
 
     description: str
@@ -43,6 +45,8 @@ class AgentCreateOrUpdateParams(TypedDict, total=False):
     temperature: float
 
     top_p: Annotated[float, PropertyInfo(alias="topP")]
+
+    variant: str
 
 
 class Permission(TypedDict, total=False):

@@ -9,3 +9,5 @@ __all__ = ["PathRetrieveParams"]
 
 class PathRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

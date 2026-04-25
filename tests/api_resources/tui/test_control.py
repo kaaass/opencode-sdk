@@ -31,6 +31,7 @@ class TestControl:
     def test_method_get_next_request_with_all_params(self, client: OpencodeSDK) -> None:
         control = client.tui.control.get_next_request(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
@@ -67,6 +68,7 @@ class TestControl:
     def test_method_submit_response_with_all_params(self, client: OpencodeSDK) -> None:
         control = client.tui.control.submit_response(
             directory="directory",
+            workspace="workspace",
             body={},
         )
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])
@@ -110,6 +112,7 @@ class TestAsyncControl:
     async def test_method_get_next_request_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.get_next_request(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ControlGetNextRequestResponse, control, path=["response"])
 
@@ -146,6 +149,7 @@ class TestAsyncControl:
     async def test_method_submit_response_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         control = await async_client.tui.control.submit_response(
             directory="directory",
+            workspace="workspace",
             body={},
         )
         assert_matches_type(ControlSubmitResponseResponse, control, path=["response"])

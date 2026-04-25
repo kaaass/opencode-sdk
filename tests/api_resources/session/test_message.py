@@ -25,7 +25,7 @@ class TestMessage:
     @parametrize
     def test_method_retrieve(self, client: OpencodeSDK) -> None:
         message = client.session.message.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
@@ -34,9 +34,10 @@ class TestMessage:
     @parametrize
     def test_method_retrieve_with_all_params(self, client: OpencodeSDK) -> None:
         message = client.session.message.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
@@ -44,7 +45,7 @@ class TestMessage:
     @parametrize
     def test_raw_response_retrieve(self, client: OpencodeSDK) -> None:
         response = client.session.message.with_raw_response.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         )
 
@@ -57,7 +58,7 @@ class TestMessage:
     @parametrize
     def test_streaming_response_retrieve(self, client: OpencodeSDK) -> None:
         with client.session.message.with_streaming_response.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
@@ -73,7 +74,7 @@ class TestMessage:
     def test_path_params_retrieve(self, client: OpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             client.session.message.with_raw_response.retrieve(
-                message_id="messageID",
+                message_id="msgJ!",
                 session_id="",
             )
 
@@ -96,8 +97,10 @@ class TestMessage:
     def test_method_get_all_with_all_params(self, client: OpencodeSDK) -> None:
         message = client.session.message.get_all(
             session_id="sessionID",
+            before="before",
             directory="directory",
             limit=0,
+            workspace="workspace",
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
@@ -158,7 +161,7 @@ class TestMessage:
                 {
                     "text": "text",
                     "type": "text",
-                    "id": "id",
+                    "id": "prtJ!",
                     "ignored": True,
                     "metadata": {"foo": "bar"},
                     "synthetic": True,
@@ -169,7 +172,9 @@ class TestMessage:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             agent="agent",
+            format={"type": "text"},
             message_id="msgJ!",
             model={
                 "model_id": "modelID",
@@ -244,7 +249,7 @@ class TestAsyncMessage:
     @parametrize
     async def test_method_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
@@ -253,9 +258,10 @@ class TestAsyncMessage:
     @parametrize
     async def test_method_retrieve_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(MessageRetrieveResponse, message, path=["response"])
 
@@ -263,7 +269,7 @@ class TestAsyncMessage:
     @parametrize
     async def test_raw_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         response = await async_client.session.message.with_raw_response.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         )
 
@@ -276,7 +282,7 @@ class TestAsyncMessage:
     @parametrize
     async def test_streaming_response_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         async with async_client.session.message.with_streaming_response.retrieve(
-            message_id="messageID",
+            message_id="msgJ!",
             session_id="sessionID",
         ) as response:
             assert not response.is_closed
@@ -292,7 +298,7 @@ class TestAsyncMessage:
     async def test_path_params_retrieve(self, async_client: AsyncOpencodeSDK) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `session_id` but received ''"):
             await async_client.session.message.with_raw_response.retrieve(
-                message_id="messageID",
+                message_id="msgJ!",
                 session_id="",
             )
 
@@ -315,8 +321,10 @@ class TestAsyncMessage:
     async def test_method_get_all_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         message = await async_client.session.message.get_all(
             session_id="sessionID",
+            before="before",
             directory="directory",
             limit=0,
+            workspace="workspace",
         )
         assert_matches_type(MessageGetAllResponse, message, path=["response"])
 
@@ -377,7 +385,7 @@ class TestAsyncMessage:
                 {
                     "text": "text",
                     "type": "text",
-                    "id": "id",
+                    "id": "prtJ!",
                     "ignored": True,
                     "metadata": {"foo": "bar"},
                     "synthetic": True,
@@ -388,7 +396,9 @@ class TestAsyncMessage:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             agent="agent",
+            format={"type": "text"},
             message_id="msgJ!",
             model={
                 "model_id": "modelID",

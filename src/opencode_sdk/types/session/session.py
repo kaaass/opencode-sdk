@@ -1,13 +1,13 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from pydantic import Field as FieldInfo
 
 from ..._models import BaseModel
 
-__all__ = ["Session", "Time", "Permission", "Revert", "Share", "Summary", "SummaryDiff"]
+__all__ = ["Session", "Time", "Metadata", "Permission", "Revert", "Share", "Summary", "SummaryDiff"]
 
 
 class Time(BaseModel):
@@ -18,6 +18,14 @@ class Time(BaseModel):
     archived: Optional[float] = None
 
     compacting: Optional[float] = None
+
+
+class Metadata(BaseModel):
+    extra_info: Optional[Dict[str, str]] = FieldInfo(alias="extraInfo", default=None)
+
+    managed_by: Optional[Literal["tui", "tui-debugger", "sdk", "cc-companion"]] = FieldInfo(
+        alias="managedBy", default=None
+    )
 
 
 class Permission(BaseModel):
@@ -45,13 +53,13 @@ class Share(BaseModel):
 class SummaryDiff(BaseModel):
     additions: float
 
-    after: str
-
-    before: str
-
     deletions: float
 
     file: str
+
+    patch: str
+
+    status: Optional[Literal["added", "deleted", "modified"]] = None
 
 
 class Summary(BaseModel):
@@ -79,6 +87,8 @@ class Session(BaseModel):
 
     version: str
 
+    metadata: Optional[Metadata] = None
+
     parent_id: Optional[str] = FieldInfo(alias="parentID", default=None)
 
     permission: Optional[List[Permission]] = None
@@ -88,3 +98,5 @@ class Session(BaseModel):
     share: Optional[Share] = None
 
     summary: Optional[Summary] = None
+
+    workspace_id: Optional[str] = FieldInfo(alias="workspaceID", default=None)

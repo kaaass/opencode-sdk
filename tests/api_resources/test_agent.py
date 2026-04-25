@@ -32,6 +32,7 @@ class TestAgent:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         agent = client.agent.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -71,6 +72,7 @@ class TestAgent:
         agent = client.agent.delete(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AgentDeleteResponse, agent, path=["response"])
 
@@ -140,6 +142,7 @@ class TestAgent:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             color="color",
             description="description",
             hidden=True,
@@ -154,6 +157,7 @@ class TestAgent:
             sub_agents=["string"],
             temperature=0,
             top_p=0,
+            variant="variant",
         )
         assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
 
@@ -218,6 +222,7 @@ class TestAsyncAgent:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         agent = await async_client.agent.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AgentListResponse, agent, path=["response"])
 
@@ -257,6 +262,7 @@ class TestAsyncAgent:
         agent = await async_client.agent.delete(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AgentDeleteResponse, agent, path=["response"])
 
@@ -326,6 +332,7 @@ class TestAsyncAgent:
                 }
             ],
             directory="directory",
+            workspace="workspace",
             color="color",
             description="description",
             hidden=True,
@@ -340,6 +347,7 @@ class TestAsyncAgent:
             sub_agents=["string"],
             temperature=0,
             top_p=0,
+            variant="variant",
         )
         assert_matches_type(AgentCreateOrUpdateResponse, agent, path=["response"])
 

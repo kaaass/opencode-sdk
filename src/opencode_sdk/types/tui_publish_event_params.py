@@ -27,6 +27,8 @@ class EventTuiPromptAppend(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
 
 class EventTuiPromptAppendProperties(TypedDict, total=False):
     text: Required[str]
@@ -38,6 +40,8 @@ class EventTuiCommandExecute(TypedDict, total=False):
     type: Required[Literal["tui.command.execute"]]
 
     directory: str
+
+    workspace: str
 
 
 class EventTuiCommandExecuteProperties(TypedDict, total=False):
@@ -51,6 +55,8 @@ class EventTuiCommandExecuteProperties(TypedDict, total=False):
                 "session.compact",
                 "session.page.up",
                 "session.page.down",
+                "session.line.up",
+                "session.line.down",
                 "session.half.page.up",
                 "session.half.page.down",
                 "session.first",
@@ -71,6 +77,8 @@ class EventTuiToastShow(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
 
 class EventTuiToastShowProperties(TypedDict, total=False):
     message: Required[str]
@@ -89,6 +97,8 @@ class EventTuiSessionSelect(TypedDict, total=False):
     type: Required[Literal["tui.session.select"]]
 
     directory: str
+
+    workspace: str
 
 
 class EventTuiSessionSelectProperties(TypedDict, total=False):

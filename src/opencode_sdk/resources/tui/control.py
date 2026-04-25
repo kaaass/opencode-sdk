@@ -46,6 +46,7 @@ class ControlResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,7 +75,11 @@ class ControlResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, control_get_next_request_params.ControlGetNextRequestParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    control_get_next_request_params.ControlGetNextRequestParams,
                 ),
             ),
             cast_to=ControlGetNextRequestResponse,
@@ -84,6 +89,7 @@ class ControlResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         body: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -113,7 +119,11 @@ class ControlResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, control_submit_response_params.ControlSubmitResponseParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    control_submit_response_params.ControlSubmitResponseParams,
                 ),
             ),
             cast_to=ControlSubmitResponseResponse,
@@ -144,6 +154,7 @@ class AsyncControlResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -172,7 +183,11 @@ class AsyncControlResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, control_get_next_request_params.ControlGetNextRequestParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    control_get_next_request_params.ControlGetNextRequestParams,
                 ),
             ),
             cast_to=ControlGetNextRequestResponse,
@@ -182,6 +197,7 @@ class AsyncControlResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         body: object | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -211,7 +227,11 @@ class AsyncControlResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, control_submit_response_params.ControlSubmitResponseParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    control_submit_response_params.ControlSubmitResponseParams,
                 ),
             ),
             cast_to=ControlSubmitResponseResponse,

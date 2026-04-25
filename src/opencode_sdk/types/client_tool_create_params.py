@@ -16,3 +16,5 @@ class ClientToolCreateParams(TypedDict, total=False):
     parameters: Required[Dict[str, object]]
 
     directory: str
+
+    workspace: str

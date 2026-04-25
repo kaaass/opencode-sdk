@@ -41,6 +41,7 @@ class TestCustom:
             name="name",
             npm="npm",
             directory="directory",
+            workspace="workspace",
             options={"foo": "bar"},
         )
         assert_matches_type(CustomCreateResponse, custom, path=["response"])
@@ -88,6 +89,7 @@ class TestCustom:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         custom = client.provider.custom.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CustomListResponse, custom, path=["response"])
 
@@ -127,6 +129,7 @@ class TestCustom:
         custom = client.provider.custom.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CustomDeleteResponse, custom, path=["response"])
 
@@ -190,6 +193,7 @@ class TestAsyncCustom:
             name="name",
             npm="npm",
             directory="directory",
+            workspace="workspace",
             options={"foo": "bar"},
         )
         assert_matches_type(CustomCreateResponse, custom, path=["response"])
@@ -237,6 +241,7 @@ class TestAsyncCustom:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         custom = await async_client.provider.custom.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CustomListResponse, custom, path=["response"])
 
@@ -276,6 +281,7 @@ class TestAsyncCustom:
         custom = await async_client.provider.custom.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(CustomDeleteResponse, custom, path=["response"])
 

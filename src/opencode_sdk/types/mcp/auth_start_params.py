@@ -9,3 +9,5 @@ __all__ = ["AuthStartParams"]
 
 class AuthStartParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

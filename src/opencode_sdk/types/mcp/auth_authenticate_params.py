@@ -9,3 +9,5 @@ __all__ = ["AuthAuthenticateParams"]
 
 class AuthAuthenticateParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -13,6 +13,8 @@ __all__ = ["PtyCreateParams"]
 class PtyCreateParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     args: SequenceNotStr[str]
 
     command: str

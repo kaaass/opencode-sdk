@@ -60,5 +60,7 @@ class AgentListResponseItem(BaseModel):
 
     top_p: Optional[float] = FieldInfo(alias="topP", default=None)
 
+    variant: Optional[str] = None
+
 
 AgentListResponse: TypeAlias = List[AgentListResponseItem]

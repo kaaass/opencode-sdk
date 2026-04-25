@@ -39,6 +39,7 @@ class TestClientTool:
             description="description",
             parameters={"foo": "bar"},
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
@@ -83,6 +84,7 @@ class TestClientTool:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         client_tool = client.client_tool.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
@@ -122,6 +124,7 @@ class TestClientTool:
         client_tool = client.client_tool.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 
@@ -183,6 +186,7 @@ class TestAsyncClientTool:
             description="description",
             parameters={"foo": "bar"},
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolCreateResponse, client_tool, path=["response"])
 
@@ -227,6 +231,7 @@ class TestAsyncClientTool:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         client_tool = await async_client.client_tool.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolListResponse, client_tool, path=["response"])
 
@@ -266,6 +271,7 @@ class TestAsyncClientTool:
         client_tool = await async_client.client_tool.delete(
             id="id",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(ClientToolDeleteResponse, client_tool, path=["response"])
 

@@ -12,6 +12,9 @@ __all__ = ["WorktreeCreateParams"]
 class WorktreeCreateParams(TypedDict, total=False):
     directory: str
 
+    workspace: str
+
     name: str
 
     start_command: Annotated[str, PropertyInfo(alias="startCommand")]
+    """Additional startup script to run after the project's start command"""

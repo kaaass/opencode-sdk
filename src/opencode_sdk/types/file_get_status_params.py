@@ -9,3 +9,5 @@ __all__ = ["FileGetStatusParams"]
 
 class FileGetStatusParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

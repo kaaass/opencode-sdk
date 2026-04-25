@@ -9,3 +9,5 @@ __all__ = ["ClientSkillDeleteParams"]
 
 class ClientSkillDeleteParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

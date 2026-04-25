@@ -25,6 +25,8 @@ class McpCreateParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
 
 class ConfigMcpLocalConfig(TypedDict, total=False):
     command: Required[SequenceNotStr[str]]
@@ -40,7 +42,7 @@ class ConfigMcpLocalConfig(TypedDict, total=False):
     """Environment variables to set when running the MCP server"""
 
     timeout: int
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """
@@ -55,6 +57,9 @@ class ConfigMcpRemoteConfigOAuthMcpOAuthConfig(TypedDict, total=False):
 
     client_secret: Annotated[str, PropertyInfo(alias="clientSecret")]
     """OAuth client secret (if required by the authorization server)"""
+
+    redirect_uri: Annotated[str, PropertyInfo(alias="redirectUri")]
+    """OAuth redirect URI (default: http://127.0.0.1:19876/mcp/oauth/callback)."""
 
     scope: str
     """OAuth scopes to request during authorization"""
@@ -83,7 +88,7 @@ class ConfigMcpRemoteConfig(TypedDict, total=False):
     """
 
     timeout: int
-    """Timeout in ms for fetching tools from the MCP server.
+    """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
     """

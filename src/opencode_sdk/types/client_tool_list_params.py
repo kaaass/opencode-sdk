@@ -9,3 +9,5 @@ __all__ = ["ClientToolListParams"]
 
 class ClientToolListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

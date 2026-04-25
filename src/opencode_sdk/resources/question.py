@@ -49,6 +49,7 @@ class QuestionResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -75,7 +76,13 @@ class QuestionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, question_list_pending_params.QuestionListPendingParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_list_pending_params.QuestionListPendingParams,
+                ),
             ),
             cast_to=QuestionListPendingResponse,
         )
@@ -85,6 +92,7 @@ class QuestionResource(SyncAPIResource):
         request_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -113,7 +121,13 @@ class QuestionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, question_reject_params.QuestionRejectParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_reject_params.QuestionRejectParams,
+                ),
             ),
             cast_to=QuestionRejectResponse,
         )
@@ -124,6 +138,7 @@ class QuestionResource(SyncAPIResource):
         *,
         answers: Iterable[SequenceNotStr[str]],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -155,7 +170,13 @@ class QuestionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, question_reply_params.QuestionReplyParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_reply_params.QuestionReplyParams,
+                ),
             ),
             cast_to=QuestionReplyResponse,
         )
@@ -185,6 +206,7 @@ class AsyncQuestionResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -212,7 +234,11 @@ class AsyncQuestionResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, question_list_pending_params.QuestionListPendingParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_list_pending_params.QuestionListPendingParams,
                 ),
             ),
             cast_to=QuestionListPendingResponse,
@@ -223,6 +249,7 @@ class AsyncQuestionResource(AsyncAPIResource):
         request_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -252,7 +279,11 @@ class AsyncQuestionResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, question_reject_params.QuestionRejectParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_reject_params.QuestionRejectParams,
                 ),
             ),
             cast_to=QuestionRejectResponse,
@@ -264,6 +295,7 @@ class AsyncQuestionResource(AsyncAPIResource):
         *,
         answers: Iterable[SequenceNotStr[str]],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -295,7 +327,13 @@ class AsyncQuestionResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, question_reply_params.QuestionReplyParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    question_reply_params.QuestionReplyParams,
+                ),
             ),
             cast_to=QuestionReplyResponse,
         )

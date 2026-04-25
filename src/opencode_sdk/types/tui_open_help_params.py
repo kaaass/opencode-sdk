@@ -9,3 +9,5 @@ __all__ = ["TuiOpenHelpParams"]
 
 class TuiOpenHelpParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

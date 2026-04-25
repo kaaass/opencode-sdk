@@ -9,3 +9,5 @@ __all__ = ["ExperimentalGetResourcesParams"]
 
 class ExperimentalGetResourcesParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

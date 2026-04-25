@@ -9,3 +9,5 @@ __all__ = ["ProjectRetrieveCurrentParams"]
 
 class ProjectRetrieveCurrentParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

@@ -36,6 +36,7 @@ class TestAuth:
         auth = client.mcp.auth.authenticate(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
 
@@ -89,6 +90,7 @@ class TestAuth:
             name="name",
             code="code",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthCompleteResponse, auth, path=["response"])
 
@@ -143,6 +145,7 @@ class TestAuth:
         auth = client.mcp.auth.remove(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthRemoveResponse, auth, path=["response"])
 
@@ -194,6 +197,7 @@ class TestAuth:
         auth = client.mcp.auth.start(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthStartResponse, auth, path=["response"])
 
@@ -251,6 +255,7 @@ class TestAsyncAuth:
         auth = await async_client.mcp.auth.authenticate(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthAuthenticateResponse, auth, path=["response"])
 
@@ -304,6 +309,7 @@ class TestAsyncAuth:
             name="name",
             code="code",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthCompleteResponse, auth, path=["response"])
 
@@ -358,6 +364,7 @@ class TestAsyncAuth:
         auth = await async_client.mcp.auth.remove(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthRemoveResponse, auth, path=["response"])
 
@@ -409,6 +416,7 @@ class TestAsyncAuth:
         auth = await async_client.mcp.auth.start(
             name="name",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(AuthStartResponse, auth, path=["response"])
 

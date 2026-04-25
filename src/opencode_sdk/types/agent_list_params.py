@@ -9,3 +9,5 @@ __all__ = ["AgentListParams"]
 
 class AgentListParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

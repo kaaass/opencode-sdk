@@ -17,3 +17,5 @@ class FindRetrieveFileParams(TypedDict, total=False):
     limit: int
 
     type: Literal["file", "directory"]
+
+    workspace: str

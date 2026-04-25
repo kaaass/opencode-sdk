@@ -35,6 +35,7 @@ class TestLog:
             message="message",
             service="service",
             directory="directory",
+            workspace="workspace",
             extra={"foo": "bar"},
         )
         assert_matches_type(LogWriteResponse, log, path=["response"])
@@ -93,6 +94,7 @@ class TestAsyncLog:
             message="message",
             service="service",
             directory="directory",
+            workspace="workspace",
             extra={"foo": "bar"},
         )
         assert_matches_type(LogWriteResponse, log, path=["response"])

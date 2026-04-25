@@ -48,6 +48,7 @@ class PermissionResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -74,7 +75,13 @@ class PermissionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, permission_list_params.PermissionListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    permission_list_params.PermissionListParams,
+                ),
             ),
             cast_to=PermissionListResponse,
         )
@@ -85,6 +92,7 @@ class PermissionResource(SyncAPIResource):
         *,
         reply: Literal["once", "always", "reject"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         message: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -121,7 +129,13 @@ class PermissionResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, permission_reply_params.PermissionReplyParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    permission_reply_params.PermissionReplyParams,
+                ),
             ),
             cast_to=PermissionReplyResponse,
         )
@@ -151,6 +165,7 @@ class AsyncPermissionResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -178,7 +193,11 @@ class AsyncPermissionResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, permission_list_params.PermissionListParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    permission_list_params.PermissionListParams,
                 ),
             ),
             cast_to=PermissionListResponse,
@@ -190,6 +209,7 @@ class AsyncPermissionResource(AsyncAPIResource):
         *,
         reply: Literal["once", "always", "reject"],
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         message: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -227,7 +247,11 @@ class AsyncPermissionResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, permission_reply_params.PermissionReplyParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    permission_reply_params.PermissionReplyParams,
                 ),
             ),
             cast_to=PermissionReplyResponse,

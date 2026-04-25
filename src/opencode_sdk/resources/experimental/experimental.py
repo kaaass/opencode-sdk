@@ -69,6 +69,7 @@ class ExperimentalResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -98,7 +99,11 @@ class ExperimentalResource(SyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=maybe_transform(
-                    {"directory": directory}, experimental_get_resources_params.ExperimentalGetResourcesParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    experimental_get_resources_params.ExperimentalGetResourcesParams,
                 ),
             ),
             cast_to=ExperimentalGetResourcesResponse,
@@ -137,6 +142,7 @@ class AsyncExperimentalResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -166,7 +172,11 @@ class AsyncExperimentalResource(AsyncAPIResource):
                 extra_body=extra_body,
                 timeout=timeout,
                 query=await async_maybe_transform(
-                    {"directory": directory}, experimental_get_resources_params.ExperimentalGetResourcesParams
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    experimental_get_resources_params.ExperimentalGetResourcesParams,
                 ),
             ),
             cast_to=ExperimentalGetResourcesResponse,

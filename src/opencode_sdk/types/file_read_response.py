@@ -39,7 +39,7 @@ class Patch(BaseModel):
 class FileReadResponse(BaseModel):
     content: str
 
-    type: Literal["text"]
+    type: Literal["text", "binary"]
 
     diff: Optional[str] = None
 

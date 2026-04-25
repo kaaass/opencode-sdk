@@ -35,6 +35,7 @@ class TestPty:
     def test_method_create_with_all_params(self, client: OpencodeSDK) -> None:
         pty = client.pty.create(
             directory="directory",
+            workspace="workspace",
             args=["string"],
             command="command",
             cwd="cwd",
@@ -79,6 +80,7 @@ class TestPty:
         pty = client.pty.retrieve(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
 
@@ -130,6 +132,7 @@ class TestPty:
         pty = client.pty.update(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
             size={
                 "cols": 0,
                 "rows": 0,
@@ -183,6 +186,7 @@ class TestPty:
     def test_method_list_with_all_params(self, client: OpencodeSDK) -> None:
         pty = client.pty.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyListResponse, pty, path=["response"])
 
@@ -222,6 +226,7 @@ class TestPty:
         pty = client.pty.delete(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyDeleteResponse, pty, path=["response"])
 
@@ -273,6 +278,7 @@ class TestPty:
         pty = client.pty.connect(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyConnectResponse, pty, path=["response"])
 
@@ -327,6 +333,7 @@ class TestAsyncPty:
     async def test_method_create_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         pty = await async_client.pty.create(
             directory="directory",
+            workspace="workspace",
             args=["string"],
             command="command",
             cwd="cwd",
@@ -371,6 +378,7 @@ class TestAsyncPty:
         pty = await async_client.pty.retrieve(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyRetrieveResponse, pty, path=["response"])
 
@@ -422,6 +430,7 @@ class TestAsyncPty:
         pty = await async_client.pty.update(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
             size={
                 "cols": 0,
                 "rows": 0,
@@ -475,6 +484,7 @@ class TestAsyncPty:
     async def test_method_list_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         pty = await async_client.pty.list(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyListResponse, pty, path=["response"])
 
@@ -514,6 +524,7 @@ class TestAsyncPty:
         pty = await async_client.pty.delete(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyDeleteResponse, pty, path=["response"])
 
@@ -565,6 +576,7 @@ class TestAsyncPty:
         pty = await async_client.pty.connect(
             pty_id="ptyID",
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(PtyConnectResponse, pty, path=["response"])
 

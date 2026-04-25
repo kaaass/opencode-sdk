@@ -9,3 +9,5 @@ __all__ = ["SessionGetStatusParams"]
 
 class SessionGetStatusParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

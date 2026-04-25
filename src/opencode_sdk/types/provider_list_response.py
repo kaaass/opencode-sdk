@@ -3,20 +3,113 @@
 from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
+from pydantic import Field as FieldInfo
+
 from .._models import BaseModel
 
 __all__ = [
     "ProviderListResponse",
     "All",
     "AllModels",
-    "AllModelsLimit",
+    "AllModelsAPI",
+    "AllModelsCapabilities",
+    "AllModelsCapabilitiesInput",
+    "AllModelsCapabilitiesInterleaved",
+    "AllModelsCapabilitiesInterleavedField",
+    "AllModelsCapabilitiesOutput",
     "AllModelsCost",
-    "AllModelsCostContextOver200k",
-    "AllModelsInterleaved",
-    "AllModelsInterleavedField",
-    "AllModelsModalities",
-    "AllModelsProvider",
+    "AllModelsCostCache",
+    "AllModelsCostExperimentalOver200K",
+    "AllModelsCostExperimentalOver200KCache",
+    "AllModelsLimit",
 ]
+
+
+class AllModelsAPI(BaseModel):
+    id: str
+
+    npm: str
+
+    url: str
+
+
+class AllModelsCapabilitiesInput(BaseModel):
+    audio: bool
+
+    image: bool
+
+    pdf: bool
+
+    text: bool
+
+    video: bool
+
+
+class AllModelsCapabilitiesInterleavedField(BaseModel):
+    field: Literal["reasoning_content", "reasoning_details"]
+
+
+AllModelsCapabilitiesInterleaved: TypeAlias = Union[bool, AllModelsCapabilitiesInterleavedField]
+
+
+class AllModelsCapabilitiesOutput(BaseModel):
+    audio: bool
+
+    image: bool
+
+    pdf: bool
+
+    text: bool
+
+    video: bool
+
+
+class AllModelsCapabilities(BaseModel):
+    attachment: bool
+
+    input: AllModelsCapabilitiesInput
+
+    interleaved: AllModelsCapabilitiesInterleaved
+
+    output: AllModelsCapabilitiesOutput
+
+    reasoning: bool
+
+    temperature: bool
+
+    toolcall: bool
+
+
+class AllModelsCostCache(BaseModel):
+    read: float
+
+    write: float
+
+
+class AllModelsCostExperimentalOver200KCache(BaseModel):
+    read: float
+
+    write: float
+
+
+class AllModelsCostExperimentalOver200K(BaseModel):
+    cache: AllModelsCostExperimentalOver200KCache
+
+    input: float
+
+    output: float
+
+
+class AllModelsCost(BaseModel):
+    cache: AllModelsCostCache
+
+    input: float
+
+    output: float
+
+    experimental_over200_k: Optional[AllModelsCostExperimentalOver200K] = FieldInfo(
+        alias="experimentalOver200K", default=None
+    )
 
 
 class AllModelsLimit(BaseModel):
@@ -24,50 +117,19 @@ class AllModelsLimit(BaseModel):
 
     output: float
 
-
-class AllModelsCostContextOver200k(BaseModel):
-    input: float
-
-    output: float
-
-    cache_read: Optional[float] = None
-
-    cache_write: Optional[float] = None
-
-
-class AllModelsCost(BaseModel):
-    input: float
-
-    output: float
-
-    cache_read: Optional[float] = None
-
-    cache_write: Optional[float] = None
-
-    context_over_200k: Optional[AllModelsCostContextOver200k] = None
-
-
-class AllModelsInterleavedField(BaseModel):
-    field: Literal["reasoning_content", "reasoning_details"]
-
-
-AllModelsInterleaved: TypeAlias = Union[Literal[True], AllModelsInterleavedField]
-
-
-class AllModelsModalities(BaseModel):
-    input: List[Literal["text", "audio", "image", "video", "pdf"]]
-
-    output: List[Literal["text", "audio", "image", "video", "pdf"]]
-
-
-class AllModelsProvider(BaseModel):
-    npm: str
+    input: Optional[float] = None
 
 
 class AllModels(BaseModel):
     id: str
 
-    attachment: bool
+    api: AllModelsAPI
+
+    capabilities: AllModelsCapabilities
+
+    cost: AllModelsCost
+
+    headers: Dict[str, str]
 
     limit: AllModelsLimit
 
@@ -75,29 +137,13 @@ class AllModels(BaseModel):
 
     options: Dict[str, object]
 
-    reasoning: bool
+    provider_id: str = FieldInfo(alias="providerID")
 
     release_date: str
 
-    temperature: bool
-
-    tool_call: bool
-
-    cost: Optional[AllModelsCost] = None
-
-    experimental: Optional[bool] = None
+    status: Literal["alpha", "beta", "deprecated", "active"]
 
     family: Optional[str] = None
-
-    headers: Optional[Dict[str, str]] = None
-
-    interleaved: Optional[AllModelsInterleaved] = None
-
-    modalities: Optional[AllModelsModalities] = None
-
-    provider: Optional[AllModelsProvider] = None
-
-    status: Optional[Literal["alpha", "beta", "deprecated"]] = None
 
     variants: Optional[Dict[str, Dict[str, object]]] = None
 
@@ -111,9 +157,11 @@ class All(BaseModel):
 
     name: str
 
-    api: Optional[str] = None
+    options: Dict[str, object]
 
-    npm: Optional[str] = None
+    source: Literal["env", "config", "custom", "api"]
+
+    key: Optional[str] = None
 
 
 class ProviderListResponse(BaseModel):

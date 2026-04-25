@@ -9,3 +9,5 @@ __all__ = ["VcRetrieveParams"]
 
 class VcRetrieveParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

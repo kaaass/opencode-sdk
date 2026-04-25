@@ -19,4 +19,6 @@ class CustomCreateParams(TypedDict, total=False):
 
     directory: str
 
+    workspace: str
+
     options: Dict[str, object]

@@ -9,3 +9,5 @@ __all__ = ["SessionGetTodoParams"]
 
 class SessionGetTodoParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

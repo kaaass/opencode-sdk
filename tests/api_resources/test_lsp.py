@@ -28,6 +28,7 @@ class TestLsp:
     def test_method_retrieve_status_with_all_params(self, client: OpencodeSDK) -> None:
         lsp = client.lsp.retrieve_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(LspRetrieveStatusResponse, lsp, path=["response"])
 
@@ -70,6 +71,7 @@ class TestAsyncLsp:
     async def test_method_retrieve_status_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
         lsp = await async_client.lsp.retrieve_status(
             directory="directory",
+            workspace="workspace",
         )
         assert_matches_type(LspRetrieveStatusResponse, lsp, path=["response"])
 

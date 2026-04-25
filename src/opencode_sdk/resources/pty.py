@@ -59,6 +59,7 @@ class PtyResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         args: SequenceNotStr[str] | Omit = omit,
         command: str | Omit = omit,
         cwd: str | Omit = omit,
@@ -101,7 +102,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_create_params.PtyCreateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_create_params.PtyCreateParams,
+                ),
             ),
             cast_to=PtyCreateResponse,
         )
@@ -111,6 +118,7 @@ class PtyResource(SyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -139,7 +147,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_retrieve_params.PtyRetrieveParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_retrieve_params.PtyRetrieveParams,
+                ),
             ),
             cast_to=PtyRetrieveResponse,
         )
@@ -149,6 +163,7 @@ class PtyResource(SyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         size: pty_update_params.Size | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -186,7 +201,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_update_params.PtyUpdateParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_update_params.PtyUpdateParams,
+                ),
             ),
             cast_to=PtyUpdateResponse,
         )
@@ -195,6 +216,7 @@ class PtyResource(SyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -221,7 +243,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_list_params.PtyListParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_list_params.PtyListParams,
+                ),
             ),
             cast_to=PtyListResponse,
         )
@@ -231,6 +259,7 @@ class PtyResource(SyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -259,7 +288,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_delete_params.PtyDeleteParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_delete_params.PtyDeleteParams,
+                ),
             ),
             cast_to=PtyDeleteResponse,
         )
@@ -269,6 +304,7 @@ class PtyResource(SyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -298,7 +334,13 @@ class PtyResource(SyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=maybe_transform({"directory": directory}, pty_connect_params.PtyConnectParams),
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_connect_params.PtyConnectParams,
+                ),
             ),
             cast_to=PtyConnectResponse,
         )
@@ -328,6 +370,7 @@ class AsyncPtyResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         args: SequenceNotStr[str] | Omit = omit,
         command: str | Omit = omit,
         cwd: str | Omit = omit,
@@ -370,7 +413,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_create_params.PtyCreateParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_create_params.PtyCreateParams,
+                ),
             ),
             cast_to=PtyCreateResponse,
         )
@@ -380,6 +429,7 @@ class AsyncPtyResource(AsyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -408,7 +458,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_retrieve_params.PtyRetrieveParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_retrieve_params.PtyRetrieveParams,
+                ),
             ),
             cast_to=PtyRetrieveResponse,
         )
@@ -418,6 +474,7 @@ class AsyncPtyResource(AsyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         size: pty_update_params.Size | Omit = omit,
         title: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
@@ -455,7 +512,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_update_params.PtyUpdateParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_update_params.PtyUpdateParams,
+                ),
             ),
             cast_to=PtyUpdateResponse,
         )
@@ -464,6 +527,7 @@ class AsyncPtyResource(AsyncAPIResource):
         self,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -490,7 +554,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_list_params.PtyListParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_list_params.PtyListParams,
+                ),
             ),
             cast_to=PtyListResponse,
         )
@@ -500,6 +570,7 @@ class AsyncPtyResource(AsyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -528,7 +599,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_delete_params.PtyDeleteParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_delete_params.PtyDeleteParams,
+                ),
             ),
             cast_to=PtyDeleteResponse,
         )
@@ -538,6 +615,7 @@ class AsyncPtyResource(AsyncAPIResource):
         pty_id: str,
         *,
         directory: str | Omit = omit,
+        workspace: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -567,7 +645,13 @@ class AsyncPtyResource(AsyncAPIResource):
                 extra_query=extra_query,
                 extra_body=extra_body,
                 timeout=timeout,
-                query=await async_maybe_transform({"directory": directory}, pty_connect_params.PtyConnectParams),
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_connect_params.PtyConnectParams,
+                ),
             ),
             cast_to=PtyConnectResponse,
         )

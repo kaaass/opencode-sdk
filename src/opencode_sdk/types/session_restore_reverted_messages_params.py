@@ -9,3 +9,5 @@ __all__ = ["SessionRestoreRevertedMessagesParams"]
 
 class SessionRestoreRevertedMessagesParams(TypedDict, total=False):
     directory: str
+
+    workspace: str

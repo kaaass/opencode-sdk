@@ -9,3 +9,5 @@ __all__ = ["TuiSubmitPromptParams"]
 
 class TuiSubmitPromptParams(TypedDict, total=False):
     directory: str
+
+    workspace: str
