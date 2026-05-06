@@ -2,14 +2,13 @@
 
 from __future__ import annotations
 
-from typing import Dict, Iterable, Optional
-from typing_extensions import Literal
+from typing import Dict, Iterable
 
 import httpx
 
-from ..types import agent_list_params, agent_create_params, agent_delete_params
-from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
-from .._utils import path_template, maybe_transform, async_maybe_transform
+from ..types import sync_start_params, sync_replay_params, sync_list_events_params
+from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
+from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
 from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
@@ -19,64 +18,52 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
-from ..types.agent_list_response import AgentListResponse
-from ..types.agent_create_response import AgentCreateResponse
-from ..types.agent_delete_response import AgentDeleteResponse
-from ..types.permission_rule_param import PermissionRuleParam
+from ..types.sync_start_response import SyncStartResponse
+from ..types.sync_replay_response import SyncReplayResponse
+from ..types.sync_list_events_response import SyncListEventsResponse
 
-__all__ = ["AgentResource", "AsyncAgentResource"]
+__all__ = ["SyncResource", "AsyncSyncResource"]
 
 
-class AgentResource(SyncAPIResource):
+class SyncResource(SyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AgentResourceWithRawResponse:
+    def with_raw_response(self) -> SyncResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return AgentResourceWithRawResponse(self)
+        return SyncResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AgentResourceWithStreamingResponse:
+    def with_streaming_response(self) -> SyncResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return AgentResourceWithStreamingResponse(self)
+        return SyncResourceWithStreamingResponse(self)
 
-    def create(
+    def list_events(
         self,
         *,
-        mode: Literal["subagent", "primary", "all"],
-        name: str,
-        options: Dict[str, object],
-        permission: Iterable[PermissionRuleParam],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
-        color: str | Omit = omit,
-        description: str | Omit = omit,
-        hidden: bool | Omit = omit,
-        model: agent_create_params.Model | Omit = omit,
-        native: bool | Omit = omit,
-        prompt: str | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
-        steps: float | Omit = omit,
-        sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        variant: str | Omit = omit,
+        body: Dict[str, int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCreateResponse:
-        """
-        Register or update a dynamic agent (stored in memory only)
+    ) -> SyncListEventsResponse:
+        """List sync events for all aggregates.
+
+        Keys are aggregate IDs the client already
+        knows about, values are the last known sequence ID. Events with seq > value are
+        returned for those aggregates. Aggregates not listed in the input get their full
+        history.
 
         Args:
           extra_headers: Send extra headers
@@ -88,27 +75,58 @@ class AgentResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/agent",
+            "/sync/history",
+            body=maybe_transform(body, sync_list_events_params.SyncListEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    sync_list_events_params.SyncListEventsParams,
+                ),
+            ),
+            cast_to=SyncListEventsResponse,
+        )
+
+    def replay(
+        self,
+        *,
+        body_directory: str,
+        events: Iterable[sync_replay_params.Event],
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncReplayResponse:
+        """
+        Validate and replay a complete sync event history.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._post(
+            "/sync/replay",
             body=maybe_transform(
                 {
-                    "mode": mode,
-                    "name": name,
-                    "options": options,
-                    "permission": permission,
-                    "color": color,
-                    "description": description,
-                    "hidden": hidden,
-                    "model": model,
-                    "native": native,
-                    "prompt": prompt,
-                    "skills": skills,
-                    "steps": steps,
-                    "sub_agents": sub_agents,
-                    "temperature": temperature,
-                    "top_p": top_p,
-                    "variant": variant,
+                    "body_directory": body_directory,
+                    "events": events,
                 },
-                agent_create_params.AgentCreateParams,
+                sync_replay_params.SyncReplayParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -117,16 +135,16 @@ class AgentResource(SyncAPIResource):
                 timeout=timeout,
                 query=maybe_transform(
                     {
-                        "directory": directory,
+                        "query_directory": query_directory,
                         "workspace": workspace,
                     },
-                    agent_create_params.AgentCreateParams,
+                    sync_replay_params.SyncReplayParams,
                 ),
             ),
-            cast_to=AgentCreateResponse,
+            cast_to=SyncReplayResponse,
         )
 
-    def list(
+    def start(
         self,
         *,
         directory: str | Omit = omit,
@@ -137,9 +155,10 @@ class AgentResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    ) -> SyncStartResponse:
         """
-        Get a list of all available AI agents in the OpenCode system.
+        Start sync loops for workspaces in the current project that have active
+        sessions.
 
         Args:
           extra_headers: Send extra headers
@@ -150,8 +169,8 @@ class AgentResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return self._get(
-            "/agent",
+        return self._post(
+            "/sync/start",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -162,108 +181,52 @@ class AgentResource(SyncAPIResource):
                         "directory": directory,
                         "workspace": workspace,
                     },
-                    agent_list_params.AgentListParams,
+                    sync_start_params.SyncStartParams,
                 ),
             ),
-            cast_to=AgentListResponse,
-        )
-
-    def delete(
-        self,
-        name: str,
-        *,
-        directory: str | Omit = omit,
-        workspace: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentDeleteResponse:
-        """
-        Remove a dynamic agent
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
-        return self._delete(
-            path_template("/agent/{name}", name=name),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=maybe_transform(
-                    {
-                        "directory": directory,
-                        "workspace": workspace,
-                    },
-                    agent_delete_params.AgentDeleteParams,
-                ),
-            ),
-            cast_to=AgentDeleteResponse,
+            cast_to=SyncStartResponse,
         )
 
 
-class AsyncAgentResource(AsyncAPIResource):
+class AsyncSyncResource(AsyncAPIResource):
     @cached_property
-    def with_raw_response(self) -> AsyncAgentResourceWithRawResponse:
+    def with_raw_response(self) -> AsyncSyncResourceWithRawResponse:
         """
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#accessing-raw-response-data-eg-headers
         """
-        return AsyncAgentResourceWithRawResponse(self)
+        return AsyncSyncResourceWithRawResponse(self)
 
     @cached_property
-    def with_streaming_response(self) -> AsyncAgentResourceWithStreamingResponse:
+    def with_streaming_response(self) -> AsyncSyncResourceWithStreamingResponse:
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
-        return AsyncAgentResourceWithStreamingResponse(self)
+        return AsyncSyncResourceWithStreamingResponse(self)
 
-    async def create(
+    async def list_events(
         self,
         *,
-        mode: Literal["subagent", "primary", "all"],
-        name: str,
-        options: Dict[str, object],
-        permission: Iterable[PermissionRuleParam],
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
-        color: str | Omit = omit,
-        description: str | Omit = omit,
-        hidden: bool | Omit = omit,
-        model: agent_create_params.Model | Omit = omit,
-        native: bool | Omit = omit,
-        prompt: str | Omit = omit,
-        skills: Optional[SequenceNotStr[str]] | Omit = omit,
-        steps: float | Omit = omit,
-        sub_agents: Optional[SequenceNotStr[str]] | Omit = omit,
-        temperature: float | Omit = omit,
-        top_p: float | Omit = omit,
-        variant: str | Omit = omit,
+        body: Dict[str, int] | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentCreateResponse:
-        """
-        Register or update a dynamic agent (stored in memory only)
+    ) -> SyncListEventsResponse:
+        """List sync events for all aggregates.
+
+        Keys are aggregate IDs the client already
+        knows about, values are the last known sequence ID. Events with seq > value are
+        returned for those aggregates. Aggregates not listed in the input get their full
+        history.
 
         Args:
           extra_headers: Send extra headers
@@ -275,27 +238,58 @@ class AsyncAgentResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/agent",
+            "/sync/history",
+            body=await async_maybe_transform(body, sync_list_events_params.SyncListEventsParams),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    sync_list_events_params.SyncListEventsParams,
+                ),
+            ),
+            cast_to=SyncListEventsResponse,
+        )
+
+    async def replay(
+        self,
+        *,
+        body_directory: str,
+        events: Iterable[sync_replay_params.Event],
+        query_directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> SyncReplayResponse:
+        """
+        Validate and replay a complete sync event history.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._post(
+            "/sync/replay",
             body=await async_maybe_transform(
                 {
-                    "mode": mode,
-                    "name": name,
-                    "options": options,
-                    "permission": permission,
-                    "color": color,
-                    "description": description,
-                    "hidden": hidden,
-                    "model": model,
-                    "native": native,
-                    "prompt": prompt,
-                    "skills": skills,
-                    "steps": steps,
-                    "sub_agents": sub_agents,
-                    "temperature": temperature,
-                    "top_p": top_p,
-                    "variant": variant,
+                    "body_directory": body_directory,
+                    "events": events,
                 },
-                agent_create_params.AgentCreateParams,
+                sync_replay_params.SyncReplayParams,
             ),
             options=make_request_options(
                 extra_headers=extra_headers,
@@ -304,16 +298,16 @@ class AsyncAgentResource(AsyncAPIResource):
                 timeout=timeout,
                 query=await async_maybe_transform(
                     {
-                        "directory": directory,
+                        "query_directory": query_directory,
                         "workspace": workspace,
                     },
-                    agent_create_params.AgentCreateParams,
+                    sync_replay_params.SyncReplayParams,
                 ),
             ),
-            cast_to=AgentCreateResponse,
+            cast_to=SyncReplayResponse,
         )
 
-    async def list(
+    async def start(
         self,
         *,
         directory: str | Omit = omit,
@@ -324,9 +318,10 @@ class AsyncAgentResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentListResponse:
+    ) -> SyncStartResponse:
         """
-        Get a list of all available AI agents in the OpenCode system.
+        Start sync loops for workspaces in the current project that have active
+        sessions.
 
         Args:
           extra_headers: Send extra headers
@@ -337,8 +332,8 @@ class AsyncAgentResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        return await self._get(
-            "/agent",
+        return await self._post(
+            "/sync/start",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -349,113 +344,68 @@ class AsyncAgentResource(AsyncAPIResource):
                         "directory": directory,
                         "workspace": workspace,
                     },
-                    agent_list_params.AgentListParams,
+                    sync_start_params.SyncStartParams,
                 ),
             ),
-            cast_to=AgentListResponse,
-        )
-
-    async def delete(
-        self,
-        name: str,
-        *,
-        directory: str | Omit = omit,
-        workspace: str | Omit = omit,
-        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
-        # The extra values given here take precedence over values defined on the client or passed to this method.
-        extra_headers: Headers | None = None,
-        extra_query: Query | None = None,
-        extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = not_given,
-    ) -> AgentDeleteResponse:
-        """
-        Remove a dynamic agent
-
-        Args:
-          extra_headers: Send extra headers
-
-          extra_query: Add additional query parameters to the request
-
-          extra_body: Add additional JSON properties to the request
-
-          timeout: Override the client-level default timeout for this request, in seconds
-        """
-        if not name:
-            raise ValueError(f"Expected a non-empty value for `name` but received {name!r}")
-        return await self._delete(
-            path_template("/agent/{name}", name=name),
-            options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
-                query=await async_maybe_transform(
-                    {
-                        "directory": directory,
-                        "workspace": workspace,
-                    },
-                    agent_delete_params.AgentDeleteParams,
-                ),
-            ),
-            cast_to=AgentDeleteResponse,
+            cast_to=SyncStartResponse,
         )
 
 
-class AgentResourceWithRawResponse:
-    def __init__(self, agent: AgentResource) -> None:
-        self._agent = agent
+class SyncResourceWithRawResponse:
+    def __init__(self, sync: SyncResource) -> None:
+        self._sync = sync
 
-        self.create = to_raw_response_wrapper(
-            agent.create,
+        self.list_events = to_raw_response_wrapper(
+            sync.list_events,
         )
-        self.list = to_raw_response_wrapper(
-            agent.list,
+        self.replay = to_raw_response_wrapper(
+            sync.replay,
         )
-        self.delete = to_raw_response_wrapper(
-            agent.delete,
-        )
-
-
-class AsyncAgentResourceWithRawResponse:
-    def __init__(self, agent: AsyncAgentResource) -> None:
-        self._agent = agent
-
-        self.create = async_to_raw_response_wrapper(
-            agent.create,
-        )
-        self.list = async_to_raw_response_wrapper(
-            agent.list,
-        )
-        self.delete = async_to_raw_response_wrapper(
-            agent.delete,
+        self.start = to_raw_response_wrapper(
+            sync.start,
         )
 
 
-class AgentResourceWithStreamingResponse:
-    def __init__(self, agent: AgentResource) -> None:
-        self._agent = agent
+class AsyncSyncResourceWithRawResponse:
+    def __init__(self, sync: AsyncSyncResource) -> None:
+        self._sync = sync
 
-        self.create = to_streamed_response_wrapper(
-            agent.create,
+        self.list_events = async_to_raw_response_wrapper(
+            sync.list_events,
         )
-        self.list = to_streamed_response_wrapper(
-            agent.list,
+        self.replay = async_to_raw_response_wrapper(
+            sync.replay,
         )
-        self.delete = to_streamed_response_wrapper(
-            agent.delete,
+        self.start = async_to_raw_response_wrapper(
+            sync.start,
         )
 
 
-class AsyncAgentResourceWithStreamingResponse:
-    def __init__(self, agent: AsyncAgentResource) -> None:
-        self._agent = agent
+class SyncResourceWithStreamingResponse:
+    def __init__(self, sync: SyncResource) -> None:
+        self._sync = sync
 
-        self.create = async_to_streamed_response_wrapper(
-            agent.create,
+        self.list_events = to_streamed_response_wrapper(
+            sync.list_events,
         )
-        self.list = async_to_streamed_response_wrapper(
-            agent.list,
+        self.replay = to_streamed_response_wrapper(
+            sync.replay,
         )
-        self.delete = async_to_streamed_response_wrapper(
-            agent.delete,
+        self.start = to_streamed_response_wrapper(
+            sync.start,
+        )
+
+
+class AsyncSyncResourceWithStreamingResponse:
+    def __init__(self, sync: AsyncSyncResource) -> None:
+        self._sync = sync
+
+        self.list_events = async_to_streamed_response_wrapper(
+            sync.list_events,
+        )
+        self.replay = async_to_streamed_response_wrapper(
+            sync.replay,
+        )
+        self.start = async_to_streamed_response_wrapper(
+            sync.start,
         )

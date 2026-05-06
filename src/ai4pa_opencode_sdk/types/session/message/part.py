@@ -261,6 +261,8 @@ class CompactionPart(BaseModel):
 
     overflow: Optional[bool] = None
 
+    tail_start_id: Optional[str] = None
+
 
 Part: TypeAlias = Union[
     TextPart,

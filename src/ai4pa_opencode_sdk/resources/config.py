@@ -108,12 +108,12 @@ class ConfigResource(SyncAPIResource):
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
-        lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
+        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
@@ -122,9 +122,11 @@ class ConfigResource(SyncAPIResource):
         provider: Dict[str, ProviderConfig] | Omit = omit,
         server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
+        shell: str | Omit = omit,
         skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
+        tool_output: config_update_params.ToolOutput | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
         username: str | Omit = omit,
         watcher: config_update_params.Watcher | Omit = omit,
@@ -154,7 +156,7 @@ class ConfigResource(SyncAPIResource):
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
-          custom_provider_npm_whitelist: 允许用于 custom provider 的 npm 包白名单
+          custom_provider_npm_whitelist: 自定义 provider 允许加载的 npm 包白名单。
 
           default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
               to 'build' if not set or if the specified agent is invalid.
@@ -183,6 +185,8 @@ class ConfigResource(SyncAPIResource):
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
 
+          shell: Default shell to use for terminal and bash tool
+
           skills: Additional skill folder paths
 
           small_model: Small model to use for tasks like title generation in the format of
@@ -191,6 +195,9 @@ class ConfigResource(SyncAPIResource):
           snapshot: Enable or disable snapshot tracking. When false, filesystem snapshots are not
               recorded and undoing or reverting will not undo/redo file changes. Defaults to
               true.
+
+          tool_output: Thresholds for truncating tool output. When output exceeds either limit, the
+              full text is written to the truncation directory and a preview is returned.
 
           username: Custom username to display in conversations instead of system username
 
@@ -232,9 +239,11 @@ class ConfigResource(SyncAPIResource):
                     "provider": provider,
                     "server": server,
                     "share": share,
+                    "shell": shell,
                     "skills": skills,
                     "small_model": small_model,
                     "snapshot": snapshot,
+                    "tool_output": tool_output,
                     "tools": tools,
                     "username": username,
                     "watcher": watcher,
@@ -380,12 +389,12 @@ class AsyncConfigResource(AsyncAPIResource):
         enabled_providers: SequenceNotStr[str] | Omit = omit,
         enterprise: config_update_params.Enterprise | Omit = omit,
         experimental: config_update_params.Experimental | Omit = omit,
-        formatter: Union[Literal[False], Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
+        formatter: Union[bool, Dict[str, config_update_params.FormatterUnionMember1FormatterUnionMember1Item]]
         | Omit = omit,
         instructions: SequenceNotStr[str] | Omit = omit,
         layout: Literal["auto", "stretch"] | Omit = omit,
         log_level: Literal["DEBUG", "INFO", "WARN", "ERROR"] | Omit = omit,
-        lsp: Union[Literal[False], Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
+        lsp: Union[bool, Dict[str, config_update_params.LspUnionMember1LspUnionMember1Item]] | Omit = omit,
         mcp: Dict[str, config_update_params.Mcp] | Omit = omit,
         mode: config_update_params.Mode | Omit = omit,
         model: str | Omit = omit,
@@ -394,9 +403,11 @@ class AsyncConfigResource(AsyncAPIResource):
         provider: Dict[str, ProviderConfig] | Omit = omit,
         server: ServerConfig | Omit = omit,
         share: Literal["manual", "auto", "disabled"] | Omit = omit,
+        shell: str | Omit = omit,
         skills: config_update_params.Skills | Omit = omit,
         small_model: str | Omit = omit,
         snapshot: bool | Omit = omit,
+        tool_output: config_update_params.ToolOutput | Omit = omit,
         tools: Dict[str, bool] | Omit = omit,
         username: str | Omit = omit,
         watcher: config_update_params.Watcher | Omit = omit,
@@ -426,7 +437,7 @@ class AsyncConfigResource(AsyncAPIResource):
 
           command: Command configuration, see https://opencode.ai/docs/commands
 
-          custom_provider_npm_whitelist: 允许用于 custom provider 的 npm 包白名单
+          custom_provider_npm_whitelist: 自定义 provider 允许加载的 npm 包白名单。
 
           default_agent: Default agent to use when none is specified. Must be a primary agent. Falls back
               to 'build' if not set or if the specified agent is invalid.
@@ -455,6 +466,8 @@ class AsyncConfigResource(AsyncAPIResource):
           share: Control sharing behavior:'manual' allows manual sharing via commands, 'auto'
               enables automatic sharing, 'disabled' disables all sharing
 
+          shell: Default shell to use for terminal and bash tool
+
           skills: Additional skill folder paths
 
           small_model: Small model to use for tasks like title generation in the format of
@@ -463,6 +476,9 @@ class AsyncConfigResource(AsyncAPIResource):
           snapshot: Enable or disable snapshot tracking. When false, filesystem snapshots are not
               recorded and undoing or reverting will not undo/redo file changes. Defaults to
               true.
+
+          tool_output: Thresholds for truncating tool output. When output exceeds either limit, the
+              full text is written to the truncation directory and a preview is returned.
 
           username: Custom username to display in conversations instead of system username
 
@@ -504,9 +520,11 @@ class AsyncConfigResource(AsyncAPIResource):
                     "provider": provider,
                     "server": server,
                     "share": share,
+                    "shell": shell,
                     "skills": skills,
                     "small_model": small_model,
                     "snapshot": snapshot,
+                    "tool_output": tool_output,
                     "tools": tools,
                     "username": username,
                     "watcher": watcher,

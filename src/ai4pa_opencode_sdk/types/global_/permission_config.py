@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import TYPE_CHECKING, Dict, List, Union, Optional
+from typing import TYPE_CHECKING, Dict, Union, Optional
 from typing_extensions import TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -9,12 +9,10 @@ from ..._models import BaseModel
 from .permission_rule_config import PermissionRuleConfig
 from .permission_action_config import PermissionActionConfig
 
-__all__ = ["PermissionConfig", "UnionMember0"]
+__all__ = ["PermissionConfig", "UnionMember1"]
 
 
-class UnionMember0(BaseModel):
-    api_original_keys: Optional[List[str]] = FieldInfo(alias="__originalKeys", default=None)
-
+class UnionMember1(BaseModel):
     bash: Optional[PermissionRuleConfig] = None
 
     codesearch: Optional[PermissionActionConfig] = None
@@ -60,4 +58,4 @@ class UnionMember0(BaseModel):
         __pydantic_extra__: Dict[str, PermissionRuleConfig]
 
 
-PermissionConfig: TypeAlias = Union[UnionMember0, PermissionActionConfig]
+PermissionConfig: TypeAlias = Union[PermissionActionConfig, UnionMember1]

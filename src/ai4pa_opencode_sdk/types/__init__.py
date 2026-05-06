@@ -72,6 +72,7 @@ from .pty_update_params import PtyUpdateParams as PtyUpdateParams
 from .question_rejected import QuestionRejected as QuestionRejected
 from .session_compacted import SessionCompacted as SessionCompacted
 from .skill_list_params import SkillListParams as SkillListParams
+from .sync_start_params import SyncStartParams as SyncStartParams
 from .file_list_response import FileListResponse as FileListResponse
 from .file_read_response import FileReadResponse as FileReadResponse
 from .find_search_params import FindSearchParams as FindSearchParams
@@ -81,6 +82,7 @@ from .permission_replied import PermissionReplied as PermissionReplied
 from .permission_request import PermissionRequest as PermissionRequest
 from .pty_connect_params import PtyConnectParams as PtyConnectParams
 from .snapshot_file_diff import SnapshotFileDiff as SnapshotFileDiff
+from .sync_replay_params import SyncReplayParams as SyncReplayParams
 from .tui_publish_params import TuiPublishParams as TuiPublishParams
 from .vcs_branch_updated import VcsBranchUpdated as VcsBranchUpdated
 from .agent_create_params import AgentCreateParams as AgentCreateParams
@@ -96,6 +98,7 @@ from .pty_retrieve_params import PtyRetrieveParams as PtyRetrieveParams
 from .session_fork_params import SessionForkParams as SessionForkParams
 from .session_list_params import SessionListParams as SessionListParams
 from .skill_list_response import SkillListResponse as SkillListResponse
+from .sync_start_response import SyncStartResponse as SyncStartResponse
 from .config_update_params import ConfigUpdateParams as ConfigUpdateParams
 from .event_session_select import EventSessionSelect as EventSessionSelect
 from .file_watcher_updated import FileWatcherUpdated as FileWatcherUpdated
@@ -108,6 +111,7 @@ from .provider_list_params import ProviderListParams as ProviderListParams
 from .pty_connect_response import PtyConnectResponse as PtyConnectResponse
 from .session_abort_params import SessionAbortParams as SessionAbortParams
 from .session_event_status import SessionEventStatus as SessionEventStatus
+from .sync_replay_response import SyncReplayResponse as SyncReplayResponse
 from .tui_open_help_params import TuiOpenHelpParams as TuiOpenHelpParams
 from .tui_publish_response import TuiPublishResponse as TuiPublishResponse
 from .agent_create_response import AgentCreateResponse as AgentCreateResponse
@@ -136,6 +140,7 @@ from .lsp_client_diagnostics import LspClientDiagnostics as LspClientDiagnostics
 from .path_retrieve_response import PathRetrieveResponse as PathRetrieveResponse
 from .permission_list_params import PermissionListParams as PermissionListParams
 from .provider_list_response import ProviderListResponse as ProviderListResponse
+from .pty_list_shells_params import PtyListShellsParams as PtyListShellsParams
 from .question_reject_params import QuestionRejectParams as QuestionRejectParams
 from .session_abort_response import SessionAbortResponse as SessionAbortResponse
 from .tui_open_help_response import TuiOpenHelpResponse as TuiOpenHelpResponse
@@ -150,6 +155,7 @@ from .question_reply_response import QuestionReplyResponse as QuestionReplyRespo
 from .session_delete_response import SessionDeleteResponse as SessionDeleteResponse
 from .session_retrieve_params import SessionRetrieveParams as SessionRetrieveParams
 from .structured_output_error import StructuredOutputError as StructuredOutputError
+from .sync_list_events_params import SyncListEventsParams as SyncListEventsParams
 from .tui_clear_prompt_params import TuiClearPromptParams as TuiClearPromptParams
 from .tui_show_toast_response import TuiShowToastResponse as TuiShowToastResponse
 from .vc_retrieve_diff_params import VcRetrieveDiffParams as VcRetrieveDiffParams
@@ -160,6 +166,7 @@ from .client_skill_list_params import ClientSkillListParams as ClientSkillListPa
 from .file_get_status_response import FileGetStatusResponse as FileGetStatusResponse
 from .find_search_files_params import FindSearchFilesParams as FindSearchFilesParams
 from .permission_list_response import PermissionListResponse as PermissionListResponse
+from .pty_list_shells_response import PtyListShellsResponse as PtyListShellsResponse
 from .question_reject_response import QuestionRejectResponse as QuestionRejectResponse
 from .server_instance_disposed import ServerInstanceDisposed as ServerInstanceDisposed
 from .session_get_todos_params import SessionGetTodosParams as SessionGetTodosParams
@@ -178,6 +185,7 @@ from .instance_dispose_response import InstanceDisposeResponse as InstanceDispos
 from .mcp_connect_server_params import McpConnectServerParams as McpConnectServerParams
 from .permission_reply_response import PermissionReplyResponse as PermissionReplyResponse
 from .session_initialize_params import SessionInitializeParams as SessionInitializeParams
+from .sync_list_events_response import SyncListEventsResponse as SyncListEventsResponse
 from .tui_clear_prompt_response import TuiClearPromptResponse as TuiClearPromptResponse
 from .tui_select_session_params import TuiSelectSessionParams as TuiSelectSessionParams
 from .vc_retrieve_diff_response import VcRetrieveDiffResponse as VcRetrieveDiffResponse

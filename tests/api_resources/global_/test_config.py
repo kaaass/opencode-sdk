@@ -205,8 +205,10 @@ class TestConfig:
             },
             compaction={
                 "auto": True,
+                "preserve_recent_tokens": 0,
                 "prune": True,
                 "reserved": 0,
+                "tail_turns": 0,
             },
             custom_provider_npm_whitelist=["string"],
             default_agent="default_agent",
@@ -221,18 +223,18 @@ class TestConfig:
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
-            formatter=False,
+            formatter=True,
             instructions=["string"],
             layout="auto",
             log_level="DEBUG",
-            lsp=False,
+            lsp=True,
             mcp={
                 "foo": {
                     "command": ["string"],
                     "type": "local",
                     "enabled": True,
                     "environment": {"foo": "string"},
-                    "timeout": 1,
+                    "timeout": 0,
                 }
             },
             mode={
@@ -348,12 +350,17 @@ class TestConfig:
                 "port": 1,
             },
             share="manual",
+            shell="shell",
             skills={
                 "paths": ["string"],
                 "urls": ["string"],
             },
             small_model="small_model",
             snapshot=True,
+            tool_output={
+                "max_bytes": 1,
+                "max_lines": 1,
+            },
             tools={"foo": True},
             username="username",
             watcher={"ignore": ["string"]},
@@ -576,8 +583,10 @@ class TestAsyncConfig:
             },
             compaction={
                 "auto": True,
+                "preserve_recent_tokens": 0,
                 "prune": True,
                 "reserved": 0,
+                "tail_turns": 0,
             },
             custom_provider_npm_whitelist=["string"],
             default_agent="default_agent",
@@ -592,18 +601,18 @@ class TestAsyncConfig:
                 "open_telemetry": True,
                 "primary_tools": ["string"],
             },
-            formatter=False,
+            formatter=True,
             instructions=["string"],
             layout="auto",
             log_level="DEBUG",
-            lsp=False,
+            lsp=True,
             mcp={
                 "foo": {
                     "command": ["string"],
                     "type": "local",
                     "enabled": True,
                     "environment": {"foo": "string"},
-                    "timeout": 1,
+                    "timeout": 0,
                 }
             },
             mode={
@@ -719,12 +728,17 @@ class TestAsyncConfig:
                 "port": 1,
             },
             share="manual",
+            shell="shell",
             skills={
                 "paths": ["string"],
                 "urls": ["string"],
             },
             small_model="small_model",
             snapshot=True,
+            tool_output={
+                "max_bytes": 1,
+                "max_lines": 1,
+            },
             tools={"foo": True},
             username="username",
             watcher={"ignore": ["string"]},

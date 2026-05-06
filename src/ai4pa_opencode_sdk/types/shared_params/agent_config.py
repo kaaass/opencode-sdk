@@ -41,13 +41,19 @@ class AgentConfig(TypedDict, total=False, extra_items=object):  # type: ignore[c
     prompt: str
 
     skills: Optional[SequenceNotStr[str]]
-    """List of skill names that can be invoked by this agent"""
+    """Restrict which skills this agent may load via the skill tool.
+
+    Empty/null = no restriction.
+    """
 
     steps: int
     """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Annotated[Optional[SequenceNotStr[str]], PropertyInfo(alias="subAgents")]
-    """List of sub-agent names that can be invoked by this agent"""
+    """Restrict which subagents this agent may invoke via the task tool.
+
+    Empty/null = no restriction.
+    """
 
     temperature: float
 

@@ -470,6 +470,7 @@ class PartResource(SyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         overflow: bool | Omit = omit,
+        tail_start_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -597,6 +598,7 @@ class PartResource(SyncAPIResource):
         error: APIErrorParam | Omit = omit,
         auto: bool | Omit = omit,
         overflow: bool | Omit = omit,
+        tail_start_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -653,6 +655,7 @@ class PartResource(SyncAPIResource):
                         "error": error,
                         "auto": auto,
                         "overflow": overflow,
+                        "tail_start_id": tail_start_id,
                     },
                     part_update_params.PartUpdateParams,
                 ),
@@ -1173,6 +1176,7 @@ class AsyncPartResource(AsyncAPIResource):
         directory: str | Omit = omit,
         workspace: str | Omit = omit,
         overflow: bool | Omit = omit,
+        tail_start_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1300,6 +1304,7 @@ class AsyncPartResource(AsyncAPIResource):
         error: APIErrorParam | Omit = omit,
         auto: bool | Omit = omit,
         overflow: bool | Omit = omit,
+        tail_start_id: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -1356,6 +1361,7 @@ class AsyncPartResource(AsyncAPIResource):
                         "error": error,
                         "auto": auto,
                         "overflow": overflow,
+                        "tail_start_id": tail_start_id,
                     },
                     part_update_params.PartUpdateParams,
                 ),

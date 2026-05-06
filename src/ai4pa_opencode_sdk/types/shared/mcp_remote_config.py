@@ -30,7 +30,7 @@ class McpRemoteConfig(BaseModel):
     Set to false to disable OAuth auto-detection.
     """
 
-    timeout: Optional[int] = None
+    timeout: Optional[float] = None
     """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.

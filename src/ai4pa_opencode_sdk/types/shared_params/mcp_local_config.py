@@ -23,7 +23,7 @@ class McpLocalConfig(TypedDict, total=False):
     environment: Dict[str, str]
     """Environment variables to set when running the MCP server"""
 
-    timeout: int
+    timeout: float
     """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.
