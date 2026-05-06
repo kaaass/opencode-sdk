@@ -102,7 +102,13 @@ Methods:
 Types:
 
 ```python
-from ai4pa_opencode_sdk.types import Pty, PtyListResponse, PtyDeleteResponse, PtyConnectResponse
+from ai4pa_opencode_sdk.types import (
+    Pty,
+    PtyListResponse,
+    PtyDeleteResponse,
+    PtyConnectResponse,
+    PtyListShellsResponse,
+)
 ```
 
 Methods:
@@ -113,6 +119,7 @@ Methods:
 - <code title="get /pty">client.pty.<a href="./src/ai4pa_opencode_sdk/resources/pty.py">list</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/pty_list_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/pty_list_response.py">PtyListResponse</a></code>
 - <code title="delete /pty/{ptyID}">client.pty.<a href="./src/ai4pa_opencode_sdk/resources/pty.py">delete</a>(pty_id, \*\*<a href="src/ai4pa_opencode_sdk/types/pty_delete_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/pty_delete_response.py">PtyDeleteResponse</a></code>
 - <code title="get /pty/{ptyID}/connect">client.pty.<a href="./src/ai4pa_opencode_sdk/resources/pty.py">connect</a>(pty_id, \*\*<a href="src/ai4pa_opencode_sdk/types/pty_connect_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/pty_connect_response.py">PtyConnectResponse</a></code>
+- <code title="get /pty/shells">client.pty.<a href="./src/ai4pa_opencode_sdk/resources/pty.py">list_shells</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/pty_list_shells_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/pty_list_shells_response.py">PtyListShellsResponse</a></code>
 
 # Config
 
@@ -184,6 +191,7 @@ from ai4pa_opencode_sdk.types.experimental import (
     Workspace,
     WorkspaceListResponse,
     WorkspaceListAdaptorsResponse,
+    WorkspaceRestoreSessionResponse,
     WorkspaceStatusResponse,
 )
 ```
@@ -194,6 +202,7 @@ Methods:
 - <code title="get /experimental/workspace">client.experimental.workspace.<a href="./src/ai4pa_opencode_sdk/resources/experimental/workspace.py">list</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/experimental/workspace_list_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/experimental/workspace_list_response.py">WorkspaceListResponse</a></code>
 - <code title="get /experimental/workspace/adaptor">client.experimental.workspace.<a href="./src/ai4pa_opencode_sdk/resources/experimental/workspace.py">list_adaptors</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/experimental/workspace_list_adaptors_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/experimental/workspace_list_adaptors_response.py">WorkspaceListAdaptorsResponse</a></code>
 - <code title="delete /experimental/workspace/{id}">client.experimental.workspace.<a href="./src/ai4pa_opencode_sdk/resources/experimental/workspace.py">remove</a>(id, \*\*<a href="src/ai4pa_opencode_sdk/types/experimental/workspace_remove_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/experimental/workspace.py">Workspace</a></code>
+- <code title="post /experimental/workspace/{id}/session-restore">client.experimental.workspace.<a href="./src/ai4pa_opencode_sdk/resources/experimental/workspace.py">restore_session</a>(id, \*\*<a href="src/ai4pa_opencode_sdk/types/experimental/workspace_restore_session_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/experimental/workspace_restore_session_response.py">WorkspaceRestoreSessionResponse</a></code>
 - <code title="get /experimental/workspace/status">client.experimental.workspace.<a href="./src/ai4pa_opencode_sdk/resources/experimental/workspace.py">status</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/experimental/workspace_status_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/experimental/workspace_status_response.py">WorkspaceStatusResponse</a></code>
 
 ## Worktree
@@ -766,3 +775,17 @@ from ai4pa_opencode_sdk.types import FormatterRetrieveResponse
 Methods:
 
 - <code title="get /formatter">client.formatter.<a href="./src/ai4pa_opencode_sdk/resources/formatter.py">retrieve</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/formatter_retrieve_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/formatter_retrieve_response.py">FormatterRetrieveResponse</a></code>
+
+# Sync
+
+Types:
+
+```python
+from ai4pa_opencode_sdk.types import SyncListEventsResponse, SyncReplayResponse, SyncStartResponse
+```
+
+Methods:
+
+- <code title="post /sync/history">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">list_events</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_list_events_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_list_events_response.py">SyncListEventsResponse</a></code>
+- <code title="post /sync/replay">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">replay</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_replay_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_replay_response.py">SyncReplayResponse</a></code>
+- <code title="post /sync/start">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">start</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_start_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_start_response.py">SyncStartResponse</a></code>

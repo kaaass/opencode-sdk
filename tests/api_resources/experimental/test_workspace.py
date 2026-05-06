@@ -14,6 +14,7 @@ from ai4pa_opencode_sdk.types.experimental import (
     WorkspaceListResponse,
     WorkspaceStatusResponse,
     WorkspaceListAdaptorsResponse,
+    WorkspaceRestoreSessionResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -199,6 +200,63 @@ class TestWorkspace:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             client.experimental.workspace.with_raw_response.remove(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore_session(self, client: OpencodeSDK) -> None:
+        workspace = client.experimental.workspace.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        )
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_restore_session_with_all_params(self, client: OpencodeSDK) -> None:
+        workspace = client.experimental.workspace.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+            directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_restore_session(self, client: OpencodeSDK) -> None:
+        response = client.experimental.workspace.with_raw_response.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workspace = response.parse()
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_restore_session(self, client: OpencodeSDK) -> None:
+        with client.experimental.workspace.with_streaming_response.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workspace = response.parse()
+            assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_path_params_restore_session(self, client: OpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            client.experimental.workspace.with_raw_response.restore_session(
+                id="",
+                session_id="sessionID",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")
@@ -421,6 +479,63 @@ class TestAsyncWorkspace:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
             await async_client.experimental.workspace.with_raw_response.remove(
                 id="",
+            )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore_session(self, async_client: AsyncOpencodeSDK) -> None:
+        workspace = await async_client.experimental.workspace.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        )
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_restore_session_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        workspace = await async_client.experimental.workspace.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+            directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_restore_session(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.experimental.workspace.with_raw_response.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        workspace = await response.parse()
+        assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_restore_session(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.experimental.workspace.with_streaming_response.restore_session(
+            id="wrkJ!",
+            session_id="sessionID",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            workspace = await response.parse()
+            assert_matches_type(WorkspaceRestoreSessionResponse, workspace, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_path_params_restore_session(self, async_client: AsyncOpencodeSDK) -> None:
+        with pytest.raises(ValueError, match=r"Expected a non-empty value for `id` but received ''"):
+            await async_client.experimental.workspace.with_raw_response.restore_session(
+                id="",
+                session_id="sessionID",
             )
 
     @pytest.mark.skip(reason="Mock server tests are disabled")

@@ -80,6 +80,14 @@ from .path import (
     PathResourceWithStreamingResponse,
     AsyncPathResourceWithStreamingResponse,
 )
+from .sync import (
+    SyncResource,
+    AsyncSyncResource,
+    SyncResourceWithRawResponse,
+    AsyncSyncResourceWithRawResponse,
+    SyncResourceWithStreamingResponse,
+    AsyncSyncResourceWithStreamingResponse,
+)
 from .agent import (
     AgentResource,
     AsyncAgentResource,
@@ -380,4 +388,10 @@ __all__ = [
     "AsyncFormatterResourceWithRawResponse",
     "FormatterResourceWithStreamingResponse",
     "AsyncFormatterResourceWithStreamingResponse",
+    "SyncResource",
+    "AsyncSyncResource",
+    "SyncResourceWithRawResponse",
+    "AsyncSyncResourceWithRawResponse",
+    "SyncResourceWithStreamingResponse",
+    "AsyncSyncResourceWithStreamingResponse",
 ]

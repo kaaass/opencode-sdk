@@ -41,13 +41,19 @@ class AgentConfig(BaseModel):
     prompt: Optional[str] = None
 
     skills: Optional[List[str]] = None
-    """List of skill names that can be invoked by this agent"""
+    """Restrict which skills this agent may load via the skill tool.
+
+    Empty/null = no restriction.
+    """
 
     steps: Optional[int] = None
     """Maximum number of agentic iterations before forcing text-only response"""
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
-    """List of sub-agent names that can be invoked by this agent"""
+    """Restrict which subagents this agent may invoke via the task tool.
+
+    Empty/null = no restriction.
+    """
 
     temperature: Optional[float] = None
 

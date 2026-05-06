@@ -379,6 +379,8 @@ class CompactionPart(TypedDict, total=False):
 
     overflow: bool
 
+    tail_start_id: str
+
 
 PartUpdateParams: TypeAlias = Union[
     TextPart,

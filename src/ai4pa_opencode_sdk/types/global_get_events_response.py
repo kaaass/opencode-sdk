@@ -1,6 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union, Optional
+from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from pydantic import Field as FieldInfo
@@ -63,6 +63,8 @@ from .installation_update_available import InstallationUpdateAvailable
 __all__ = [
     "GlobalGetEventsResponse",
     "Payload",
+    "PayloadEventWorkspaceRestore",
+    "PayloadEventWorkspaceRestoreProperties",
     "PayloadSyncEventMessageUpdated",
     "PayloadSyncEventMessageUpdatedData",
     "PayloadSyncEventMessageRemoved",
@@ -76,14 +78,29 @@ __all__ = [
     "PayloadSyncEventSessionUpdated",
     "PayloadSyncEventSessionUpdatedData",
     "PayloadSyncEventSessionUpdatedDataInfo",
-    "PayloadSyncEventSessionUpdatedDataInfoMetadata",
     "PayloadSyncEventSessionUpdatedDataInfoRevert",
-    "PayloadSyncEventSessionUpdatedDataInfoSummary",
     "PayloadSyncEventSessionUpdatedDataInfoShare",
+    "PayloadSyncEventSessionUpdatedDataInfoSummary",
     "PayloadSyncEventSessionUpdatedDataInfoTime",
     "PayloadSyncEventSessionDeleted",
     "PayloadSyncEventSessionDeletedData",
 ]
+
+
+class PayloadEventWorkspaceRestoreProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+    step: int
+
+    total: int
+
+    workspace_id: str = FieldInfo(alias="workspaceID")
+
+
+class PayloadEventWorkspaceRestore(BaseModel):
+    properties: PayloadEventWorkspaceRestoreProperties
+
+    type: Literal["workspace.restore"]
 
 
 class PayloadSyncEventMessageUpdatedData(BaseModel):
@@ -190,14 +207,6 @@ class PayloadSyncEventSessionCreated(BaseModel):
     type: Literal["sync"]
 
 
-class PayloadSyncEventSessionUpdatedDataInfoMetadata(BaseModel):
-    extra_info: Optional[Dict[str, str]] = FieldInfo(alias="extraInfo", default=None)
-
-    managed_by: Optional[Literal["tui", "tui-debugger", "sdk", "cc-companion"]] = FieldInfo(
-        alias="managedBy", default=None
-    )
-
-
 class PayloadSyncEventSessionUpdatedDataInfoRevert(BaseModel):
     message_id: str = FieldInfo(alias="messageID")
 
@@ -208,6 +217,10 @@ class PayloadSyncEventSessionUpdatedDataInfoRevert(BaseModel):
     snapshot: Optional[str] = None
 
 
+class PayloadSyncEventSessionUpdatedDataInfoShare(BaseModel):
+    url: Optional[str] = None
+
+
 class PayloadSyncEventSessionUpdatedDataInfoSummary(BaseModel):
     additions: float
 
@@ -216,10 +229,6 @@ class PayloadSyncEventSessionUpdatedDataInfoSummary(BaseModel):
     files: float
 
     diffs: Optional[List[SnapshotFileDiff]] = None
-
-
-class PayloadSyncEventSessionUpdatedDataInfoShare(BaseModel):
-    url: Optional[str] = None
 
 
 class PayloadSyncEventSessionUpdatedDataInfoTime(BaseModel):
@@ -237,8 +246,6 @@ class PayloadSyncEventSessionUpdatedDataInfo(BaseModel):
 
     directory: Optional[str] = None
 
-    metadata: Optional[PayloadSyncEventSessionUpdatedDataInfoMetadata] = None
-
     parent_id: Optional[str] = FieldInfo(alias="parentID", default=None)
 
     permission: Optional[List[PermissionRule]] = None
@@ -247,19 +254,19 @@ class PayloadSyncEventSessionUpdatedDataInfo(BaseModel):
 
     revert: Optional[PayloadSyncEventSessionUpdatedDataInfoRevert] = None
 
+    share: Optional[PayloadSyncEventSessionUpdatedDataInfoShare] = None
+
     slug: Optional[str] = None
 
     summary: Optional[PayloadSyncEventSessionUpdatedDataInfoSummary] = None
+
+    time: Optional[PayloadSyncEventSessionUpdatedDataInfoTime] = None
 
     title: Optional[str] = None
 
     version: Optional[str] = None
 
     workspace_id: Optional[str] = FieldInfo(alias="workspaceID", default=None)
-
-    share: Optional[PayloadSyncEventSessionUpdatedDataInfoShare] = None
-
-    time: Optional[PayloadSyncEventSessionUpdatedDataInfoTime] = None
 
 
 class PayloadSyncEventSessionUpdatedData(BaseModel):
@@ -321,12 +328,12 @@ Payload: TypeAlias = Union[
     QuestionAsked,
     QuestionReplied,
     QuestionRejected,
+    ArtifactCreated,
+    ArtifactDeleted,
     TodoUpdated,
     SessionEventStatus,
     SessionIdle,
     SessionCompacted,
-    ArtifactCreated,
-    ArtifactDeleted,
     EventPromptAppend,
     EventCommandExecute,
     EventToastShow,
@@ -343,6 +350,7 @@ Payload: TypeAlias = Union[
     PtyDeleted,
     WorkspaceReady,
     WorkspaceFailed,
+    PayloadEventWorkspaceRestore,
     WorkspaceStatus,
     MessageUpdated,
     MessageRemoved,

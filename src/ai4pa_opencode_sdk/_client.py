@@ -48,6 +48,7 @@ if TYPE_CHECKING:
         file,
         find,
         path,
+        sync,
         agent,
         event,
         skill,
@@ -74,6 +75,7 @@ if TYPE_CHECKING:
     from .resources.file import FileResource, AsyncFileResource
     from .resources.find import FindResource, AsyncFindResource
     from .resources.path import PathResource, AsyncPathResource
+    from .resources.sync import SyncResource, AsyncSyncResource
     from .resources.agent import AgentResource, AsyncAgentResource
     from .resources.event import EventResource, AsyncEventResource
     from .resources.skill import SkillResource, AsyncSkillResource
@@ -333,6 +335,12 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.formatter import FormatterResource
 
         return FormatterResource(self)
+
+    @cached_property
+    def sync(self) -> SyncResource:
+        from .resources.sync import SyncResource
+
+        return SyncResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -694,6 +702,12 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncFormatterResource(self)
 
     @cached_property
+    def sync(self) -> AsyncSyncResource:
+        from .resources.sync import AsyncSyncResource
+
+        return AsyncSyncResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
         return AsyncOpencodeSDKWithRawResponse(self)
 
@@ -992,6 +1006,12 @@ class OpencodeSDKWithRawResponse:
 
         return FormatterResourceWithRawResponse(self._client.formatter)
 
+    @cached_property
+    def sync(self) -> sync.SyncResourceWithRawResponse:
+        from .resources.sync import SyncResourceWithRawResponse
+
+        return SyncResourceWithRawResponse(self._client.sync)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -1160,6 +1180,12 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.formatter import AsyncFormatterResourceWithRawResponse
 
         return AsyncFormatterResourceWithRawResponse(self._client.formatter)
+
+    @cached_property
+    def sync(self) -> sync.AsyncSyncResourceWithRawResponse:
+        from .resources.sync import AsyncSyncResourceWithRawResponse
+
+        return AsyncSyncResourceWithRawResponse(self._client.sync)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1330,6 +1356,12 @@ class OpencodeSDKWithStreamedResponse:
 
         return FormatterResourceWithStreamingResponse(self._client.formatter)
 
+    @cached_property
+    def sync(self) -> sync.SyncResourceWithStreamingResponse:
+        from .resources.sync import SyncResourceWithStreamingResponse
+
+        return SyncResourceWithStreamingResponse(self._client.sync)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1498,6 +1530,12 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.formatter import AsyncFormatterResourceWithStreamingResponse
 
         return AsyncFormatterResourceWithStreamingResponse(self._client.formatter)
+
+    @cached_property
+    def sync(self) -> sync.AsyncSyncResourceWithStreamingResponse:
+        from .resources.sync import AsyncSyncResourceWithStreamingResponse
+
+        return AsyncSyncResourceWithStreamingResponse(self._client.sync)
 
 
 Client = OpencodeSDK

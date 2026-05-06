@@ -14,6 +14,7 @@ from ai4pa_opencode_sdk.types import (
     PtyListResponse,
     PtyDeleteResponse,
     PtyConnectResponse,
+    PtyListShellsResponse,
 )
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
@@ -314,6 +315,43 @@ class TestPty:
                 pty_id="",
             )
 
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_shells(self, client: OpencodeSDK) -> None:
+        pty = client.pty.list_shells()
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_method_list_shells_with_all_params(self, client: OpencodeSDK) -> None:
+        pty = client.pty.list_shells(
+            directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_raw_response_list_shells(self, client: OpencodeSDK) -> None:
+        response = client.pty.with_raw_response.list_shells()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        pty = response.parse()
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    def test_streaming_response_list_shells(self, client: OpencodeSDK) -> None:
+        with client.pty.with_streaming_response.list_shells() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            pty = response.parse()
+            assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
 
 class TestAsyncPty:
     parametrize = pytest.mark.parametrize(
@@ -611,3 +649,40 @@ class TestAsyncPty:
             await async_client.pty.with_raw_response.connect(
                 pty_id="",
             )
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_shells(self, async_client: AsyncOpencodeSDK) -> None:
+        pty = await async_client.pty.list_shells()
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_method_list_shells_with_all_params(self, async_client: AsyncOpencodeSDK) -> None:
+        pty = await async_client.pty.list_shells(
+            directory="directory",
+            workspace="workspace",
+        )
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_raw_response_list_shells(self, async_client: AsyncOpencodeSDK) -> None:
+        response = await async_client.pty.with_raw_response.list_shells()
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        pty = await response.parse()
+        assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+    @pytest.mark.skip(reason="Mock server tests are disabled")
+    @parametrize
+    async def test_streaming_response_list_shells(self, async_client: AsyncOpencodeSDK) -> None:
+        async with async_client.pty.with_streaming_response.list_shells() as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            pty = await response.parse()
+            assert_matches_type(PtyListShellsResponse, pty, path=["response"])
+
+        assert cast(Any, response.is_closed) is True

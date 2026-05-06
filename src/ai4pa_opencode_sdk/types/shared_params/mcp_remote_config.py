@@ -31,7 +31,7 @@ class McpRemoteConfig(TypedDict, total=False):
     Set to false to disable OAuth auto-detection.
     """
 
-    timeout: int
+    timeout: float
     """Timeout in ms for MCP server requests.
 
     Defaults to 5000 (5 seconds) if not specified.

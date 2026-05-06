@@ -3,19 +3,15 @@
 from __future__ import annotations
 
 from typing import Union
-from typing_extensions import Annotated, TypeAlias, TypedDict
+from typing_extensions import TypeAlias, TypedDict
 
-from ..._types import SequenceNotStr
-from ..._utils import PropertyInfo
 from .permission_action_config import PermissionActionConfig
 from .permission_rule_config_param import PermissionRuleConfigParam
 
-__all__ = ["PermissionConfigParam", "UnionMember0"]
+__all__ = ["PermissionConfigParam", "UnionMember1"]
 
 
-class UnionMember0(TypedDict, total=False, extra_items=PermissionRuleConfigParam):  # type: ignore[call-arg]
-    _original_keys: Annotated[SequenceNotStr[str], PropertyInfo(alias="__originalKeys")]
-
+class UnionMember1(TypedDict, total=False, extra_items=PermissionRuleConfigParam):  # type: ignore[call-arg]
     bash: PermissionRuleConfigParam
 
     codesearch: PermissionActionConfig
@@ -49,4 +45,4 @@ class UnionMember0(TypedDict, total=False, extra_items=PermissionRuleConfigParam
     websearch: PermissionActionConfig
 
 
-PermissionConfigParam: TypeAlias = Union[UnionMember0, PermissionActionConfig]
+PermissionConfigParam: TypeAlias = Union[PermissionActionConfig, UnionMember1]

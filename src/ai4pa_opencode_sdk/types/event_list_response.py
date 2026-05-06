@@ -1,8 +1,11 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Union
-from typing_extensions import TypeAlias
+from typing_extensions import Literal, TypeAlias
 
+from pydantic import Field as FieldInfo
+
+from .._models import BaseModel
 from .pty_exited import PtyExited
 from .file_edited import FileEdited
 from .lsp_updated import LspUpdated
@@ -52,7 +55,24 @@ from .mcp_browser_open_failed import McpBrowserOpenFailed
 from .server_instance_disposed import ServerInstanceDisposed
 from .installation_update_available import InstallationUpdateAvailable
 
-__all__ = ["EventListResponse"]
+__all__ = ["EventListResponse", "EventWorkspaceRestore", "EventWorkspaceRestoreProperties"]
+
+
+class EventWorkspaceRestoreProperties(BaseModel):
+    session_id: str = FieldInfo(alias="sessionID")
+
+    step: int
+
+    total: int
+
+    workspace_id: str = FieldInfo(alias="workspaceID")
+
+
+class EventWorkspaceRestore(BaseModel):
+    properties: EventWorkspaceRestoreProperties
+
+    type: Literal["workspace.restore"]
+
 
 EventListResponse: TypeAlias = Union[
     InstallationUpdated,
@@ -73,12 +93,12 @@ EventListResponse: TypeAlias = Union[
     QuestionAsked,
     QuestionReplied,
     QuestionRejected,
+    ArtifactCreated,
+    ArtifactDeleted,
     TodoUpdated,
     SessionEventStatus,
     SessionIdle,
     SessionCompacted,
-    ArtifactCreated,
-    ArtifactDeleted,
     EventPromptAppend,
     EventCommandExecute,
     EventToastShow,
@@ -95,6 +115,7 @@ EventListResponse: TypeAlias = Union[
     PtyDeleted,
     WorkspaceReady,
     WorkspaceFailed,
+    EventWorkspaceRestore,
     WorkspaceStatus,
     MessageUpdated,
     MessageRemoved,

@@ -29,6 +29,7 @@ __all__ = [
     "McpEnabled",
     "Mode",
     "Skills",
+    "ToolOutput",
     "Watcher",
 ]
 
@@ -65,7 +66,7 @@ class ConfigUpdateConfigParams(TypedDict, total=False):
     compaction: Compaction
 
     custom_provider_npm_whitelist: SequenceNotStr[str]
-    """允许用于 custom provider 的 npm 包白名单"""
+    """自定义 provider 允许加载的 npm 包白名单。"""
 
     default_agent: str
     """Default agent to use when none is specified.
@@ -87,7 +88,7 @@ class ConfigUpdateConfigParams(TypedDict, total=False):
 
     experimental: Experimental
 
-    formatter: Union[Literal[False], Dict[str, FormatterUnionMember1FormatterUnionMember1Item]]
+    formatter: Union[bool, Dict[str, FormatterUnionMember1FormatterUnionMember1Item]]
 
     instructions: SequenceNotStr[str]
     """Additional instruction files or patterns to include"""
@@ -98,7 +99,7 @@ class ConfigUpdateConfigParams(TypedDict, total=False):
     log_level: Annotated[Literal["DEBUG", "INFO", "WARN", "ERROR"], PropertyInfo(alias="logLevel")]
     """Log level"""
 
-    lsp: Union[Literal[False], Dict[str, LspUnionMember1LspUnionMember1Item]]
+    lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item]]
 
     mcp: Dict[str, Mcp]
     """MCP (Model Context Protocol) server configurations"""
@@ -125,6 +126,9 @@ class ConfigUpdateConfigParams(TypedDict, total=False):
     enables automatic sharing, 'disabled' disables all sharing
     """
 
+    shell: str
+    """Default shell to use for terminal and bash tool"""
+
     skills: Skills
     """Additional skill folder paths"""
 
@@ -139,6 +143,13 @@ class ConfigUpdateConfigParams(TypedDict, total=False):
 
     When false, filesystem snapshots are not recorded and undoing or reverting will
     not undo/redo file changes. Defaults to true.
+    """
+
+    tool_output: ToolOutput
+    """Thresholds for truncating tool output.
+
+    When output exceeds either limit, the full text is written to the truncation
+    directory and a preview is returned.
     """
 
     tools: Dict[str, bool]
@@ -183,6 +194,11 @@ class Compaction(TypedDict, total=False):
     auto: bool
     """Enable automatic compaction when context is full (default: true)"""
 
+    preserve_recent_tokens: int
+    """
+    Maximum number of tokens from recent turns to preserve verbatim after compaction
+    """
+
     prune: bool
     """Enable pruning of old tool outputs (default: true)"""
 
@@ -190,6 +206,12 @@ class Compaction(TypedDict, total=False):
     """Token buffer for compaction.
 
     Leaves enough window to avoid overflow during compaction.
+    """
+
+    tail_turns: int
+    """
+    Number of recent user turns, including their following assistant/tool responses,
+    to keep verbatim during compaction (default: 2)
     """
 
 
@@ -274,6 +296,25 @@ class Skills(TypedDict, total=False):
 
     urls: SequenceNotStr[str]
     """URLs to fetch skills from (e.g., https://example.com/.well-known/skills/)"""
+
+
+class ToolOutput(TypedDict, total=False):
+    """Thresholds for truncating tool output.
+
+    When output exceeds either limit, the full text is written to the truncation directory and a preview is returned.
+    """
+
+    max_bytes: int
+    """
+    Maximum bytes of tool output before it is truncated and saved to disk
+    (default: 51200)
+    """
+
+    max_lines: int
+    """
+    Maximum lines of tool output before it is truncated and saved to disk
+    (default: 2000)
+    """
 
 
 class Watcher(TypedDict, total=False):
