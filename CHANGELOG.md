@@ -1,5 +1,24 @@
 # Changelog
 
+## 0.16.0 (2026-05-06)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/kaaass/opencode-sdk/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** 1.1.0 ([8217193](https://github.com/kaaass/opencode-sdk/commit/82171935d1f2d3d1f10b03fa0304423a356b1946))
+* support setting headers via env ([3edf431](https://github.com/kaaass/opencode-sdk/commit/3edf4318c1c68cd91a15e264fd020d6854671fe2))
+
+
+### Bug Fixes
+
+* use correct field name format for multipart file arrays ([bcf3b16](https://github.com/kaaass/opencode-sdk/commit/bcf3b167a12d4ced14b91b2f1e347e7bfe1a2291))
+
+
+### Chores
+
+* **internal:** reformat pyproject.toml ([67b1b99](https://github.com/kaaass/opencode-sdk/commit/67b1b99bb43102c0b6fdaee9bae2871dd1bab512))
+
 ## 0.15.0 (2026-04-25)
 
 Full Changelog: [v0.14.0...v0.15.0](https://github.com/kaaass/opencode-sdk/compare/v0.14.0...v0.15.0)

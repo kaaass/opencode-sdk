@@ -1503,6 +1503,7 @@ class TestPart:
             directory="directory",
             workspace="workspace",
             overflow=True,
+            tail_start_id="msgJ!",
         )
         assert_matches_type(Part, part, path=["response"])
 
@@ -3153,6 +3154,7 @@ class TestAsyncPart:
             directory="directory",
             workspace="workspace",
             overflow=True,
+            tail_start_id="msgJ!",
         )
         assert_matches_type(Part, part, path=["response"])
 

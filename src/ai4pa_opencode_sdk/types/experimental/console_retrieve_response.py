@@ -12,6 +12,6 @@ __all__ = ["ConsoleRetrieveResponse"]
 class ConsoleRetrieveResponse(BaseModel):
     console_managed_providers: List[str] = FieldInfo(alias="consoleManagedProviders")
 
-    switchable_org_count: int = FieldInfo(alias="switchableOrgCount")
+    switchable_org_count: float = FieldInfo(alias="switchableOrgCount")
 
     active_org_name: Optional[str] = FieldInfo(alias="activeOrgName", default=None)

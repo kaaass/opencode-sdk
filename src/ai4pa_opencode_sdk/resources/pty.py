@@ -13,6 +13,7 @@ from ..types import (
     pty_update_params,
     pty_connect_params,
     pty_retrieve_params,
+    pty_list_shells_params,
 )
 from .._types import Body, Omit, Query, Headers, NotGiven, SequenceNotStr, omit, not_given
 from .._utils import path_template, maybe_transform, async_maybe_transform
@@ -29,6 +30,7 @@ from .._base_client import make_request_options
 from ..types.pty_list_response import PtyListResponse
 from ..types.pty_delete_response import PtyDeleteResponse
 from ..types.pty_connect_response import PtyConnectResponse
+from ..types.pty_list_shells_response import PtyListShellsResponse
 
 __all__ = ["PtyResource", "AsyncPtyResource"]
 
@@ -343,6 +345,48 @@ class PtyResource(SyncAPIResource):
             cast_to=PtyConnectResponse,
         )
 
+    def list_shells(
+        self,
+        *,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PtyListShellsResponse:
+        """
+        Get a list of available shells on the system.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/pty/shells",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_list_shells_params.PtyListShellsParams,
+                ),
+            ),
+            cast_to=PtyListShellsResponse,
+        )
+
 
 class AsyncPtyResource(AsyncAPIResource):
     @cached_property
@@ -654,6 +698,48 @@ class AsyncPtyResource(AsyncAPIResource):
             cast_to=PtyConnectResponse,
         )
 
+    async def list_shells(
+        self,
+        *,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> PtyListShellsResponse:
+        """
+        Get a list of available shells on the system.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/pty/shells",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    pty_list_shells_params.PtyListShellsParams,
+                ),
+            ),
+            cast_to=PtyListShellsResponse,
+        )
+
 
 class PtyResourceWithRawResponse:
     def __init__(self, pty: PtyResource) -> None:
@@ -676,6 +762,9 @@ class PtyResourceWithRawResponse:
         )
         self.connect = to_raw_response_wrapper(
             pty.connect,
+        )
+        self.list_shells = to_raw_response_wrapper(
+            pty.list_shells,
         )
 
 
@@ -701,6 +790,9 @@ class AsyncPtyResourceWithRawResponse:
         self.connect = async_to_raw_response_wrapper(
             pty.connect,
         )
+        self.list_shells = async_to_raw_response_wrapper(
+            pty.list_shells,
+        )
 
 
 class PtyResourceWithStreamingResponse:
@@ -725,6 +817,9 @@ class PtyResourceWithStreamingResponse:
         self.connect = to_streamed_response_wrapper(
             pty.connect,
         )
+        self.list_shells = to_streamed_response_wrapper(
+            pty.list_shells,
+        )
 
 
 class AsyncPtyResourceWithStreamingResponse:
@@ -748,4 +843,7 @@ class AsyncPtyResourceWithStreamingResponse:
         )
         self.connect = async_to_streamed_response_wrapper(
             pty.connect,
+        )
+        self.list_shells = async_to_streamed_response_wrapper(
+            pty.list_shells,
         )

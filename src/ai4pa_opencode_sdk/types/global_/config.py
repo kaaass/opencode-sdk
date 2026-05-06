@@ -28,6 +28,7 @@ __all__ = [
     "McpEnabled",
     "Mode",
     "Skills",
+    "ToolOutput",
     "Watcher",
 ]
 
@@ -78,6 +79,11 @@ class Compaction(BaseModel):
     auto: Optional[bool] = None
     """Enable automatic compaction when context is full (default: true)"""
 
+    preserve_recent_tokens: Optional[int] = None
+    """
+    Maximum number of tokens from recent turns to preserve verbatim after compaction
+    """
+
     prune: Optional[bool] = None
     """Enable pruning of old tool outputs (default: true)"""
 
@@ -85,6 +91,12 @@ class Compaction(BaseModel):
     """Token buffer for compaction.
 
     Leaves enough window to avoid overflow during compaction.
+    """
+
+    tail_turns: Optional[int] = None
+    """
+    Number of recent user turns, including their following assistant/tool responses,
+    to keep verbatim during compaction (default: 2)
     """
 
 
@@ -183,6 +195,25 @@ class Skills(BaseModel):
     """URLs to fetch skills from (e.g., https://example.com/.well-known/skills/)"""
 
 
+class ToolOutput(BaseModel):
+    """Thresholds for truncating tool output.
+
+    When output exceeds either limit, the full text is written to the truncation directory and a preview is returned.
+    """
+
+    max_bytes: Optional[int] = None
+    """
+    Maximum bytes of tool output before it is truncated and saved to disk
+    (default: 51200)
+    """
+
+    max_lines: Optional[int] = None
+    """
+    Maximum lines of tool output before it is truncated and saved to disk
+    (default: 2000)
+    """
+
+
 class Watcher(BaseModel):
     ignore: Optional[List[str]] = None
 
@@ -219,7 +250,7 @@ class Config(BaseModel):
     compaction: Optional[Compaction] = None
 
     custom_provider_npm_whitelist: Optional[List[str]] = None
-    """允许用于 custom provider 的 npm 包白名单"""
+    """自定义 provider 允许加载的 npm 包白名单。"""
 
     default_agent: Optional[str] = None
     """Default agent to use when none is specified.
@@ -241,7 +272,7 @@ class Config(BaseModel):
 
     experimental: Optional[Experimental] = None
 
-    formatter: Union[Literal[False], Dict[str, FormatterUnionMember1FormatterUnionMember1Item], None] = None
+    formatter: Union[bool, Dict[str, FormatterUnionMember1FormatterUnionMember1Item], None] = None
 
     instructions: Optional[List[str]] = None
     """Additional instruction files or patterns to include"""
@@ -252,7 +283,7 @@ class Config(BaseModel):
     log_level: Optional[Literal["DEBUG", "INFO", "WARN", "ERROR"]] = FieldInfo(alias="logLevel", default=None)
     """Log level"""
 
-    lsp: Union[Literal[False], Dict[str, LspUnionMember1LspUnionMember1Item], None] = None
+    lsp: Union[bool, Dict[str, LspUnionMember1LspUnionMember1Item], None] = None
 
     mcp: Optional[Dict[str, Mcp]] = None
     """MCP (Model Context Protocol) server configurations"""
@@ -279,6 +310,9 @@ class Config(BaseModel):
     enables automatic sharing, 'disabled' disables all sharing
     """
 
+    shell: Optional[str] = None
+    """Default shell to use for terminal and bash tool"""
+
     skills: Optional[Skills] = None
     """Additional skill folder paths"""
 
@@ -293,6 +327,13 @@ class Config(BaseModel):
 
     When false, filesystem snapshots are not recorded and undoing or reverting will
     not undo/redo file changes. Defaults to true.
+    """
+
+    tool_output: Optional[ToolOutput] = None
+    """Thresholds for truncating tool output.
+
+    When output exceeds either limit, the full text is written to the truncation
+    directory and a preview is returned.
     """
 
     tools: Optional[Dict[str, bool]] = None

@@ -20,7 +20,11 @@ from ._types import (
     RequestOptions,
     not_given,
 )
-from ._utils import is_given, get_async_library
+from ._utils import (
+    is_given,
+    is_mapping_t,
+    get_async_library,
+)
 from ._compat import cached_property
 from ._models import SecurityOptions
 from ._version import __version__
@@ -44,6 +48,7 @@ if TYPE_CHECKING:
         file,
         find,
         path,
+        sync,
         agent,
         event,
         skill,
@@ -70,6 +75,7 @@ if TYPE_CHECKING:
     from .resources.file import FileResource, AsyncFileResource
     from .resources.find import FindResource, AsyncFindResource
     from .resources.path import PathResource, AsyncPathResource
+    from .resources.sync import SyncResource, AsyncSyncResource
     from .resources.agent import AgentResource, AsyncAgentResource
     from .resources.event import EventResource, AsyncEventResource
     from .resources.skill import SkillResource, AsyncSkillResource
@@ -146,6 +152,15 @@ class OpencodeSDK(SyncAPIClient):
             base_url = os.environ.get("OPENCODE_SDK_BASE_URL")
         if base_url is None:
             base_url = f"https://api.example.com"
+
+        custom_headers_env = os.environ.get("OPENCODE_SDK_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
 
         super().__init__(
             version=__version__,
@@ -320,6 +335,12 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.formatter import FormatterResource
 
         return FormatterResource(self)
+
+    @cached_property
+    def sync(self) -> SyncResource:
+        from .resources.sync import SyncResource
+
+        return SyncResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -497,6 +518,15 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         if base_url is None:
             base_url = f"https://api.example.com"
 
+        custom_headers_env = os.environ.get("OPENCODE_SDK_CUSTOM_HEADERS")
+        if custom_headers_env is not None:
+            parsed: dict[str, str] = {}
+            for line in custom_headers_env.split("\n"):
+                colon = line.find(":")
+                if colon >= 0:
+                    parsed[line[:colon].strip()] = line[colon + 1 :].strip()
+            default_headers = {**parsed, **(default_headers if is_mapping_t(default_headers) else {})}
+
         super().__init__(
             version=__version__,
             base_url=base_url,
@@ -670,6 +700,12 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         from .resources.formatter import AsyncFormatterResource
 
         return AsyncFormatterResource(self)
+
+    @cached_property
+    def sync(self) -> AsyncSyncResource:
+        from .resources.sync import AsyncSyncResource
+
+        return AsyncSyncResource(self)
 
     @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
@@ -970,6 +1006,12 @@ class OpencodeSDKWithRawResponse:
 
         return FormatterResourceWithRawResponse(self._client.formatter)
 
+    @cached_property
+    def sync(self) -> sync.SyncResourceWithRawResponse:
+        from .resources.sync import SyncResourceWithRawResponse
+
+        return SyncResourceWithRawResponse(self._client.sync)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -1138,6 +1180,12 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.formatter import AsyncFormatterResourceWithRawResponse
 
         return AsyncFormatterResourceWithRawResponse(self._client.formatter)
+
+    @cached_property
+    def sync(self) -> sync.AsyncSyncResourceWithRawResponse:
+        from .resources.sync import AsyncSyncResourceWithRawResponse
+
+        return AsyncSyncResourceWithRawResponse(self._client.sync)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1308,6 +1356,12 @@ class OpencodeSDKWithStreamedResponse:
 
         return FormatterResourceWithStreamingResponse(self._client.formatter)
 
+    @cached_property
+    def sync(self) -> sync.SyncResourceWithStreamingResponse:
+        from .resources.sync import SyncResourceWithStreamingResponse
+
+        return SyncResourceWithStreamingResponse(self._client.sync)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1476,6 +1530,12 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.formatter import AsyncFormatterResourceWithStreamingResponse
 
         return AsyncFormatterResourceWithStreamingResponse(self._client.formatter)
+
+    @cached_property
+    def sync(self) -> sync.AsyncSyncResourceWithStreamingResponse:
+        from .resources.sync import AsyncSyncResourceWithStreamingResponse
+
+        return AsyncSyncResourceWithStreamingResponse(self._client.sync)
 
 
 Client = OpencodeSDK

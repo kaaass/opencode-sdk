@@ -23,11 +23,13 @@ from ...types.experimental import (
     workspace_remove_params,
     workspace_status_params,
     workspace_list_adaptors_params,
+    workspace_restore_session_params,
 )
 from ...types.experimental.workspace import Workspace
 from ...types.experimental.workspace_list_response import WorkspaceListResponse
 from ...types.experimental.workspace_status_response import WorkspaceStatusResponse
 from ...types.experimental.workspace_list_adaptors_response import WorkspaceListAdaptorsResponse
+from ...types.experimental.workspace_restore_session_response import WorkspaceRestoreSessionResponse
 
 __all__ = ["WorkspaceResource", "AsyncWorkspaceResource"]
 
@@ -234,6 +236,55 @@ class WorkspaceResource(SyncAPIResource):
                 ),
             ),
             cast_to=Workspace,
+        )
+
+    def restore_session(
+        self,
+        id: str,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkspaceRestoreSessionResponse:
+        """
+        Replay a session's sync events into the target workspace in batches.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return self._post(
+            path_template("/experimental/workspace/{id}/session-restore", id=id),
+            body=maybe_transform(
+                {"session_id": session_id}, workspace_restore_session_params.WorkspaceRestoreSessionParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    workspace_restore_session_params.WorkspaceRestoreSessionParams,
+                ),
+            ),
+            cast_to=WorkspaceRestoreSessionResponse,
         )
 
     def status(
@@ -483,6 +534,55 @@ class AsyncWorkspaceResource(AsyncAPIResource):
             cast_to=Workspace,
         )
 
+    async def restore_session(
+        self,
+        id: str,
+        *,
+        session_id: str,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> WorkspaceRestoreSessionResponse:
+        """
+        Replay a session's sync events into the target workspace in batches.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        if not id:
+            raise ValueError(f"Expected a non-empty value for `id` but received {id!r}")
+        return await self._post(
+            path_template("/experimental/workspace/{id}/session-restore", id=id),
+            body=await async_maybe_transform(
+                {"session_id": session_id}, workspace_restore_session_params.WorkspaceRestoreSessionParams
+            ),
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    workspace_restore_session_params.WorkspaceRestoreSessionParams,
+                ),
+            ),
+            cast_to=WorkspaceRestoreSessionResponse,
+        )
+
     async def status(
         self,
         *,
@@ -542,6 +642,9 @@ class WorkspaceResourceWithRawResponse:
         self.remove = to_raw_response_wrapper(
             workspace.remove,
         )
+        self.restore_session = to_raw_response_wrapper(
+            workspace.restore_session,
+        )
         self.status = to_raw_response_wrapper(
             workspace.status,
         )
@@ -562,6 +665,9 @@ class AsyncWorkspaceResourceWithRawResponse:
         )
         self.remove = async_to_raw_response_wrapper(
             workspace.remove,
+        )
+        self.restore_session = async_to_raw_response_wrapper(
+            workspace.restore_session,
         )
         self.status = async_to_raw_response_wrapper(
             workspace.status,
@@ -584,6 +690,9 @@ class WorkspaceResourceWithStreamingResponse:
         self.remove = to_streamed_response_wrapper(
             workspace.remove,
         )
+        self.restore_session = to_streamed_response_wrapper(
+            workspace.restore_session,
+        )
         self.status = to_streamed_response_wrapper(
             workspace.status,
         )
@@ -604,6 +713,9 @@ class AsyncWorkspaceResourceWithStreamingResponse:
         )
         self.remove = async_to_streamed_response_wrapper(
             workspace.remove,
+        )
+        self.restore_session = async_to_streamed_response_wrapper(
+            workspace.restore_session,
         )
         self.status = async_to_streamed_response_wrapper(
             workspace.status,

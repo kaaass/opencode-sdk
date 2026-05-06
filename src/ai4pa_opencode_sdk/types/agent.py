@@ -40,7 +40,7 @@ class Agent(BaseModel):
 
     skills: Optional[List[str]] = None
 
-    steps: Optional[int] = None
+    steps: Optional[float] = None
 
     sub_agents: Optional[List[str]] = FieldInfo(alias="subAgents", default=None)
 
