@@ -16,6 +16,14 @@ from .share import (
     ShareResourceWithStreamingResponse,
     AsyncShareResourceWithStreamingResponse,
 )
+from .attach import (
+    AttachResource,
+    AsyncAttachResource,
+    AttachResourceWithRawResponse,
+    AsyncAttachResourceWithRawResponse,
+    AttachResourceWithStreamingResponse,
+    AsyncAttachResourceWithStreamingResponse,
+)
 from .status import (
     StatusResource,
     AsyncStatusResource,
@@ -97,6 +105,10 @@ class SessionResource(SyncAPIResource):
     @cached_property
     def message(self) -> MessageResource:
         return MessageResource(self._client)
+
+    @cached_property
+    def attach(self) -> AttachResource:
+        return AttachResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> SessionResourceWithRawResponse:
@@ -1194,6 +1206,10 @@ class AsyncSessionResource(AsyncAPIResource):
     @cached_property
     def message(self) -> AsyncMessageResource:
         return AsyncMessageResource(self._client)
+
+    @cached_property
+    def attach(self) -> AsyncAttachResource:
+        return AsyncAttachResource(self._client)
 
     @cached_property
     def with_raw_response(self) -> AsyncSessionResourceWithRawResponse:
@@ -2358,6 +2374,10 @@ class SessionResourceWithRawResponse:
     def message(self) -> MessageResourceWithRawResponse:
         return MessageResourceWithRawResponse(self._session.message)
 
+    @cached_property
+    def attach(self) -> AttachResourceWithRawResponse:
+        return AttachResourceWithRawResponse(self._session.attach)
+
 
 class AsyncSessionResourceWithRawResponse:
     def __init__(self, session: AsyncSessionResource) -> None:
@@ -2437,6 +2457,10 @@ class AsyncSessionResourceWithRawResponse:
     @cached_property
     def message(self) -> AsyncMessageResourceWithRawResponse:
         return AsyncMessageResourceWithRawResponse(self._session.message)
+
+    @cached_property
+    def attach(self) -> AsyncAttachResourceWithRawResponse:
+        return AsyncAttachResourceWithRawResponse(self._session.attach)
 
 
 class SessionResourceWithStreamingResponse:
@@ -2518,6 +2542,10 @@ class SessionResourceWithStreamingResponse:
     def message(self) -> MessageResourceWithStreamingResponse:
         return MessageResourceWithStreamingResponse(self._session.message)
 
+    @cached_property
+    def attach(self) -> AttachResourceWithStreamingResponse:
+        return AttachResourceWithStreamingResponse(self._session.attach)
+
 
 class AsyncSessionResourceWithStreamingResponse:
     def __init__(self, session: AsyncSessionResource) -> None:
@@ -2597,3 +2625,7 @@ class AsyncSessionResourceWithStreamingResponse:
     @cached_property
     def message(self) -> AsyncMessageResourceWithStreamingResponse:
         return AsyncMessageResourceWithStreamingResponse(self._session.message)
+
+    @cached_property
+    def attach(self) -> AsyncAttachResourceWithStreamingResponse:
+        return AsyncAttachResourceWithStreamingResponse(self._session.attach)

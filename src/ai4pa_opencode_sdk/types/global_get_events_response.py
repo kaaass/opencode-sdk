@@ -63,6 +63,7 @@ from .installation_update_available import InstallationUpdateAvailable
 __all__ = [
     "GlobalGetEventsResponse",
     "Payload",
+    "PayloadEventSkillClientChanged",
     "PayloadEventWorkspaceRestore",
     "PayloadEventWorkspaceRestoreProperties",
     "PayloadSyncEventMessageUpdated",
@@ -85,6 +86,12 @@ __all__ = [
     "PayloadSyncEventSessionDeleted",
     "PayloadSyncEventSessionDeletedData",
 ]
+
+
+class PayloadEventSkillClientChanged(BaseModel):
+    properties: object
+
+    type: Literal["skill.client.changed"]
 
 
 class PayloadEventWorkspaceRestoreProperties(BaseModel):
@@ -331,6 +338,7 @@ Payload: TypeAlias = Union[
     ArtifactCreated,
     ArtifactDeleted,
     TodoUpdated,
+    PayloadEventSkillClientChanged,
     SessionEventStatus,
     SessionIdle,
     SessionCompacted,

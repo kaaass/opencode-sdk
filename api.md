@@ -354,6 +354,13 @@ Methods:
 - <code title="patch /session/{sessionID}/message/{messageID}/part/{partID}">client.session.message.part.<a href="./src/ai4pa_opencode_sdk/resources/session/message/part.py">update</a>(part_id, \*, path_session_id, path_message_id, \*\*<a href="src/ai4pa_opencode_sdk/types/session/message/part_update_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/session/message/part.py">Part</a></code>
 - <code title="delete /session/{sessionID}/message/{messageID}/part/{partID}">client.session.message.part.<a href="./src/ai4pa_opencode_sdk/resources/session/message/part.py">delete</a>(part_id, \*, session_id, message_id, \*\*<a href="src/ai4pa_opencode_sdk/types/session/message/part_delete_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/session/message/part_delete_response.py">PartDeleteResponse</a></code>
 
+## Attach
+
+Methods:
+
+- <code title="post /session/{sessionID}/attach">client.session.attach.<a href="./src/ai4pa_opencode_sdk/resources/session/attach.py">attach</a>(session_id, \*\*<a href="src/ai4pa_opencode_sdk/types/session/attach_attach_params.py">params</a>) -> None</code>
+- <code title="delete /session/{sessionID}/attach">client.session.attach.<a href="./src/ai4pa_opencode_sdk/resources/session/attach.py">detach</a>(session_id, \*\*<a href="src/ai4pa_opencode_sdk/types/session/attach_detach_params.py">params</a>) -> None</code>
+
 # Permission
 
 Types:
@@ -789,3 +796,15 @@ Methods:
 - <code title="post /sync/history">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">list_events</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_list_events_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_list_events_response.py">SyncListEventsResponse</a></code>
 - <code title="post /sync/replay">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">replay</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_replay_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_replay_response.py">SyncReplayResponse</a></code>
 - <code title="post /sync/start">client.sync.<a href="./src/ai4pa_opencode_sdk/resources/sync.py">start</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/sync_start_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/sync_start_response.py">SyncStartResponse</a></code>
+
+# ClientConnection
+
+Types:
+
+```python
+from ai4pa_opencode_sdk.types import ClientConnectionCloseResponse
+```
+
+Methods:
+
+- <code title="delete /client-connection">client.client_connection.<a href="./src/ai4pa_opencode_sdk/resources/client_connection.py">close</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/client_connection_close_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/client_connection_close_response.py">ClientConnectionCloseResponse</a></code>

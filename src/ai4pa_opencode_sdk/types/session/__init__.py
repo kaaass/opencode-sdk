@@ -12,6 +12,8 @@ from .message_send_params import MessageSendParams as MessageSendParams
 from .output_format_param import OutputFormatParam as OutputFormatParam
 from .share_create_params import ShareCreateParams as ShareCreateParams
 from .share_delete_params import ShareDeleteParams as ShareDeleteParams
+from .attach_attach_params import AttachAttachParams as AttachAttachParams
+from .attach_detach_params import AttachDetachParams as AttachDetachParams
 from .status_list_response import StatusListResponse as StatusListResponse
 from .file_part_input_param import FilePartInputParam as FilePartInputParam
 from .message_delete_params import MessageDeleteParams as MessageDeleteParams

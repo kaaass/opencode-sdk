@@ -224,6 +224,14 @@ from .experimental import (
     ExperimentalResourceWithStreamingResponse,
     AsyncExperimentalResourceWithStreamingResponse,
 )
+from .client_connection import (
+    ClientConnectionResource,
+    AsyncClientConnectionResource,
+    ClientConnectionResourceWithRawResponse,
+    AsyncClientConnectionResourceWithRawResponse,
+    ClientConnectionResourceWithStreamingResponse,
+    AsyncClientConnectionResourceWithStreamingResponse,
+)
 
 __all__ = [
     "GlobalResource",
@@ -394,4 +402,10 @@ __all__ = [
     "AsyncSyncResourceWithRawResponse",
     "SyncResourceWithStreamingResponse",
     "AsyncSyncResourceWithStreamingResponse",
+    "ClientConnectionResource",
+    "AsyncClientConnectionResource",
+    "ClientConnectionResourceWithRawResponse",
+    "AsyncClientConnectionResourceWithRawResponse",
+    "ClientConnectionResourceWithStreamingResponse",
+    "AsyncClientConnectionResourceWithStreamingResponse",
 ]

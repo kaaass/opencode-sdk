@@ -55,7 +55,13 @@ from .mcp_browser_open_failed import McpBrowserOpenFailed
 from .server_instance_disposed import ServerInstanceDisposed
 from .installation_update_available import InstallationUpdateAvailable
 
-__all__ = ["EventListResponse", "EventWorkspaceRestore", "EventWorkspaceRestoreProperties"]
+__all__ = ["EventListResponse", "EventSkillClientChanged", "EventWorkspaceRestore", "EventWorkspaceRestoreProperties"]
+
+
+class EventSkillClientChanged(BaseModel):
+    properties: object
+
+    type: Literal["skill.client.changed"]
 
 
 class EventWorkspaceRestoreProperties(BaseModel):
@@ -96,6 +102,7 @@ EventListResponse: TypeAlias = Union[
     ArtifactCreated,
     ArtifactDeleted,
     TodoUpdated,
+    EventSkillClientChanged,
     SessionEventStatus,
     SessionIdle,
     SessionCompacted,
