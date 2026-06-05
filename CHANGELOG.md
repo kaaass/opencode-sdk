@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.17.0 (2026-06-05)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/kaaass/opencode-sdk/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** 1.2.0 ([390239b](https://github.com/kaaass/opencode-sdk/commit/390239bede5d0705eba6cbd9e51690e56f177e4d))
+* **internal/types:** support eagerly validating pydantic iterators ([f1202b6](https://github.com/kaaass/opencode-sdk/commit/f1202b6c824fd35d7775b237e130f9b796ae1629))
+
+
+### Bug Fixes
+
+* **client:** add missing f-string prefix in file type error message ([3c3faa9](https://github.com/kaaass/opencode-sdk/commit/3c3faa98e47523815bc04d2763f800efb6cae789))
+
 ## 0.16.0 (2026-05-06)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/kaaass/opencode-sdk/compare/v0.15.0...v0.16.0)
