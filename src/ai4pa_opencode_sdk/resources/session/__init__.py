@@ -8,6 +8,14 @@ from .share import (
     ShareResourceWithStreamingResponse,
     AsyncShareResourceWithStreamingResponse,
 )
+from .attach import (
+    AttachResource,
+    AsyncAttachResource,
+    AttachResourceWithRawResponse,
+    AsyncAttachResourceWithRawResponse,
+    AttachResourceWithStreamingResponse,
+    AsyncAttachResourceWithStreamingResponse,
+)
 from .status import (
     StatusResource,
     AsyncStatusResource,
@@ -52,6 +60,12 @@ __all__ = [
     "AsyncMessageResourceWithRawResponse",
     "MessageResourceWithStreamingResponse",
     "AsyncMessageResourceWithStreamingResponse",
+    "AttachResource",
+    "AsyncAttachResource",
+    "AttachResourceWithRawResponse",
+    "AsyncAttachResourceWithRawResponse",
+    "AttachResourceWithStreamingResponse",
+    "AsyncAttachResourceWithStreamingResponse",
     "SessionResource",
     "AsyncSessionResource",
     "SessionResourceWithRawResponse",

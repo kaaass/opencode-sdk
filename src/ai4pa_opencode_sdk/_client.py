@@ -66,6 +66,7 @@ if TYPE_CHECKING:
         client_tool,
         client_skill,
         experimental,
+        client_connection,
     )
     from .resources.log import LogResource, AsyncLogResource
     from .resources.lsp import LspResource, AsyncLspResource
@@ -93,6 +94,7 @@ if TYPE_CHECKING:
     from .resources.global_.global_ import GlobalResource, AsyncGlobalResource
     from .resources.project.project import ProjectResource, AsyncProjectResource
     from .resources.session.session import SessionResource, AsyncSessionResource
+    from .resources.client_connection import ClientConnectionResource, AsyncClientConnectionResource
     from .resources.provider.provider import ProviderResource, AsyncProviderResource
     from .resources.experimental.experimental import ExperimentalResource, AsyncExperimentalResource
 
@@ -335,6 +337,12 @@ class OpencodeSDK(SyncAPIClient):
         from .resources.sync import SyncResource
 
         return SyncResource(self)
+
+    @cached_property
+    def client_connection(self) -> ClientConnectionResource:
+        from .resources.client_connection import ClientConnectionResource
+
+        return ClientConnectionResource(self)
 
     @cached_property
     def with_raw_response(self) -> OpencodeSDKWithRawResponse:
@@ -694,6 +702,12 @@ class AsyncOpencodeSDK(AsyncAPIClient):
         return AsyncSyncResource(self)
 
     @cached_property
+    def client_connection(self) -> AsyncClientConnectionResource:
+        from .resources.client_connection import AsyncClientConnectionResource
+
+        return AsyncClientConnectionResource(self)
+
+    @cached_property
     def with_raw_response(self) -> AsyncOpencodeSDKWithRawResponse:
         return AsyncOpencodeSDKWithRawResponse(self)
 
@@ -996,6 +1010,12 @@ class OpencodeSDKWithRawResponse:
 
         return SyncResourceWithRawResponse(self._client.sync)
 
+    @cached_property
+    def client_connection(self) -> client_connection.ClientConnectionResourceWithRawResponse:
+        from .resources.client_connection import ClientConnectionResourceWithRawResponse
+
+        return ClientConnectionResourceWithRawResponse(self._client.client_connection)
+
 
 class AsyncOpencodeSDKWithRawResponse:
     _client: AsyncOpencodeSDK
@@ -1170,6 +1190,12 @@ class AsyncOpencodeSDKWithRawResponse:
         from .resources.sync import AsyncSyncResourceWithRawResponse
 
         return AsyncSyncResourceWithRawResponse(self._client.sync)
+
+    @cached_property
+    def client_connection(self) -> client_connection.AsyncClientConnectionResourceWithRawResponse:
+        from .resources.client_connection import AsyncClientConnectionResourceWithRawResponse
+
+        return AsyncClientConnectionResourceWithRawResponse(self._client.client_connection)
 
 
 class OpencodeSDKWithStreamedResponse:
@@ -1346,6 +1372,12 @@ class OpencodeSDKWithStreamedResponse:
 
         return SyncResourceWithStreamingResponse(self._client.sync)
 
+    @cached_property
+    def client_connection(self) -> client_connection.ClientConnectionResourceWithStreamingResponse:
+        from .resources.client_connection import ClientConnectionResourceWithStreamingResponse
+
+        return ClientConnectionResourceWithStreamingResponse(self._client.client_connection)
+
 
 class AsyncOpencodeSDKWithStreamedResponse:
     _client: AsyncOpencodeSDK
@@ -1520,6 +1552,12 @@ class AsyncOpencodeSDKWithStreamedResponse:
         from .resources.sync import AsyncSyncResourceWithStreamingResponse
 
         return AsyncSyncResourceWithStreamingResponse(self._client.sync)
+
+    @cached_property
+    def client_connection(self) -> client_connection.AsyncClientConnectionResourceWithStreamingResponse:
+        from .resources.client_connection import AsyncClientConnectionResourceWithStreamingResponse
+
+        return AsyncClientConnectionResourceWithStreamingResponse(self._client.client_connection)
 
 
 Client = OpencodeSDK
