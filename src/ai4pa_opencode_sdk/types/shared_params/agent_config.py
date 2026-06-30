@@ -12,7 +12,11 @@ from ..global_.permission_config_param import PermissionConfigParam
 __all__ = ["AgentConfig"]
 
 
-class AgentConfig(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class AgentConfig(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     color: Union[str, Literal["primary", "secondary", "accent", "success", "warning", "error", "info"]]
     """Hex color code (e.g., #FF5733) or theme color (e.g., primary)"""
 
