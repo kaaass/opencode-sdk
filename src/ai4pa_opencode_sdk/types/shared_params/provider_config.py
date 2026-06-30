@@ -72,7 +72,11 @@ class ModelsProvider(TypedDict, total=False):
     npm: str
 
 
-class ModelsVariants(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class ModelsVariants(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     disabled: bool
     """Disable this variant for the model"""
 
@@ -116,7 +120,11 @@ class Models(TypedDict, total=False):
     """Variant-specific configuration"""
 
 
-class Options(TypedDict, total=False, extra_items=object):  # type: ignore[call-arg]
+class Options(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=object,  # pyright: ignore[reportGeneralTypeIssues]
+):
     api_key: Annotated[str, PropertyInfo(alias="apiKey")]
 
     base_url: Annotated[str, PropertyInfo(alias="baseURL")]
