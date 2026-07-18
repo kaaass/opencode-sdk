@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.18.0 (2026-07-18)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/kaaass/opencode-sdk/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **stlc:** configurable CI runner and private-production-repo support in workflow templates ([b0bf3e2](https://github.com/kaaass/opencode-sdk/commit/b0bf3e284f397e82841b011bb505170a3ab7f613))
+
+
+### Bug Fixes
+
+* **auth:** prioritize first auth header ([59f11ac](https://github.com/kaaass/opencode-sdk/commit/59f11ac101c724275492316987dfd7e04c94756e))
+* **internal:** resolve build failures ([ceed60c](https://github.com/kaaass/opencode-sdk/commit/ceed60ce4bdc6351d5201e856e5c1b4f16d1dd35))
+* **types:** avoid type-checker errors on params with additional properties ([34c9e59](https://github.com/kaaass/opencode-sdk/commit/34c9e59361e127d550ecc07e1c915ba8a6176c0d))
+
 ## 0.17.0 (2026-06-05)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/kaaass/opencode-sdk/compare/v0.16.0...v0.17.0)
