@@ -109,10 +109,23 @@ class Experimental(BaseModel):
     batch_tool: Optional[bool] = None
     """Enable the batch tool"""
 
+    client_tool_timeout: Optional[int] = None
+    """Timeout in milliseconds for client tool results.
+
+    When it expires the pending tool calls are marked failed and the session
+    continues.
+    """
+
     continue_loop_on_deny: Optional[bool] = None
     """Continue the agent loop when a tool call is denied"""
 
     disable_paste_summary: Optional[bool] = None
+
+    llm_stream_timeout: Optional[int] = None
+    """Timeout in milliseconds for LLM stream idle (no events).
+
+    When it expires the stream is aborted and the call is retried.
+    """
 
     mcp_timeout: Optional[int] = None
     """Timeout in milliseconds for model context protocol (MCP) requests"""

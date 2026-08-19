@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import httpx
 
-from ..types import client_connection_close_params
+from ..types import client_connection_list_params, client_connection_close_params
 from .._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from .._utils import maybe_transform, async_maybe_transform
 from .._compat import cached_property
@@ -16,6 +16,7 @@ from .._response import (
     async_to_streamed_response_wrapper,
 )
 from .._base_client import make_request_options
+from ..types.client_connection_list_response import ClientConnectionListResponse
 from ..types.client_connection_close_response import ClientConnectionCloseResponse
 
 __all__ = ["ClientConnectionResource", "AsyncClientConnectionResource"]
@@ -40,6 +41,50 @@ class ClientConnectionResource(SyncAPIResource):
         For more information, see https://www.github.com/kaaass/opencode-sdk#with_streaming_response
         """
         return ClientConnectionResourceWithStreamingResponse(self)
+
+    def list(
+        self,
+        *,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientConnectionListResponse:
+        """
+        List live ClientConnectionContexts (within the current Instance) with
+        clientType, lastSeenAt, owned/participating sessions and resource counts.
+        Excludes the global fallback context.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return self._get(
+            "/client-connection",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_connection_list_params.ClientConnectionListParams,
+                ),
+            ),
+            cast_to=ClientConnectionListResponse,
+        )
 
     def close(
         self,
@@ -105,6 +150,50 @@ class AsyncClientConnectionResource(AsyncAPIResource):
         """
         return AsyncClientConnectionResourceWithStreamingResponse(self)
 
+    async def list(
+        self,
+        *,
+        directory: str | Omit = omit,
+        workspace: str | Omit = omit,
+        # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
+        # The extra values given here take precedence over values defined on the client or passed to this method.
+        extra_headers: Headers | None = None,
+        extra_query: Query | None = None,
+        extra_body: Body | None = None,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
+    ) -> ClientConnectionListResponse:
+        """
+        List live ClientConnectionContexts (within the current Instance) with
+        clientType, lastSeenAt, owned/participating sessions and resource counts.
+        Excludes the global fallback context.
+
+        Args:
+          extra_headers: Send extra headers
+
+          extra_query: Add additional query parameters to the request
+
+          extra_body: Add additional JSON properties to the request
+
+          timeout: Override the client-level default timeout for this request, in seconds
+        """
+        return await self._get(
+            "/client-connection",
+            options=make_request_options(
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
+                query=await async_maybe_transform(
+                    {
+                        "directory": directory,
+                        "workspace": workspace,
+                    },
+                    client_connection_list_params.ClientConnectionListParams,
+                ),
+            ),
+            cast_to=ClientConnectionListResponse,
+        )
+
     async def close(
         self,
         *,
@@ -153,6 +242,9 @@ class ClientConnectionResourceWithRawResponse:
     def __init__(self, client_connection: ClientConnectionResource) -> None:
         self._client_connection = client_connection
 
+        self.list = to_raw_response_wrapper(
+            client_connection.list,
+        )
         self.close = to_raw_response_wrapper(
             client_connection.close,
         )
@@ -162,6 +254,9 @@ class AsyncClientConnectionResourceWithRawResponse:
     def __init__(self, client_connection: AsyncClientConnectionResource) -> None:
         self._client_connection = client_connection
 
+        self.list = async_to_raw_response_wrapper(
+            client_connection.list,
+        )
         self.close = async_to_raw_response_wrapper(
             client_connection.close,
         )
@@ -171,6 +266,9 @@ class ClientConnectionResourceWithStreamingResponse:
     def __init__(self, client_connection: ClientConnectionResource) -> None:
         self._client_connection = client_connection
 
+        self.list = to_streamed_response_wrapper(
+            client_connection.list,
+        )
         self.close = to_streamed_response_wrapper(
             client_connection.close,
         )
@@ -180,6 +278,9 @@ class AsyncClientConnectionResourceWithStreamingResponse:
     def __init__(self, client_connection: AsyncClientConnectionResource) -> None:
         self._client_connection = client_connection
 
+        self.list = async_to_streamed_response_wrapper(
+            client_connection.list,
+        )
         self.close = async_to_streamed_response_wrapper(
             client_connection.close,
         )

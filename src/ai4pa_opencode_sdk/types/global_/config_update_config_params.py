@@ -228,10 +228,23 @@ class Experimental(TypedDict, total=False):
     batch_tool: bool
     """Enable the batch tool"""
 
+    client_tool_timeout: int
+    """Timeout in milliseconds for client tool results.
+
+    When it expires the pending tool calls are marked failed and the session
+    continues.
+    """
+
     continue_loop_on_deny: bool
     """Continue the agent loop when a tool call is denied"""
 
     disable_paste_summary: bool
+
+    llm_stream_timeout: int
+    """Timeout in milliseconds for LLM stream idle (no events).
+
+    When it expires the stream is aborted and the call is retried.
+    """
 
     mcp_timeout: int
     """Timeout in milliseconds for model context protocol (MCP) requests"""
