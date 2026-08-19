@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.19.0](https://github.com/kaaass/opencode-sdk/compare/v0.18.0...v0.19.0) (2026-08-19)
+
+
+### Features
+
+* initial stlc build ([36b998f](https://github.com/kaaass/opencode-sdk/commit/36b998f1d4797ff91aec367f403fed6ba6ffb413))
+
+
+### Bug Fixes
+
+* **ci:** skip lint in generate workflow ([d27011a](https://github.com/kaaass/opencode-sdk/commit/d27011a476f7cd5676813fb58e936052a1f150c9))
+
+
+### Chores
+
+* add promote workflow (staging -&gt; production) ([50b95e5](https://github.com/kaaass/opencode-sdk/commit/50b95e56374beed7bd5d8102b24b9693ebb54325))
+* add release-please workflow (replace Stainless App webhook) ([49f1792](https://github.com/kaaass/opencode-sdk/commit/49f17921b60dd44b684ff57470ee6aa776646b95))
+* add release-please workflow via publish.release ([042f091](https://github.com/kaaass/opencode-sdk/commit/042f091d7e193184e581a1ae50cd55f695edff63))
+* dry run spec change (verify stlc CI) ([e82082a](https://github.com/kaaass/opencode-sdk/commit/e82082abad3dd6f706ba3046a49741b2502e95a6))
+* remove manually-added release-please.yml (promote from staging instead) ([59edb44](https://github.com/kaaass/opencode-sdk/commit/59edb44c9be62533fd83fd84b94b70b7a3a906d5))
+* revert dry run spec change ([92f0641](https://github.com/kaaass/opencode-sdk/commit/92f06419882ff085a5d31789718f2739ddae7e95))
+* trigger promote ([fa53bcd](https://github.com/kaaass/opencode-sdk/commit/fa53bcd56daf1b8fa12baf8314439881ef3e188c))
+
 ## 0.18.0 (2026-07-18)
 
 Full Changelog: [v0.17.0...v0.18.0](https://github.com/kaaass/opencode-sdk/compare/v0.17.0...v0.18.0)
