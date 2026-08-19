@@ -131,7 +131,7 @@ class GlobalResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GlobalGetHealthResponse:
-        """Get health information about the OpenCode server. (stlc migration dry run)"""
+        """Get health information about the OpenCode server."""
         return self._get(
             "/global/health",
             options=make_request_options(
@@ -292,7 +292,7 @@ class AsyncGlobalResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> GlobalGetHealthResponse:
-        """Get health information about the OpenCode server. (stlc migration dry run)"""
+        """Get health information about the OpenCode server."""
         return await self._get(
             "/global/health",
             options=make_request_options(
