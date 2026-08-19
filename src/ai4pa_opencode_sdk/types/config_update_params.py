@@ -164,7 +164,11 @@ class ConfigUpdateParams(TypedDict, total=False):
     watcher: Watcher
 
 
-class Agent(TypedDict, total=False, extra_items=AgentConfig):  # type: ignore[call-arg]
+class Agent(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=AgentConfig,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """Agent configuration, see https://opencode.ai/docs/agents"""
 
     build: AgentConfig
@@ -284,7 +288,11 @@ class McpEnabled(TypedDict, total=False):
 Mcp: TypeAlias = Union[McpLocalConfig, McpRemoteConfig, McpEnabled]
 
 
-class Mode(TypedDict, total=False, extra_items=AgentConfig):  # type: ignore[call-arg]
+class Mode(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=AgentConfig,  # pyright: ignore[reportGeneralTypeIssues]
+):
     """@deprecated Use `agent` field instead."""
 
     build: AgentConfig

@@ -11,7 +11,11 @@ from .permission_rule_config_param import PermissionRuleConfigParam
 __all__ = ["PermissionConfigParam", "UnionMember1"]
 
 
-class UnionMember1(TypedDict, total=False, extra_items=PermissionRuleConfigParam):  # type: ignore[call-arg]
+class UnionMember1(  # type: ignore[call-arg]
+    TypedDict,
+    total=False,
+    extra_items=PermissionRuleConfigParam,  # pyright: ignore[reportGeneralTypeIssues]
+):
     bash: PermissionRuleConfigParam
 
     codesearch: PermissionActionConfig
