@@ -57,11 +57,16 @@ Methods:
 Types:
 
 ```python
-from ai4pa_opencode_sdk.types import AuthRemoveCredentialsResponse, AuthSetCredentialsResponse
+from ai4pa_opencode_sdk.types import (
+    AuthListResponse,
+    AuthRemoveCredentialsResponse,
+    AuthSetCredentialsResponse,
+)
 ```
 
 Methods:
 
+- <code title="get /auth">client.auth.<a href="./src/ai4pa_opencode_sdk/resources/auth.py">list</a>() -> <a href="./src/ai4pa_opencode_sdk/types/auth_list_response.py">AuthListResponse</a></code>
 - <code title="delete /auth/{providerID}">client.auth.<a href="./src/ai4pa_opencode_sdk/resources/auth.py">remove_credentials</a>(provider_id) -> <a href="./src/ai4pa_opencode_sdk/types/auth_remove_credentials_response.py">AuthRemoveCredentialsResponse</a></code>
 - <code title="put /auth/{providerID}">client.auth.<a href="./src/ai4pa_opencode_sdk/resources/auth.py">set_credentials</a>(provider_id, \*\*<a href="src/ai4pa_opencode_sdk/types/auth_set_credentials_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/auth_set_credentials_response.py">AuthSetCredentialsResponse</a></code>
 
@@ -802,9 +807,10 @@ Methods:
 Types:
 
 ```python
-from ai4pa_opencode_sdk.types import ClientConnectionCloseResponse
+from ai4pa_opencode_sdk.types import ClientConnectionListResponse, ClientConnectionCloseResponse
 ```
 
 Methods:
 
+- <code title="get /client-connection">client.client_connection.<a href="./src/ai4pa_opencode_sdk/resources/client_connection.py">list</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/client_connection_list_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/client_connection_list_response.py">ClientConnectionListResponse</a></code>
 - <code title="delete /client-connection">client.client_connection.<a href="./src/ai4pa_opencode_sdk/resources/client_connection.py">close</a>(\*\*<a href="src/ai4pa_opencode_sdk/types/client_connection_close_params.py">params</a>) -> <a href="./src/ai4pa_opencode_sdk/types/client_connection_close_response.py">ClientConnectionCloseResponse</a></code>

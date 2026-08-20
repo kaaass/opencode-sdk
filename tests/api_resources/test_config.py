@@ -231,8 +231,10 @@ class TestConfig:
             enterprise={"url": "url"},
             experimental={
                 "batch_tool": True,
+                "client_tool_timeout": 1,
                 "continue_loop_on_deny": True,
                 "disable_paste_summary": True,
+                "llm_stream_timeout": 1,
                 "mcp_timeout": 1,
                 "open_telemetry": True,
                 "primary_tools": ["string"],
@@ -657,8 +659,10 @@ class TestAsyncConfig:
             enterprise={"url": "url"},
             experimental={
                 "batch_tool": True,
+                "client_tool_timeout": 1,
                 "continue_loop_on_deny": True,
                 "disable_paste_summary": True,
+                "llm_stream_timeout": 1,
                 "mcp_timeout": 1,
                 "open_telemetry": True,
                 "primary_tools": ["string"],

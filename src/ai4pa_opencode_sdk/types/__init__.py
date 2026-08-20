@@ -73,6 +73,7 @@ from .question_rejected import QuestionRejected as QuestionRejected
 from .session_compacted import SessionCompacted as SessionCompacted
 from .skill_list_params import SkillListParams as SkillListParams
 from .sync_start_params import SyncStartParams as SyncStartParams
+from .auth_list_response import AuthListResponse as AuthListResponse
 from .file_list_response import FileListResponse as FileListResponse
 from .file_read_response import FileReadResponse as FileReadResponse
 from .find_search_params import FindSearchParams as FindSearchParams
@@ -229,6 +230,7 @@ from .mcp_retrieve_status_response import McpRetrieveStatusResponse as McpRetrie
 from .question_list_pending_params import QuestionListPendingParams as QuestionListPendingParams
 from .tui_execute_command_response import TuiExecuteCommandResponse as TuiExecuteCommandResponse
 from .auth_set_credentials_response import AuthSetCredentialsResponse as AuthSetCredentialsResponse
+from .client_connection_list_params import ClientConnectionListParams as ClientConnectionListParams
 from .installation_update_available import InstallationUpdateAvailable as InstallationUpdateAvailable
 from .session_get_children_response import SessionGetChildrenResponse as SessionGetChildrenResponse
 from .session_list_artifacts_params import SessionListArtifactsParams as SessionListArtifactsParams
@@ -239,6 +241,7 @@ from .config_list_providers_response import ConfigListProvidersResponse as Confi
 from .global_upgrade_opencode_params import GlobalUpgradeOpencodeParams as GlobalUpgradeOpencodeParams
 from .mcp_disconnect_server_response import McpDisconnectServerResponse as McpDisconnectServerResponse
 from .question_list_pending_response import QuestionListPendingResponse as QuestionListPendingResponse
+from .client_connection_list_response import ClientConnectionListResponse as ClientConnectionListResponse
 from .project_retrieve_current_params import ProjectRetrieveCurrentParams as ProjectRetrieveCurrentParams
 from .session_get_message_diff_params import SessionGetMessageDiffParams as SessionGetMessageDiffParams
 from .session_list_artifacts_response import SessionListArtifactsResponse as SessionListArtifactsResponse
