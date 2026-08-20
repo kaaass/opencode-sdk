@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/kaaass/opencode-sdk/compare/v0.19.0...v0.20.0) (2026-08-20)
+
+
+### Features
+
+* update spec to 1.3.0 (auth.list + clientConnection.list) ([336b5d4](https://github.com/kaaass/opencode-sdk/commit/336b5d49e7afe05744c721b19eff2dd4bf705f74))
+
 ## [0.19.0](https://github.com/kaaass/opencode-sdk/compare/v0.18.0...v0.19.0) (2026-08-19)
 
 
